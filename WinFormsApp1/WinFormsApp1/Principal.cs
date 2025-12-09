@@ -1064,7 +1064,7 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
+        //comentario
         private void buttonCerrar_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show("¿Seguro que quieres cerrar sesión?", "Cerrar sesión",MessageBoxButtons.YesNo, MessageBoxIcon.Question);
