@@ -208,27 +208,30 @@ namespace WindowsFormsApp1
 
             dataGridViewServicios.Rows.Clear();
 
-            var tope = 0;
-            if (servicios.Count - ((contador - 1) * 20) < 20)
+            // Índice inicial de la página
+            var inicio = (contador - 1) * 20;
+
+            // Índice final exclusivo (no inclusivo)
+            var tope = contador * 20;
+
+            // Si el tope supera el total de servicios, lo limitamos
+            if (tope > servicios.Count)
             {
-                tope = ((contador - 1) * 20) + (servicios.Count - ((contador - 1) * 20)) - 1;
-            }
-            else
-            {
-                tope = contador * 20;
+                tope = servicios.Count;
             }
 
-            for (int i = (contador - 1) * 20; i <= tope; i++)
+            // Bucle seguro: usamos < en vez de <=
+            for (int i = inicio; i < tope; i++)
             {
                 var precio = servicios[i].Precio.ToString() + " €";
                 var duracion = servicios[i].Duracion.ToString() + " minutos";
+
                 int index = dataGridViewServicios.Rows.Add(
                     servicios[i].Nombre,
                     servicios[i].Descripcion,
                     duracion,
                     precio,
                     servicios[i].TipoServicio?.Nombre
-
                 );
 
                 dataGridViewServicios.Rows[index].Tag = servicios[i];
@@ -236,7 +239,6 @@ namespace WindowsFormsApp1
 
             labelNumServicios.Text = $" {servicios.Count}";
             labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
-
             labelNumSer.Text = $" {servicios.Count}";
         }
 
