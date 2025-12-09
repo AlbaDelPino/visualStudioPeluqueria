@@ -266,35 +266,43 @@ namespace WindowsFormsApp1
 
         }
 
-
-        private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        private void filtrarServicios()
         {
-            string filtroCategoria = comboBoxSerFiltrar.SelectedItem?.ToString();
+            string texto = textBoxSerBuscar.Text.Trim().ToLower();
+            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString();
 
-            // Obtener todos los servicios
             var servicios = ObtenerServicios();
+            if (servicios == null) return;
 
-            // Si selecciona "", mostramos todo
-            if (filtroCategoria == "")
+            var listaFiltrada = servicios.AsEnumerable();
+
+            // --- FILTRO POR TEXTO ---
+            if (!string.IsNullOrEmpty(texto))
             {
-                RecargarServicios();
-                return;
+                listaFiltrada = listaFiltrada.Where(s =>
+                    (s.Nombre != null && s.Nombre.ToLower().Contains(texto)) ||
+                    (s.Descripcion != null && s.Descripcion.ToLower().Contains(texto))
+                );
             }
 
-            // Filtrar por el nombre del tipo de servicio
-            var serviciosFiltrados = servicios
-                .Where(s => s.TipoServicio != null &&
-                            s.TipoServicio.Nombre.Equals(filtroCategoria, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            // --- FILTRO POR CATEGORÍA ---
+            if (!string.IsNullOrEmpty(categoria))
+            {
+                listaFiltrada = listaFiltrada.Where(s =>
+                    s.TipoServicio != null &&
+                    s.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
+                );
+            }
 
-            // Limpiar la tabla
+            // Limpiar tabla
             dataGridViewServicios.Rows.Clear();
 
-            // Rellenar con los resultados filtrados
-            foreach (var s in serviciosFiltrados)
+            // Rellenar con los resultados
+            foreach (var s in listaFiltrada)
             {
-                var precio = s.Precio.ToString() + " €";
-                var duracion = s.Duracion.ToString() + " minutos";
+                var precio = s.Precio + " €";
+                var duracion = s.Duracion + " minutos";
+
                 int index = dataGridViewServicios.Rows.Add(
                     s.Nombre,
                     s.Descripcion,
@@ -307,38 +315,15 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarServicios();
+        }
+
 
         private void textBoxSerBuscar_TextChanged(object sender, EventArgs e)
         {
-            string filtro = textBoxSerBuscar.Text.Trim().ToLower();
-
-            // Obtener todos los servicios
-            var servicios = ObtenerServicios();
-
-            // Filtrar por nombre o descripción
-            var serviciosFiltrados = servicios
-                .Where(s => s.Nombre.ToLower().Contains(filtro)
-                         || s.Descripcion.ToLower().Contains(filtro))
-                .ToList();
-
-            // Limpiar la tabla
-            dataGridViewServicios.Rows.Clear();
-
-            // Rellenar con los resultados filtrados
-            foreach (var s in serviciosFiltrados)
-            {
-                var precio = s.Precio.ToString() + " €";
-                var duracion = s.Duracion.ToString() + " minutos";
-                int index = dataGridViewServicios.Rows.Add(
-                    s.Nombre,
-                    s.Descripcion,
-                    duracion,
-                    precio,
-                    s.TipoServicio?.Nombre
-                );
-
-                dataGridViewServicios.Rows[index].Tag = s;
-            }
+            filtrarServicios();
         }
 
 
@@ -912,7 +897,7 @@ namespace WindowsFormsApp1
 
         }
 
-        private void filtrar()
+        private void filtrarUsuarios()
         {
             string filtro = textBoxSUsBuscar.Text.Trim().ToLower();
             string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
@@ -1004,13 +989,13 @@ namespace WindowsFormsApp1
 
         private void textBoxSUsBuscar_TextChanged(object sender, EventArgs e)
         {
-            filtrar();
+            filtrarUsuarios();
         }
 
 
         private void comboBoxUsFiltrar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtrar();
+            filtrarUsuarios();
         }
 
         private void buttonPaginacionAtras_Click(object sender, EventArgs e)
