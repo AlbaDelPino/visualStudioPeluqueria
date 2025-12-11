@@ -121,6 +121,8 @@ namespace WinFormsApp1
                             }
                         }
                     }
+                    this.Close();
+                    this.DialogResult = DialogResult.OK;
                 }
                 catch (WebException ex)
                 {
@@ -135,8 +137,6 @@ namespace WinFormsApp1
                 {
                     MessageBox.Show("Error al añadir usuario", "Error al añadir usuario", MessageBoxButtons.OK);
                 }
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -224,6 +224,8 @@ namespace WinFormsApp1
                             }
                         }
                     }
+                    this.Close();
+                    this.DialogResult = DialogResult.OK;
                 }
                 catch (WebException ex)
                 {
@@ -234,8 +236,6 @@ namespace WinFormsApp1
                     }
                     MessageBox.Show("Error al modificar usuario", "Error al modificar usuario", MessageBoxButtons.OK);
                 }
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -247,11 +247,6 @@ namespace WinFormsApp1
         private void ButtonUsVolver_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void labelTituoCrearUsuario_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

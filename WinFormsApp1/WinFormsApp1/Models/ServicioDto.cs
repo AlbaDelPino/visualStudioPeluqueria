@@ -17,16 +17,17 @@ namespace ServiciosInfo.Models
         public long Id_Servicio { get; set; }
 
         [JsonProperty("nombre")]
-        public string Nombre { get; set; }
+        public string? Nombre { get; set; }
 
         [JsonProperty("descripcion")]
-        public string Descripcion { get; set; }
+        public string? Descripcion { get; set; }
 
         [JsonProperty("precio")]
-        public long Precio { get; set; }   // 👈 long
+        public long? Precio { get; set; }   // long
 
         [JsonProperty("duracion")]
-        public long Duracion { get; set; } // 👈 long
+        public long? Duracion { get; set; } // long
+
 
         [JsonProperty("tipoServicio")]
         public TipoServicioDto TipoServicio { get; set; }

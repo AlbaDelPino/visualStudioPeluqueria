@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Net;
 using System.Security.Policy;
@@ -27,10 +28,12 @@ namespace WindowsFormsApp1
         private readonly string _token;
         private static int pagSer;
         private static int contador = 1;
+        private List<ServicioDto> _servicios;
         public Principal(string token)
         {
             InitializeComponent();
             _token = token;
+            _servicios = new List<ServicioDto>();
             this.WindowState = FormWindowState.Maximized;
 
         }
@@ -42,6 +45,7 @@ namespace WindowsFormsApp1
             dataGridViewServicios.AllowUserToDeleteRows = false;
             dataGridViewServicios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             RecargarServicios();
+            pasarPaginaServicios();
 
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.AllowUserToAddRows = false;
@@ -181,7 +185,8 @@ namespace WindowsFormsApp1
 
         private List<ServicioDto> ObtenerServicios()
         {
-
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
             var url = "http://localhost:8082/servicio";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -204,14 +209,22 @@ namespace WindowsFormsApp1
 
         private void RecargarServicios()
         {
-            var servicios = ObtenerServicios();
+            _servicios = ObtenerServicios();
 
+            labelNumServicios.Text = $" {_servicios.Count}";
+            labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
+
+            labelNumSer.Text = $" {_servicios.Count}";
+        }
+
+        private void pasarPaginaServicios()
+        {
             dataGridViewServicios.Rows.Clear();
 
             var tope = 0;
-            if (servicios.Count - ((contador - 1) * 20) < 20)
+            if (_servicios.Count - ((contador - 1) * 20) < 20)
             {
-                tope = ((contador - 1) * 20) + (servicios.Count - ((contador - 1) * 20)) - 1;
+                tope = ((contador - 1) * 20) + (_servicios.Count - ((contador - 1) * 20)) - 1;
             }
             else
             {
@@ -220,24 +233,28 @@ namespace WindowsFormsApp1
 
             for (int i = (contador - 1) * 20; i <= tope; i++)
             {
-                var precio = servicios[i].Precio.ToString() + " €";
-                var duracion = servicios[i].Duracion.ToString() + " minutos";
+                var precio = "0 €";
+                var duracion = "0 minutos";
+                if (_servicios[i].Precio != null)
+                {
+                    precio = _servicios[i].Precio.ToString() + " €";
+                }
+                if (_servicios[i].Duracion != null)
+                {
+                    duracion = _servicios[i].Duracion.ToString() + " minutos";
+                }
+
                 int index = dataGridViewServicios.Rows.Add(
-                    servicios[i].Nombre,
-                    servicios[i].Descripcion,
+                    _servicios[i].Nombre,
+                    _servicios[i].Descripcion,
                     duracion,
                     precio,
-                    servicios[i].TipoServicio?.Nombre
+                    _servicios[i].TipoServicio?.Nombre
 
                 );
 
-                dataGridViewServicios.Rows[index].Tag = servicios[i];
+                dataGridViewServicios.Rows[index].Tag = _servicios[i];
             }
-
-            labelNumServicios.Text = $" {servicios.Count}";
-            labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
-
-            labelNumSer.Text = $" {servicios.Count}";
         }
 
 
@@ -1000,20 +1017,19 @@ namespace WindowsFormsApp1
 
         private void buttonPaginacionAtras_Click(object sender, EventArgs e)
         {
-            var servicios = ObtenerServicios();
-            if (servicios.Count % 20 != 0)
+            if (_servicios.Count % 20 != 0)
             {
-                pagSer = (servicios.Count / 20) + 1;
+                pagSer = (_servicios.Count / 20) + 1;
             }
             else
             {
-                pagSer = (servicios.Count / 20);
+                pagSer = (_servicios.Count / 20);
             }
 
             if (contador > 1)
             {
                 contador--;
-                RecargarServicios();
+                pasarPaginaServicios();
                 if (contador != pagSer)
                 {
                     buttonPaginacionDelante.ForeColor = Color.Black;
@@ -1024,20 +1040,19 @@ namespace WindowsFormsApp1
 
         private void buttonPaginacionDelante_Click(object sender, EventArgs e)
         {
-            var servicios = ObtenerServicios();
-            if (servicios.Count % 20 != 0)
+            if (_servicios.Count % 20 != 0)
             {
-                pagSer = (servicios.Count / 20) + 1;
+                pagSer = (_servicios.Count / 20) + 1;
             }
             else
             {
-                pagSer = (servicios.Count / 20);
+                pagSer = (_servicios.Count / 20);
             }
 
             if (contador < pagSer)
             {
                 contador++;
-                RecargarServicios();
+                pasarPaginaServicios();
 
                 if (contador != 1)
                 {
