@@ -25,6 +25,8 @@ namespace WinFormsApp1
             InitializeComponent();
             _token = token;
             InitializeComponent();
+            MessageBox.Show(_token);
+
         }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -34,6 +36,7 @@ namespace WinFormsApp1
             dataGridViewServicios.AllowUserToDeleteRows = false;
             dataGridViewServicios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             RecargarServicios();
+            
 
         }
 
