@@ -433,13 +433,5 @@
         private Label labelSer;
         private PictureBox pictureSer;
         private Label labelBienvenido;
-
-        public PanelPrincipal panelPrincipal
-        {
-            get
-            {
-                return this;
-            }
-        }
     }
 }

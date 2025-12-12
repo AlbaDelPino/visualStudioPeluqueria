@@ -89,6 +89,7 @@
             panelVisualUsuarios.Location = new Point(0, 0);
             panelVisualUsuarios.Margin = new Padding(4, 3, 4, 3);
             panelVisualUsuarios.Name = "panelVisualUsuarios";
+            panelVisualUsuarios.Padding = new Padding(15, 0, 0, 0);
             panelVisualUsuarios.Size = new Size(1375, 192);
             panelVisualUsuarios.TabIndex = 5;
             // 
@@ -103,23 +104,23 @@
             comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
             comboBoxUsFiltrar.Size = new Size(134, 23);
             comboBoxUsFiltrar.TabIndex = 13;
-            comboBoxUsFiltrar.SelectedIndexChanged += this.comboBoxUsFiltrar_SelectedIndexChanged;
+            comboBoxUsFiltrar.SelectedIndexChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
             // textBoxSUsBuscar
             // 
             textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(15, 155);
+            textBoxSUsBuscar.Location = new Point(30, 155);
             textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
             textBoxSUsBuscar.Name = "textBoxSUsBuscar";
             textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSUsBuscar.Size = new Size(1158, 23);
+            textBoxSUsBuscar.Size = new Size(1143, 23);
             textBoxSUsBuscar.TabIndex = 12;
             textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
             // anyadirUsuario
             // 
-            anyadirUsuario.Location = new Point(15, 126);
+            anyadirUsuario.Location = new Point(30, 126);
             anyadirUsuario.Name = "anyadirUsuario";
             anyadirUsuario.Size = new Size(59, 23);
             anyadirUsuario.TabIndex = 9;
@@ -135,7 +136,7 @@
             panelAdmin.Controls.Add(labelNumAdmin);
             panelAdmin.Controls.Add(labelAdmin);
             panelAdmin.ForeColor = SystemColors.ControlDarkDark;
-            panelAdmin.Location = new Point(506, 13);
+            panelAdmin.Location = new Point(522, 13);
             panelAdmin.Margin = new Padding(4, 3, 4, 3);
             panelAdmin.Name = "panelAdmin";
             panelAdmin.Size = new Size(172, 85);
@@ -183,7 +184,7 @@
             panelUInactivos.Controls.Add(labelUInactivos);
             panelUInactivos.Controls.Add(pictureUInactivos);
             panelUInactivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUInactivos.Location = new Point(329, 13);
+            panelUInactivos.Location = new Point(345, 13);
             panelUInactivos.Margin = new Padding(4, 3, 4, 3);
             panelUInactivos.Name = "panelUInactivos";
             panelUInactivos.Size = new Size(169, 85);
@@ -231,7 +232,7 @@
             panelUActivos.Controls.Add(labelUActivos);
             panelUActivos.Controls.Add(pictureUActivos);
             panelUActivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUActivos.Location = new Point(164, 13);
+            panelUActivos.Location = new Point(180, 13);
             panelUActivos.Margin = new Padding(4, 3, 4, 3);
             panelUActivos.Name = "panelUActivos";
             panelUActivos.Size = new Size(157, 85);
@@ -279,7 +280,7 @@
             panelUsuarios.Controls.Add(labelUsuarios);
             panelUsuarios.Controls.Add(pictureUsuarios);
             panelUsuarios.ForeColor = SystemColors.ControlDarkDark;
-            panelUsuarios.Location = new Point(14, 13);
+            panelUsuarios.Location = new Point(30, 13);
             panelUsuarios.Margin = new Padding(4, 3, 4, 3);
             panelUsuarios.Name = "panelUsuarios";
             panelUsuarios.Size = new Size(142, 85);
