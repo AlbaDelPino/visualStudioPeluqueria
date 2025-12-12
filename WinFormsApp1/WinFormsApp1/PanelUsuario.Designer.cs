@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelUsuario));
             panelVisualUsuarios = new Panel();
             comboBoxUsFiltrar = new ComboBox();
-            textBoxSUsBuscar = new TextBox();
             anyadirUsuario = new Button();
             panelAdmin = new Panel();
             pictureAdmin = new PictureBox();
@@ -49,6 +48,8 @@
             labelNumUsuarios = new Label();
             labelUsuarios = new Label();
             pictureUsuarios = new PictureBox();
+            textBoxSUsBuscar = new TextBox();
+            comboBox1 = new ComboBox();
             dataGridViewUsuarios = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
@@ -57,11 +58,6 @@
             dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
             dataGridViewImageColumnUsModificar = new DataGridViewImageColumn();
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
-            panelEspaciado = new Panel();
-            panelPaginacion = new Panel();
-            buttonPaginacionDelante = new Button();
-            buttonPaginacionAtras = new Button();
-            panelMargenes = new Panel();
             panelVisualUsuarios.SuspendLayout();
             panelAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAdmin).BeginInit();
@@ -72,14 +68,13 @@
             panelUsuarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).BeginInit();
-            panelPaginacion.SuspendLayout();
-            panelMargenes.SuspendLayout();
             SuspendLayout();
             // 
             // panelVisualUsuarios
             // 
-            panelVisualUsuarios.Controls.Add(comboBoxUsFiltrar);
+            panelVisualUsuarios.Controls.Add(comboBox1);
             panelVisualUsuarios.Controls.Add(textBoxSUsBuscar);
+            panelVisualUsuarios.Controls.Add(comboBoxUsFiltrar);
             panelVisualUsuarios.Controls.Add(anyadirUsuario);
             panelVisualUsuarios.Controls.Add(panelAdmin);
             panelVisualUsuarios.Controls.Add(panelUInactivos);
@@ -89,7 +84,7 @@
             panelVisualUsuarios.Location = new Point(0, 0);
             panelVisualUsuarios.Margin = new Padding(4, 3, 4, 3);
             panelVisualUsuarios.Name = "panelVisualUsuarios";
-            panelVisualUsuarios.Size = new Size(1375, 192);
+            panelVisualUsuarios.Size = new Size(1524, 192);
             panelVisualUsuarios.TabIndex = 5;
             // 
             // comboBoxUsFiltrar
@@ -98,24 +93,11 @@
             comboBoxUsFiltrar.DisplayMember = "1";
             comboBoxUsFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxUsFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxUsFiltrar.Location = new Point(1204, 155);
+            comboBoxUsFiltrar.Location = new Point(2250, 155);
             comboBoxUsFiltrar.Margin = new Padding(4, 3, 4, 3);
             comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
             comboBoxUsFiltrar.Size = new Size(134, 23);
-            comboBoxUsFiltrar.TabIndex = 13;
-            comboBoxUsFiltrar.SelectedIndexChanged += this.comboBoxUsFiltrar_SelectedIndexChanged;
-            // 
-            // textBoxSUsBuscar
-            // 
-            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(15, 155);
-            textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
-            textBoxSUsBuscar.Name = "textBoxSUsBuscar";
-            textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSUsBuscar.Size = new Size(1158, 23);
-            textBoxSUsBuscar.TabIndex = 12;
-            textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
+            comboBoxUsFiltrar.TabIndex = 10;
             // 
             // anyadirUsuario
             // 
@@ -125,7 +107,6 @@
             anyadirUsuario.TabIndex = 9;
             anyadirUsuario.Text = "Añadir";
             anyadirUsuario.UseVisualStyleBackColor = true;
-            anyadirUsuario.Click += anyadirUsuario_Click;
             // 
             // panelAdmin
             // 
@@ -319,6 +300,29 @@
             pictureUsuarios.TabIndex = 1;
             pictureUsuarios.TabStop = false;
             // 
+            // textBoxSUsBuscar
+            // 
+            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxSUsBuscar.Location = new Point(15, 155);
+            textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
+            textBoxSUsBuscar.Name = "textBoxSUsBuscar";
+            textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
+            textBoxSUsBuscar.Size = new Size(907, 23);
+            textBoxSUsBuscar.TabIndex = 12;
+            // 
+            // comboBox1
+            // 
+            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBox1.DisplayMember = "1";
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
+            comboBox1.Location = new Point(940, 155);
+            comboBox1.Margin = new Padding(4, 3, 4, 3);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(134, 23);
+            comboBox1.TabIndex = 13;
+            // 
             // dataGridViewUsuarios
             // 
             dataGridViewUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -327,12 +331,11 @@
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsModificar, dataGridViewImageColumnUsEliminar });
             dataGridViewUsuarios.Dock = DockStyle.Fill;
-            dataGridViewUsuarios.Location = new Point(30, 0);
+            dataGridViewUsuarios.Location = new Point(0, 192);
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.RowHeadersWidth = 51;
-            dataGridViewUsuarios.Size = new Size(1315, 446);
+            dataGridViewUsuarios.Size = new Size(1524, 565);
             dataGridViewUsuarios.TabIndex = 9;
-            dataGridViewUsuarios.CellContentClick += dataGridViewUsuarios_CellContentClick;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -404,66 +407,12 @@
             dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
             dataGridViewImageColumnUsEliminar.Width = 75;
             // 
-            // panelEspaciado
-            // 
-            panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 668);
-            panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 100);
-            panelEspaciado.TabIndex = 14;
-            // 
-            // panelPaginacion
-            // 
-            panelPaginacion.Controls.Add(buttonPaginacionDelante);
-            panelPaginacion.Controls.Add(buttonPaginacionAtras);
-            panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 638);
-            panelPaginacion.Name = "panelPaginacion";
-            panelPaginacion.Padding = new Padding(30, 0, 0, 0);
-            panelPaginacion.Size = new Size(1375, 30);
-            panelPaginacion.TabIndex = 15;
-            // 
-            // buttonPaginacionDelante
-            // 
-            buttonPaginacionDelante.Dock = DockStyle.Left;
-            buttonPaginacionDelante.Location = new Point(105, 0);
-            buttonPaginacionDelante.Name = "buttonPaginacionDelante";
-            buttonPaginacionDelante.Size = new Size(75, 30);
-            buttonPaginacionDelante.TabIndex = 2;
-            buttonPaginacionDelante.Text = ">>";
-            buttonPaginacionDelante.UseVisualStyleBackColor = true;
-            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
-            // 
-            // buttonPaginacionAtras
-            // 
-            buttonPaginacionAtras.Dock = DockStyle.Left;
-            buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
-            buttonPaginacionAtras.Location = new Point(30, 0);
-            buttonPaginacionAtras.Name = "buttonPaginacionAtras";
-            buttonPaginacionAtras.Size = new Size(75, 30);
-            buttonPaginacionAtras.TabIndex = 1;
-            buttonPaginacionAtras.Text = "<<";
-            buttonPaginacionAtras.UseVisualStyleBackColor = true;
-            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
-            // 
-            // panelMargenes
-            // 
-            panelMargenes.Controls.Add(dataGridViewUsuarios);
-            panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 192);
-            panelMargenes.Name = "panelMargenes";
-            panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1375, 446);
-            panelMargenes.TabIndex = 16;
-            // 
             // PanelUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1375, 768);
-            Controls.Add(panelMargenes);
-            Controls.Add(panelPaginacion);
-            Controls.Add(panelEspaciado);
+            ClientSize = new Size(1524, 757);
+            Controls.Add(dataGridViewUsuarios);
             Controls.Add(panelVisualUsuarios);
             Name = "PanelUsuario";
             Text = "PanelUsuario";
@@ -483,8 +432,6 @@
             panelUsuarios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).EndInit();
-            panelPaginacion.ResumeLayout(false);
-            panelMargenes.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -510,6 +457,7 @@
         private Label labelUsuarios;
         private PictureBox pictureUsuarios;
         private TextBox textBoxSUsBuscar;
+        private ComboBox comboBox1;
         private DataGridView dataGridViewUsuarios;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
@@ -518,10 +466,5 @@
         private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
         private DataGridViewImageColumn dataGridViewImageColumnUsModificar;
         private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
-        private Panel panelEspaciado;
-        private Panel panelPaginacion;
-        private Button buttonPaginacionDelante;
-        private Button buttonPaginacionAtras;
-        private Panel panelMargenes;
     }
 }

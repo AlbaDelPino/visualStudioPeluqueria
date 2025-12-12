@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ServiciosInfo.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,32 +11,37 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
     public partial class PanelUsuario : Form
     {
         private readonly string _token;
-        private static int pagUs;
-        private static int contador = 1;
-        private static List<UsersDto> _usuarios;
         public PanelUsuario(string token)
         {
             InitializeComponent();
             _token = token;
+            InitializeComponent();
         }
-
-        private void PanelUsuario_Load(object sender, EventArgs e)
+        private void Principal_Load(object sender, EventArgs e)
         {
+           
+
             dataGridViewUsuarios.ReadOnly = true;
             dataGridViewUsuarios.AllowUserToAddRows = false;
             dataGridViewUsuarios.AllowUserToDeleteRows = false;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            _usuarios = new List<UsersDto>();
             RecargarUsuarios();
-            pasarPagina();
+
         }
+
+
+        private void PanelUsuario_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
 
         private void InfoUsuario(UsersDto usuario)
         {
@@ -283,7 +287,6 @@ namespace WinFormsApp1
             if (pantallaModificar.ShowDialog() == DialogResult.OK)
             {
                 RecargarUsuarios();
-                pasarPagina();
             }
         }
 
@@ -331,7 +334,6 @@ namespace WinFormsApp1
 
                                 // Refrescar la tabla
                                 RecargarUsuarios();
-                                pasarPagina();
                             }
                             else
                             {
@@ -382,7 +384,6 @@ namespace WinFormsApp1
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 RecargarUsuarios();
-                pasarPagina();
             }
         }
         private List<UsersDto> ObtenerUsuarios()
@@ -509,16 +510,10 @@ namespace WinFormsApp1
 
         private void RecargarUsuarios()
         {
-            _usuarios = ObtenerUsuarios();
+            var usuarios = ObtenerUsuarios();
+            if (usuarios == null) return;
 
-            if (_usuarios.Count % 20 != 0)
-            {
-                pagUs = (_usuarios.Count / 20) + 1;
-            }
-            else
-            {
-                pagUs = (_usuarios.Count / 20);
-            }
+            dataGridViewUsuarios.Rows.Clear();
 
             int activos = 0;
             int inactivos = 0;
@@ -526,64 +521,35 @@ namespace WinFormsApp1
             int clientes = 0;
             int admins = 0;
 
-            foreach (var u in _usuarios)
-            {
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    clientes++;
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    grupos++;
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    admins++;
-                }
-
-                if (u.Estado.Equals("true"))
-                {
-                    activos++;
-                }
-                else if (u.Estado.Equals("false"))
-                {
-                    inactivos++;
-                }
-            }
-
-            labelNumUsuarios.Text = $"{_usuarios.Count}";
-            labelNumUActivos.Text = $"{activos}";
-            labelNumUInactivos.Text = $"{inactivos}";
-            labelNumAdmin.Text = $"{admins}";
-        }
-        private void pasarPagina()
-        {
-            dataGridViewUsuarios.Rows.Clear();
-
-            foreach (var u in _usuarios)
+            foreach (var u in usuarios)
             {
                 string rol = "";
                 if (u.Role.Equals("ROLE_CLIENTE"))
                 {
                     rol = "Cliente";
+                    clientes++;
                 }
                 else if (u.Role.Equals("ROLE_GRUPO"))
                 {
                     rol = "Grupo";
+                    grupos++;
                 }
                 else if (u.Role.Equals("ROLE_ADMIN"))
                 {
                     rol = "Admin";
+                    admins++;
                 }
 
                 string estado = "";
                 if (u.Estado.Equals("true"))
                 {
                     estado = "Activo";
+                    activos++;
                 }
                 else if (u.Estado.Equals("false"))
                 {
                     estado = "Inactivo";
+                    inactivos++;
                 }
 
                 int index = dataGridViewUsuarios.Rows.Add(
@@ -595,6 +561,14 @@ namespace WinFormsApp1
 
                 dataGridViewUsuarios.Rows[index].Tag = u;
             }
+
+            // Actualizar labels con los conteos
+            labelNumUsuarios.Text = $"{usuarios.Count}";
+            labelNumUActivos.Text = $"{activos}";
+            labelNumUInactivos.Text = $"{inactivos}";
+            labelNumAdmin.Text = $"{admins}";
+
+           
         }
 
 
@@ -633,9 +607,10 @@ namespace WinFormsApp1
             string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
 
             // Obtener todos los usuarios
-            if (_usuarios == null) return;
+            var usuarios = ObtenerUsuarios();
+            if (usuarios == null) return;
 
-            var listaFiltrada = _usuarios.AsEnumerable();
+            var listaFiltrada = usuarios.AsEnumerable();
 
             // Filtrar por nombre o username
             if (!string.IsNullOrEmpty(filtro))
@@ -725,37 +700,6 @@ namespace WinFormsApp1
         private void comboBoxUsFiltrar_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtrarUsuarios();
-        }
-
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
-        {
-            if (contador > 1)
-            {
-                contador--;
-                pasarPagina();
-                if (contador != pagUs)
-                {
-                    buttonPaginacionDelante.ForeColor = Color.Black;
-                }
-                if (contador == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
-            }
-        }
-
-        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
-        {
-            if (contador < pagUs)
-            {
-                contador++;
-                pasarPagina();
-                if (contador != 1)
-                {
-                    buttonPaginacionAtras.ForeColor = Color.Black;
-                }
-            }
-            if (contador == pagUs)
-            {
-                buttonPaginacionDelante.ForeColor = Color.Silver;
-            }
         }
     }
 }
