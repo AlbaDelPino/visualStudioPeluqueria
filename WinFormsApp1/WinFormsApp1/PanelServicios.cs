@@ -20,28 +20,24 @@ namespace WinFormsApp1
         private readonly string _token;
         private static int pagSer;
         private static int contador = 1;
+        private static List<ServicioDto> _servicios;
         public PanelServicios(string token)
         {
             InitializeComponent();
             _token = token;
-            InitializeComponent();
-            MessageBox.Show(_token);
-
         }
 
-        private void Principal_Load(object sender, EventArgs e)
+        private void PanelServicios_Load(object sender, EventArgs e)
         {
             dataGridViewServicios.ReadOnly = true;
             dataGridViewServicios.AllowUserToAddRows = false;
             dataGridViewServicios.AllowUserToDeleteRows = false;
             dataGridViewServicios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            _servicios = new List<ServicioDto>();
             RecargarServicios();
-            
+            pasarPagina();
 
         }
-
-
-
 
         private void ModificarServicio(ServicioDto servicio)
         {
@@ -61,6 +57,7 @@ namespace WinFormsApp1
             if (pantallaModificar.ShowDialog() == DialogResult.OK)
             {
                 RecargarServicios();
+                pasarPagina();
             }
         }
 
@@ -97,6 +94,7 @@ namespace WinFormsApp1
 
                                 // Refrescar la tabla
                                 RecargarServicios();
+                                pasarPagina();
                             }
                             else
                             {
@@ -133,6 +131,7 @@ namespace WinFormsApp1
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 RecargarServicios();
+                pasarPagina();
             }
         }
 
@@ -162,14 +161,28 @@ namespace WinFormsApp1
 
         private void RecargarServicios()
         {
-            var servicios = ObtenerServicios();
+            _servicios = ObtenerServicios();
 
+            if (_servicios.Count % 20 != 0)
+            {
+                pagSer = (_servicios.Count / 20) + 1;
+            }
+            else
+            {
+                pagSer = (_servicios.Count / 20);
+            }
+
+            labelNumServicios.Text = $" {_servicios.Count}";
+            labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
+        }
+        private void pasarPagina()
+        {
             dataGridViewServicios.Rows.Clear();
 
             var tope = 0;
-            if (servicios.Count - ((contador - 1) * 20) < 20)
+            if (_servicios.Count - ((contador - 1) * 20) < 20)
             {
-                tope = ((contador - 1) * 20) + (servicios.Count - ((contador - 1) * 20)) - 1;
+                tope = ((contador - 1) * 20) + (_servicios.Count - ((contador - 1) * 20)) - 1;
             }
             else
             {
@@ -178,24 +191,19 @@ namespace WinFormsApp1
 
             for (int i = (contador - 1) * 20; i <= tope; i++)
             {
-                var precio = servicios[i].Precio.ToString() + " €";
-                var duracion = servicios[i].Duracion.ToString() + " minutos";
+                var precio = _servicios[i].Precio.ToString() + " €";
+                var duracion = _servicios[i].Duracion.ToString() + " minutos";
                 int index = dataGridViewServicios.Rows.Add(
-                    servicios[i].Nombre,
-                    servicios[i].Descripcion,
+                    _servicios[i].Nombre,
+                    _servicios[i].Descripcion,
                     duracion,
                     precio,
-                    servicios[i].TipoServicio?.Nombre
+                    _servicios[i].TipoServicio?.Nombre
 
                 );
 
-                dataGridViewServicios.Rows[index].Tag = servicios[i];
+                dataGridViewServicios.Rows[index].Tag = _servicios[i];
             }
-
-            labelNumServicios.Text = $" {servicios.Count}";
-            labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
-
-           
         }
 
 
@@ -227,12 +235,11 @@ namespace WinFormsApp1
         private void filtrarServicios()
         {
             string texto = textBoxSerBuscar.Text.Trim().ToLower();
-            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString();
+            string categoria = comboBoxSerFiltrar.SelectedItem.ToString();
 
-            var servicios = ObtenerServicios();
-            if (servicios == null) return;
+            if (_servicios == null) return;
 
-            var listaFiltrada = servicios.AsEnumerable();
+            var listaFiltrada = _servicios.AsEnumerable();
 
             // --- FILTRO POR TEXTO ---
             if (!string.IsNullOrEmpty(texto))
@@ -283,27 +290,13 @@ namespace WinFormsApp1
         {
             filtrarServicios();
         }
-        private void PanelServicios_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void buttonPaginacionAtras_Click(object sender, EventArgs e)
         {
-            var servicios = ObtenerServicios();
-            if (servicios.Count % 20 != 0)
-            {
-                pagSer = (servicios.Count / 20) + 1;
-            }
-            else
-            {
-                pagSer = (servicios.Count / 20);
-            }
-
             if (contador > 1)
             {
                 contador--;
-                RecargarServicios();
+                pasarPagina();
                 if (contador != pagSer)
                 {
                     buttonPaginacionDelante.ForeColor = Color.Black;
@@ -314,29 +307,18 @@ namespace WinFormsApp1
 
         private void buttonPaginacionDelante_Click(object sender, EventArgs e)
         {
-            var servicios = ObtenerServicios();
-            if (servicios.Count % 20 != 0)
-            {
-                pagSer = (servicios.Count / 20) + 1;
-            }
-            else
-            {
-                pagSer = (servicios.Count / 20);
-            }
-
             if (contador < pagSer)
             {
                 contador++;
-                RecargarServicios();
-
+                pasarPagina();
                 if (contador != 1)
                 {
                     buttonPaginacionAtras.ForeColor = Color.Black;
                 }
-                if (contador == pagSer)
-                {
-                    buttonPaginacionDelante.ForeColor = Color.Silver;
-                }
+            }
+            if (contador == pagSer)
+            {
+                buttonPaginacionDelante.ForeColor = Color.Silver;
             }
         }
     }

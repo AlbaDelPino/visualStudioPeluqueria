@@ -19,6 +19,7 @@ using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static WinFormsApp1.Login;
+using static WinFormsApp1.PanelPrincipal;
 
 namespace WindowsFormsApp1
 {
@@ -32,23 +33,14 @@ namespace WindowsFormsApp1
             InitializeComponent();
             _token = token;
             this.WindowState = FormWindowState.Maximized;
-            OcultarContenidoInicio();
             ConfigurarPanelContenedor();
-
         }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            MostrarContenidoInicio();
-          
-        }
-
 
         private void CargarNuevaPagina(Form formHijo)
         {
             // Asegúrate de que 'pnlContenedor' es el nombre correcto de tu Panel
             panelControl.Controls.Clear();
+            panelControl.Dock = DockStyle.Fill;
             formHijo.TopLevel = false;
             formHijo.FormBorderStyle = FormBorderStyle.None;
             formHijo.Dock = DockStyle.Fill;
@@ -66,14 +58,14 @@ namespace WindowsFormsApp1
 
         private void MostrarContenidoInicio()
         {
-            panelPrincipal.Visible = true;
-            
-        }
-
-        private void OcultarContenidoInicio()
-        {
-            panelPrincipal.Visible = false;
-         
+            PanelPrincipal pantallaIntro = new PanelPrincipal();
+            panelControl.Controls.Clear();
+            panelControl.Dock = DockStyle.Fill;
+            pantallaIntro.TopLevel = false;
+            pantallaIntro.FormBorderStyle = FormBorderStyle.None;
+            pantallaIntro.Dock = DockStyle.Fill;
+            panelControl.Controls.Add(pantallaIntro);
+            pantallaIntro.Show();
         }
 
 
@@ -115,19 +107,22 @@ namespace WindowsFormsApp1
 
         private void labelServicio_Click(object sender, EventArgs e)
         {
-            OcultarContenidoInicio();
-            CargarNuevaPagina(new PanelServicios(Session.Token));
+            CargarNuevaPagina(new PanelServicios(_token));
         }
 
         private void labelUsuario_Click(object sender, EventArgs e)
         {
-            OcultarContenidoInicio();
-            CargarNuevaPagina(new PanelUsuario(Session.Token));
+            CargarNuevaPagina(new PanelUsuario(_token));
         }
 
         private void labelCita_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            MostrarContenidoInicio();
         }
     }
 }

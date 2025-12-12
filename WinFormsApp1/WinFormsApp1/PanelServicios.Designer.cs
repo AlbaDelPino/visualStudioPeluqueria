@@ -30,18 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelServicios));
             panelVisualServicios = new Panel();
+            comboBoxSerFiltrar = new ComboBox();
             panelTipoSer = new Panel();
             labelNumTipoSer = new Label();
             labelTipoSer = new Label();
             pictureTipoSer = new PictureBox();
+            textBoxSerBuscar = new TextBox();
             anyadirServicio = new Button();
-            panel1 = new Panel();
+            panelVerServicios = new Panel();
             labelNumServicios = new Label();
             labelServicios = new Label();
             pictureServicios = new PictureBox();
-            comboBoxSerFiltrar = new ComboBox();
-            textBoxSerBuscar = new TextBox();
-            comboBox1 = new ComboBox();
             dataGridViewServicios = new DataGridView();
             dataGridViewTextBoxColumnSerNombre = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumnSerDescripcion = new DataGridViewTextBoxColumn();
@@ -54,29 +53,43 @@
             buttonPaginacionAtras = new Button();
             panelPaginacion = new Panel();
             panelEspaciado = new Panel();
+            panelMargenes = new Panel();
             panelVisualServicios.SuspendLayout();
             panelTipoSer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureTipoSer).BeginInit();
-            panel1.SuspendLayout();
+            panelVerServicios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureServicios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewServicios).BeginInit();
             panelPaginacion.SuspendLayout();
+            panelMargenes.SuspendLayout();
             SuspendLayout();
             // 
             // panelVisualServicios
             // 
-            panelVisualServicios.Controls.Add(comboBox1);
+            panelVisualServicios.Controls.Add(comboBoxSerFiltrar);
             panelVisualServicios.Controls.Add(panelTipoSer);
             panelVisualServicios.Controls.Add(textBoxSerBuscar);
             panelVisualServicios.Controls.Add(anyadirServicio);
-            panelVisualServicios.Controls.Add(panel1);
-            panelVisualServicios.Controls.Add(comboBoxSerFiltrar);
+            panelVisualServicios.Controls.Add(panelVerServicios);
             panelVisualServicios.Dock = DockStyle.Top;
             panelVisualServicios.Location = new Point(0, 0);
             panelVisualServicios.Margin = new Padding(4, 3, 4, 3);
             panelVisualServicios.Name = "panelVisualServicios";
             panelVisualServicios.Size = new Size(1375, 192);
             panelVisualServicios.TabIndex = 5;
+            // 
+            // comboBoxSerFiltrar
+            // 
+            comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBoxSerFiltrar.DisplayMember = "1";
+            comboBoxSerFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSerFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
+            comboBoxSerFiltrar.Location = new Point(1204, 155);
+            comboBoxSerFiltrar.Margin = new Padding(4, 3, 4, 3);
+            comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
+            comboBoxSerFiltrar.Size = new Size(134, 23);
+            comboBoxSerFiltrar.TabIndex = 6;
+            comboBoxSerFiltrar.SelectedIndexChanged += this.comboBoxSerFiltrar_SelectedIndexChanged;
             // 
             // panelTipoSer
             // 
@@ -126,6 +139,18 @@
             pictureTipoSer.TabIndex = 1;
             pictureTipoSer.TabStop = false;
             // 
+            // textBoxSerBuscar
+            // 
+            textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSerBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxSerBuscar.Location = new Point(15, 155);
+            textBoxSerBuscar.Margin = new Padding(4, 3, 4, 3);
+            textBoxSerBuscar.Name = "textBoxSerBuscar";
+            textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
+            textBoxSerBuscar.Size = new Size(1158, 23);
+            textBoxSerBuscar.TabIndex = 0;
+            textBoxSerBuscar.TextChanged += textBoxSerBuscar_TextChanged;
+            // 
             // anyadirServicio
             // 
             anyadirServicio.Location = new Point(15, 126);
@@ -134,20 +159,21 @@
             anyadirServicio.TabIndex = 10;
             anyadirServicio.Text = "Añadir";
             anyadirServicio.UseVisualStyleBackColor = true;
+            anyadirServicio.Click += anyadirServicio_Click;
             // 
-            // panel1
+            // panelVerServicios
             // 
-            panel1.BackColor = SystemColors.Control;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(labelNumServicios);
-            panel1.Controls.Add(labelServicios);
-            panel1.Controls.Add(pictureServicios);
-            panel1.ForeColor = SystemColors.ControlDarkDark;
-            panel1.Location = new Point(14, 13);
-            panel1.Margin = new Padding(4, 3, 4, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(142, 85);
-            panel1.TabIndex = 4;
+            panelVerServicios.BackColor = SystemColors.Control;
+            panelVerServicios.BorderStyle = BorderStyle.FixedSingle;
+            panelVerServicios.Controls.Add(labelNumServicios);
+            panelVerServicios.Controls.Add(labelServicios);
+            panelVerServicios.Controls.Add(pictureServicios);
+            panelVerServicios.ForeColor = SystemColors.ControlDarkDark;
+            panelVerServicios.Location = new Point(14, 13);
+            panelVerServicios.Margin = new Padding(4, 3, 4, 3);
+            panelVerServicios.Name = "panelVerServicios";
+            panelVerServicios.Size = new Size(142, 85);
+            panelVerServicios.TabIndex = 4;
             // 
             // labelNumServicios
             // 
@@ -183,41 +209,6 @@
             pictureServicios.TabIndex = 1;
             pictureServicios.TabStop = false;
             // 
-            // comboBoxSerFiltrar
-            // 
-            comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBoxSerFiltrar.DisplayMember = "1";
-            comboBoxSerFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxSerFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
-            comboBoxSerFiltrar.Location = new Point(2101, 155);
-            comboBoxSerFiltrar.Margin = new Padding(4, 3, 4, 3);
-            comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
-            comboBoxSerFiltrar.Size = new Size(134, 23);
-            comboBoxSerFiltrar.TabIndex = 1;
-            // 
-            // textBoxSerBuscar
-            // 
-            textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSerBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSerBuscar.Location = new Point(15, 155);
-            textBoxSerBuscar.Margin = new Padding(4, 3, 4, 3);
-            textBoxSerBuscar.Name = "textBoxSerBuscar";
-            textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
-            textBoxSerBuscar.Size = new Size(1158, 23);
-            textBoxSerBuscar.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBox1.DisplayMember = "1";
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
-            comboBox1.Location = new Point(1204, 155);
-            comboBox1.Margin = new Padding(4, 3, 4, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(134, 23);
-            comboBox1.TabIndex = 6;
-            // 
             // dataGridViewServicios
             // 
             dataGridViewServicios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -226,15 +217,17 @@
             dataGridViewServicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewServicios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnSerNombre, dataGridViewTextBoxColumnSerDescripcion, dataGridViewTextBoxColumnSerDuracion, dataGridViewTextBoxColumnSerPrecio, Tipo, dataGridViewImageColumnModificar, dataGridViewImageColumnEliminar });
             dataGridViewServicios.Dock = DockStyle.Fill;
-            dataGridViewServicios.Location = new Point(0, 192);
+            dataGridViewServicios.Location = new Point(30, 0);
             dataGridViewServicios.Name = "dataGridViewServicios";
             dataGridViewServicios.RowHeadersWidth = 51;
-            dataGridViewServicios.Size = new Size(1375, 477);
+            dataGridViewServicios.Size = new Size(1315, 446);
             dataGridViewServicios.TabIndex = 11;
+            dataGridViewServicios.CellContentClick += dataGridViewServicios_CellContentClick;
             // 
             // dataGridViewTextBoxColumnSerNombre
             // 
             dataGridViewTextBoxColumnSerNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumnSerNombre.FillWeight = 100.10363F;
             dataGridViewTextBoxColumnSerNombre.HeaderText = "Nombre";
             dataGridViewTextBoxColumnSerNombre.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerNombre.Name = "dataGridViewTextBoxColumnSerNombre";
@@ -243,6 +236,7 @@
             // dataGridViewTextBoxColumnSerDescripcion
             // 
             dataGridViewTextBoxColumnSerDescripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumnSerDescripcion.FillWeight = 99.89638F;
             dataGridViewTextBoxColumnSerDescripcion.HeaderText = "Descripción";
             dataGridViewTextBoxColumnSerDescripcion.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerDescripcion.Name = "dataGridViewTextBoxColumnSerDescripcion";
@@ -302,48 +296,61 @@
             // buttonPaginacionDelante
             // 
             buttonPaginacionDelante.Dock = DockStyle.Left;
-            buttonPaginacionDelante.Location = new Point(75, 0);
+            buttonPaginacionDelante.Location = new Point(105, 0);
             buttonPaginacionDelante.Name = "buttonPaginacionDelante";
             buttonPaginacionDelante.Size = new Size(75, 30);
             buttonPaginacionDelante.TabIndex = 2;
             buttonPaginacionDelante.Text = ">>";
             buttonPaginacionDelante.UseVisualStyleBackColor = true;
+            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
             // 
             // buttonPaginacionAtras
             // 
             buttonPaginacionAtras.Dock = DockStyle.Left;
             buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
-            buttonPaginacionAtras.Location = new Point(0, 0);
+            buttonPaginacionAtras.Location = new Point(30, 0);
             buttonPaginacionAtras.Name = "buttonPaginacionAtras";
             buttonPaginacionAtras.Size = new Size(75, 30);
             buttonPaginacionAtras.TabIndex = 1;
             buttonPaginacionAtras.Text = "<<";
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
+            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
             // 
             // panelPaginacion
             // 
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 669);
+            panelPaginacion.Location = new Point(0, 638);
             panelPaginacion.Name = "panelPaginacion";
+            panelPaginacion.Padding = new Padding(30, 0, 0, 0);
             panelPaginacion.Size = new Size(1375, 30);
             panelPaginacion.TabIndex = 12;
             // 
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 699);
+            panelEspaciado.Location = new Point(0, 668);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 69);
+            panelEspaciado.Size = new Size(1375, 100);
             panelEspaciado.TabIndex = 13;
+            // 
+            // panelMargenes
+            // 
+            panelMargenes.Controls.Add(dataGridViewServicios);
+            panelMargenes.Dock = DockStyle.Fill;
+            panelMargenes.Location = new Point(0, 192);
+            panelMargenes.Name = "panelMargenes";
+            panelMargenes.Padding = new Padding(30, 0, 30, 0);
+            panelMargenes.Size = new Size(1375, 446);
+            panelMargenes.TabIndex = 14;
             // 
             // PanelServicios
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1375, 768);
-            Controls.Add(dataGridViewServicios);
+            Controls.Add(panelMargenes);
             Controls.Add(panelPaginacion);
             Controls.Add(panelEspaciado);
             Controls.Add(panelVisualServicios);
@@ -355,11 +362,12 @@
             panelTipoSer.ResumeLayout(false);
             panelTipoSer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureTipoSer).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panelVerServicios.ResumeLayout(false);
+            panelVerServicios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureServicios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewServicios).EndInit();
             panelPaginacion.ResumeLayout(false);
+            panelMargenes.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -372,12 +380,11 @@
         private PictureBox pictureTipoSer;
         private TextBox textBoxSerBuscar;
         private Button anyadirServicio;
-        private Panel panel1;
+        private Panel panelVerServicios;
         private Label labelNumServicios;
         private Label labelServicios;
         private PictureBox pictureServicios;
         private ComboBox comboBoxSerFiltrar;
-        private ComboBox comboBox1;
         private DataGridView dataGridViewServicios;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnSerNombre;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnSerDescripcion;
@@ -390,5 +397,6 @@
         private Button buttonPaginacionAtras;
         private Panel panelPaginacion;
         private Panel panelEspaciado;
+        private Panel panelMargenes;
     }
 }

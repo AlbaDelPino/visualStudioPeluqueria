@@ -76,7 +76,7 @@
             panelCitHoy.Controls.Add(labelCitHoy);
             panelCitHoy.Controls.Add(pictureCitHoy);
             panelCitHoy.ForeColor = SystemColors.ControlDarkDark;
-            panelCitHoy.Location = new Point(1005, 285);
+            panelCitHoy.Location = new Point(773, 12);
             panelCitHoy.Margin = new Padding(4, 3, 4, 3);
             panelCitHoy.Name = "panelCitHoy";
             panelCitHoy.Size = new Size(142, 85);
@@ -124,7 +124,7 @@
             panelCit.Controls.Add(labelCit);
             panelCit.Controls.Add(pictureCit);
             panelCit.ForeColor = SystemColors.ControlDarkDark;
-            panelCit.Location = new Point(855, 285);
+            panelCit.Location = new Point(623, 12);
             panelCit.Margin = new Padding(4, 3, 4, 3);
             panelCit.Name = "panelCit";
             panelCit.Size = new Size(142, 85);
@@ -172,7 +172,7 @@
             panelGrup.Controls.Add(labelGrup);
             panelGrup.Controls.Add(pictureGrup);
             panelGrup.ForeColor = SystemColors.ControlDarkDark;
-            panelGrup.Location = new Point(705, 285);
+            panelGrup.Location = new Point(473, 12);
             panelGrup.Margin = new Padding(4, 3, 4, 3);
             panelGrup.Name = "panelGrup";
             panelGrup.Size = new Size(142, 85);
@@ -220,7 +220,7 @@
             panelAdm.Controls.Add(labelAdm);
             panelAdm.Controls.Add(pictureAdm);
             panelAdm.ForeColor = SystemColors.ControlDarkDark;
-            panelAdm.Location = new Point(555, 285);
+            panelAdm.Location = new Point(323, 12);
             panelAdm.Margin = new Padding(4, 3, 4, 3);
             panelAdm.Name = "panelAdm";
             panelAdm.Size = new Size(142, 85);
@@ -268,7 +268,7 @@
             panelCli.Controls.Add(labelCli);
             panelCli.Controls.Add(pictureCli);
             panelCli.ForeColor = SystemColors.ControlDarkDark;
-            panelCli.Location = new Point(405, 285);
+            panelCli.Location = new Point(173, 12);
             panelCli.Margin = new Padding(4, 3, 4, 3);
             panelCli.Name = "panelCli";
             panelCli.Size = new Size(142, 85);
@@ -316,7 +316,7 @@
             panelSer.Controls.Add(labelSer);
             panelSer.Controls.Add(pictureSer);
             panelSer.ForeColor = SystemColors.ControlDarkDark;
-            panelSer.Location = new Point(255, 285);
+            panelSer.Location = new Point(23, 12);
             panelSer.Margin = new Padding(4, 3, 4, 3);
             panelSer.Name = "panelSer";
             panelSer.Size = new Size(142, 85);
@@ -361,7 +361,7 @@
             // 
             labelBienvenido.AutoSize = true;
             labelBienvenido.Font = new Font("Microsoft Sans Serif", 25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelBienvenido.Location = new Point(352, 467);
+            labelBienvenido.Location = new Point(549, 371);
             labelBienvenido.Margin = new Padding(4, 0, 4, 0);
             labelBienvenido.Name = "labelBienvenido";
             labelBienvenido.Size = new Size(551, 39);
@@ -433,5 +433,13 @@
         private Label labelSer;
         private PictureBox pictureSer;
         private Label labelBienvenido;
+
+        public PanelPrincipal panelPrincipal
+        {
+            get
+            {
+                return this;
+            }
+        }
     }
 }
