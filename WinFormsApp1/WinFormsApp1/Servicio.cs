@@ -110,9 +110,6 @@ namespace WinFormsApp1
                         }
                     }
                 }
-
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             catch (WebException ex)
             {
@@ -125,7 +122,9 @@ namespace WinFormsApp1
             }catch (NullReferenceException exc)
             {
                 MessageBox.Show("Error al añadir el servicio", "Error al añadir el servicio", MessageBoxButtons.OK);
-            } 
+            }
+            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
 
@@ -172,8 +171,6 @@ namespace WinFormsApp1
                         }
                     }
                 }
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             catch (WebException ex)
             {
@@ -184,6 +181,8 @@ namespace WinFormsApp1
                 }
                 MessageBox.Show("Error al modificar servicio", "Error al modificar servicio", MessageBoxButtons.OK);
             }
+            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

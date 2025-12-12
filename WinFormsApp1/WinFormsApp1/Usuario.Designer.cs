@@ -209,6 +209,7 @@
             labelTituoCrearUsuario.Size = new Size(174, 25);
             labelTituoCrearUsuario.TabIndex = 18;
             labelTituoCrearUsuario.Text = "AÑADIR USUARIO";
+            labelTituoCrearUsuario.Click += labelTituoCrearUsuario_Click;
             // 
             // labelUsNombre
             // 
