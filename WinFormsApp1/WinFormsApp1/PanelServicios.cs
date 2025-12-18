@@ -163,13 +163,13 @@ namespace WinFormsApp1
         {
             _servicios = ObtenerServicios();
 
-            if (_servicios.Count % 20 != 0)
+            if (_servicios.Count % 15 != 0)
             {
-                pagSer = (_servicios.Count / 20) + 1;
+                pagSer = (_servicios.Count / 15) + 1;
             }
             else
             {
-                pagSer = (_servicios.Count / 20);
+                pagSer = (_servicios.Count / 15);
             }
 
             labelNumServicios.Text = $" {_servicios.Count}";
@@ -179,30 +179,24 @@ namespace WinFormsApp1
         {
             dataGridViewServicios.Rows.Clear();
 
-            var tope = 0;
-            if (_servicios.Count - ((contador - 1) * 20) < 20)
-            {
-                tope = ((contador - 1) * 20) + (_servicios.Count - ((contador - 1) * 20)) - 1;
-            }
-            else
-            {
-                tope = contador * 20;
-            }
+       
+            int registrosASaltar = (contador - 1) * 15;
+            var servicioPagina = _servicios.Skip(registrosASaltar).Take(15).ToList();
 
-            for (int i = (contador - 1) * 20; i <= tope; i++)
+            foreach (var u in servicioPagina)
             {
-                var precio = _servicios[i].Precio.ToString() + " €";
-                var duracion = _servicios[i].Duracion.ToString() + " minutos";
+                var precio = u.Precio.ToString() + " €";
+                var duracion = u.Duracion.ToString() + " minutos";
                 int index = dataGridViewServicios.Rows.Add(
-                    _servicios[i].Nombre,
-                    _servicios[i].Descripcion,
+                    u.Nombre,
+                   u.Descripcion,
                     duracion,
                     precio,
-                    _servicios[i].TipoServicio?.Nombre
+                    u.TipoServicio?.Nombre
 
                 );
 
-                dataGridViewServicios.Rows[index].Tag = _servicios[i];
+                dataGridViewServicios.Rows[index].Tag = u;
             }
         }
 

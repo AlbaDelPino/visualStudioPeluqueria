@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -25,9 +26,21 @@ namespace WinFormsApp1
         public PanelUsuario(string token)
         {
             InitializeComponent();
+            ConfiguracionInicial();
             _token = token;
         }
+        private void ConfiguracionInicial()
+        {
+            // Ajustes para que el texto no tape el dibujo de la lupa
+            textBoxSUsBuscar.BorderStyle = BorderStyle.None;
+            textBoxSUsBuscar.BackColor = Color.White;
 
+            comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
+            comboBoxUsFiltrar.BackColor = Color.White;
+
+            anyadirUsuario.FlatStyle = FlatStyle.Flat;
+            anyadirUsuario.FlatAppearance.BorderSize = 0;
+        }
         private void PanelUsuario_Load(object sender, EventArgs e)
         {
             dataGridViewUsuarios.ReadOnly = true;
@@ -37,7 +50,91 @@ namespace WinFormsApp1
             _usuarios = new List<UsersDto>();
             RecargarUsuarios();
             pasarPagina();
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddEllipse(0, 0, anyadirUsuario.Width, anyadirUsuario.Height);
+           
+
+            // Aplicar el recorte al botón
+            anyadirUsuario.Region = new Region(path);
+           
+
+          
+
+
         }
+        // Método general para crear la forma de cápsula
+        // 1. Reemplaza tu método panelVisualUsuarios_Paint por este:
+        private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.Clear(panelVisualUsuarios.BackColor);
+
+            Color colorBorde = Color.FromArgb(210, 210, 210);
+            Color colorFondo = Color.White;
+            int alturaComun = 30; // Altura idéntica para ambos
+
+            // DIBUJAR BUSCADOR (TextBox)
+            DibujarCapsulaIndependiente(e.Graphics, textBoxSUsBuscar, colorBorde, colorFondo, true, alturaComun);
+
+            // DIBUJAR FILTRO (ComboBox)
+            DibujarCapsulaIndependiente(e.Graphics, comboBoxUsFiltrar, colorBorde, colorFondo, false, alturaComun);
+
+            FormatearBotonCircular(anyadirUsuario);
+        }
+
+        private void DibujarCapsulaIndependiente(Graphics g, Control c, Color borde, Color fondo, bool conLupa, int altoDeseado)
+        {
+            if (c == null) return;
+
+            // --- EL CAMBIO CLAVE PARA LA SEPARACIÓN ---
+            // Reducimos el ancho extra de '40' a '25' para que la cápsula no se alargue tanto.
+            int xPos = c.Location.X - 25;
+            int yCentrado = c.Location.Y + (c.Height / 2) - (altoDeseado / 2);
+            int anchoCapsula = c.Width + 30; // Cápsula más corta = más separación visual
+
+            Rectangle rect = new Rectangle(xPos, yCentrado, anchoCapsula, altoDeseado);
+            int radius = rect.Height;
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
+                path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
+                path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
+                path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+
+                using (SolidBrush sb = new SolidBrush(fondo)) g.FillPath(sb, path);
+                using (Pen p = new Pen(borde, 1.2f)) g.DrawPath(p, path);
+
+                if (conLupa)
+                {
+                    // Lupa ajustada para no tocar el borde izquierdo
+                    int lupaX = rect.X + 12;
+                    int lupaY = rect.Y + (rect.Height / 2) - 5;
+                    g.DrawEllipse(new Pen(Color.Gray, 2), lupaX, lupaY, 10, 10);
+                    g.DrawLine(new Pen(Color.Gray, 2), lupaX + 8, lupaY + 8, lupaX + 12, lupaY + 12);
+                }
+            }
+        }
+
+        // 3. Reemplaza tu método FormatearBotonCircular por este (evita errores de ambigüedad):
+        private void FormatearBotonCircular(System.Windows.Forms.Button btn)
+        {
+            if (btn == null) return;
+
+            // Forzamos que el botón sea un círculo perfecto basado en su propio tamaño
+            Rectangle rect = new Rectangle(0, 0, btn.Width, btn.Height);
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddEllipse(rect);
+                btn.Region = new Region(path);
+            }
+        }
+
+
+
+
 
         private void InfoUsuario(UsersDto usuario)
         {
@@ -353,6 +450,9 @@ namespace WinFormsApp1
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
+
+
+
             Usuario pantallaAnyadir = new Usuario(null, _token);
             pantallaAnyadir.Form = "Añadir usuario nuevo";
             pantallaAnyadir.LabelTituoCrearUsuario.Text = "AÑADIR USUARIO";
@@ -511,13 +611,13 @@ namespace WinFormsApp1
         {
             _usuarios = ObtenerUsuarios();
 
-            if (_usuarios.Count % 20 != 0)
+            if (_usuarios.Count % 15 != 0)
             {
-                pagUs = (_usuarios.Count / 20) + 1;
+                pagUs = (_usuarios.Count / 15) + 1;
             }
             else
             {
-                pagUs = (_usuarios.Count / 20);
+                pagUs = (_usuarios.Count / 15);
             }
 
             int activos = 0;
@@ -559,8 +659,10 @@ namespace WinFormsApp1
         private void pasarPagina()
         {
             dataGridViewUsuarios.Rows.Clear();
+            int registrosASaltar = (contador - 1) * 15;
+            var usuariosPagina = _usuarios.Skip(registrosASaltar).Take(15).ToList();
 
-            foreach (var u in _usuarios)
+            foreach (var u in usuariosPagina)
             {
                 string rol = "";
                 if (u.Role.Equals("ROLE_CLIENTE"))
@@ -756,6 +858,11 @@ namespace WinFormsApp1
             {
                 buttonPaginacionDelante.ForeColor = Color.Silver;
             }
+        }
+
+        private void anyadirUsuario_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
