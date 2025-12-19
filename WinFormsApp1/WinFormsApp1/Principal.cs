@@ -117,7 +117,7 @@ namespace WindowsFormsApp1
 
         private void labelCita_Click(object sender, EventArgs e)
         {
-
+            CargarNuevaPagina(new PanelCita(_token));
         }
 
         private void Principal_Load(object sender, EventArgs e)

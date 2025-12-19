@@ -103,6 +103,7 @@
             panelVisualUsuarios.Location = new Point(0, 0);
             panelVisualUsuarios.Margin = new Padding(4, 3, 4, 3);
             panelVisualUsuarios.Name = "panelVisualUsuarios";
+            panelVisualUsuarios.Padding = new Padding(15, 0, 0, 0);
             panelVisualUsuarios.Size = new Size(1375, 192);
             panelVisualUsuarios.TabIndex = 5;
             panelVisualUsuarios.Paint += panelVisualUsuarios_Paint;
@@ -146,13 +147,23 @@
             // 
             textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(36, 148);
+            textBoxSUsBuscar.Location = new Point(15, 155);
             textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
             textBoxSUsBuscar.Name = "textBoxSUsBuscar";
             textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSUsBuscar.Size = new Size(745, 23);
+            textBoxSUsBuscar.Size = new Size(1158, 23);
             textBoxSUsBuscar.TabIndex = 12;
             textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
+            // 
+            // anyadirUsuario
+            // 
+            anyadirUsuario.Location = new Point(15, 126);
+            anyadirUsuario.Name = "anyadirUsuario";
+            anyadirUsuario.Size = new Size(59, 23);
+            anyadirUsuario.TabIndex = 9;
+            anyadirUsuario.Text = "Añadir";
+            anyadirUsuario.UseVisualStyleBackColor = true;
+            anyadirUsuario.Click += anyadirUsuario_Click;
             // 
             // panelAdmin
             // 
@@ -161,7 +172,7 @@
             panelAdmin.Controls.Add(pictureAdmin);
             panelAdmin.Controls.Add(labelNumAdmin);
             panelAdmin.Controls.Add(labelAdmin);
-            panelAdmin.ForeColor = SystemColors.ActiveCaptionText;
+            panelAdmin.ForeColor = SystemColors.ControlDarkDark;
             panelAdmin.Location = new Point(506, 13);
             panelAdmin.Margin = new Padding(4, 3, 4, 3);
             panelAdmin.Name = "panelAdmin";
@@ -208,7 +219,7 @@
             panelUInactivos.Controls.Add(labelNumUInactivos);
             panelUInactivos.Controls.Add(labelUInactivos);
             panelUInactivos.Controls.Add(pictureUInactivos);
-            panelUInactivos.ForeColor = SystemColors.ActiveCaptionText;
+            panelUInactivos.ForeColor = SystemColors.ControlDarkDark;
             panelUInactivos.Location = new Point(329, 13);
             panelUInactivos.Margin = new Padding(4, 3, 4, 3);
             panelUInactivos.Name = "panelUInactivos";
@@ -255,7 +266,7 @@
             panelUActivos.Controls.Add(labelNumUActivos);
             panelUActivos.Controls.Add(labelUActivos);
             panelUActivos.Controls.Add(pictureUActivos);
-            panelUActivos.ForeColor = SystemColors.ActiveCaptionText;
+            panelUActivos.ForeColor = SystemColors.ControlDarkDark;
             panelUActivos.Location = new Point(164, 13);
             panelUActivos.Margin = new Padding(4, 3, 4, 3);
             panelUActivos.Name = "panelUActivos";
@@ -302,7 +313,7 @@
             panelUsuarios.Controls.Add(labelNumUsuarios);
             panelUsuarios.Controls.Add(labelUsuarios);
             panelUsuarios.Controls.Add(pictureUsuarios);
-            panelUsuarios.ForeColor = SystemColors.ActiveCaptionText;
+            panelUsuarios.ForeColor = SystemColors.ControlDarkDark;
             panelUsuarios.Location = new Point(14, 13);
             panelUsuarios.Margin = new Padding(4, 3, 4, 3);
             panelUsuarios.Name = "panelUsuarios";

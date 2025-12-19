@@ -75,6 +75,7 @@
             panelVisualServicios.Location = new Point(0, 0);
             panelVisualServicios.Margin = new Padding(4, 3, 4, 3);
             panelVisualServicios.Name = "panelVisualServicios";
+            panelVisualServicios.Padding = new Padding(15, 0, 0, 0);
             panelVisualServicios.Size = new Size(1375, 192);
             panelVisualServicios.TabIndex = 5;
             // 
@@ -89,7 +90,7 @@
             comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
             comboBoxSerFiltrar.Size = new Size(134, 23);
             comboBoxSerFiltrar.TabIndex = 6;
-            comboBoxSerFiltrar.SelectedIndexChanged += this.comboBoxSerFiltrar_SelectedIndexChanged;
+            comboBoxSerFiltrar.SelectedIndexChanged += comboBoxSerFiltrar_SelectedIndexChanged;
             // 
             // panelTipoSer
             // 
@@ -99,7 +100,7 @@
             panelTipoSer.Controls.Add(labelTipoSer);
             panelTipoSer.Controls.Add(pictureTipoSer);
             panelTipoSer.ForeColor = SystemColors.ControlDarkDark;
-            panelTipoSer.Location = new Point(164, 13);
+            panelTipoSer.Location = new Point(180, 13);
             panelTipoSer.Margin = new Padding(4, 3, 4, 3);
             panelTipoSer.Name = "panelTipoSer";
             panelTipoSer.Size = new Size(160, 85);
@@ -124,9 +125,9 @@
             labelTipoSer.Location = new Point(16, 18);
             labelTipoSer.Margin = new Padding(4, 0, 4, 0);
             labelTipoSer.Name = "labelTipoSer";
-            labelTipoSer.Size = new Size(124, 17);
+            labelTipoSer.Size = new Size(117, 17);
             labelTipoSer.TabIndex = 0;
-            labelTipoSer.Text = "Tipos de Servicios";
+            labelTipoSer.Text = "Tipos de Servicio";
             // 
             // pictureTipoSer
             // 
@@ -143,17 +144,17 @@
             // 
             textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxSerBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSerBuscar.Location = new Point(15, 155);
+            textBoxSerBuscar.Location = new Point(30, 155);
             textBoxSerBuscar.Margin = new Padding(4, 3, 4, 3);
             textBoxSerBuscar.Name = "textBoxSerBuscar";
             textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
-            textBoxSerBuscar.Size = new Size(1158, 23);
+            textBoxSerBuscar.Size = new Size(1143, 23);
             textBoxSerBuscar.TabIndex = 0;
             textBoxSerBuscar.TextChanged += textBoxSerBuscar_TextChanged;
             // 
             // anyadirServicio
             // 
-            anyadirServicio.Location = new Point(15, 126);
+            anyadirServicio.Location = new Point(30, 126);
             anyadirServicio.Name = "anyadirServicio";
             anyadirServicio.Size = new Size(59, 23);
             anyadirServicio.TabIndex = 10;
@@ -169,7 +170,7 @@
             panelVerServicios.Controls.Add(labelServicios);
             panelVerServicios.Controls.Add(pictureServicios);
             panelVerServicios.ForeColor = SystemColors.ControlDarkDark;
-            panelVerServicios.Location = new Point(14, 13);
+            panelVerServicios.Location = new Point(30, 13);
             panelVerServicios.Margin = new Padding(4, 3, 4, 3);
             panelVerServicios.Name = "panelVerServicios";
             panelVerServicios.Size = new Size(142, 85);
