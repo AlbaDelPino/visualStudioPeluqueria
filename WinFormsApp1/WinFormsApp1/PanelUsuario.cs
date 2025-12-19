@@ -13,12 +13,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
+using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
     public partial class PanelUsuario : Form
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+            int nLeftRect,
+            int nTopRect,
+            int nRightRect,
+            int nBottomRect,
+            int nWidthEllipse,
+            int nHeightEllipse
+        );
+
         private readonly string _token;
         private static int pagUs;
         private static int contador = 1;
@@ -26,21 +38,12 @@ namespace WinFormsApp1
         public PanelUsuario(string token)
         {
             InitializeComponent();
-            ConfiguracionInicial();
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
+
             _token = token;
         }
-        private void ConfiguracionInicial()
-        {
-            // Ajustes para que el texto no tape el dibujo de la lupa
-            textBoxSUsBuscar.BorderStyle = BorderStyle.None;
-            textBoxSUsBuscar.BackColor = Color.White;
 
-            comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
-            comboBoxUsFiltrar.BackColor = Color.White;
-
-            anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.FlatAppearance.BorderSize = 0;
-        }
         private void PanelUsuario_Load(object sender, EventArgs e)
         {
             dataGridViewUsuarios.ReadOnly = true;
@@ -51,87 +54,97 @@ namespace WinFormsApp1
             RecargarUsuarios();
             pasarPagina();
 
-            GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(0, 0, anyadirUsuario.Width, anyadirUsuario.Height);
-           
-
-            // Aplicar el recorte al botón
-            anyadirUsuario.Region = new Region(path);
-           
-
-          
-
-
+            // --- CONFIGURACIÓN ESTÉTICA INICIAL ---
+            ConfigurarUIEstiloImagen();
         }
-        // Método general para crear la forma de cápsula
-        // 1. Reemplaza tu método panelVisualUsuarios_Paint por este:
+        private void ConfigurarUIEstiloImagen()
+        {
+            // BOTÓN (+) CIRCULAR
+            anyadirUsuario.Text = "+";
+            anyadirUsuario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            anyadirUsuario.FlatStyle = FlatStyle.Flat;
+            anyadirUsuario.FlatAppearance.BorderSize = 0;
+            anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirUsuario.ForeColor = Color.White;
+            anyadirUsuario.Size = new Size(45, 45);
+
+            // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
+            //anyadirUsuario.Top = 15;
+            anyadirUsuario.Left = panelVisualUsuarios.Width - 60; // A la derecha
+
+            // BUSCADOR Y COMBO
+            //textBoxSUsBuscar.Top = 25;
+            textBoxSUsBuscar.Left = 50;
+            // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
+            textBoxSUsBuscar.Width = panelVisualUsuarios.Width - 350;
+
+            // COMBO (Alargado)
+           // comboBoxUsFiltrar.Top = 25;
+            comboBoxUsFiltrar.Width = 180; // Más ancho
+            comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30; // Se posiciona justo después del buscador
+
+            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
+            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            anyadirUsuario.Anchor =  AnchorStyles.Right;
+
+            ActualizarRegiones();
+        }
+
+        // Se llama al cargar y al cambiar el tamaño de la ventana
+        private void ActualizarRegiones()
+        {
+            // Redondeo físico del botón naranja (Círculo perfecto)
+            anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
+        }
+
+        // Evento que ocurre cuando cambias el tamaño de la ventana
+        private void PanelUsuario_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualUsuarios.Invalidate(); // Fuerza a redibujar el borde gris
+        }
+
         private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            e.Graphics.Clear(panelVisualUsuarios.BackColor);
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            Color colorBorde = Color.FromArgb(210, 210, 210);
-            Color colorFondo = Color.White;
-            int alturaComun = 30; // Altura idéntica para ambos
+            Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
+            Brush fondoBlanco = Brushes.White;
 
-            // DIBUJAR BUSCADOR (TextBox)
-            DibujarCapsulaIndependiente(e.Graphics, textBoxSUsBuscar, colorBorde, colorFondo, true, alturaComun);
+            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
+            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
+            Rectangle rectBusqueda = new Rectangle(
+                textBoxSUsBuscar.Left - 35,
+                textBoxSUsBuscar.Top - 10,
+                textBoxSUsBuscar.Width + 45,
+                textBoxSUsBuscar.Height + 20
+            );
+            DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSUsBuscar.Left - 25, textBoxSUsBuscar.Top - 2);
 
-            // DIBUJAR FILTRO (ComboBox)
-            DibujarCapsulaIndependiente(e.Graphics, comboBoxUsFiltrar, colorBorde, colorFondo, false, alturaComun);
-
-            FormatearBotonCircular(anyadirUsuario);
+            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
+            Rectangle rectFiltro = new Rectangle(
+                comboBoxUsFiltrar.Left - 10,
+                comboBoxUsFiltrar.Top - 10,
+                comboBoxUsFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxUsFiltrar.Height + 20
+            );
+            DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
 
-        private void DibujarCapsulaIndependiente(Graphics g, Control c, Color borde, Color fondo, bool conLupa, int altoDeseado)
+        private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {
-            if (c == null) return;
+            GraphicsPath path = new GraphicsPath();
+            int radio = rect.Height - 1;
+            path.AddArc(rect.X, rect.Y, radio, radio, 90, 180);
+            path.AddArc(rect.Right - radio, rect.Y, radio, radio, 270, 180);
+            path.CloseFigure();
 
-            // --- EL CAMBIO CLAVE PARA LA SEPARACIÓN ---
-            // Reducimos el ancho extra de '40' a '25' para que la cápsula no se alargue tanto.
-            int xPos = c.Location.X - 25;
-            int yCentrado = c.Location.Y + (c.Height / 2) - (altoDeseado / 2);
-            int anchoCapsula = c.Width + 30; // Cápsula más corta = más separación visual
-
-            Rectangle rect = new Rectangle(xPos, yCentrado, anchoCapsula, altoDeseado);
-            int radius = rect.Height;
-
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
-                path.AddArc(rect.Right - radius, rect.Y, radius, radius, 270, 90);
-                path.AddArc(rect.Right - radius, rect.Bottom - radius, radius, radius, 0, 90);
-                path.AddArc(rect.X, rect.Bottom - radius, radius, radius, 90, 90);
-                path.CloseFigure();
-
-                using (SolidBrush sb = new SolidBrush(fondo)) g.FillPath(sb, path);
-                using (Pen p = new Pen(borde, 1.2f)) g.DrawPath(p, path);
-
-                if (conLupa)
-                {
-                    // Lupa ajustada para no tocar el borde izquierdo
-                    int lupaX = rect.X + 12;
-                    int lupaY = rect.Y + (rect.Height / 2) - 5;
-                    g.DrawEllipse(new Pen(Color.Gray, 2), lupaX, lupaY, 10, 10);
-                    g.DrawLine(new Pen(Color.Gray, 2), lupaX + 8, lupaY + 8, lupaX + 12, lupaY + 12);
-                }
-            }
+            g.FillPath(b, path);
+            g.DrawPath(p, path);
         }
-
-        // 3. Reemplaza tu método FormatearBotonCircular por este (evita errores de ambigüedad):
-        private void FormatearBotonCircular(System.Windows.Forms.Button btn)
-        {
-            if (btn == null) return;
-
-            // Forzamos que el botón sea un círculo perfecto basado en su propio tamaño
-            Rectangle rect = new Rectangle(0, 0, btn.Width, btn.Height);
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                path.AddEllipse(rect);
-                btn.Region = new Region(path);
-            }
-        }
-
 
 
 
@@ -864,5 +877,7 @@ namespace WinFormsApp1
         {
 
         }
+
     }
+
 }

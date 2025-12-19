@@ -12,6 +12,8 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using UsersInfo.Models;
 using WinFormsApp1;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -105,20 +107,89 @@ namespace WindowsFormsApp1
             MostrarContenidoInicio();
         }
 
+
+
         private void labelServicio_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelServicios(_token));
         }
+        // Cuando el mouse entra al área del Label
+        
+
 
         private void labelUsuario_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelUsuario(_token));
         }
 
+     
         private void labelCita_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelCita(_token));
         }
+
+        // Color naranja de la imagen (RGB: 255, 178, 125 aprox)
+        Color colorNaranjaHover = Color.FromArgb(251, 147, 92);
+        Color colorGrisTexto = Color.FromArgb(100, 100, 100);
+
+
+        private void DibujarBotonNaranja(object sender, PaintEventArgs e)
+        {
+            Label lbl = (Label)sender;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+            // Crear el rectángulo redondeado
+            int radius = 10;
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, radius, radius, 180, 90);
+            path.AddArc(lbl.Width - radius - 1, 0, radius, radius, 270, 90);
+            path.AddArc(lbl.Width - radius - 1, lbl.Height - radius - 1, radius, radius, 0, 90);
+            path.AddArc(0, lbl.Height - radius - 1, radius, radius, 90, 90);
+            path.CloseAllFigures();
+
+            // Pintar el fondo naranja
+            using (SolidBrush brush = new SolidBrush(colorNaranjaHover))
+            {
+                e.Graphics.FillPath(brush, path);
+            }
+
+            // Escribir el texto encima del naranja
+            TextRenderer.DrawText(e.Graphics, lbl.Text, lbl.Font, lbl.ClientRectangle,
+                                 Color.White, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+        }
+        private void AplicarEstiloHover(Label label)
+        {
+            label.Cursor = Cursors.Hand;
+            // Agregamos el evento de dibujo dinámicamente
+            label.Paint += DibujarBotonNaranja;
+            label.Invalidate(); // Esto obliga al label a redibujarse con el nuevo estilo
+        }
+
+        private void QuitarEstiloHover(Label label)
+        {
+            label.Cursor = Cursors.Default;
+            // Quitamos el evento de dibujo para que vuelva a ser un label normal
+            label.Paint -= DibujarBotonNaranja;
+            label.Invalidate(); // Esto limpia el cuadro naranja
+        }
+
+       
+
+        // --- APLICA ESTO A TUS EVENTOS EXISTENTES ---
+
+        private void labelPrincipal_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelPrincipal);
+        private void labelPrincipal_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelPrincipal);
+
+        private void labelServicio_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelServicio);
+        private void labelServicio_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelServicio);
+
+        private void labelUsuario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelUsuario);
+        private void labelUsuario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelUsuario);
+
+        private void labelCita_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelCita);
+        private void labelCita_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelCita);
+
+        // Cuando el mouse sale del área del Label
 
         private void Principal_Load(object sender, EventArgs e)
         {

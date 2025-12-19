@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelServicios));
             panelVisualServicios = new Panel();
             comboBoxSerFiltrar = new ComboBox();
@@ -78,14 +81,17 @@
             panelVisualServicios.Padding = new Padding(15, 0, 0, 0);
             panelVisualServicios.Size = new Size(1375, 192);
             panelVisualServicios.TabIndex = 5;
+            panelVisualServicios.Paint += panelVisualServicios_Paint;
+            panelVisualServicios.Resize += PanelUsuario_Resize;
             // 
             // comboBoxSerFiltrar
             // 
             comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBoxSerFiltrar.DisplayMember = "1";
             comboBoxSerFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSerFiltrar.FlatStyle = FlatStyle.Flat;
             comboBoxSerFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
-            comboBoxSerFiltrar.Location = new Point(1204, 155);
+            comboBoxSerFiltrar.Location = new Point(924, 139);
             comboBoxSerFiltrar.Margin = new Padding(4, 3, 4, 3);
             comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
             comboBoxSerFiltrar.Size = new Size(134, 23);
@@ -143,23 +149,26 @@
             // textBoxSerBuscar
             // 
             textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSerBuscar.BorderStyle = BorderStyle.None;
             textBoxSerBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSerBuscar.Location = new Point(30, 155);
+            textBoxSerBuscar.Location = new Point(30, 139);
             textBoxSerBuscar.Margin = new Padding(4, 3, 4, 3);
             textBoxSerBuscar.Name = "textBoxSerBuscar";
             textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
-            textBoxSerBuscar.Size = new Size(1143, 23);
+            textBoxSerBuscar.Size = new Size(829, 16);
             textBoxSerBuscar.TabIndex = 0;
             textBoxSerBuscar.TextChanged += textBoxSerBuscar_TextChanged;
             // 
             // anyadirServicio
             // 
-            anyadirServicio.Location = new Point(30, 126);
+            anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirServicio.FlatStyle = FlatStyle.Flat;
+            anyadirServicio.Location = new Point(1265, 138);
             anyadirServicio.Name = "anyadirServicio";
             anyadirServicio.Size = new Size(59, 23);
             anyadirServicio.TabIndex = 10;
-            anyadirServicio.Text = "Añadir";
-            anyadirServicio.UseVisualStyleBackColor = true;
+            anyadirServicio.Text = ".";
+            anyadirServicio.UseVisualStyleBackColor = false;
             anyadirServicio.Click += anyadirServicio_Click;
             // 
             // panelVerServicios
@@ -215,13 +224,44 @@
             dataGridViewServicios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewServicios.BackgroundColor = SystemColors.ControlLightLight;
             dataGridViewServicios.BorderStyle = BorderStyle.None;
+            dataGridViewServicios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(7);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewServicios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewServicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewServicios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnSerNombre, dataGridViewTextBoxColumnSerDescripcion, dataGridViewTextBoxColumnSerDuracion, dataGridViewTextBoxColumnSerPrecio, Tipo, dataGridViewImageColumnModificar, dataGridViewImageColumnEliminar });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new Padding(2);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewServicios.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewServicios.Dock = DockStyle.Fill;
+            dataGridViewServicios.EnableHeadersVisualStyles = false;
+            dataGridViewServicios.GridColor = SystemColors.InactiveCaptionText;
             dataGridViewServicios.Location = new Point(30, 0);
             dataGridViewServicios.Name = "dataGridViewServicios";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewServicios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewServicios.RowHeadersVisible = false;
             dataGridViewServicios.RowHeadersWidth = 51;
-            dataGridViewServicios.Size = new Size(1315, 446);
+            dataGridViewServicios.RowTemplate.Height = 35;
+            dataGridViewServicios.Size = new Size(1315, 495);
             dataGridViewServicios.TabIndex = 11;
             dataGridViewServicios.CellContentClick += dataGridViewServicios_CellContentClick;
             // 
@@ -250,7 +290,7 @@
             dataGridViewTextBoxColumnSerDuracion.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerDuracion.Name = "dataGridViewTextBoxColumnSerDuracion";
             dataGridViewTextBoxColumnSerDuracion.ReadOnly = true;
-            dataGridViewTextBoxColumnSerDuracion.Width = 80;
+            dataGridViewTextBoxColumnSerDuracion.Width = 107;
             // 
             // dataGridViewTextBoxColumnSerPrecio
             // 
@@ -259,7 +299,7 @@
             dataGridViewTextBoxColumnSerPrecio.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerPrecio.Name = "dataGridViewTextBoxColumnSerPrecio";
             dataGridViewTextBoxColumnSerPrecio.ReadOnly = true;
-            dataGridViewTextBoxColumnSerPrecio.Width = 65;
+            dataGridViewTextBoxColumnSerPrecio.Width = 88;
             // 
             // Tipo
             // 
@@ -268,7 +308,7 @@
             Tipo.MinimumWidth = 6;
             Tipo.Name = "Tipo";
             Tipo.ReadOnly = true;
-            Tipo.Width = 56;
+            Tipo.Width = 77;
             // 
             // dataGridViewImageColumnModificar
             // 
@@ -280,7 +320,7 @@
             dataGridViewImageColumnModificar.Name = "dataGridViewImageColumnModificar";
             dataGridViewImageColumnModificar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnModificar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnModificar.Width = 83;
+            dataGridViewImageColumnModificar.Width = 111;
             // 
             // dataGridViewImageColumnEliminar
             // 
@@ -292,7 +332,7 @@
             dataGridViewImageColumnEliminar.Name = "dataGridViewImageColumnEliminar";
             dataGridViewImageColumnEliminar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnEliminar.Width = 75;
+            dataGridViewImageColumnEliminar.Width = 101;
             // 
             // buttonPaginacionDelante
             // 
@@ -322,7 +362,7 @@
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 638);
+            panelPaginacion.Location = new Point(0, 687);
             panelPaginacion.Name = "panelPaginacion";
             panelPaginacion.Padding = new Padding(30, 0, 0, 0);
             panelPaginacion.Size = new Size(1375, 30);
@@ -331,9 +371,9 @@
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 668);
+            panelEspaciado.Location = new Point(0, 717);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 100);
+            panelEspaciado.Size = new Size(1375, 51);
             panelEspaciado.TabIndex = 13;
             // 
             // panelMargenes
@@ -343,7 +383,7 @@
             panelMargenes.Location = new Point(0, 192);
             panelMargenes.Name = "panelMargenes";
             panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1375, 446);
+            panelMargenes.Size = new Size(1375, 495);
             panelMargenes.TabIndex = 14;
             // 
             // PanelServicios

@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +20,16 @@ namespace WinFormsApp1
 {
     public partial class PanelServicios : Form
     {
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+       (
+           int nLeftRect,
+           int nTopRect,
+           int nRightRect,
+           int nBottomRect,
+           int nWidthEllipse,
+           int nHeightEllipse
+       );
         private readonly string _token;
         private static int pagSer;
         private static int contador = 1;
@@ -37,6 +50,103 @@ namespace WinFormsApp1
             RecargarServicios();
             pasarPagina();
 
+            ConfigurarUIEstiloImagen();
+
+        }
+
+        private void ConfigurarUIEstiloImagen()
+        {
+            // BOTÓN (+) CIRCULAR
+            anyadirServicio.Text = "+";
+            anyadirServicio.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            anyadirServicio.FlatStyle = FlatStyle.Flat;
+            anyadirServicio.FlatAppearance.BorderSize = 0;
+            anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirServicio.ForeColor = Color.White;
+            anyadirServicio.Size = new Size(45, 45);
+
+            // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
+            //anyadirUsuario.Top = 15;
+            anyadirServicio.Left = panelVisualServicios.Width - 60; // A la derecha
+
+            // BUSCADOR Y COMBO
+            //textBoxSUsBuscar.Top = 25;
+            textBoxSerBuscar.Left = 50;
+            // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
+            textBoxSerBuscar.Width = panelVisualServicios.Width - 350;
+
+            // COMBO (Alargado)
+            // comboBoxUsFiltrar.Top = 25;
+            comboBoxSerFiltrar.Width = 180; // Más ancho
+            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30; // Se posiciona justo después del buscador
+
+            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
+            textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            anyadirServicio.Anchor = AnchorStyles.Right;
+
+            ActualizarRegiones();
+        }
+
+        // Se llama al cargar y al cambiar el tamaño de la ventana
+        private void ActualizarRegiones()
+        {
+            // Redondeo físico del botón naranja (Círculo perfecto)
+            anyadirServicio.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirServicio.Width, anyadirServicio.Height, anyadirServicio.Width, anyadirServicio.Height));
+        }
+
+        // Evento que ocurre cuando cambias el tamaño de la ventana
+        private void PanelUsuario_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
+        }
+        private void PanelServicios_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
+        }
+
+
+        private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
+            Brush fondoBlanco = Brushes.White;
+
+            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
+            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
+            Rectangle rectBusqueda = new Rectangle(
+                textBoxSerBuscar.Left - 35,
+                textBoxSerBuscar.Top - 10,
+                textBoxSerBuscar.Width + 45,
+                textBoxSerBuscar.Height + 20
+            );
+            DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSerBuscar.Left - 25, textBoxSerBuscar.Top - 2);
+
+            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
+            Rectangle rectFiltro = new Rectangle(
+                comboBoxSerFiltrar.Left - 10,
+                comboBoxSerFiltrar.Top - 10,
+                comboBoxSerFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxSerFiltrar.Height + 20
+            );
+            DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
+        }
+
+        private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int radio = rect.Height - 1;
+            path.AddArc(rect.X, rect.Y, radio, radio, 90, 180);
+            path.AddArc(rect.Right - radio, rect.Y, radio, radio, 270, 180);
+            path.CloseFigure();
+
+            g.FillPath(b, path);
+            g.DrawPath(p, path);
         }
 
         private void ModificarServicio(ServicioDto servicio)

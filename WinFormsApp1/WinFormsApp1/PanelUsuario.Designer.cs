@@ -107,18 +107,20 @@
             panelVisualUsuarios.Size = new Size(1375, 192);
             panelVisualUsuarios.TabIndex = 5;
             panelVisualUsuarios.Paint += panelVisualUsuarios_Paint;
+            panelVisualUsuarios.Resize += PanelUsuario_Resize;
             // 
             // anyadirUsuario
             // 
             anyadirUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirUsuario.BackgroundImage = Properties.Resources._7046041;
-            anyadirUsuario.BackgroundImageLayout = ImageLayout.Zoom;
+            anyadirUsuario.FlatAppearance.BorderSize = 0;
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.Location = new Point(956, 138);
+            anyadirUsuario.ForeColor = Color.White;
+            anyadirUsuario.Location = new Point(1270, 123);
             anyadirUsuario.Name = "anyadirUsuario";
-            anyadirUsuario.Size = new Size(40, 40);
+            anyadirUsuario.Size = new Size(75, 23);
             anyadirUsuario.TabIndex = 15;
+            anyadirUsuario.Text = "+";
             anyadirUsuario.UseVisualStyleBackColor = false;
             anyadirUsuario.Click += anyadirUsuario_Click;
             // 
@@ -135,8 +137,9 @@
             comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBoxUsFiltrar.DisplayMember = "1";
             comboBoxUsFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
             comboBoxUsFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxUsFiltrar.Location = new Point(802, 148);
+            comboBoxUsFiltrar.Location = new Point(1080, 140);
             comboBoxUsFiltrar.Margin = new Padding(4, 3, 4, 3);
             comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
             comboBoxUsFiltrar.Size = new Size(134, 23);
@@ -146,24 +149,15 @@
             // textBoxSUsBuscar
             // 
             textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSUsBuscar.BorderStyle = BorderStyle.None;
             textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(15, 155);
+            textBoxSUsBuscar.Location = new Point(310, 140);
             textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
             textBoxSUsBuscar.Name = "textBoxSUsBuscar";
             textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSUsBuscar.Size = new Size(1158, 23);
+            textBoxSUsBuscar.Size = new Size(673, 16);
             textBoxSUsBuscar.TabIndex = 12;
             textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
-            // 
-            // anyadirUsuario
-            // 
-            anyadirUsuario.Location = new Point(15, 126);
-            anyadirUsuario.Name = "anyadirUsuario";
-            anyadirUsuario.Size = new Size(59, 23);
-            anyadirUsuario.TabIndex = 9;
-            anyadirUsuario.Text = "Añadir";
-            anyadirUsuario.UseVisualStyleBackColor = true;
-            anyadirUsuario.Click += anyadirUsuario_Click;
             // 
             // panelAdmin
             // 
@@ -383,6 +377,7 @@
             dataGridViewUsuarios.Dock = DockStyle.Fill;
             dataGridViewUsuarios.EnableHeadersVisualStyles = false;
             dataGridViewUsuarios.GridColor = Color.Black;
+            dataGridViewUsuarios.ImeMode = ImeMode.NoControl;
             dataGridViewUsuarios.Location = new Point(30, 0);
             dataGridViewUsuarios.MultiSelect = false;
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
@@ -401,6 +396,7 @@
             dataGridViewCellStyle11.SelectionForeColor = Color.White;
             dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewUsuarios.RowTemplate.Height = 35;
+            dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewUsuarios.Size = new Size(1315, 493);
             dataGridViewUsuarios.TabIndex = 9;
             dataGridViewUsuarios.CellContentClick += dataGridViewUsuarios_CellContentClick;
@@ -459,6 +455,7 @@
             dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
             dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewImageColumnUsInfo.HeaderText = "Info";
+            dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
             dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGridViewImageColumnUsInfo.MinimumWidth = 6;
             dataGridViewImageColumnUsInfo.Name = "dataGridViewImageColumnUsInfo";
@@ -474,6 +471,7 @@
             dataGridViewCellStyle7.NullValue = null;
             dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewImageColumnUsModificar.HeaderText = "Modificar";
+            dataGridViewImageColumnUsModificar.Image = Properties.Resources.edit;
             dataGridViewImageColumnUsModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGridViewImageColumnUsModificar.MinimumWidth = 22;
             dataGridViewImageColumnUsModificar.Name = "dataGridViewImageColumnUsModificar";
@@ -489,6 +487,7 @@
             dataGridViewCellStyle8.NullValue = null;
             dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
+            dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
             dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
             dataGridViewImageColumnUsEliminar.MinimumWidth = 6;
             dataGridViewImageColumnUsEliminar.Name = "dataGridViewImageColumnUsEliminar";

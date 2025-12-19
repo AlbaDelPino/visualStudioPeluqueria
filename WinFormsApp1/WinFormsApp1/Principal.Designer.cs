@@ -30,6 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             panelLado = new Panel();
+            pictureBox4 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            pictureBox2 = new PictureBox();
+            pictureBox1 = new PictureBox();
             labelCita = new Label();
             labelUsuario = new Label();
             labelServicio = new Label();
@@ -90,6 +94,10 @@
             picModificar1 = new PictureBox();
             panelControl = new Panel();
             panelLado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             panelTitulo.SuspendLayout();
@@ -107,7 +115,11 @@
             // 
             // panelLado
             // 
-            panelLado.BackColor = Color.DarkOrange;
+            panelLado.BackColor = Color.SeaShell;
+            panelLado.Controls.Add(pictureBox4);
+            panelLado.Controls.Add(pictureBox3);
+            panelLado.Controls.Add(pictureBox2);
+            panelLado.Controls.Add(pictureBox1);
             panelLado.Controls.Add(labelCita);
             panelLado.Controls.Add(labelUsuario);
             panelLado.Controls.Add(labelServicio);
@@ -119,48 +131,108 @@
             panelLado.Margin = new Padding(4, 3, 4, 3);
             panelLado.Name = "panelLado";
             panelLado.RightToLeft = RightToLeft.No;
-            panelLado.Size = new Size(149, 704);
+            panelLado.Size = new Size(185, 704);
             panelLado.TabIndex = 0;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(27, 376);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(23, 30);
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 19;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(23, 210);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(23, 37);
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 18;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(23, 264);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(25, 30);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 17;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox1.Image = WinFormsApp1.Properties.Resources.Usuario;
+            pictureBox1.Location = new Point(22, 323);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(34, 28);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 16;
+            pictureBox1.TabStop = false;
             // 
             // labelCita
             // 
             labelCita.AutoSize = true;
-            labelCita.Location = new Point(46, 293);
+            labelCita.Font = new Font("Microsoft Sans Serif", 12F);
+            labelCita.Location = new Point(56, 378);
             labelCita.Name = "labelCita";
-            labelCita.Size = new Size(38, 15);
+            labelCita.Size = new Size(56, 20);
             labelCita.TabIndex = 15;
             labelCita.Text = "CITAS";
             labelCita.Click += labelCita_Click;
+            labelCita.MouseEnter += labelCita_MouseEnter;
+            labelCita.MouseLeave += labelCita_MouseLeave;
             // 
             // labelUsuario
             // 
             labelUsuario.AutoSize = true;
-            labelUsuario.Location = new Point(46, 265);
+            labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
+            labelUsuario.Location = new Point(56, 323);
             labelUsuario.Name = "labelUsuario";
-            labelUsuario.Size = new Size(56, 15);
+            labelUsuario.Size = new Size(84, 20);
             labelUsuario.TabIndex = 14;
             labelUsuario.Text = "USUARIO";
             labelUsuario.Click += labelUsuario_Click;
+            labelUsuario.MouseEnter += labelUsuario_MouseEnter;
+            labelUsuario.MouseLeave += labelUsuario_MouseLeave;
             // 
             // labelServicio
             // 
             labelServicio.AutoSize = true;
-            labelServicio.Location = new Point(46, 232);
+            labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
+            labelServicio.Location = new Point(52, 272);
             labelServicio.Name = "labelServicio";
-            labelServicio.Size = new Size(56, 15);
+            labelServicio.Size = new Size(87, 20);
             labelServicio.TabIndex = 13;
             labelServicio.Text = "SERVICIO";
             labelServicio.Click += labelServicio_Click;
+            labelServicio.MouseEnter += labelServicio_MouseEnter;
+            labelServicio.MouseLeave += labelServicio_MouseLeave;
             // 
             // labelPrincipal
             // 
             labelPrincipal.AutoSize = true;
-            labelPrincipal.Location = new Point(46, 200);
+            labelPrincipal.Cursor = Cursors.Hand;
+            labelPrincipal.Font = new Font("Microsoft Sans Serif", 12F);
+            labelPrincipal.Image = WinFormsApp1.Properties.Resources._7046041;
+            labelPrincipal.ImageAlign = ContentAlignment.MiddleLeft;
+            labelPrincipal.Location = new Point(52, 221);
             labelPrincipal.Name = "labelPrincipal";
-            labelPrincipal.Size = new Size(42, 15);
+            labelPrincipal.RightToLeft = RightToLeft.No;
+            labelPrincipal.Size = new Size(58, 20);
             labelPrincipal.TabIndex = 3;
             labelPrincipal.Text = "INICIO";
             labelPrincipal.Click += labelPrincipal_Click;
+            labelPrincipal.MouseEnter += labelPrincipal_MouseEnter;
+            labelPrincipal.MouseLeave += labelPrincipal_MouseLeave;
             // 
             // panelCerrar
             // 
@@ -169,7 +241,7 @@
             panelCerrar.Location = new Point(0, 634);
             panelCerrar.Name = "panelCerrar";
             panelCerrar.Padding = new Padding(10, 0, 10, 0);
-            panelCerrar.Size = new Size(149, 70);
+            panelCerrar.Size = new Size(185, 70);
             panelCerrar.TabIndex = 7;
             // 
             // buttonCerrar
@@ -178,7 +250,7 @@
             buttonCerrar.FlatStyle = FlatStyle.Popup;
             buttonCerrar.Location = new Point(10, 0);
             buttonCerrar.Name = "buttonCerrar";
-            buttonCerrar.Size = new Size(129, 23);
+            buttonCerrar.Size = new Size(165, 23);
             buttonCerrar.TabIndex = 3;
             buttonCerrar.Text = "Cerrar sesión";
             buttonCerrar.UseVisualStyleBackColor = false;
@@ -186,24 +258,25 @@
             // 
             // picLogo
             // 
+            picLogo.BackColor = Color.FromArgb(255, 128, 0);
             picLogo.Image = (Image)resources.GetObject("picLogo.Image");
-            picLogo.Location = new Point(0, 0);
+            picLogo.Location = new Point(3, 0);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(169, 136);
+            picLogo.Size = new Size(190, 136);
             picLogo.SizeMode = PictureBoxSizeMode.Zoom;
             picLogo.TabIndex = 12;
             picLogo.TabStop = false;
             // 
             // panelTitulo
             // 
-            panelTitulo.BackColor = Color.DarkOrange;
+            panelTitulo.BackColor = Color.FromArgb(255, 128, 0);
             panelTitulo.Controls.Add(labSubTituto);
             panelTitulo.Controls.Add(labTituto);
             panelTitulo.Dock = DockStyle.Top;
-            panelTitulo.Location = new Point(149, 0);
+            panelTitulo.Location = new Point(185, 0);
             panelTitulo.Margin = new Padding(4, 3, 4, 3);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(1082, 136);
+            panelTitulo.Size = new Size(1046, 136);
             panelTitulo.TabIndex = 1;
             // 
             // labSubTituto
@@ -748,9 +821,9 @@
             // panelControl
             // 
             panelControl.Dock = DockStyle.Fill;
-            panelControl.Location = new Point(149, 136);
+            panelControl.Location = new Point(185, 136);
             panelControl.Name = "panelControl";
-            panelControl.Size = new Size(1082, 568);
+            panelControl.Size = new Size(1046, 568);
             panelControl.TabIndex = 2;
             // 
             // Principal
@@ -769,6 +842,10 @@
             Load += Principal_Load;
             panelLado.ResumeLayout(false);
             panelLado.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panelCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             panelTitulo.ResumeLayout(false);
@@ -849,6 +926,10 @@
         private Label labelServicio;
         private Label labelPrincipal;
         private Panel panelControl;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox3;
     }
 }
 
