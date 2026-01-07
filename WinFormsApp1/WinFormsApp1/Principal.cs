@@ -114,7 +114,7 @@ namespace WindowsFormsApp1
             CargarNuevaPagina(new PanelServicios(_token));
         }
         // Cuando el mouse entra al área del Label
-        
+
 
 
         private void labelUsuario_Click(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace WindowsFormsApp1
             CargarNuevaPagina(new PanelUsuario(_token));
         }
 
-     
+
         private void labelCita_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelCita(_token));
@@ -173,7 +173,7 @@ namespace WindowsFormsApp1
             label.Invalidate(); // Esto limpia el cuadro naranja
         }
 
-       
+
 
         // --- APLICA ESTO A TUS EVENTOS EXISTENTES ---
 
@@ -194,6 +194,11 @@ namespace WindowsFormsApp1
         private void Principal_Load(object sender, EventArgs e)
         {
             MostrarContenidoInicio();
+        }
+
+        private void labTituto_Click(object sender, EventArgs e)
+        {
+             
         }
     }
 }
