@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using UsersInfo.Models;
 using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Drawing.Printing;
 
 namespace WinFormsApp1
 {
@@ -53,82 +54,32 @@ namespace WinFormsApp1
             _usuarios = new List<UsersDto>();
             RecargarUsuarios();
             pasarPagina();
-
-            // --- CONFIGURACIÓN ESTÉTICA INICIAL ---
-            ConfigurarUIEstiloImagen();
         }
-        private void ConfigurarUIEstiloImagen()
-        {
-            // BOTÓN (+) CIRCULAR
-            anyadirUsuario.Text = "+";
-            anyadirUsuario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.FlatAppearance.BorderSize = 0;
-            anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Size = new Size(45, 45);
-
-            // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
-            //anyadirUsuario.Top = 15;
-            anyadirUsuario.Left = panelVisualUsuarios.Width - 60; // A la derecha
-
-            // BUSCADOR Y COMBO
-            //textBoxSUsBuscar.Top = 25;
-            textBoxSUsBuscar.Left = 50;
-            // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
-            textBoxSUsBuscar.Width = panelVisualUsuarios.Width - 350;
-
-            // COMBO (Alargado)
-           // comboBoxUsFiltrar.Top = 25;
-            comboBoxUsFiltrar.Width = 180; // Más ancho
-            comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30; // Se posiciona justo después del buscador
-
-            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
-            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirUsuario.Anchor =  AnchorStyles.Right;
-
-            ActualizarRegiones();
-        }
-
-        // Se llama al cargar y al cambiar el tamaño de la ventana
-        private void ActualizarRegiones()
-        {
-            // Redondeo físico del botón naranja (Círculo perfecto)
-            anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
-        }
-
-        // Evento que ocurre cuando cambias el tamaño de la ventana
+    
         private void PanelUsuario_Resize(object sender, EventArgs e)
         {
-            ActualizarRegiones();
-            panelVisualUsuarios.Invalidate(); // Fuerza a redibujar el borde gris
+            PanelUsuario_Load(sender,e);
+            panelVisualUsuarios.Invalidate();
         }
 
-        private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
+        private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-
             Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
             Brush fondoBlanco = Brushes.White;
-
-            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
-            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
-                textBoxSUsBuscar.Left - 35,
-                textBoxSUsBuscar.Top - 10,
-                textBoxSUsBuscar.Width + 45,
-                textBoxSUsBuscar.Height + 20
+                textBoxUsBuscar.Left - 35,
+                textBoxUsBuscar.Top - 10,
+                textBoxUsBuscar.Width + 45,
+                textBoxUsBuscar.Height + 20
             );
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
-            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSUsBuscar.Left - 25, textBoxSUsBuscar.Top - 2);
-
-            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxUsBuscar.Left - 25, textBoxUsBuscar.Top - 2);
             Rectangle rectFiltro = new Rectangle(
                 comboBoxUsFiltrar.Left - 10,
                 comboBoxUsFiltrar.Top - 10,
-                comboBoxUsFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxUsFiltrar.Width + 25,
                 comboBoxUsFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -439,7 +390,6 @@ namespace WinFormsApp1
                                 MessageBox.Show("Usuario eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Refrescar la tabla
                                 RecargarUsuarios();
                                 pasarPagina();
                             }
@@ -463,9 +413,6 @@ namespace WinFormsApp1
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
-
-
-
             Usuario pantallaAnyadir = new Usuario(null, _token);
             pantallaAnyadir.Form = "Añadir usuario nuevo";
             pantallaAnyadir.LabelTituoCrearUsuario.Text = "AÑADIR USUARIO";
@@ -744,7 +691,7 @@ namespace WinFormsApp1
 
         private void filtrarUsuarios()
         {
-            string filtro = textBoxSUsBuscar.Text.Trim().ToLower();
+            string filtro = textBoxUsBuscar.Text.Trim().ToLower();
             string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
 
             // Obtener todos los usuarios
@@ -871,11 +818,6 @@ namespace WinFormsApp1
             {
                 buttonPaginacionDelante.ForeColor = Color.Silver;
             }
-        }
-
-        private void anyadirUsuario_Click_1(object sender, EventArgs e)
-        {
-
         }
 
     }

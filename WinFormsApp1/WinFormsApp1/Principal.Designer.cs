@@ -298,10 +298,9 @@
             labTituto.Location = new Point(15, 33);
             labTituto.Margin = new Padding(4, 0, 4, 0);
             labTituto.Name = "labTituto";
-            labTituto.Size = new Size(292, 39);
+            labTituto.Size = new Size(272, 39);
             labTituto.TabIndex = 0;
-            labTituto.Text = "Gestión general  ";
-            labTituto.Click += labTituto_Click;
+            labTituto.Text = "Gestión general";
             // 
             // panelVisualCitas
             // 
