@@ -1,6 +1,4 @@
-﻿using System.Drawing.Drawing2D;
-
-namespace WinFormsApp1
+﻿namespace WinFormsApp1
 {
     partial class PanelUsuario
     {
@@ -45,7 +43,7 @@ namespace WinFormsApp1
             anyadirUsuario = new Button();
             label1 = new Label();
             comboBoxUsFiltrar = new ComboBox();
-            textBoxUsBuscar = new TextBox();
+            textBoxSUsBuscar = new TextBox();
             panelAdmin = new Panel();
             pictureAdmin = new PictureBox();
             labelNumAdmin = new Label();
@@ -95,7 +93,7 @@ namespace WinFormsApp1
             panelVisualUsuarios.Controls.Add(anyadirUsuario);
             panelVisualUsuarios.Controls.Add(label1);
             panelVisualUsuarios.Controls.Add(comboBoxUsFiltrar);
-            panelVisualUsuarios.Controls.Add(textBoxUsBuscar);
+            panelVisualUsuarios.Controls.Add(textBoxSUsBuscar);
             panelVisualUsuarios.Controls.Add(panelAdmin);
             panelVisualUsuarios.Controls.Add(panelUInactivos);
             panelVisualUsuarios.Controls.Add(panelUActivos);
@@ -108,20 +106,19 @@ namespace WinFormsApp1
             panelVisualUsuarios.Padding = new Padding(15, 0, 0, 0);
             panelVisualUsuarios.Size = new Size(1375, 192);
             panelVisualUsuarios.TabIndex = 5;
+            panelVisualUsuarios.Paint += panelVisualUsuarios_Paint;
             panelVisualUsuarios.Resize += PanelUsuario_Resize;
             // 
             // anyadirUsuario
             // 
-            anyadirUsuario.Anchor = AnchorStyles.Right;
+            anyadirUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
             anyadirUsuario.FlatAppearance.BorderSize = 0;
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Location = new Point(1305, 137);
-            anyadirUsuario.Margin = new Padding(0);
+            anyadirUsuario.Location = new Point(1270, 123);
             anyadirUsuario.Name = "anyadirUsuario";
-            anyadirUsuario.Size = new Size(40, 40);
+            anyadirUsuario.Size = new Size(75, 23);
             anyadirUsuario.TabIndex = 15;
             anyadirUsuario.Text = "+";
             anyadirUsuario.UseVisualStyleBackColor = false;
@@ -142,29 +139,28 @@ namespace WinFormsApp1
             comboBoxUsFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
             comboBoxUsFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxUsFiltrar.Location = new Point(1082, textBoxUsBuscar.Right + 50);
+            comboBoxUsFiltrar.Location = new Point(1080, 140);
             comboBoxUsFiltrar.Margin = new Padding(4, 3, 4, 3);
             comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
-            comboBoxUsFiltrar.Size = new Size(180, 23);
+            comboBoxUsFiltrar.Size = new Size(134, 23);
             comboBoxUsFiltrar.TabIndex = 13;
             comboBoxUsFiltrar.SelectedIndexChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
-            // textBoxUsBuscar
+            // textBoxSUsBuscar
             // 
-            textBoxUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxUsBuscar.BorderStyle = BorderStyle.None;
-            textBoxUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxUsBuscar.Location = new Point(50, 154);
-            textBoxUsBuscar.Margin = new Padding(4, 3, 4, 3);
-            textBoxUsBuscar.Name = "textBoxUsBuscar";
-            textBoxUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxUsBuscar.Size = new Size(panelVisualUsuarios.Width - 350, 16);
-            textBoxUsBuscar.TabIndex = 12;
-            textBoxUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
+            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSUsBuscar.BorderStyle = BorderStyle.None;
+            textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxSUsBuscar.Location = new Point(310, 140);
+            textBoxSUsBuscar.Margin = new Padding(4, 3, 4, 3);
+            textBoxSUsBuscar.Name = "textBoxSUsBuscar";
+            textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
+            textBoxSUsBuscar.Size = new Size(673, 16);
+            textBoxSUsBuscar.TabIndex = 12;
+            textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
             // panelAdmin
             // 
-
             panelAdmin.BackColor = SystemColors.Control;
             panelAdmin.BorderStyle = BorderStyle.FixedSingle;
             panelAdmin.Controls.Add(pictureAdmin);
@@ -401,7 +397,7 @@ namespace WinFormsApp1
             dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewUsuarios.RowTemplate.Height = 35;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dataGridViewUsuarios.Size = new Size(1315, 459);
+            dataGridViewUsuarios.Size = new Size(1315, 493);
             dataGridViewUsuarios.TabIndex = 9;
             dataGridViewUsuarios.CellContentClick += dataGridViewUsuarios_CellContentClick;
             // 
@@ -502,9 +498,9 @@ namespace WinFormsApp1
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 683);
+            panelEspaciado.Location = new Point(0, 717);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 85);
+            panelEspaciado.Size = new Size(1375, 51);
             panelEspaciado.TabIndex = 14;
             // 
             // panelPaginacion
@@ -512,7 +508,7 @@ namespace WinFormsApp1
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 651);
+            panelPaginacion.Location = new Point(0, 685);
             panelPaginacion.Name = "panelPaginacion";
             panelPaginacion.Padding = new Padding(30, 0, 0, 0);
             panelPaginacion.Size = new Size(1375, 32);
@@ -548,7 +544,7 @@ namespace WinFormsApp1
             panelMargenes.Location = new Point(0, 192);
             panelMargenes.Name = "panelMargenes";
             panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1375, 459);
+            panelMargenes.Size = new Size(1375, 493);
             panelMargenes.TabIndex = 16;
             // 
             // PanelUsuario
@@ -603,7 +599,7 @@ namespace WinFormsApp1
         private Label labelNumUsuarios;
         private Label labelUsuarios;
         private PictureBox pictureUsuarios;
-        private TextBox textBoxUsBuscar;
+        private TextBox textBoxSUsBuscar;
         private DataGridView dataGridViewUsuarios;
         private Panel panelEspaciado;
         private Panel panelPaginacion;

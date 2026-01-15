@@ -56,6 +56,14 @@ namespace WinFormsApp1
 
         private void ConfigurarUIEstiloImagen()
         {
+            // BOTÓN (+) CIRCULAR
+            anyadirServicio.Text = "+";
+            anyadirServicio.Font = new Font("Segoe UI", 16, FontStyle.Bold);
+            anyadirServicio.FlatStyle = FlatStyle.Flat;
+            anyadirServicio.FlatAppearance.BorderSize = 0;
+            anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirServicio.ForeColor = Color.White;
+            anyadirServicio.Size = new Size(45, 45);
 
             // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
             //anyadirUsuario.Top = 15;
@@ -93,6 +101,12 @@ namespace WinFormsApp1
             ActualizarRegiones();
             panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
         }
+        private void PanelServicios_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
+        }
+
 
         private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
         {
