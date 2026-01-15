@@ -28,344 +28,438 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelCita));
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panelVisualCitas = new Panel();
-            comboBoxCitFiltrar = new ComboBox();
-            panelCitasProx = new Panel();
-            labelNumCitasProx = new Label();
-            labelCitasProx = new Label();
-            pictureCitasProx = new PictureBox();
-            textBoxCitBuscar = new TextBox();
             anyadirCita = new Button();
-            panelCitasHoy = new Panel();
-            labelNumCitasHoy = new Label();
-            labelCitasHoy = new Label();
-            pictureCitasHoy = new PictureBox();
-            panelEspaciado = new Panel();
+            comboBoxCitFiltrar = new ComboBox();
+            textBoxCitBuscar = new TextBox();
+            panelProximas = new Panel();
+            labelNumProximas = new Label();
+            labelProximas = new Label();
+            pictureProximas = new PictureBox();
+            panelHoy = new Panel();
+            labelNumHoy = new Label();
+            labelHoy = new Label();
+            pictureHoy = new PictureBox();
+            panelMargenes = new Panel();
+            dataGridViewCitas = new DataGridView();
+            dataGridViewTextBoxColumnCliente = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumnServicio = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumnFecha = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumnHora = new DataGridViewTextBoxColumn();
+            DataGridViewTextBoxColumnEstado = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumnGrupo = new DataGridViewTextBoxColumn();
+            dataGridViewImageColumnCitModificar = new DataGridViewImageColumn();
+            dataGridViewImageColumnCitEliminar = new DataGridViewImageColumn();
             panelPaginacion = new Panel();
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
-            panelMargenes = new Panel();
-            dataGridViewCitas = new DataGridView();
-            dataGridViewTextBoxColumnCitCliente = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumnCitServicio = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumnCitFecha = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumnCitHora = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumnCitEstado = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumnCitGrupo = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumnModificar = new DataGridViewImageColumn();
-            dataGridViewImageColumnEliminar = new DataGridViewImageColumn();
+            panelEspaciado = new Panel();
             panelVisualCitas.SuspendLayout();
-            panelCitasProx.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureCitasProx).BeginInit();
-            panelCitasHoy.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureCitasHoy).BeginInit();
-            panelPaginacion.SuspendLayout();
+            panelProximas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureProximas).BeginInit();
+            panelHoy.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHoy).BeginInit();
             panelMargenes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCitas).BeginInit();
+            panelPaginacion.SuspendLayout();
             SuspendLayout();
             // 
             // panelVisualCitas
             // 
-            panelVisualCitas.Controls.Add(comboBoxCitFiltrar);
-            panelVisualCitas.Controls.Add(panelCitasProx);
-            panelVisualCitas.Controls.Add(textBoxCitBuscar);
             panelVisualCitas.Controls.Add(anyadirCita);
-            panelVisualCitas.Controls.Add(panelCitasHoy);
+            panelVisualCitas.Controls.Add(comboBoxCitFiltrar);
+            panelVisualCitas.Controls.Add(textBoxCitBuscar);
+            panelVisualCitas.Controls.Add(panelProximas);
+            panelVisualCitas.Controls.Add(panelHoy);
             panelVisualCitas.Dock = DockStyle.Top;
             panelVisualCitas.Location = new Point(0, 0);
             panelVisualCitas.Margin = new Padding(4, 3, 4, 3);
             panelVisualCitas.Name = "panelVisualCitas";
-            panelVisualCitas.Size = new Size(1375, 192);
+            panelVisualCitas.Size = new Size(1571, 256);
             panelVisualCitas.TabIndex = 6;
+            panelVisualCitas.Paint += panelVisualCitas_Paint;
+            // 
+            // anyadirCita
+            // 
+            anyadirCita.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            anyadirCita.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirCita.FlatAppearance.BorderSize = 0;
+            anyadirCita.FlatStyle = FlatStyle.Flat;
+            anyadirCita.ForeColor = Color.White;
+            anyadirCita.Location = new Point(1451, 175);
+            anyadirCita.Margin = new Padding(3, 4, 3, 4);
+            anyadirCita.Name = "anyadirCita";
+            anyadirCita.Size = new Size(86, 31);
+            anyadirCita.TabIndex = 18;
+            anyadirCita.Text = "+";
+            anyadirCita.UseVisualStyleBackColor = false;
+            anyadirCita.Click += anyadirCita_Click;
             // 
             // comboBoxCitFiltrar
             // 
             comboBoxCitFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBoxCitFiltrar.DisplayMember = "1";
             comboBoxCitFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxCitFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
-            comboBoxCitFiltrar.Location = new Point(1204, 155);
-            comboBoxCitFiltrar.Margin = new Padding(4, 3, 4, 3);
+            comboBoxCitFiltrar.FlatStyle = FlatStyle.Flat;
+            comboBoxCitFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
+            comboBoxCitFiltrar.Location = new Point(1234, 187);
+            comboBoxCitFiltrar.Margin = new Padding(5, 4, 5, 4);
             comboBoxCitFiltrar.Name = "comboBoxCitFiltrar";
-            comboBoxCitFiltrar.Size = new Size(134, 23);
-            comboBoxCitFiltrar.TabIndex = 6;
-            // 
-            // panelCitasProx
-            // 
-            panelCitasProx.BackColor = SystemColors.Control;
-            panelCitasProx.BorderStyle = BorderStyle.FixedSingle;
-            panelCitasProx.Controls.Add(labelNumCitasProx);
-            panelCitasProx.Controls.Add(labelCitasProx);
-            panelCitasProx.Controls.Add(pictureCitasProx);
-            panelCitasProx.ForeColor = SystemColors.ControlDarkDark;
-            panelCitasProx.Location = new Point(180, 13);
-            panelCitasProx.Margin = new Padding(4, 3, 4, 3);
-            panelCitasProx.Name = "panelCitasProx";
-            panelCitasProx.Size = new Size(160, 85);
-            panelCitasProx.TabIndex = 11;
-            // 
-            // labelNumCitasProx
-            // 
-            labelNumCitasProx.AutoSize = true;
-            labelNumCitasProx.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumCitasProx.ForeColor = SystemColors.ControlText;
-            labelNumCitasProx.Location = new Point(58, 42);
-            labelNumCitasProx.Margin = new Padding(4, 0, 4, 0);
-            labelNumCitasProx.Name = "labelNumCitasProx";
-            labelNumCitasProx.Size = new Size(23, 25);
-            labelNumCitasProx.TabIndex = 2;
-            labelNumCitasProx.Text = "3";
-            // 
-            // labelCitasProx
-            // 
-            labelCitasProx.AutoSize = true;
-            labelCitasProx.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitasProx.Location = new Point(16, 18);
-            labelCitasProx.Margin = new Padding(4, 0, 4, 0);
-            labelCitasProx.Name = "labelCitasProx";
-            labelCitasProx.Size = new Size(98, 17);
-            labelCitasProx.TabIndex = 0;
-            labelCitasProx.Text = "Próximas citas";
-            // 
-            // pictureCitasProx
-            // 
-            pictureCitasProx.Image = Properties.Resources.servicio;
-            pictureCitasProx.Location = new Point(30, 40);
-            pictureCitasProx.Margin = new Padding(4, 3, 4, 3);
-            pictureCitasProx.Name = "pictureCitasProx";
-            pictureCitasProx.Size = new Size(30, 30);
-            pictureCitasProx.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureCitasProx.TabIndex = 1;
-            pictureCitasProx.TabStop = false;
+            comboBoxCitFiltrar.Size = new Size(153, 28);
+            comboBoxCitFiltrar.TabIndex = 17;
+            comboBoxCitFiltrar.SelectedIndexChanged += comboBoxCitFiltrar_SelectedIndexChanged;
             // 
             // textBoxCitBuscar
             // 
             textBoxCitBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxCitBuscar.BorderStyle = BorderStyle.None;
             textBoxCitBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxCitBuscar.Location = new Point(30, 155);
-            textBoxCitBuscar.Margin = new Padding(4, 3, 4, 3);
+            textBoxCitBuscar.Location = new Point(34, 192);
+            textBoxCitBuscar.Margin = new Padding(5, 4, 5, 4);
             textBoxCitBuscar.Name = "textBoxCitBuscar";
-            textBoxCitBuscar.PlaceholderText = "Buscar por nombre o descripción...";
-            textBoxCitBuscar.Size = new Size(1143, 23);
-            textBoxCitBuscar.TabIndex = 0;
+            textBoxCitBuscar.PlaceholderText = "Buscar por nombre o usuario...";
+            textBoxCitBuscar.Size = new Size(947, 20);
+            textBoxCitBuscar.TabIndex = 16;
+            textBoxCitBuscar.TextChanged += textBoxCitBuscar_TextChanged;
             // 
-            // anyadirCita
+            // panelProximas
             // 
-            anyadirCita.Location = new Point(30, 126);
-            anyadirCita.Name = "anyadirCita";
-            anyadirCita.Size = new Size(59, 23);
-            anyadirCita.TabIndex = 10;
-            anyadirCita.Text = "Añadir";
-            anyadirCita.UseVisualStyleBackColor = true;
+            panelProximas.BackColor = SystemColors.Control;
+            panelProximas.BorderStyle = BorderStyle.FixedSingle;
+            panelProximas.Controls.Add(labelNumProximas);
+            panelProximas.Controls.Add(labelProximas);
+            panelProximas.Controls.Add(pictureProximas);
+            panelProximas.ForeColor = SystemColors.ControlDarkDark;
+            panelProximas.Location = new Point(205, 18);
+            panelProximas.Margin = new Padding(5, 4, 5, 4);
+            panelProximas.Name = "panelProximas";
+            panelProximas.Size = new Size(179, 113);
+            panelProximas.TabIndex = 9;
             // 
-            // panelCitasHoy
+            // labelNumProximas
             // 
-            panelCitasHoy.BackColor = SystemColors.Control;
-            panelCitasHoy.BorderStyle = BorderStyle.FixedSingle;
-            panelCitasHoy.Controls.Add(labelNumCitasHoy);
-            panelCitasHoy.Controls.Add(labelCitasHoy);
-            panelCitasHoy.Controls.Add(pictureCitasHoy);
-            panelCitasHoy.ForeColor = SystemColors.ControlDarkDark;
-            panelCitasHoy.Location = new Point(30, 13);
-            panelCitasHoy.Margin = new Padding(4, 3, 4, 3);
-            panelCitasHoy.Name = "panelCitasHoy";
-            panelCitasHoy.Size = new Size(142, 85);
-            panelCitasHoy.TabIndex = 4;
+            labelNumProximas.AutoSize = true;
+            labelNumProximas.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNumProximas.ForeColor = SystemColors.ControlText;
+            labelNumProximas.Location = new Point(74, 56);
+            labelNumProximas.Margin = new Padding(5, 0, 5, 0);
+            labelNumProximas.Name = "labelNumProximas";
+            labelNumProximas.Size = new Size(27, 29);
+            labelNumProximas.TabIndex = 2;
+            labelNumProximas.Text = "5";
             // 
-            // labelNumCitasHoy
+            // labelProximas
             // 
-            labelNumCitasHoy.AutoSize = true;
-            labelNumCitasHoy.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumCitasHoy.ForeColor = SystemColors.ControlText;
-            labelNumCitasHoy.Location = new Point(58, 42);
-            labelNumCitasHoy.Margin = new Padding(4, 0, 4, 0);
-            labelNumCitasHoy.Name = "labelNumCitasHoy";
-            labelNumCitasHoy.Size = new Size(23, 25);
-            labelNumCitasHoy.TabIndex = 2;
-            labelNumCitasHoy.Text = "3";
+            labelProximas.AutoSize = true;
+            labelProximas.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelProximas.Location = new Point(18, 24);
+            labelProximas.Margin = new Padding(5, 0, 5, 0);
+            labelProximas.Name = "labelProximas";
+            labelProximas.Size = new Size(123, 20);
+            labelProximas.TabIndex = 0;
+            labelProximas.Text = "Próximas Citas";
             // 
-            // labelCitasHoy
+            // pictureProximas
             // 
-            labelCitasHoy.AutoSize = true;
-            labelCitasHoy.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitasHoy.Location = new Point(16, 18);
-            labelCitasHoy.Margin = new Padding(4, 0, 4, 0);
-            labelCitasHoy.Name = "labelCitasHoy";
-            labelCitasHoy.Size = new Size(88, 17);
-            labelCitasHoy.TabIndex = 0;
-            labelCitasHoy.Text = "Citas de Hoy";
+            pictureProximas.Image = Properties.Resources.cita_previa;
+            pictureProximas.Location = new Point(30, 52);
+            pictureProximas.Margin = new Padding(5, 4, 5, 4);
+            pictureProximas.Name = "pictureProximas";
+            pictureProximas.Size = new Size(35, 39);
+            pictureProximas.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureProximas.TabIndex = 1;
+            pictureProximas.TabStop = false;
             // 
-            // pictureCitasHoy
+            // panelHoy
             // 
-            pictureCitasHoy.Image = Properties.Resources.servicio;
-            pictureCitasHoy.Location = new Point(30, 40);
-            pictureCitasHoy.Margin = new Padding(4, 3, 4, 3);
-            pictureCitasHoy.Name = "pictureCitasHoy";
-            pictureCitasHoy.Size = new Size(30, 30);
-            pictureCitasHoy.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureCitasHoy.TabIndex = 1;
-            pictureCitasHoy.TabStop = false;
+            panelHoy.BackColor = SystemColors.Control;
+            panelHoy.BorderStyle = BorderStyle.FixedSingle;
+            panelHoy.Controls.Add(labelNumHoy);
+            panelHoy.Controls.Add(labelHoy);
+            panelHoy.Controls.Add(pictureHoy);
+            panelHoy.ForeColor = SystemColors.ControlDarkDark;
+            panelHoy.Location = new Point(34, 18);
+            panelHoy.Margin = new Padding(5, 4, 5, 4);
+            panelHoy.Name = "panelHoy";
+            panelHoy.Size = new Size(162, 113);
+            panelHoy.TabIndex = 8;
             // 
-            // panelEspaciado
+            // labelNumHoy
             // 
-            panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 668);
-            panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 100);
-            panelEspaciado.TabIndex = 14;
+            labelNumHoy.AutoSize = true;
+            labelNumHoy.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNumHoy.ForeColor = SystemColors.ControlText;
+            labelNumHoy.Location = new Point(66, 56);
+            labelNumHoy.Margin = new Padding(5, 0, 5, 0);
+            labelNumHoy.Name = "labelNumHoy";
+            labelNumHoy.Size = new Size(27, 29);
+            labelNumHoy.TabIndex = 2;
+            labelNumHoy.Text = "2";
+            // 
+            // labelHoy
+            // 
+            labelHoy.AutoSize = true;
+            labelHoy.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelHoy.Location = new Point(18, 24);
+            labelHoy.Margin = new Padding(5, 0, 5, 0);
+            labelHoy.Name = "labelHoy";
+            labelHoy.Size = new Size(106, 20);
+            labelHoy.TabIndex = 0;
+            labelHoy.Text = "Citas de Hoy";
+            // 
+            // pictureHoy
+            // 
+            pictureHoy.Image = Properties.Resources.citas1;
+            pictureHoy.Location = new Point(23, 44);
+            pictureHoy.Margin = new Padding(5, 4, 5, 4);
+            pictureHoy.Name = "pictureHoy";
+            pictureHoy.Size = new Size(43, 51);
+            pictureHoy.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureHoy.TabIndex = 1;
+            pictureHoy.TabStop = false;
+            // 
+            // panelMargenes
+            // 
+            panelMargenes.Controls.Add(dataGridViewCitas);
+            panelMargenes.Controls.Add(panelPaginacion);
+            panelMargenes.Controls.Add(panelEspaciado);
+            panelMargenes.Dock = DockStyle.Fill;
+            panelMargenes.Location = new Point(0, 256);
+            panelMargenes.Name = "panelMargenes";
+            panelMargenes.Padding = new Padding(30, 0, 30, 0);
+            panelMargenes.Size = new Size(1571, 768);
+            panelMargenes.TabIndex = 16;
+            // 
+            // dataGridViewCitas
+            // 
+            dataGridViewCitas.AllowUserToOrderColumns = true;
+            dataGridViewCitas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCitas.BackgroundColor = Color.White;
+            dataGridViewCitas.BorderStyle = BorderStyle.None;
+            dataGridViewCitas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(7);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewCitas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCitas.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnCliente, dataGridViewTextBoxColumnServicio, dataGridViewTextBoxColumnFecha, dataGridViewTextBoxColumnHora, DataGridViewTextBoxColumnEstado, dataGridViewTextBoxColumnGrupo, dataGridViewImageColumnCitModificar, dataGridViewImageColumnCitEliminar });
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.Padding = new Padding(2);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridViewCitas.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCitas.Dock = DockStyle.Fill;
+            dataGridViewCitas.EnableHeadersVisualStyles = false;
+            dataGridViewCitas.GridColor = Color.Black;
+            dataGridViewCitas.ImeMode = ImeMode.NoControl;
+            dataGridViewCitas.Location = new Point(30, 0);
+            dataGridViewCitas.Margin = new Padding(3, 4, 3, 4);
+            dataGridViewCitas.MultiSelect = false;
+            dataGridViewCitas.Name = "dataGridViewCitas";
+            dataGridViewCitas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            dataGridViewCitas.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCitas.RowHeadersVisible = false;
+            dataGridViewCitas.RowHeadersWidth = 51;
+            dataGridViewCellStyle11.BackColor = Color.White;
+            dataGridViewCellStyle11.SelectionForeColor = Color.White;
+            dataGridViewCitas.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCitas.RowTemplate.Height = 35;
+            dataGridViewCitas.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridViewCitas.Size = new Size(1511, 657);
+            dataGridViewCitas.TabIndex = 16;
+            dataGridViewCitas.CellContentClick += dataGridViewCitas_CellContentClick;
+            // 
+            // dataGridViewTextBoxColumnCliente
+            // 
+            dataGridViewTextBoxColumnCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnCliente.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewTextBoxColumnCliente.HeaderText = "Cliente";
+            dataGridViewTextBoxColumnCliente.MinimumWidth = 6;
+            dataGridViewTextBoxColumnCliente.Name = "dataGridViewTextBoxColumnCliente";
+            dataGridViewTextBoxColumnCliente.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumnServicio
+            // 
+            dataGridViewTextBoxColumnServicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnServicio.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewTextBoxColumnServicio.HeaderText = "Servicio";
+            dataGridViewTextBoxColumnServicio.MinimumWidth = 6;
+            dataGridViewTextBoxColumnServicio.Name = "dataGridViewTextBoxColumnServicio";
+            dataGridViewTextBoxColumnServicio.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumnFecha
+            // 
+            dataGridViewTextBoxColumnFecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnFecha.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewTextBoxColumnFecha.HeaderText = "Fecha";
+            dataGridViewTextBoxColumnFecha.MinimumWidth = 6;
+            dataGridViewTextBoxColumnFecha.Name = "dataGridViewTextBoxColumnFecha";
+            dataGridViewTextBoxColumnFecha.ReadOnly = true;
+            dataGridViewTextBoxColumnFecha.Width = 103;
+            // 
+            // dataGridViewTextBoxColumnHora
+            // 
+            dataGridViewTextBoxColumnHora.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnHora.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewTextBoxColumnHora.HeaderText = "Hora";
+            dataGridViewTextBoxColumnHora.MinimumWidth = 6;
+            dataGridViewTextBoxColumnHora.Name = "dataGridViewTextBoxColumnHora";
+            dataGridViewTextBoxColumnHora.ReadOnly = true;
+            dataGridViewTextBoxColumnHora.Width = 95;
+            // 
+            // DataGridViewTextBoxColumnEstado
+            // 
+            DataGridViewTextBoxColumnEstado.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            DataGridViewTextBoxColumnEstado.HeaderText = "Estado";
+            DataGridViewTextBoxColumnEstado.MinimumWidth = 6;
+            DataGridViewTextBoxColumnEstado.Name = "DataGridViewTextBoxColumnEstado";
+            DataGridViewTextBoxColumnEstado.Resizable = DataGridViewTriState.True;
+            DataGridViewTextBoxColumnEstado.Width = 110;
+            // 
+            // dataGridViewTextBoxColumnGrupo
+            // 
+            dataGridViewTextBoxColumnGrupo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnGrupo.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewTextBoxColumnGrupo.HeaderText = "Grupo";
+            dataGridViewTextBoxColumnGrupo.MinimumWidth = 6;
+            dataGridViewTextBoxColumnGrupo.Name = "dataGridViewTextBoxColumnGrupo";
+            dataGridViewTextBoxColumnGrupo.Resizable = DataGridViewTriState.True;
+            dataGridViewTextBoxColumnGrupo.Width = 107;
+            // 
+            // dataGridViewImageColumnCitModificar
+            // 
+            dataGridViewImageColumnCitModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewImageColumnCitModificar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewImageColumnCitModificar.HeaderText = "Modificar";
+            dataGridViewImageColumnCitModificar.Image = Properties.Resources.edit;
+            dataGridViewImageColumnCitModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnCitModificar.MinimumWidth = 22;
+            dataGridViewImageColumnCitModificar.Name = "dataGridViewImageColumnCitModificar";
+            dataGridViewImageColumnCitModificar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnCitModificar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnCitModificar.Width = 135;
+            // 
+            // dataGridViewImageColumnCitEliminar
+            // 
+            dataGridViewImageColumnCitEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle8.NullValue = null;
+            dataGridViewImageColumnCitEliminar.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewImageColumnCitEliminar.HeaderText = "Eliminar";
+            dataGridViewImageColumnCitEliminar.Image = Properties.Resources.trash;
+            dataGridViewImageColumnCitEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnCitEliminar.MinimumWidth = 6;
+            dataGridViewImageColumnCitEliminar.Name = "dataGridViewImageColumnCitEliminar";
+            dataGridViewImageColumnCitEliminar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnCitEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnCitEliminar.Width = 123;
             // 
             // panelPaginacion
             // 
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 638);
+            panelPaginacion.Location = new Point(30, 657);
+            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
             panelPaginacion.Name = "panelPaginacion";
-            panelPaginacion.Padding = new Padding(30, 0, 0, 0);
-            panelPaginacion.Size = new Size(1375, 30);
-            panelPaginacion.TabIndex = 15;
+            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
+            panelPaginacion.Size = new Size(1511, 43);
+            panelPaginacion.TabIndex = 18;
             // 
             // buttonPaginacionDelante
             // 
             buttonPaginacionDelante.Dock = DockStyle.Left;
-            buttonPaginacionDelante.Location = new Point(105, 0);
+            buttonPaginacionDelante.Location = new Point(120, 0);
+            buttonPaginacionDelante.Margin = new Padding(3, 4, 3, 4);
             buttonPaginacionDelante.Name = "buttonPaginacionDelante";
-            buttonPaginacionDelante.Size = new Size(75, 30);
+            buttonPaginacionDelante.Size = new Size(86, 43);
             buttonPaginacionDelante.TabIndex = 2;
             buttonPaginacionDelante.Text = ">>";
             buttonPaginacionDelante.UseVisualStyleBackColor = true;
+            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
             // 
             // buttonPaginacionAtras
             // 
             buttonPaginacionAtras.Dock = DockStyle.Left;
             buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
-            buttonPaginacionAtras.Location = new Point(30, 0);
+            buttonPaginacionAtras.Location = new Point(34, 0);
+            buttonPaginacionAtras.Margin = new Padding(3, 4, 3, 4);
             buttonPaginacionAtras.Name = "buttonPaginacionAtras";
-            buttonPaginacionAtras.Size = new Size(75, 30);
+            buttonPaginacionAtras.Size = new Size(86, 43);
             buttonPaginacionAtras.TabIndex = 1;
             buttonPaginacionAtras.Text = "<<";
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
+            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
             // 
-            // panelMargenes
+            // panelEspaciado
             // 
-            panelMargenes.Controls.Add(dataGridViewCitas);
-            panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 192);
-            panelMargenes.Name = "panelMargenes";
-            panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1375, 446);
-            panelMargenes.TabIndex = 16;
-            // 
-            // dataGridViewCitas
-            // 
-            dataGridViewCitas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCitas.BackgroundColor = SystemColors.ControlLightLight;
-            dataGridViewCitas.BorderStyle = BorderStyle.None;
-            dataGridViewCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCitas.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnCitCliente, dataGridViewTextBoxColumnCitServicio, dataGridViewTextBoxColumnCitFecha, dataGridViewTextBoxColumnCitHora, dataGridViewTextBoxColumnCitEstado, dataGridViewTextBoxColumnCitGrupo, dataGridViewImageColumnModificar, dataGridViewImageColumnEliminar });
-            dataGridViewCitas.Dock = DockStyle.Fill;
-            dataGridViewCitas.Location = new Point(30, 0);
-            dataGridViewCitas.Name = "dataGridViewCitas";
-            dataGridViewCitas.RowHeadersWidth = 51;
-            dataGridViewCitas.Size = new Size(1315, 446);
-            dataGridViewCitas.TabIndex = 11;
-            dataGridViewCitas.CellContentClick += dataGridViewCitas_CellContentClick;
-            // 
-            // dataGridViewTextBoxColumnCitCliente
-            // 
-            dataGridViewTextBoxColumnCitCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumnCitCliente.FillWeight = 100.10363F;
-            dataGridViewTextBoxColumnCitCliente.HeaderText = "Cliente";
-            dataGridViewTextBoxColumnCitCliente.MinimumWidth = 6;
-            dataGridViewTextBoxColumnCitCliente.Name = "dataGridViewTextBoxColumnCitCliente";
-            dataGridViewTextBoxColumnCitCliente.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumnCitServicio
-            // 
-            dataGridViewTextBoxColumnCitServicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumnCitServicio.HeaderText = "Servicio";
-            dataGridViewTextBoxColumnCitServicio.MinimumWidth = 6;
-            dataGridViewTextBoxColumnCitServicio.Name = "dataGridViewTextBoxColumnCitServicio";
-            dataGridViewTextBoxColumnCitServicio.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumnCitFecha
-            // 
-            dataGridViewTextBoxColumnCitFecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumnCitFecha.FillWeight = 99.89638F;
-            dataGridViewTextBoxColumnCitFecha.HeaderText = "Fecha";
-            dataGridViewTextBoxColumnCitFecha.MinimumWidth = 6;
-            dataGridViewTextBoxColumnCitFecha.Name = "dataGridViewTextBoxColumnCitFecha";
-            dataGridViewTextBoxColumnCitFecha.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumnCitHora
-            // 
-            dataGridViewTextBoxColumnCitHora.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumnCitHora.HeaderText = "Hora";
-            dataGridViewTextBoxColumnCitHora.MinimumWidth = 6;
-            dataGridViewTextBoxColumnCitHora.Name = "dataGridViewTextBoxColumnCitHora";
-            dataGridViewTextBoxColumnCitHora.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumnCitEstado
-            // 
-            dataGridViewTextBoxColumnCitEstado.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewTextBoxColumnCitEstado.HeaderText = "Estado";
-            dataGridViewTextBoxColumnCitEstado.MinimumWidth = 6;
-            dataGridViewTextBoxColumnCitEstado.Name = "dataGridViewTextBoxColumnCitEstado";
-            dataGridViewTextBoxColumnCitEstado.ReadOnly = true;
-            dataGridViewTextBoxColumnCitEstado.Width = 67;
-            // 
-            // dataGridViewTextBoxColumnCitGrupo
-            // 
-            dataGridViewTextBoxColumnCitGrupo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewTextBoxColumnCitGrupo.HeaderText = "Grupo";
-            dataGridViewTextBoxColumnCitGrupo.Name = "dataGridViewTextBoxColumnCitGrupo";
-            dataGridViewTextBoxColumnCitGrupo.ReadOnly = true;
-            dataGridViewTextBoxColumnCitGrupo.Width = 65;
-            // 
-            // dataGridViewImageColumnModificar
-            // 
-            dataGridViewImageColumnModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewImageColumnModificar.HeaderText = "Modificar";
-            dataGridViewImageColumnModificar.Image = (Image)resources.GetObject("dataGridViewImageColumnModificar.Image");
-            dataGridViewImageColumnModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnModificar.MinimumWidth = 6;
-            dataGridViewImageColumnModificar.Name = "dataGridViewImageColumnModificar";
-            dataGridViewImageColumnModificar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnModificar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnModificar.Width = 83;
-            // 
-            // dataGridViewImageColumnEliminar
-            // 
-            dataGridViewImageColumnEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewImageColumnEliminar.HeaderText = "Eliminar";
-            dataGridViewImageColumnEliminar.Image = (Image)resources.GetObject("dataGridViewImageColumnEliminar.Image");
-            dataGridViewImageColumnEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnEliminar.MinimumWidth = 6;
-            dataGridViewImageColumnEliminar.Name = "dataGridViewImageColumnEliminar";
-            dataGridViewImageColumnEliminar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnEliminar.Width = 75;
+            panelEspaciado.Dock = DockStyle.Bottom;
+            panelEspaciado.Location = new Point(30, 700);
+            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
+            panelEspaciado.Name = "panelEspaciado";
+            panelEspaciado.Size = new Size(1511, 68);
+            panelEspaciado.TabIndex = 17;
             // 
             // PanelCita
             // 
-            ClientSize = new Size(1375, 768);
+            ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
-            Controls.Add(panelPaginacion);
-            Controls.Add(panelEspaciado);
             Controls.Add(panelVisualCitas);
             Name = "PanelCita";
+            Text = "PanelCita";
+            Load += PanelCita_Load;
+            Resize += PanelCita_Resize;
             panelVisualCitas.ResumeLayout(false);
             panelVisualCitas.PerformLayout();
-            panelCitasProx.ResumeLayout(false);
-            panelCitasProx.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureCitasProx).EndInit();
-            panelCitasHoy.ResumeLayout(false);
-            panelCitasHoy.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureCitasHoy).EndInit();
-            panelPaginacion.ResumeLayout(false);
+            panelProximas.ResumeLayout(false);
+            panelProximas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureProximas).EndInit();
+            panelHoy.ResumeLayout(false);
+            panelHoy.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHoy).EndInit();
             panelMargenes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewCitas).EndInit();
+            panelPaginacion.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -373,30 +467,30 @@
         #endregion
 
         private Panel panelVisualCitas;
-        private ComboBox comboBoxCitFiltrar;
-        private Panel panelCitasProx;
-        private Label labelNumCitasProx;
-        private Label labelCitasProx;
-        private PictureBox pictureCitasProx;
-        private TextBox textBoxCitBuscar;
+        private Panel panelMargenes;
+        private Panel panelProximas;
+        private Label labelNumProximas;
+        private Label labelProximas;
+        private PictureBox pictureProximas;
+        private Panel panelHoy;
+        private Label labelNumHoy;
+        private Label labelHoy;
+        private PictureBox pictureHoy;
         private Button anyadirCita;
-        private Panel panelCitasHoy;
-        private Label labelNumCitasHoy;
-        private Label labelCitasHoy;
-        private PictureBox pictureCitasHoy;
-        private Panel panelEspaciado;
+        private ComboBox comboBoxCitFiltrar;
+        private TextBox textBoxCitBuscar;
+        private DataGridView dataGridViewCitas;
         private Panel panelPaginacion;
         private Button buttonPaginacionDelante;
         private Button buttonPaginacionAtras;
-        private Panel panelMargenes;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitCliente;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitServicio;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitFecha;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitHora;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitEstado;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCitGrupo;
-        private DataGridViewImageColumn dataGridViewImageColumnModificar;
-        private DataGridViewImageColumn dataGridViewImageColumnEliminar;
-        private DataGridView dataGridViewCitas;
+        private Panel panelEspaciado;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnCliente;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnServicio;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnFecha;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnHora;
+        private DataGridViewTextBoxColumn DataGridViewTextBoxColumnEstado;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumnGrupo;
+        private DataGridViewImageColumn dataGridViewImageColumnCitModificar;
+        private DataGridViewImageColumn dataGridViewImageColumnCitEliminar;
     }
 }

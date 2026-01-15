@@ -73,13 +73,11 @@ namespace WinFormsApp1
             anyadirUsuario.Left = panelVisualUsuarios.Width - 60; // A la derecha
 
             // BUSCADOR Y COMBO
-            //textBoxSUsBuscar.Top = 25;
             textBoxSUsBuscar.Left = 50;
             // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
             textBoxSUsBuscar.Width = panelVisualUsuarios.Width - 350;
 
             // COMBO (Alargado)
-           // comboBoxUsFiltrar.Top = 25;
             comboBoxUsFiltrar.Width = 180; // Más ancho
             comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30; // Se posiciona justo después del buscador
 
@@ -117,9 +115,9 @@ namespace WinFormsApp1
             // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxSUsBuscar.Left - 35,
-                textBoxSUsBuscar.Top - 10,
+                textBoxSUsBuscar.Top - 15,
                 textBoxSUsBuscar.Width + 45,
-                textBoxSUsBuscar.Height + 20
+                textBoxSUsBuscar.Height + 27
             );
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSUsBuscar.Left - 25, textBoxSUsBuscar.Top - 2);
@@ -872,12 +870,6 @@ namespace WinFormsApp1
                 buttonPaginacionDelante.ForeColor = Color.Silver;
             }
         }
-
-        private void anyadirUsuario_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
     }
 
 }

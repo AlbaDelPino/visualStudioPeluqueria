@@ -120,9 +120,9 @@ namespace WinFormsApp1
             // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxSerBuscar.Left - 35,
-                textBoxSerBuscar.Top - 10,
+                textBoxSerBuscar.Top - 15,
                 textBoxSerBuscar.Width + 45,
-                textBoxSerBuscar.Height + 20
+                textBoxSerBuscar.Height + 27
             );
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSerBuscar.Left - 25, textBoxSerBuscar.Top - 2);
@@ -136,6 +136,19 @@ namespace WinFormsApp1
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {

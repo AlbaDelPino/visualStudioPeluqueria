@@ -76,10 +76,10 @@
             panelVisualServicios.Controls.Add(panelVerServicios);
             panelVisualServicios.Dock = DockStyle.Top;
             panelVisualServicios.Location = new Point(0, 0);
-            panelVisualServicios.Margin = new Padding(4, 3, 4, 3);
+            panelVisualServicios.Margin = new Padding(5, 4, 5, 4);
             panelVisualServicios.Name = "panelVisualServicios";
-            panelVisualServicios.Padding = new Padding(15, 0, 0, 0);
-            panelVisualServicios.Size = new Size(1375, 192);
+            panelVisualServicios.Padding = new Padding(17, 0, 0, 0);
+            panelVisualServicios.Size = new Size(1571, 256);
             panelVisualServicios.TabIndex = 5;
             panelVisualServicios.Paint += panelVisualServicios_Paint;
             panelVisualServicios.Resize += PanelUsuario_Resize;
@@ -91,10 +91,10 @@
             comboBoxSerFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSerFiltrar.FlatStyle = FlatStyle.Flat;
             comboBoxSerFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
-            comboBoxSerFiltrar.Location = new Point(924, 139);
-            comboBoxSerFiltrar.Margin = new Padding(4, 3, 4, 3);
+            comboBoxSerFiltrar.Location = new Point(1056, 185);
+            comboBoxSerFiltrar.Margin = new Padding(5, 4, 5, 4);
             comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
-            comboBoxSerFiltrar.Size = new Size(134, 23);
+            comboBoxSerFiltrar.Size = new Size(153, 28);
             comboBoxSerFiltrar.TabIndex = 6;
             comboBoxSerFiltrar.SelectedIndexChanged += comboBoxSerFiltrar_SelectedIndexChanged;
             // 
@@ -106,10 +106,10 @@
             panelTipoSer.Controls.Add(labelTipoSer);
             panelTipoSer.Controls.Add(pictureTipoSer);
             panelTipoSer.ForeColor = SystemColors.ControlDarkDark;
-            panelTipoSer.Location = new Point(180, 13);
-            panelTipoSer.Margin = new Padding(4, 3, 4, 3);
+            panelTipoSer.Location = new Point(206, 17);
+            panelTipoSer.Margin = new Padding(5, 4, 5, 4);
             panelTipoSer.Name = "panelTipoSer";
-            panelTipoSer.Size = new Size(160, 85);
+            panelTipoSer.Size = new Size(183, 113);
             panelTipoSer.TabIndex = 11;
             // 
             // labelNumTipoSer
@@ -117,10 +117,10 @@
             labelNumTipoSer.AutoSize = true;
             labelNumTipoSer.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumTipoSer.ForeColor = SystemColors.ControlText;
-            labelNumTipoSer.Location = new Point(58, 42);
-            labelNumTipoSer.Margin = new Padding(4, 0, 4, 0);
+            labelNumTipoSer.Location = new Point(66, 56);
+            labelNumTipoSer.Margin = new Padding(5, 0, 5, 0);
             labelNumTipoSer.Name = "labelNumTipoSer";
-            labelNumTipoSer.Size = new Size(23, 25);
+            labelNumTipoSer.Size = new Size(27, 29);
             labelNumTipoSer.TabIndex = 2;
             labelNumTipoSer.Text = "3";
             // 
@@ -128,20 +128,20 @@
             // 
             labelTipoSer.AutoSize = true;
             labelTipoSer.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelTipoSer.Location = new Point(16, 18);
-            labelTipoSer.Margin = new Padding(4, 0, 4, 0);
+            labelTipoSer.Location = new Point(18, 24);
+            labelTipoSer.Margin = new Padding(5, 0, 5, 0);
             labelTipoSer.Name = "labelTipoSer";
-            labelTipoSer.Size = new Size(117, 17);
+            labelTipoSer.Size = new Size(138, 20);
             labelTipoSer.TabIndex = 0;
             labelTipoSer.Text = "Tipos de Servicio";
             // 
             // pictureTipoSer
             // 
             pictureTipoSer.Image = Properties.Resources.servicio;
-            pictureTipoSer.Location = new Point(30, 40);
-            pictureTipoSer.Margin = new Padding(4, 3, 4, 3);
+            pictureTipoSer.Location = new Point(34, 53);
+            pictureTipoSer.Margin = new Padding(5, 4, 5, 4);
             pictureTipoSer.Name = "pictureTipoSer";
-            pictureTipoSer.Size = new Size(30, 30);
+            pictureTipoSer.Size = new Size(34, 40);
             pictureTipoSer.SizeMode = PictureBoxSizeMode.Zoom;
             pictureTipoSer.TabIndex = 1;
             pictureTipoSer.TabStop = false;
@@ -151,11 +151,11 @@
             textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxSerBuscar.BorderStyle = BorderStyle.None;
             textBoxSerBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSerBuscar.Location = new Point(30, 139);
-            textBoxSerBuscar.Margin = new Padding(4, 3, 4, 3);
+            textBoxSerBuscar.Location = new Point(34, 192);
+            textBoxSerBuscar.Margin = new Padding(5, 4, 5, 4);
             textBoxSerBuscar.Name = "textBoxSerBuscar";
             textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
-            textBoxSerBuscar.Size = new Size(829, 16);
+            textBoxSerBuscar.Size = new Size(947, 20);
             textBoxSerBuscar.TabIndex = 0;
             textBoxSerBuscar.TextChanged += textBoxSerBuscar_TextChanged;
             // 
@@ -163,9 +163,10 @@
             // 
             anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
             anyadirServicio.FlatStyle = FlatStyle.Flat;
-            anyadirServicio.Location = new Point(1265, 138);
+            anyadirServicio.Location = new Point(1446, 175);
+            anyadirServicio.Margin = new Padding(3, 4, 3, 4);
             anyadirServicio.Name = "anyadirServicio";
-            anyadirServicio.Size = new Size(59, 23);
+            anyadirServicio.Size = new Size(67, 31);
             anyadirServicio.TabIndex = 10;
             anyadirServicio.Text = ".";
             anyadirServicio.UseVisualStyleBackColor = false;
@@ -179,10 +180,10 @@
             panelVerServicios.Controls.Add(labelServicios);
             panelVerServicios.Controls.Add(pictureServicios);
             panelVerServicios.ForeColor = SystemColors.ControlDarkDark;
-            panelVerServicios.Location = new Point(30, 13);
-            panelVerServicios.Margin = new Padding(4, 3, 4, 3);
+            panelVerServicios.Location = new Point(34, 17);
+            panelVerServicios.Margin = new Padding(5, 4, 5, 4);
             panelVerServicios.Name = "panelVerServicios";
-            panelVerServicios.Size = new Size(142, 85);
+            panelVerServicios.Size = new Size(162, 113);
             panelVerServicios.TabIndex = 4;
             // 
             // labelNumServicios
@@ -190,10 +191,10 @@
             labelNumServicios.AutoSize = true;
             labelNumServicios.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumServicios.ForeColor = SystemColors.ControlText;
-            labelNumServicios.Location = new Point(58, 42);
-            labelNumServicios.Margin = new Padding(4, 0, 4, 0);
+            labelNumServicios.Location = new Point(66, 56);
+            labelNumServicios.Margin = new Padding(5, 0, 5, 0);
             labelNumServicios.Name = "labelNumServicios";
-            labelNumServicios.Size = new Size(23, 25);
+            labelNumServicios.Size = new Size(27, 29);
             labelNumServicios.TabIndex = 2;
             labelNumServicios.Text = "3";
             // 
@@ -201,20 +202,20 @@
             // 
             labelServicios.AutoSize = true;
             labelServicios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelServicios.Location = new Point(16, 18);
-            labelServicios.Margin = new Padding(4, 0, 4, 0);
+            labelServicios.Location = new Point(18, 24);
+            labelServicios.Margin = new Padding(5, 0, 5, 0);
             labelServicios.Name = "labelServicios";
-            labelServicios.Size = new Size(101, 17);
+            labelServicios.Size = new Size(120, 20);
             labelServicios.TabIndex = 0;
             labelServicios.Text = "Total Servicios";
             // 
             // pictureServicios
             // 
             pictureServicios.Image = Properties.Resources.servicio;
-            pictureServicios.Location = new Point(30, 40);
-            pictureServicios.Margin = new Padding(4, 3, 4, 3);
+            pictureServicios.Location = new Point(34, 53);
+            pictureServicios.Margin = new Padding(5, 4, 5, 4);
             pictureServicios.Name = "pictureServicios";
-            pictureServicios.Size = new Size(30, 30);
+            pictureServicios.Size = new Size(34, 40);
             pictureServicios.SizeMode = PictureBoxSizeMode.Zoom;
             pictureServicios.TabIndex = 1;
             pictureServicios.TabStop = false;
@@ -248,7 +249,8 @@
             dataGridViewServicios.Dock = DockStyle.Fill;
             dataGridViewServicios.EnableHeadersVisualStyles = false;
             dataGridViewServicios.GridColor = SystemColors.InactiveCaptionText;
-            dataGridViewServicios.Location = new Point(30, 0);
+            dataGridViewServicios.Location = new Point(34, 0);
+            dataGridViewServicios.Margin = new Padding(3, 4, 3, 4);
             dataGridViewServicios.Name = "dataGridViewServicios";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
@@ -261,7 +263,7 @@
             dataGridViewServicios.RowHeadersVisible = false;
             dataGridViewServicios.RowHeadersWidth = 51;
             dataGridViewServicios.RowTemplate.Height = 35;
-            dataGridViewServicios.Size = new Size(1315, 495);
+            dataGridViewServicios.Size = new Size(1503, 660);
             dataGridViewServicios.TabIndex = 11;
             dataGridViewServicios.CellContentClick += dataGridViewServicios_CellContentClick;
             // 
@@ -290,7 +292,7 @@
             dataGridViewTextBoxColumnSerDuracion.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerDuracion.Name = "dataGridViewTextBoxColumnSerDuracion";
             dataGridViewTextBoxColumnSerDuracion.ReadOnly = true;
-            dataGridViewTextBoxColumnSerDuracion.Width = 107;
+            dataGridViewTextBoxColumnSerDuracion.Width = 131;
             // 
             // dataGridViewTextBoxColumnSerPrecio
             // 
@@ -299,7 +301,7 @@
             dataGridViewTextBoxColumnSerPrecio.MinimumWidth = 6;
             dataGridViewTextBoxColumnSerPrecio.Name = "dataGridViewTextBoxColumnSerPrecio";
             dataGridViewTextBoxColumnSerPrecio.ReadOnly = true;
-            dataGridViewTextBoxColumnSerPrecio.Width = 88;
+            dataGridViewTextBoxColumnSerPrecio.Width = 107;
             // 
             // Tipo
             // 
@@ -308,7 +310,7 @@
             Tipo.MinimumWidth = 6;
             Tipo.Name = "Tipo";
             Tipo.ReadOnly = true;
-            Tipo.Width = 77;
+            Tipo.Width = 91;
             // 
             // dataGridViewImageColumnModificar
             // 
@@ -320,7 +322,7 @@
             dataGridViewImageColumnModificar.Name = "dataGridViewImageColumnModificar";
             dataGridViewImageColumnModificar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnModificar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnModificar.Width = 111;
+            dataGridViewImageColumnModificar.Width = 135;
             // 
             // dataGridViewImageColumnEliminar
             // 
@@ -332,14 +334,15 @@
             dataGridViewImageColumnEliminar.Name = "dataGridViewImageColumnEliminar";
             dataGridViewImageColumnEliminar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnEliminar.Width = 101;
+            dataGridViewImageColumnEliminar.Width = 123;
             // 
             // buttonPaginacionDelante
             // 
             buttonPaginacionDelante.Dock = DockStyle.Left;
-            buttonPaginacionDelante.Location = new Point(105, 0);
+            buttonPaginacionDelante.Location = new Point(120, 0);
+            buttonPaginacionDelante.Margin = new Padding(3, 4, 3, 4);
             buttonPaginacionDelante.Name = "buttonPaginacionDelante";
-            buttonPaginacionDelante.Size = new Size(75, 30);
+            buttonPaginacionDelante.Size = new Size(86, 40);
             buttonPaginacionDelante.TabIndex = 2;
             buttonPaginacionDelante.Text = ">>";
             buttonPaginacionDelante.UseVisualStyleBackColor = true;
@@ -349,9 +352,10 @@
             // 
             buttonPaginacionAtras.Dock = DockStyle.Left;
             buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
-            buttonPaginacionAtras.Location = new Point(30, 0);
+            buttonPaginacionAtras.Location = new Point(34, 0);
+            buttonPaginacionAtras.Margin = new Padding(3, 4, 3, 4);
             buttonPaginacionAtras.Name = "buttonPaginacionAtras";
-            buttonPaginacionAtras.Size = new Size(75, 30);
+            buttonPaginacionAtras.Size = new Size(86, 40);
             buttonPaginacionAtras.TabIndex = 1;
             buttonPaginacionAtras.Text = "<<";
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
@@ -362,39 +366,43 @@
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 687);
+            panelPaginacion.Location = new Point(0, 916);
+            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
             panelPaginacion.Name = "panelPaginacion";
-            panelPaginacion.Padding = new Padding(30, 0, 0, 0);
-            panelPaginacion.Size = new Size(1375, 30);
+            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
+            panelPaginacion.Size = new Size(1571, 40);
             panelPaginacion.TabIndex = 12;
             // 
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 717);
+            panelEspaciado.Location = new Point(0, 956);
+            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1375, 51);
+            panelEspaciado.Size = new Size(1571, 68);
             panelEspaciado.TabIndex = 13;
             // 
             // panelMargenes
             // 
             panelMargenes.Controls.Add(dataGridViewServicios);
             panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 192);
+            panelMargenes.Location = new Point(0, 256);
+            panelMargenes.Margin = new Padding(3, 4, 3, 4);
             panelMargenes.Name = "panelMargenes";
-            panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1375, 495);
+            panelMargenes.Padding = new Padding(34, 0, 34, 0);
+            panelMargenes.Size = new Size(1571, 660);
             panelMargenes.TabIndex = 14;
             // 
             // PanelServicios
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1375, 768);
+            ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
             Controls.Add(panelPaginacion);
             Controls.Add(panelEspaciado);
             Controls.Add(panelVisualServicios);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "PanelServicios";
             Text = "PanelServicios";
             Load += PanelServicios_Load;
