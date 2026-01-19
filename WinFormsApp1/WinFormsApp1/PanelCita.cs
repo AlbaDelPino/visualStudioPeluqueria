@@ -304,10 +304,10 @@ namespace WinFormsApp1
             foreach (var c in _citas)
             {
 
-                if (c.Estado == 1 && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date))==0)
+                if (c.Estado.Equals("true") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date))==0)
                 {
                     hoy++;
-                } else if (c.Estado == 1 && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
+                } else if (c.Estado.Equals("true") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
                 {
                     proximas++;
                 }

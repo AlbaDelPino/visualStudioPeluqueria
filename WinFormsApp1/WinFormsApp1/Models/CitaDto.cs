@@ -19,9 +19,9 @@ namespace CitasInfo.Models
         public LocalDate Fecha { get; set; }
 
         [JsonProperty("estado")]
-        public long Estado { get; set; }
+        public bool Estado { get; set; }
 
-        [JsonProperty("horarioSemanal")]
+        [JsonProperty("horario")] // 👈 En Java la propiedad se llama 'horario'
         public HorarioSemanalDto Horario { get; set; }
 
         [JsonProperty("users")]
