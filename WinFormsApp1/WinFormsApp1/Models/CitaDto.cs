@@ -29,7 +29,7 @@ namespace CitasInfo.Models
     }
     public class HorarioSemanalDto
     {
-        [JsonProperty("id")]
+        [JsonProperty("idHorario")]
         public long Id { get; set; }
 
         [JsonProperty("diaSemana")]
