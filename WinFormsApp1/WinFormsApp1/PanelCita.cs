@@ -13,9 +13,11 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -331,9 +333,8 @@ namespace WinFormsApp1
 
             for (int i = (contador - 1) * 20; i <= tope; i++)
             {
-                //var fecha = _citas[i].Horario.DiaSemana + " " + _citas[i].Fecha;
-                //var hora = _citas[i].Horario.HoraInicio + " - " + _citas[i].Horario.HoraFin;
-
+                string fecha = _citas[i].Horario.DiaSemana + " " + _citas[i].Fecha.ToString();
+                string hora = _citas[i].Horario.HoraInicio.ToString().Substring(0,5);
                 string estado = "";
                 if (_citas[i].Estado.Equals("true"))
                 {
@@ -347,8 +348,8 @@ namespace WinFormsApp1
                 int index = dataGridViewCitas.Rows.Add(
                     _citas[i].Cliente,
                     _citas[i].Horario.Servicio,
-                    _citas[i].Fecha,
-                    _citas[i].Horario.HoraInicio,
+                    fecha,
+                    hora,
                     estado,
                     _citas[i].Horario.Grupo
                 );
@@ -429,10 +430,9 @@ namespace WinFormsApp1
 
             // Rellenar con los resultados filtrados
             foreach (var c in listaFiltrada)
-            {
-                //string hora = c.Horario.HoraInicio;
-                
-
+            { 
+                string fecha = c.Horario.DiaSemana + " " + c.Fecha.ToString();
+                string hora = c.Horario.HoraInicio.ToString().Substring(0, 5);
                 string estado = "";
                 if (c.Estado.Equals("true"))
                 {
@@ -446,8 +446,8 @@ namespace WinFormsApp1
                 int index = dataGridViewCitas.Rows.Add(
                     c.Cliente,
                     c.Horario.Servicio,
-                    c.Fecha,
-                    c.Horario.HoraInicio,
+                    fecha,
+                    hora,
                     estado,
                     c.Horario.Grupo
                 );
