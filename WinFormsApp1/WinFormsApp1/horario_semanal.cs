@@ -173,29 +173,28 @@ namespace WinFormsApp1
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            // 1. Validaciones
-            if (_idServicioSeleccionado == null || _idGrupoSeleccionado == null)
+            if (!_idServicioSeleccionado.HasValue || !_idGrupoSeleccionado.HasValue)
             {
-                MessageBox.Show("Selecciona Servicio y Grupo");
+                MessageBox.Show("Por favor, selecciona Servicio y Grupo.");
                 return;
             }
 
             try
             {
-                // 2. Construir el objeto exactamente como pide tu Java
-                // Importante: La API espera "HH:mm" para LocalTime
+                // Creamos el objeto con los nombres exactos que pide tu JSON
                 var objetoParaEnviar = new
                 {
-                    diaSemana = comboBoxDiaSemana.Text.ToUpper(), // "LUNES"
+                    diaSemana = comboBoxDiaSemana.Text.ToUpper(),
                     horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm"),
                     horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm"),
-                    plazas = (long)numericPlazas.Value,
-                    servicio = new { id = _idServicioSeleccionado.Value }, // Enviamos "id"
-                    grupo = new { id = _idGrupoSeleccionado.Value }        // Enviamos "id"
+                    plazas = 5,
+                    servicio = new { id_servicio = _idServicioSeleccionado.Value }, // Nombre corregido
+                    grupo = new { id = _idGrupoSeleccionado.Value }                 // Nombre corregido
                 };
 
-                // 3. Serializar y enviar
                 string json = JsonConvert.SerializeObject(objetoParaEnviar);
+
+                // Llamamos al método con la nueva URL en plural
                 EnviarPostHorario(json);
             }
             catch (Exception ex)
