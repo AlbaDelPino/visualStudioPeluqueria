@@ -127,6 +127,11 @@ namespace WindowsFormsApp1
         {
             CargarNuevaPagina(new PanelCita(_token));
         }
+        private void labelHorario_Click(object sender, EventArgs e)
+        {
+            CargarNuevaPagina(new horario(_token));
+        }
+
 
         // Color naranja de la imagen (RGB: 255, 178, 125 aprox)
         Color colorNaranjaHover = Color.FromArgb(251, 147, 92);
@@ -188,6 +193,9 @@ namespace WindowsFormsApp1
 
         private void labelCita_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelCita);
         private void labelCita_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelCita);
+
+        private void labelHorario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelHorario);
+        private void labelHorario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelHorario);
 
         // Cuando el mouse sale del área del Label
 

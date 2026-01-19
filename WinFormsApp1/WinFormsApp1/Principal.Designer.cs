@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             panelLado = new Panel();
+            pictureBox5 = new PictureBox();
+            labelHorario = new Label();
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
@@ -94,6 +96,7 @@
             picModificar1 = new PictureBox();
             panelControl = new Panel();
             panelLado.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -116,6 +119,8 @@
             // panelLado
             // 
             panelLado.BackColor = Color.SeaShell;
+            panelLado.Controls.Add(pictureBox5);
+            panelLado.Controls.Add(labelHorario);
             panelLado.Controls.Add(pictureBox4);
             panelLado.Controls.Add(pictureBox3);
             panelLado.Controls.Add(pictureBox2);
@@ -133,6 +138,30 @@
             panelLado.RightToLeft = RightToLeft.No;
             panelLado.Size = new Size(185, 704);
             panelLado.TabIndex = 0;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(27, 423);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(23, 30);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 21;
+            pictureBox5.TabStop = false;
+            // 
+            // labelHorario
+            // 
+            labelHorario.AutoSize = true;
+            labelHorario.Font = new Font("Microsoft Sans Serif", 12F);
+            labelHorario.Location = new Point(56, 425);
+            labelHorario.Name = "labelHorario";
+            labelHorario.Size = new Size(85, 20);
+            labelHorario.TabIndex = 20;
+            labelHorario.Text = "HORARIO";
+            labelHorario.Click += labelHorario_Click;
+            labelHorario.MouseEnter += labelHorario_MouseEnter;
+            labelHorario.MouseLeave += labelHorario_MouseLeave;
             // 
             // pictureBox4
             // 
@@ -843,6 +872,7 @@
             Load += Principal_Load;
             panelLado.ResumeLayout(false);
             panelLado.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -931,6 +961,8 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
+        private PictureBox pictureBox5;
+        private Label labelHorario;
     }
 }
 
