@@ -346,12 +346,12 @@ namespace WinFormsApp1
                 }
 
                 int index = dataGridViewCitas.Rows.Add(
-                    _citas[i].Cliente,
-                    _citas[i].Horario.Servicio,
+                    _citas[i].Cliente?.Nombre,
+                    _citas[i].Horario.Servicio?.Nombre,
                     fecha,
                     hora,
                     estado,
-                    _citas[i].Horario.Grupo
+                    _citas[i].Horario.Grupo?.Nombre
                 );
 
                 dataGridViewCitas.Rows[index].Tag = _citas[i];

@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle23 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle31 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle32 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle33 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle24 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panelEspaciado = new Panel();
             panelPaginacion = new Panel();
             buttonPaginacionDelante = new Button();
@@ -46,7 +46,6 @@
             panelVisualHorario = new Panel();
             anyadirUsuario = new Button();
             label1 = new Label();
-          
             panelAdmin = new Panel();
             pictureAdmin = new PictureBox();
             labelNumAdmin = new Label();
@@ -73,9 +72,9 @@
             dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
             dataGridViewImageColumnUsModificar = new DataGridViewImageColumn();
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
-            textBoxSHorarioBuscar = new TextBox();
             buttonHorario = new Button();
             comboBoxHorario = new ComboBox();
+            textBoxSHorarioBuscar = new TextBox();
             panelPaginacion.SuspendLayout();
             panelVisualHorario.SuspendLayout();
             panelAdmin.SuspendLayout();
@@ -92,9 +91,9 @@
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 677);
+            panelEspaciado.Location = new Point(0, 687);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1507, 51);
+            panelEspaciado.Size = new Size(1613, 51);
             panelEspaciado.TabIndex = 15;
             // 
             // panelPaginacion
@@ -102,10 +101,10 @@
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 645);
+            panelPaginacion.Location = new Point(0, 655);
             panelPaginacion.Name = "panelPaginacion";
             panelPaginacion.Padding = new Padding(30, 0, 0, 0);
-            panelPaginacion.Size = new Size(1507, 32);
+            panelPaginacion.Size = new Size(1613, 32);
             panelPaginacion.TabIndex = 16;
             // 
             // buttonPaginacionDelante
@@ -136,7 +135,6 @@
             panelVisualHorario.Controls.Add(textBoxSHorarioBuscar);
             panelVisualHorario.Controls.Add(anyadirUsuario);
             panelVisualHorario.Controls.Add(label1);
-           
             panelVisualHorario.Controls.Add(panelAdmin);
             panelVisualHorario.Controls.Add(panelUInactivos);
             panelVisualHorario.Controls.Add(panelUActivos);
@@ -147,7 +145,7 @@
             panelVisualHorario.Margin = new Padding(4, 3, 4, 3);
             panelVisualHorario.Name = "panelVisualHorario";
             panelVisualHorario.Padding = new Padding(15, 0, 0, 0);
-            panelVisualHorario.Size = new Size(1507, 192);
+            panelVisualHorario.Size = new Size(1613, 192);
             panelVisualHorario.TabIndex = 17;
             // 
             // anyadirUsuario
@@ -157,7 +155,7 @@
             anyadirUsuario.FlatAppearance.BorderSize = 0;
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
             anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Location = new Point(2577, 131);
+            anyadirUsuario.Location = new Point(2683, 131);
             anyadirUsuario.Name = "anyadirUsuario";
             anyadirUsuario.Size = new Size(75, 23);
             anyadirUsuario.TabIndex = 15;
@@ -172,8 +170,6 @@
             label1.Name = "label1";
             label1.Size = new Size(0, 15);
             label1.TabIndex = 14;
-            // 
-           
             // 
             // panelAdmin
             // 
@@ -374,26 +370,26 @@
             dataGridViewHorario.BackgroundColor = Color.White;
             dataGridViewHorario.BorderStyle = BorderStyle.None;
             dataGridViewHorario.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle23.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle23.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle23.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle23.Padding = new Padding(7);
-            dataGridViewCellStyle23.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle23.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(7);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewHorario.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHorario.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsModificar, dataGridViewImageColumnUsEliminar });
-            dataGridViewCellStyle31.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle31.BackColor = SystemColors.Window;
-            dataGridViewCellStyle31.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle31.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle31.Padding = new Padding(2);
-            dataGridViewCellStyle31.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle31.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = DataGridViewTriState.False;
-            dataGridViewHorario.DefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Window;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.Padding = new Padding(2);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridViewHorario.DefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewHorario.Dock = DockStyle.Fill;
             dataGridViewHorario.EnableHeadersVisualStyles = false;
             dataGridViewHorario.GridColor = Color.Black;
@@ -402,29 +398,29 @@
             dataGridViewHorario.MultiSelect = false;
             dataGridViewHorario.Name = "dataGridViewHorario";
             dataGridViewHorario.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle32.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle32.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle32.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle32.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle32.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle32.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle32.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorario.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorario.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewHorario.RowHeadersVisible = false;
             dataGridViewHorario.RowHeadersWidth = 51;
-            dataGridViewCellStyle33.BackColor = Color.White;
-            dataGridViewCellStyle33.SelectionForeColor = Color.White;
-            dataGridViewHorario.RowsDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle11.BackColor = Color.White;
+            dataGridViewCellStyle11.SelectionForeColor = Color.White;
+            dataGridViewHorario.RowsDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewHorario.RowTemplate.Height = 35;
             dataGridViewHorario.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dataGridViewHorario.Size = new Size(1507, 453);
+            dataGridViewHorario.Size = new Size(1613, 463);
             dataGridViewHorario.TabIndex = 18;
             // 
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle24.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewTextBoxColumn2.HeaderText = "Dia de la semana";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -433,9 +429,9 @@
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle25.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle25.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewTextBoxColumn1.HeaderText = "Hora de incio";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -444,8 +440,8 @@
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle26.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewTextBoxColumn3.HeaderText = "hora de fin";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -465,8 +461,8 @@
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle27.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewTextBoxColumn4.HeaderText = "Plaza";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -476,13 +472,13 @@
             // dataGridViewImageColumnUsInfo
             // 
             dataGridViewImageColumnUsInfo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle28.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle28.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle28.NullValue = null;
-            dataGridViewCellStyle28.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle28.SelectionForeColor = Color.FromArgb(255, 128, 0);
-            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
+            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewImageColumnUsInfo.HeaderText = "Info";
             dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
             dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -495,10 +491,10 @@
             // dataGridViewImageColumnUsModificar
             // 
             dataGridViewImageColumnUsModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle29.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle29.NullValue = null;
-            dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewImageColumnUsModificar.HeaderText = "Modificar";
             dataGridViewImageColumnUsModificar.Image = Properties.Resources.edit;
             dataGridViewImageColumnUsModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -511,10 +507,10 @@
             // dataGridViewImageColumnUsEliminar
             // 
             dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle30.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle30.NullValue = null;
-            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle8.NullValue = null;
+            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
             dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
             dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -524,18 +520,6 @@
             dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
             dataGridViewImageColumnUsEliminar.Width = 101;
             // 
-            // textBoxSHorarioBuscar
-            // 
-            textBoxSHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSHorarioBuscar.BorderStyle = BorderStyle.None;
-            textBoxSHorarioBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSHorarioBuscar.Location = new Point(47, 151);
-            textBoxSHorarioBuscar.Margin = new Padding(4, 3, 4, 3);
-            textBoxSHorarioBuscar.Name = "textBoxSHorarioBuscar";
-            textBoxSHorarioBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSHorarioBuscar.Size = new Size(829, 16);
-            textBoxSHorarioBuscar.TabIndex = 16;
-            // 
             // buttonHorario
             // 
             buttonHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -543,10 +527,11 @@
             buttonHorario.FlatAppearance.BorderSize = 0;
             buttonHorario.FlatStyle = FlatStyle.Flat;
             buttonHorario.ForeColor = Color.White;
-            buttonHorario.Location = new Point(1287, 138);
+            buttonHorario.Location = new Point(1499, 124);
+            buttonHorario.Margin = new Padding(3, 4, 3, 4);
             buttonHorario.Name = "buttonHorario";
-            buttonHorario.Size = new Size(75, 23);
-            buttonHorario.TabIndex = 18;
+            buttonHorario.Size = new Size(86, 31);
+            buttonHorario.TabIndex = 21;
             buttonHorario.Text = "+";
             buttonHorario.UseVisualStyleBackColor = false;
             // 
@@ -557,17 +542,29 @@
             comboBoxHorario.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxHorario.FlatStyle = FlatStyle.Flat;
             comboBoxHorario.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxHorario.Location = new Point(1097, 147);
-            comboBoxHorario.Margin = new Padding(4, 3, 4, 3);
+            comboBoxHorario.Location = new Point(1263, 139);
+            comboBoxHorario.Margin = new Padding(5, 4, 5, 4);
             comboBoxHorario.Name = "comboBoxHorario";
-            comboBoxHorario.Size = new Size(134, 23);
-            comboBoxHorario.TabIndex = 17;
+            comboBoxHorario.Size = new Size(153, 23);
+            comboBoxHorario.TabIndex = 20;
+            // 
+            // textBoxSHorarioBuscar
+            // 
+            textBoxSHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSHorarioBuscar.BorderStyle = BorderStyle.None;
+            textBoxSHorarioBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxSHorarioBuscar.Location = new Point(14, 139);
+            textBoxSHorarioBuscar.Margin = new Padding(5, 4, 5, 4);
+            textBoxSHorarioBuscar.Name = "textBoxSHorarioBuscar";
+            textBoxSHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
+            textBoxSHorarioBuscar.Size = new Size(1053, 16);
+            textBoxSHorarioBuscar.TabIndex = 19;
             // 
             // horario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1507, 728);
+            ClientSize = new Size(1613, 738);
             Controls.Add(dataGridViewHorario);
             Controls.Add(panelVisualHorario);
             Controls.Add(panelPaginacion);
