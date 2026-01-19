@@ -366,7 +366,7 @@ namespace WinFormsApp1
                 // 3. Añadir la fila al DataGridView
                 // Asegúrate de que el orden de los parámetros coincida con tus columnas
                 int index = dataGridViewCitas.Rows.Add(
-                    cita.Cliente?.Nombre ?? "Sin Nombre",
+                    cita.Cliente?.Username ?? "Sin Nombre",
                     cita.Horario?.Servicio?.Nombre ?? "Sin Servicio",
                     cita.Fecha.ToString(),                     // Columna Fecha
                     cita.Horario?.HoraInicio.ToString("HH:mm", null), // Columna Hora
@@ -451,9 +451,12 @@ namespace WinFormsApp1
 
             // Rellenar con los resultados filtrados
             foreach (var c in listaFiltrada)
-            { 
+            {
+                string clienteNombre = c.Cliente?.Username ?? "Sin Nombre";
+
                 string fecha = c.Horario.DiaSemana + " " + c.Fecha.ToString();
                 string hora = c.Horario.HoraInicio.ToString().Substring(0, 5);
+               
                 string estado = "";
                 if (c.Estado.Equals("true"))
                 {
@@ -465,7 +468,7 @@ namespace WinFormsApp1
                 }
 
                 int index = dataGridViewCitas.Rows.Add(
-                    c.Cliente,
+                    clienteNombre,
                     c.Horario.Servicio,
                     fecha,
                     hora,

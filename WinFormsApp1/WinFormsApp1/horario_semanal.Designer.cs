@@ -28,12 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "horario_semanal";
+            SuspendLayout();
+            // 
+            // horario_semanal
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1829, 756);
+            Name = "horario_semanal";
+            Text = "horario_semanal";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dataGridViewHorario;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn Servicio;
+        private DataGridViewTextBoxColumn Grupo;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
+        private DataGridViewImageColumn dataGridViewImageColumnUsModificar;
+        private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
     }
 }

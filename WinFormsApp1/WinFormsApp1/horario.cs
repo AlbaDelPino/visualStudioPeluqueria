@@ -159,46 +159,47 @@ namespace WinFormsApp1
         {
             _Horario = ObtenerHorario();
 
-            if (_Horario.Count % 15 != 0)
+            // Reiniciar el contador al cargar datos nuevos
+            contador = 1;
+
+            if (_Horario.Count > 0)
             {
-                pagHo = (_Horario.Count / 15) + 1;
+                // Cálculo de páginas totales
+                pagHo = (int)Math.Ceiling((double)_Horario.Count / 15);
             }
             else
             {
-                pagHo = (_Horario.Count / 15);
+                pagHo = 1;
             }
 
-            // labelNumServicios.Text = $" {_Horario.Count}";
-            // labelNumTipoSer.Text = (comboBoxHorario.Items.Count - 1).ToString();
+            // Actualizar colores de botones iniciales
+            buttonPaginacionAtras.ForeColor = Color.Silver;
+            buttonPaginacionDelante.ForeColor = (pagHo > 1) ? Color.Black : Color.Silver;
         }
         private void pasarPagina()
         {
             dataGridViewHorario.Rows.Clear();
-
-            // Seguridad: Si la lista es nula, salimos
             if (_Horario == null || _Horario.Count == 0) return;
 
+            // Calcular cuántos registros saltar según la página actual
             int registrosASaltar = (contador - 1) * 15;
+
+            // Tomar solo los 15 de la página correspondiente
             var servicioPagina = _Horario.Skip(registrosASaltar).Take(15).ToList();
 
             foreach (var u in servicioPagina)
             {
-                // 1. Obtener el nombre del curso (accediendo a Grupo.Curso)
                 string cursoAMostrar = u.Grupo?.Curso ?? "Sin Grupo";
-
-                // 2. Formatear las horas para que no salgan segundos (opcional, queda más limpio)
                 string horaInicio = u.HoraInicio.ToString("HH:mm", null);
                 string horaFin = u.HoraFin.ToString("HH:mm", null);
 
-                // 3. Añadir a la tabla
                 int index = dataGridViewHorario.Rows.Add(
                     u.DiaSemana,
                     horaInicio,
                     horaFin,
                     cursoAMostrar,
-                    // Asegúrate que la columna en el diseñador acepte números/texto
                     u.Servicio?.Nombre,
-                   u.Plazas     // Mostramos el texto del curso, no el objeto GrupoDto
+                    u.Plazas
                 );
 
                 dataGridViewHorario.Rows[index].Tag = u;
@@ -258,6 +259,9 @@ namespace WinFormsApp1
             }
         }
 
-       
+        private void panelMargenes_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
