@@ -1,6 +1,7 @@
 ﻿using CitasInfo.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NodaTime;
 using ServiciosInfo.Models;
 using System;
 using System.Collections.Generic;
@@ -155,9 +156,9 @@ namespace WinFormsApp1
 
         private void ModificarCita(CitaDto cita)
         {
-            /*
-            Servicio pantallaModificar = new Servicio(servicio, _token);
-            pantallaModificar.Form = "Modificar información de " + servicio.Nombre;
+            
+            Cita pantallaModificar = new Cita(cita, _token);
+            /*pantallaModificar.Form = "Modificar información de " + servicio.Nombre;
             pantallaModificar.LabelTituoCrearServicio = "MODIFICAR SERVICIO";
             pantallaModificar.buttonSerModificar = true;
             pantallaModificar.buttonSerAnyadir = false;
@@ -167,12 +168,12 @@ namespace WinFormsApp1
             pantallaModificar.TextBoxPrecio.Text = servicio.Precio.ToString();
             pantallaModificar.TextBoxDuracion.Text = servicio.Duracion.ToString();
             pantallaModificar.ComboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
-            
+            */
             if (pantallaModificar.ShowDialog() == DialogResult.OK)
             {
                 RecargarCitas();
                 pasarPagina();
-            }*/
+            }
         }
 
         private void EliminarCita(CitaDto cita)
@@ -227,37 +228,29 @@ namespace WinFormsApp1
 
         private void anyadirCita_Click(object sender, EventArgs e)
         {
-            /*Usuario pantallaAnyadir = new Usuario(null, _token);
-            pantallaAnyadir.Form = "Añadir usuario nuevo";
-            pantallaAnyadir.LabelTituoCrearUsuario.Text = "AÑADIR USUARIO";
-            pantallaAnyadir.LabelTituoCrearUsuario.Visible = true;
-            pantallaAnyadir.LabelTituoInfoUsuario.Visible = false;
+            Cita pantallaAnyadir = new Cita(null, _token);
+            pantallaAnyadir.Form = "Crear cita nueva";
+            pantallaAnyadir.LabelTituoCrearCita.Text = "CREAR CITA";
+            pantallaAnyadir.LabelTituoCrearCita.Visible = true;
+            pantallaAnyadir.LabelTituoModificarCita.Visible = false;
 
-            pantallaAnyadir.buttonUsModificar = false;
-            pantallaAnyadir.buttonUsVolver = false;
-            pantallaAnyadir.buttonUsAnyadir = true;
-            pantallaAnyadir.ComboTipoUsuario.Enabled = true;
+            pantallaAnyadir.buttonCitModificar = false;
+            pantallaAnyadir.buttonCitAnyadir = true;
             pantallaAnyadir.CheckBoxEstado.Checked = true;
 
-            pantallaAnyadir.TboxNombreUsuario.Text = "";
-            pantallaAnyadir.TxtBoxUsNombre.Text = "";
-            pantallaAnyadir.TextBoxUsApellidos.Text = "";
-            pantallaAnyadir.TextBoxUsEmail.Text = "";
-            pantallaAnyadir.TextBoxUsTel.Text = "";
-            pantallaAnyadir.ComboTipoUsuario.SelectedItem = "";
-            pantallaAnyadir.TboxUserDirecc.Text = "";
-            pantallaAnyadir.TboxUserAlerg.Text = "";
-            pantallaAnyadir.TboxUserObserv.Text = "";
-            pantallaAnyadir.TboxUserCurso.Text = "";
-            pantallaAnyadir.TboxUserTurno.Text = "";
-            pantallaAnyadir.TboxUserEspec.Text = "";
-
+            pantallaAnyadir.ComboBoxServivioCita.SelectedItem = "";
+            pantallaAnyadir.ComboBoxHoraCita.SelectedItem = "";
+            pantallaAnyadir.ComboBoxHoraCita.Enabled = false;
+            pantallaAnyadir.ComboBoxGrupoCita.SelectedItem = "";
+            pantallaAnyadir.ComboBoxGrupoCita.Enabled = false;
+            pantallaAnyadir.ComboBoxClienteCita.SelectedItem = "";
+            pantallaAnyadir.ComboBoxClienteCita.Enabled = false;
 
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
-                RecargarUsuarios();
+                RecargarCitas();
                 pasarPagina();
-            }*/
+            }
         }
 
         private List<CitaDto> ObtenerCitas()
@@ -292,52 +285,34 @@ namespace WinFormsApp1
 
         private void RecargarCitas()
         {
-            /*_usuarios = ObtenerUsuarios();
+            _citas = ObtenerCitas();
 
-            if (_usuarios.Count % 15 != 0)
+            if (_citas.Count % 15 != 0)
             {
-                pagUs = (_usuarios.Count / 15) + 1;
+                pagCit = (_citas.Count / 15) + 1;
             }
             else
             {
-                pagUs = (_usuarios.Count / 15);
+                pagCit = (_citas.Count / 15);
             }
 
-            int activos = 0;
-            int inactivos = 0;
-            int grupos = 0;
-            int clientes = 0;
-            int admins = 0;
+            int hoy = 0;
+            int proximas = 0;
 
-            foreach (var u in _usuarios)
+            foreach (var c in _citas)
             {
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    clientes++;
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    grupos++;
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    admins++;
-                }
 
-                if (u.Estado.Equals("true"))
+                if (c.Estado == 1 && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date))==0)
                 {
-                    activos++;
-                }
-                else if (u.Estado.Equals("false"))
+                    hoy++;
+                } else if (c.Estado == 1 && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
                 {
-                    inactivos++;
+                    proximas++;
                 }
             }
 
-            labelNumUsuarios.Text = $"{_usuarios.Count}";
-            labelNumUActivos.Text = $"{activos}";
-            labelNumUInactivos.Text = $"{inactivos}";
-            labelNumAdmin.Text = $"{admins}";*/
+            labelNumHoy.Text = $"{hoy}";
+            labelNumProximas.Text = $"{proximas}";
         }
 
         private void pasarPagina()
@@ -398,100 +373,88 @@ namespace WinFormsApp1
 
             if (columna == "dataGridViewImageColumnModificar")
             {
-                //ModificarCitas(servicio);
+                ModificarCita(servicio);
             }
             else if (columna == "dataGridViewImageColumnEliminar")
             {
-                //EliminarCitas(servicio);
+                EliminarCita(servicio);
             }
         }
 
         private void filtrarCitas()
         {
-            /*string filtro = textBoxSUsBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
+            string filtro = textBoxCitBuscar.Text.Trim().ToLower();
+            string filtroCombo = comboBoxCitFiltrar.SelectedItem?.ToString();
 
             // Obtener todos los usuarios
-            if (_usuarios == null) return;
+            if (_citas == null) return;
 
-            var listaFiltrada = _usuarios.AsEnumerable();
+            var listaFiltrada = _citas.AsEnumerable();
 
             // Filtrar por nombre o username
             if (!string.IsNullOrEmpty(filtro))
             {
                 listaFiltrada = listaFiltrada
-                    .Where(u => u.Nombre.ToLower().Contains(filtro)
-                             || u.Username.ToLower().Contains(filtro)).ToList();
+                    .Where(c => c.Cliente.Nombre.ToLower().Contains(filtro)
+                             || c.Cliente.Username.ToLower().Contains(filtro)
+                             || c.Horario.Servicio.Nombre.ToLower().Contains(filtro)).ToList();
             }
 
             // Filtro por categoria
+            LocalDate hoy = LocalDate.FromDateTime(DateTime.Now.Date);
+            LocalDate viernes = hoy.Next(IsoDayOfWeek.Friday);
+            LocalDate proximoLunes = viernes.PlusDays(3);
+            LocalDate proximoViernes = proximoLunes.PlusDays(4);
+
             switch (filtroCombo)
             {
-                case "Activos":
+                case "Hoy":
                     listaFiltrada = listaFiltrada
-                        .Where(u => u.Estado.Equals("true", StringComparison.OrdinalIgnoreCase));
+                        .Where(c => c.Fecha.CompareTo(hoy)==0);
                     break;
 
-                case "Inactivos":
+                case "Esta semana":
                     listaFiltrada = listaFiltrada
-                        .Where(u => u.Estado.Equals("false", StringComparison.OrdinalIgnoreCase));
+                        .Where(c => c.Fecha >= hoy && c.Fecha <= viernes);
                     break;
 
-                case "Administradores":
+                case "Próxima semana":
                     listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_ADMIN", StringComparison.OrdinalIgnoreCase));
+                        .Where(c => c.Fecha >= proximoLunes && c.Fecha <= proximoViernes);
                     break;
 
-                case "Clientes":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_CLIENTE", StringComparison.OrdinalIgnoreCase));
-                    break;
-
-                case "Grupos":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_GRUPO", StringComparison.OrdinalIgnoreCase));
-                    break;
             }
 
             // Limpiar la tabla
-            dataGridViewUsuarios.Rows.Clear();
+            dataGridViewCitas.Rows.Clear();
 
             // Rellenar con los resultados filtrados
-            foreach (var u in listaFiltrada)
+            foreach (var c in listaFiltrada)
             {
-                string rol = "";
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    rol = "Cliente";
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    rol = "Grupo";
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    rol = "Admin";
-                }
+                //string hora = c.Horario.HoraInicio;
+                
 
                 string estado = "";
-                if (u.Estado.Equals("true"))
+                if (c.Estado.Equals("true"))
                 {
-                    estado = "Activo";
+                    estado = "Confirmada";
                 }
-                else if (u.Estado.Equals("false"))
+                else if (c.Estado.Equals("false"))
                 {
-                    estado = "Inactivo";
+                    estado = "Cancelada";
                 }
 
-                int index = dataGridViewUsuarios.Rows.Add(
-                    u.Nombre,
-                    u.Username,
-                    rol,
-                    estado
+                int index = dataGridViewCitas.Rows.Add(
+                    c.Cliente,
+                    c.Horario.Servicio,
+                    c.Fecha,
+                    c.Horario.HoraInicio,
+                    estado,
+                    c.Horario.Grupo
                 );
 
-                dataGridViewUsuarios.Rows[index].Tag = u;
-            }*/
+                dataGridViewCitas.Rows[index].Tag = c;
+            }
         }
 
         private void textBoxCitBuscar_TextChanged(object sender, EventArgs e)

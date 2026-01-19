@@ -128,7 +128,7 @@
             textBoxCitBuscar.Location = new Point(34, 192);
             textBoxCitBuscar.Margin = new Padding(5, 4, 5, 4);
             textBoxCitBuscar.Name = "textBoxCitBuscar";
-            textBoxCitBuscar.PlaceholderText = "Buscar por nombre o usuario...";
+            textBoxCitBuscar.PlaceholderText = "Buscar por cliente o servicio...";
             textBoxCitBuscar.Size = new Size(947, 20);
             textBoxCitBuscar.TabIndex = 16;
             textBoxCitBuscar.TextChanged += textBoxCitBuscar_TextChanged;
