@@ -263,5 +263,24 @@ namespace WinFormsApp1
         {
 
         }
+
+        private void buttonHorario_Click(object sender, EventArgs e)
+        {
+            // Verificamos que tengamos el token disponible
+            if (string.IsNullOrEmpty(_token))
+            {
+                MessageBox.Show("No hay un token de sesión válido. Por favor, inicie sesión de nuevo.");
+                return;
+            }
+
+            // Creamos la instancia del formulario pasando el token
+            horario_semanal formCrearHorario = new horario_semanal(_token);
+
+            // Lo abrimos como ventana modal (bloquea la anterior hasta cerrar esta)
+            formCrearHorario.ShowDialog();
+
+            // Opcional: Si quieres actualizar algo en la pantalla principal al cerrar el formulario:
+            // ActualizarTablaHorarios(); 
+        }
     }
 }

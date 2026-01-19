@@ -42,6 +42,9 @@ namespace WinFormsApp1
 
         }
 
-        
+        private void panelCita_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

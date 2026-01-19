@@ -149,6 +149,7 @@ namespace WinFormsApp1
             labelCitFecha = new Label();
             labelTituoCrearCita = new Label();
             panelCita = new Panel();
+            comboClienteCita = new ComboBox();
             comboServivioCita = new ComboBox();
             comboGrupoCita = new ComboBox();
             comboHoraCita = new ComboBox();
@@ -161,7 +162,6 @@ namespace WinFormsApp1
             labelCitCliente = new Label();
             labelCitServicio = new Label();
             monthCalendar1 = new MonthCalendar();
-            comboClienteCita = new ComboBox();
             panelCita.SuspendLayout();
             SuspendLayout();
             // 
@@ -172,7 +172,7 @@ namespace WinFormsApp1
             labelCitFecha.Location = new Point(162, 92);
             labelCitFecha.Margin = new Padding(5, 0, 5, 0);
             labelCitFecha.Name = "labelCitFecha";
-            labelCitFecha.Size = new Size(55, 20);
+            labelCitFecha.Size = new Size(47, 17);
             labelCitFecha.TabIndex = 50;
             labelCitFecha.Text = "Fecha";
             // 
@@ -182,7 +182,7 @@ namespace WinFormsApp1
             labelTituoCrearCita.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelTituoCrearCita.Location = new Point(118, 30);
             labelTituoCrearCita.Name = "labelTituoCrearCita";
-            labelTituoCrearCita.Size = new Size(150, 32);
+            labelTituoCrearCita.Size = new Size(117, 25);
             labelTituoCrearCita.TabIndex = 53;
             labelTituoCrearCita.Text = "CREAR CITA";
             // 
@@ -208,6 +208,20 @@ namespace WinFormsApp1
             panelCita.Name = "panelCita";
             panelCita.Size = new Size(377, 624);
             panelCita.TabIndex = 55;
+            panelCita.Paint += panelCita_Paint;
+            // 
+            // comboClienteCita
+            // 
+            comboClienteCita.DisplayMember = "1";
+            comboClienteCita.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboClienteCita.Items.AddRange(new object[] { "Peluquería", "Manicura y Pedicura", "Depilación", "Pestañas y Cejas", "Tratamientos Faciales", "Tratamientos Corporales", "Masajes", "Maquillaje", "Micropigmentación" });
+            comboClienteCita.Location = new Point(170, 514);
+            comboClienteCita.Margin = new Padding(5, 4, 5, 4);
+            comboClienteCita.MaxDropDownItems = 3;
+            comboClienteCita.Name = "comboClienteCita";
+            comboClienteCita.Size = new Size(159, 23);
+            comboClienteCita.TabIndex = 74;
+            comboClienteCita.UseWaitCursor = true;
             // 
             // comboServivioCita
             // 
@@ -218,7 +232,7 @@ namespace WinFormsApp1
             comboServivioCita.Margin = new Padding(5, 4, 5, 4);
             comboServivioCita.MaxDropDownItems = 3;
             comboServivioCita.Name = "comboServivioCita";
-            comboServivioCita.Size = new Size(159, 28);
+            comboServivioCita.Size = new Size(159, 23);
             comboServivioCita.TabIndex = 73;
             comboServivioCita.UseWaitCursor = true;
             // 
@@ -231,7 +245,7 @@ namespace WinFormsApp1
             comboGrupoCita.Margin = new Padding(5, 4, 5, 4);
             comboGrupoCita.MaxDropDownItems = 3;
             comboGrupoCita.Name = "comboGrupoCita";
-            comboGrupoCita.Size = new Size(159, 28);
+            comboGrupoCita.Size = new Size(159, 23);
             comboGrupoCita.TabIndex = 72;
             comboGrupoCita.UseWaitCursor = true;
             // 
@@ -244,7 +258,7 @@ namespace WinFormsApp1
             comboHoraCita.Margin = new Padding(5, 4, 5, 4);
             comboHoraCita.MaxDropDownItems = 3;
             comboHoraCita.Name = "comboHoraCita";
-            comboHoraCita.Size = new Size(159, 28);
+            comboHoraCita.Size = new Size(159, 23);
             comboHoraCita.TabIndex = 71;
             comboHoraCita.UseWaitCursor = true;
             // 
@@ -254,7 +268,7 @@ namespace WinFormsApp1
             labelTituoModificarCita.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelTituoModificarCita.Location = new Point(83, 30);
             labelTituoModificarCita.Name = "labelTituoModificarCita";
-            labelTituoModificarCita.Size = new Size(208, 32);
+            labelTituoModificarCita.Size = new Size(163, 25);
             labelTituoModificarCita.TabIndex = 67;
             labelTituoModificarCita.Text = "MODIFICAR CITA";
             // 
@@ -288,7 +302,7 @@ namespace WinFormsApp1
             checkBoxEstado.Location = new Point(47, 573);
             checkBoxEstado.Margin = new Padding(3, 4, 3, 4);
             checkBoxEstado.Name = "checkBoxEstado";
-            checkBoxEstado.Size = new Size(121, 27);
+            checkBoxEstado.Size = new Size(99, 23);
             checkBoxEstado.TabIndex = 64;
             checkBoxEstado.Text = "Confirmada";
             checkBoxEstado.UseVisualStyleBackColor = true;
@@ -300,7 +314,7 @@ namespace WinFormsApp1
             labelCitGrupo.Location = new Point(47, 454);
             labelCitGrupo.Margin = new Padding(5, 0, 5, 0);
             labelCitGrupo.Name = "labelCitGrupo";
-            labelCitGrupo.Size = new Size(55, 20);
+            labelCitGrupo.Size = new Size(48, 17);
             labelCitGrupo.TabIndex = 63;
             labelCitGrupo.Text = "Grupo";
             // 
@@ -311,7 +325,7 @@ namespace WinFormsApp1
             labelCitHora.Location = new Point(47, 391);
             labelCitHora.Margin = new Padding(5, 0, 5, 0);
             labelCitHora.Name = "labelCitHora";
-            labelCitHora.Size = new Size(46, 20);
+            labelCitHora.Size = new Size(39, 17);
             labelCitHora.TabIndex = 61;
             labelCitHora.Text = "Hora";
             // 
@@ -322,7 +336,7 @@ namespace WinFormsApp1
             labelCitCliente.Location = new Point(47, 517);
             labelCitCliente.Margin = new Padding(5, 0, 5, 0);
             labelCitCliente.Name = "labelCitCliente";
-            labelCitCliente.Size = new Size(61, 20);
+            labelCitCliente.Size = new Size(51, 17);
             labelCitCliente.TabIndex = 57;
             labelCitCliente.Text = "Cliente";
             // 
@@ -333,7 +347,7 @@ namespace WinFormsApp1
             labelCitServicio.Location = new Point(47, 356);
             labelCitServicio.Margin = new Padding(5, 0, 5, 0);
             labelCitServicio.Name = "labelCitServicio";
-            labelCitServicio.Size = new Size(69, 20);
+            labelCitServicio.Size = new Size(58, 17);
             labelCitServicio.TabIndex = 59;
             labelCitServicio.Text = "Servicio";
             // 
@@ -343,19 +357,6 @@ namespace WinFormsApp1
             monthCalendar1.Location = new Point(83, 121);
             monthCalendar1.Name = "monthCalendar1";
             monthCalendar1.TabIndex = 55;
-            // 
-            // comboClienteCita
-            // 
-            comboClienteCita.DisplayMember = "1";
-            comboClienteCita.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboClienteCita.Items.AddRange(new object[] { "Peluquería", "Manicura y Pedicura", "Depilación", "Pestañas y Cejas", "Tratamientos Faciales", "Tratamientos Corporales", "Masajes", "Maquillaje", "Micropigmentación" });
-            comboClienteCita.Location = new Point(170, 514);
-            comboClienteCita.Margin = new Padding(5, 4, 5, 4);
-            comboClienteCita.MaxDropDownItems = 3;
-            comboClienteCita.Name = "comboClienteCita";
-            comboClienteCita.Size = new Size(159, 28);
-            comboClienteCita.TabIndex = 74;
-            comboClienteCita.UseWaitCursor = true;
             // 
             // Cita
             // 
