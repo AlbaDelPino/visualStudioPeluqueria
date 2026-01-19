@@ -65,23 +65,24 @@ namespace WinFormsApp1
         {
             get
             {
-                return this.ButtonCitModificar.Visible;
+                // Si el botón es nulo, devolvemos false en lugar de dar error
+                return this.ButtonCitModificar != null && this.ButtonCitModificar.Visible;
             }
             set
             {
-                this.ButtonCitModificar.Visible = value;
+                // Solo intentamos cambiar la visibilidad si el botón existe
+                if (this.ButtonCitModificar != null)
+                {
+                    this.ButtonCitModificar.Visible = value;
+                }
             }
         }
+
+        // Haz lo mismo para el botón de Añadir por seguridad
         public bool buttonCitAnyadir
         {
-            get
-            {
-                return this.ButtonCitAnyadir.Visible;
-            }
-            set
-            {
-                this.ButtonCitAnyadir.Visible = value;
-            }
+            get { return this.ButtonCitAnyadir != null && this.ButtonCitAnyadir.Visible; }
+            set { if (this.ButtonCitAnyadir != null) this.ButtonCitAnyadir.Visible = value; }
         }
 
         public CheckBox CheckBoxEstado

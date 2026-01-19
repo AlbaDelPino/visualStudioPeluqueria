@@ -230,28 +230,54 @@ namespace WinFormsApp1
 
         private void anyadirCita_Click(object sender, EventArgs e)
         {
+            // 1. Creamos la instancia
             Cita pantallaAnyadir = new Cita(null, _token);
-            pantallaAnyadir.Form = "Crear cita nueva";
-            pantallaAnyadir.LabelTituoCrearCita.Text = "CREAR CITA";
-            pantallaAnyadir.LabelTituoCrearCita.Visible = true;
-            pantallaAnyadir.LabelTituoModificarCita.Visible = false;
 
-            pantallaAnyadir.buttonCitModificar = false;
-            pantallaAnyadir.buttonCitAnyadir = true;
-            pantallaAnyadir.CheckBoxEstado.Checked = true;
+            // 2. IMPORTANTE: Antes de acceder a los controles, asegúrate de que existan.
+            // Si el error persiste, verifica que en el diseñador de 'Cita' 
+            // el Label se llame EXACTAMENTE LabelTituoCrearCita y sea Public.
 
-            pantallaAnyadir.ComboBoxServivioCita.SelectedItem = "";
-            pantallaAnyadir.ComboBoxHoraCita.SelectedItem = "";
-            pantallaAnyadir.ComboBoxHoraCita.Enabled = false;
-            pantallaAnyadir.ComboBoxGrupoCita.SelectedItem = "";
-            pantallaAnyadir.ComboBoxGrupoCita.Enabled = false;
-            pantallaAnyadir.ComboBoxClienteCita.SelectedItem = "";
-            pantallaAnyadir.ComboBoxClienteCita.Enabled = false;
-
-            if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+            try
             {
-                RecargarCitas();
-                pasarPagina();
+                pantallaAnyadir.Text = "Crear cita nueva"; // Cambia el título de la ventana
+
+                // Usamos una validación de nulos por seguridad
+                if (pantallaAnyadir.LabelTituoCrearCita != null)
+                {
+                    pantallaAnyadir.LabelTituoCrearCita.Text = "CREAR CITA";
+                    pantallaAnyadir.LabelTituoCrearCita.Visible = true;
+                }
+
+                if (pantallaAnyadir.LabelTituoModificarCita != null)
+                {
+                    pantallaAnyadir.LabelTituoModificarCita.Visible = false;
+                }
+
+                // Configuración de botones y estados
+                pantallaAnyadir.buttonCitModificar = false;
+                pantallaAnyadir.buttonCitAnyadir = true;
+
+                if (pantallaAnyadir.CheckBoxEstado != null)
+                    pantallaAnyadir.CheckBoxEstado.Checked = true;
+
+                // Resetear combos (Cuidado con poner "" si son objetos, mejor usar SelectedIndex = -1)
+                if (pantallaAnyadir.ComboBoxServivioCita != null)
+                    pantallaAnyadir.ComboBoxServivioCita.SelectedIndex = -1;
+
+                if (pantallaAnyadir.ComboBoxHoraCita != null)
+                    pantallaAnyadir.ComboBoxHoraCita.Enabled = false;
+
+                // 3. Mostrar el formulario
+                if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+                {
+                    RecargarCitas();
+                    pasarPagina();
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("Error: Uno de los controles del formulario Cita no se encontró. " +
+                    "Asegúrate de que sean públicos en el diseñador.\n\nDetalle: " + ex.Message);
             }
         }
 
