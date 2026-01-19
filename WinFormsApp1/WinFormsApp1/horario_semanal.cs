@@ -15,47 +15,83 @@ namespace WinFormsApp1
     {
         private readonly string _token;
 
-        // Usamos long? para coincidir con tus modelos DTO
+        // IDs para las relaciones con Servicio y Grupo
         private long? _idServicioSeleccionado = null;
         private long? _idGrupoSeleccionado = null;
 
+        // ID del registro actual (solo se usa en modo Edición)
+        private long? _idHorarioExistente = null;
+
+        // CONSTRUCTOR 1: Para Crear nuevo horario
         public horario_semanal(string token)
         {
             InitializeComponent();
             _token = token;
+            ConfigurarControlesHora();
 
-            // Configuración para el selector de Hora de Inicio
-            dateTimePickerHoaraInicio.Format = DateTimePickerFormat.Time;
-            dateTimePickerHoaraInicio.ShowUpDown = true; // Quita el calendario y pone flechitas
-
-            // Configuración para el selector de Hora de Fin
-            dateTimePickerHoraFin.Format = DateTimePickerFormat.Time;
-            dateTimePickerHoraFin.ShowUpDown = true;
-
-            // Opcional: Forzar el formato de 24 horas (18:00)
-            dateTimePickerHoaraInicio.CustomFormat = "HH:mm";
-            dateTimePickerHoraFin.CustomFormat = "HH:mm";
+            // Configuración visual modo CREAR
+            labelTituloCrearHorario.Visible = true;
+            labelTituoModificarHorario.Visible = false;
+            buttonGuardar.Visible = true;      // Botón que hace el POST
+            buttonModificar.Visible = false;   // Botón que hace el PUT
         }
+
+        // CONSTRUCTOR 2: Para Modificar horario existente
+        public horario_semanal(string token, HorarioSemanalDto datos) : this(token)
+        {
+            _idHorarioExistente = datos.Id;
+
+            // Configuración visual modo EDITAR
+            labelTituloCrearHorario.Visible = false;
+            labelTituoModificarHorario.Visible = true;
+            buttonGuardar.Visible = false;
+            buttonModificar.Visible = true;
+
+            // Rellenar los campos con los datos recibidos del DTO
+            comboBoxDiaSemana.Text = datos.DiaSemana;
+            numericPlazas.Value = datos.Plazas;
+
+            // Mostrar nombres en los TextBox de búsqueda
+            textBoxHoServicio.Text = datos.Servicio?.Nombre;
+            textBoxHoGrupo.Text = datos.Grupo?.Curso;
+
+            // Guardar los IDs de las relaciones
+            _idServicioSeleccionado = datos.Servicio?.Id_Servicio;
+            _idGrupoSeleccionado = datos.Grupo?.Id;
+
+            // CORRECCIÓN NodaTime: Convertir LocalTime a DateTime para el Picker
+            DateTime hoy = DateTime.Today;
+            dateTimePickerHoaraInicio.Value = new DateTime(hoy.Year, hoy.Month, hoy.Day,
+                                                           datos.HoraInicio.Hour, datos.HoraInicio.Minute, 0);
+            dateTimePickerHoraFin.Value = new DateTime(hoy.Year, hoy.Month, hoy.Day,
+                                                         datos.HoraFin.Hour, datos.HoraFin.Minute, 0);
+        }
+
+        private void ConfigurarControlesHora()
+        {
+            // Formato de 24 horas y selectores arriba/abajo
+            dateTimePickerHoaraInicio.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHoaraInicio.CustomFormat = "HH:mm";
+            dateTimePickerHoaraInicio.ShowUpDown = true;
+
+            dateTimePickerHoraFin.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHoraFin.CustomFormat = "HH:mm";
+            dateTimePickerHoraFin.ShowUpDown = true;
+        }
+
+        // --- LÓGICA DE BUSCADORES ---
 
         private void buttonHoServicio_Click(object sender, EventArgs e)
         {
-            // Cambiado a la URL correcta: /servicio
             var listaServicios = ObtenerServiciosDeAPI();
-
-            if (listaServicios == null || listaServicios.Count == 0)
-            {
-                MessageBox.Show("No se pudieron cargar los servicios.");
-                return;
-            }
+            if (listaServicios == null || listaServicios.Count == 0) return;
 
             using (var buscador = new FormSelectorBusqueda("Seleccionar Servicio", listaServicios))
             {
                 if (buscador.ShowDialog() == DialogResult.OK)
                 {
                     var serv = (ServicioDto)buscador.ItemSeleccionado;
-
                     textBoxHoServicio.Text = serv.Nombre;
-                    // Usamos Id_Servicio que es el nombre en tu modelo ServicioDto
                     _idServicioSeleccionado = serv.Id_Servicio;
                 }
             }
@@ -63,86 +99,70 @@ namespace WinFormsApp1
 
         private void buttonHoBrupo_Click(object sender, EventArgs e)
         {
-            // Cambiado a la URL correcta: /grupos (o como sea en tu API)
             var listaGrupos = ObtenerGruposDeAPI();
-
-            if (listaGrupos == null || listaGrupos.Count == 0)
-            {
-                MessageBox.Show("No se pudieron cargar los grupos.");
-                return;
-            }
+            if (listaGrupos == null || listaGrupos.Count == 0) return;
 
             using (var buscador = new FormSelectorBusqueda("Seleccionar Grupo", listaGrupos))
             {
                 if (buscador.ShowDialog() == DialogResult.OK)
                 {
                     var grupo = (GrupoDto)buscador.ItemSeleccionado;
-
                     textBoxHoGrupo.Text = grupo.Curso;
                     _idGrupoSeleccionado = grupo.Id;
                 }
             }
         }
 
-        // --- MÉTODOS DE CONEXIÓN (Ajustados a tu PanelServicios) ---
+        // --- LÓGICA DE ENVÍO (BOTONES) ---
 
-        private List<ServicioDto> ObtenerServiciosDeAPI()
+        private void buttonGuardar_Click(object sender, EventArgs e)
         {
+            EjecutarOperacion("POST");
+        }
+
+        private void buttonModificar_Click(object sender, EventArgs e)
+        {
+            EjecutarOperacion("PUT");
+        }
+
+        private void EjecutarOperacion(string metodo)
+        {
+            if (!_idServicioSeleccionado.HasValue || !_idGrupoSeleccionado.HasValue)
+            {
+                MessageBox.Show("Por favor, selecciona un Servicio y un Grupo.");
+                return;
+            }
+
             try
             {
-                // URL corregida a singular como en tu PanelServicios
-                var url = "http://localhost:8082/servicio";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-                request.Headers["Authorization"] = $"Bearer {_token}";
-
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var reader = new StreamReader(response.GetResponseStream()))
+                // Construcción del objeto JSON dinámico
+                var datosHorario = new
                 {
-                    string json = reader.ReadToEnd();
-                    return JsonConvert.DeserializeObject<List<ServicioDto>>(json);
-                }
+                    id = _idHorarioExistente, // Será null en POST (ignorado) y tendrá valor en PUT
+                    diaSemana = comboBoxDiaSemana.Text.ToUpper(),
+                    horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm"),
+                    horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm"),
+                    plazas = (int)numericPlazas.Value,
+                    servicio = new { id_servicio = _idServicioSeleccionado.Value },
+                    grupo = new { id = _idGrupoSeleccionado.Value }
+                };
+
+                string json = JsonConvert.SerializeObject(datosHorario);
+                EnviarDatosAPI(json, metodo);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error servicios: " + ex.Message);
-                return new List<ServicioDto>();
+                MessageBox.Show("Error al preparar datos: " + ex.Message);
             }
         }
 
-        private List<GrupoDto> ObtenerGruposDeAPI()
+        private void EnviarDatosAPI(string json, string metodo)
         {
             try
             {
-                // Verifica si grupos es plural o singular en tu API
-                var url = "http://localhost:8082/grupos";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-                request.Headers["Authorization"] = $"Bearer {_token}";
-
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var reader = new StreamReader(response.GetResponseStream()))
-                {
-                    string json = reader.ReadToEnd();
-                    return JsonConvert.DeserializeObject<List<GrupoDto>>(json);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error grupos: " + ex.Message);
-                return new List<GrupoDto>();
-            }
-        }
-        private void EnviarPostHorario(string json)
-        {
-            try
-            {
-                // Tu endpoint en Java
                 var url = "http://localhost:8082/horarios";
                 var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "POST";
+                request.Method = metodo;
                 request.ContentType = "application/json";
                 request.Headers["Authorization"] = $"Bearer {_token}";
 
@@ -153,9 +173,10 @@ namespace WinFormsApp1
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    if (response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.OK)
+                    if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.NoContent)
                     {
-                        MessageBox.Show("Horario creado correctamente en el servidor.");
+                        string msg = (metodo == "POST") ? "Horario creado." : "Horario actualizado.";
+                        MessageBox.Show(msg, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -163,49 +184,48 @@ namespace WinFormsApp1
             }
             catch (WebException ex)
             {
-                using (var reader = new StreamReader(ex.Response.GetResponseStream()))
+                if (ex.Response != null)
                 {
-                    string error = reader.ReadToEnd();
-                    MessageBox.Show("Error de validación en Java: " + error);
+                    using (var reader = new StreamReader(ex.Response.GetResponseStream()))
+                    {
+                        MessageBox.Show("Error del servidor: " + reader.ReadToEnd());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error de red: " + ex.Message);
                 }
             }
         }
 
-        private void buttonGuardar_Click(object sender, EventArgs e)
-        {
-            if (!_idServicioSeleccionado.HasValue || !_idGrupoSeleccionado.HasValue)
-            {
-                MessageBox.Show("Por favor, selecciona Servicio y Grupo.");
-                return;
-            }
+        // --- MÉTODOS AUXILIARES DE CARGA ---
 
+        private List<ServicioDto> ObtenerServiciosDeAPI()
+        {
             try
             {
-                // Creamos el objeto con los nombres exactos que pide tu JSON
-                var objetoParaEnviar = new
-                {
-                    diaSemana = comboBoxDiaSemana.Text.ToUpper(),
-                    horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm"),
-                    horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm"),
-                    plazas = 5,
-                    servicio = new { id_servicio = _idServicioSeleccionado.Value }, // Nombre corregido
-                    grupo = new { id = _idGrupoSeleccionado.Value }                 // Nombre corregido
-                };
-
-                string json = JsonConvert.SerializeObject(objetoParaEnviar);
-
-                // Llamamos al método con la nueva URL en plural
-                EnviarPostHorario(json);
+                var request = (HttpWebRequest)WebRequest.Create("http://localhost:8082/servicio");
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var resp = (HttpWebResponse)request.GetResponse())
+                using (var reader = new StreamReader(resp.GetResponseStream()))
+                    return JsonConvert.DeserializeObject<List<ServicioDto>>(reader.ReadToEnd());
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+            catch { return new List<ServicioDto>(); }
         }
 
-        private void horario_semanal_Load(object sender, EventArgs e)
+        private List<GrupoDto> ObtenerGruposDeAPI()
         {
-
+            try
+            {
+                var request = (HttpWebRequest)WebRequest.Create("http://localhost:8082/grupos");
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var resp = (HttpWebResponse)request.GetResponse())
+                using (var reader = new StreamReader(resp.GetResponseStream()))
+                    return JsonConvert.DeserializeObject<List<GrupoDto>>(reader.ReadToEnd());
+            }
+            catch { return new List<GrupoDto>(); }
         }
+
+        private void horario_semanal_Load(object sender, EventArgs e) { }
     }
 }

@@ -29,16 +29,15 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panelEspaciado = new Panel();
             panelPaginacion = new Panel();
             buttonPaginacionDelante = new Button();
@@ -65,7 +64,6 @@
             labelNumUsuarios = new Label();
             labelUsuarios = new Label();
             pictureUsuarios = new PictureBox();
-            panelMargenes = new Panel();
             dataGridViewHorario = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -73,7 +71,6 @@
             Servicio = new DataGridViewTextBoxColumn();
             Grupo = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
             dataGridViewImageColumnUsModificar = new DataGridViewImageColumn();
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
             panelPaginacion.SuspendLayout();
@@ -86,7 +83,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureUActivos).BeginInit();
             panelUsuarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).BeginInit();
-            panelMargenes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorario).BeginInit();
             SuspendLayout();
             // 
@@ -118,7 +114,6 @@
             buttonPaginacionDelante.TabIndex = 2;
             buttonPaginacionDelante.Text = ">>";
             buttonPaginacionDelante.UseVisualStyleBackColor = true;
-            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
             // 
             // buttonPaginacionAtras
             // 
@@ -130,7 +125,6 @@
             buttonPaginacionAtras.TabIndex = 1;
             buttonPaginacionAtras.Text = "<<";
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
-            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
             // 
             // panelVisualHorario
             // 
@@ -151,7 +145,6 @@
             panelVisualHorario.Padding = new Padding(15, 0, 0, 0);
             panelVisualHorario.Size = new Size(1613, 192);
             panelVisualHorario.TabIndex = 17;
-            panelVisualHorario.Paint += panelVisualHorario_Paint;
             // 
             // buttonHorario
             // 
@@ -160,14 +153,13 @@
             buttonHorario.FlatAppearance.BorderSize = 0;
             buttonHorario.FlatStyle = FlatStyle.Flat;
             buttonHorario.ForeColor = Color.White;
-            buttonHorario.Location = new Point(1492, 124);
+            buttonHorario.Location = new Point(1499, 124);
             buttonHorario.Margin = new Padding(3, 4, 3, 4);
             buttonHorario.Name = "buttonHorario";
             buttonHorario.Size = new Size(86, 31);
             buttonHorario.TabIndex = 21;
             buttonHorario.Text = "+";
             buttonHorario.UseVisualStyleBackColor = false;
-            buttonHorario.Click += buttonHorario_Click;
             // 
             // comboBoxHorario
             // 
@@ -176,7 +168,7 @@
             comboBoxHorario.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxHorario.FlatStyle = FlatStyle.Flat;
             comboBoxHorario.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxHorario.Location = new Point(1255, 132);
+            comboBoxHorario.Location = new Point(1263, 139);
             comboBoxHorario.Margin = new Padding(5, 4, 5, 4);
             comboBoxHorario.Name = "comboBoxHorario";
             comboBoxHorario.Size = new Size(153, 23);
@@ -409,20 +401,10 @@
             pictureUsuarios.TabIndex = 1;
             pictureUsuarios.TabStop = false;
             // 
-            // panelMargenes
-            // 
-            panelMargenes.Controls.Add(dataGridViewHorario);
-            panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 192);
-            panelMargenes.Name = "panelMargenes";
-            panelMargenes.Padding = new Padding(30, 0, 30, 0);
-            panelMargenes.Size = new Size(1613, 463);
-            panelMargenes.TabIndex = 18;
-            panelMargenes.Paint += panelMargenes_Paint;
-            // 
             // dataGridViewHorario
             // 
             dataGridViewHorario.AllowUserToOrderColumns = true;
+            dataGridViewHorario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewHorario.BackgroundColor = Color.White;
             dataGridViewHorario.BorderStyle = BorderStyle.None;
             dataGridViewHorario.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
@@ -436,41 +418,42 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewHorario.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewHorario.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewHorario.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsModificar, dataGridViewImageColumnUsEliminar });
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = SystemColors.Window;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.Padding = new Padding(2);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dataGridViewHorario.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewHorario.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsModificar, dataGridViewImageColumnUsEliminar });
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.Padding = new Padding(2);
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dataGridViewHorario.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewHorario.Dock = DockStyle.Fill;
             dataGridViewHorario.EnableHeadersVisualStyles = false;
             dataGridViewHorario.GridColor = Color.Black;
             dataGridViewHorario.ImeMode = ImeMode.NoControl;
-            dataGridViewHorario.Location = new Point(30, 0);
+            dataGridViewHorario.Location = new Point(0, 192);
             dataGridViewHorario.MultiSelect = false;
             dataGridViewHorario.Name = "dataGridViewHorario";
             dataGridViewHorario.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle10.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle10.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorario.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorario.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewHorario.RowHeadersVisible = false;
             dataGridViewHorario.RowHeadersWidth = 51;
-            dataGridViewCellStyle11.BackColor = Color.White;
-            dataGridViewCellStyle11.SelectionForeColor = Color.White;
-            dataGridViewHorario.RowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle10.BackColor = Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = Color.White;
+            dataGridViewHorario.RowsDefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewHorario.RowTemplate.Height = 35;
             dataGridViewHorario.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dataGridViewHorario.Size = new Size(1553, 463);
-            dataGridViewHorario.TabIndex = 20;
+            dataGridViewHorario.Size = new Size(1613, 463);
+            dataGridViewHorario.TabIndex = 18;
+            dataGridViewHorario.CellContentClick += dataGridViewHorario_CellContentClick;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -502,19 +485,17 @@
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
-            dataGridViewTextBoxColumn3.Width = 95;
+            dataGridViewTextBoxColumn3.Width = 119;
             // 
             // Servicio
             // 
             Servicio.HeaderText = "Grupo";
             Servicio.Name = "Servicio";
-            Servicio.Width = 288;
             // 
             // Grupo
             // 
             Grupo.HeaderText = "Servicio";
             Grupo.Name = "Grupo";
-            Grupo.Width = 288;
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -527,32 +508,13 @@
             dataGridViewTextBoxColumn4.ReadOnly = true;
             dataGridViewTextBoxColumn4.Width = 82;
             // 
-            // dataGridViewImageColumnUsInfo
-            // 
-            dataGridViewImageColumnUsInfo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
-            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle6;
-            dataGridViewImageColumnUsInfo.HeaderText = "Info";
-            dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
-            dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnUsInfo.MinimumWidth = 6;
-            dataGridViewImageColumnUsInfo.Name = "dataGridViewImageColumnUsInfo";
-            dataGridViewImageColumnUsInfo.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnUsInfo.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnUsInfo.Width = 73;
-            // 
             // dataGridViewImageColumnUsModificar
             // 
             dataGridViewImageColumnUsModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewImageColumnUsModificar.HeaderText = "Modificar";
             dataGridViewImageColumnUsModificar.Image = Properties.Resources.edit;
             dataGridViewImageColumnUsModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -565,10 +527,10 @@
             // dataGridViewImageColumnUsEliminar
             // 
             dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle8.NullValue = null;
-            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
             dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
             dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -583,7 +545,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1613, 738);
-            Controls.Add(panelMargenes);
+            Controls.Add(dataGridViewHorario);
             Controls.Add(panelVisualHorario);
             Controls.Add(panelPaginacion);
             Controls.Add(panelEspaciado);
@@ -605,7 +567,6 @@
             panelUsuarios.ResumeLayout(false);
             panelUsuarios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
-            panelMargenes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorario).EndInit();
             ResumeLayout(false);
         }
@@ -636,18 +597,16 @@
         private Label labelNumUsuarios;
         private Label labelUsuarios;
         private PictureBox pictureUsuarios;
+        private DataGridView dataGridViewHorario;
         private Button buttonHorario;
         private ComboBox comboBoxHorario;
         private TextBox textBoxSHorarioBuscar;
-        private Panel panelMargenes;
-        private DataGridView dataGridViewHorario;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn Servicio;
         private DataGridViewTextBoxColumn Grupo;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
         private DataGridViewImageColumn dataGridViewImageColumnUsModificar;
         private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
     }
