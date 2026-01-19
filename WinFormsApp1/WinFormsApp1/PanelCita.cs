@@ -331,8 +331,8 @@ namespace WinFormsApp1
 
             for (int i = (contador - 1) * 20; i <= tope; i++)
             {
-                var fecha = _citas[i].Horario.DiaSemana + " " + _citas[i].Fecha;
-                var hora = _citas[i].Horario.HoraInicio + " - " + _citas[i].Horario.HoraFin;
+                //var fecha = _citas[i].Horario.DiaSemana + " " + _citas[i].Fecha;
+                //var hora = _citas[i].Horario.HoraInicio + " - " + _citas[i].Horario.HoraFin;
 
                 string estado = "";
                 if (_citas[i].Estado.Equals("true"))
@@ -345,13 +345,12 @@ namespace WinFormsApp1
                 }
 
                 int index = dataGridViewCitas.Rows.Add(
-                    _citas[i].Cliente.Nombre,
-                    _citas[i].Horario.Servicio.Nombre,
-                    fecha,
-                    hora,
+                    _citas[i].Cliente,
+                    _citas[i].Horario.Servicio,
+                    _citas[i].Fecha,
+                    _citas[i].Horario.HoraInicio,
                     estado,
-                    _citas[i].Horario.Grupo.Nombre
-
+                    _citas[i].Horario.Grupo
                 );
 
                 dataGridViewCitas.Rows[index].Tag = _citas[i];
