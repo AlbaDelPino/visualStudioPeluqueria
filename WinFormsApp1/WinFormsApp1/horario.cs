@@ -38,8 +38,7 @@ namespace WinFormsApp1
         public horario(string token)
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
-            this.ResizeRedraw = true;
+        
 
             _token = token;
         }
@@ -146,27 +145,7 @@ namespace WinFormsApp1
         }
 
 
-        private List<ServicioDto> ObtenerServicios()
-        {
-
-            var url = "http://localhost:8082/servicio";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-
-            // Aquí añadimos el token
-            request.Headers["Authorization"] = $"Bearer {_token}";
-
-            using (var response = (HttpWebResponse)request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
-            {
-                string json = reader.ReadToEnd();
-                var servicios = JsonConvert.DeserializeObject<List<ServicioDto>>(json);
-                return servicios;
-            }
-        }
+       
 
 
         private void RecargarHorario()
@@ -189,23 +168,30 @@ namespace WinFormsApp1
         {
             dataGridViewHorario.Rows.Clear();
 
+            // Seguridad: Si la lista es nula, salimos
+            if (_Horario == null || _Horario.Count == 0) return;
 
             int registrosASaltar = (contador - 1) * 15;
             var servicioPagina = _Horario.Skip(registrosASaltar).Take(15).ToList();
 
             foreach (var u in servicioPagina)
             {
-             
-                
+                // 1. Obtener el nombre del curso (accediendo a Grupo.Curso)
+                string cursoAMostrar = u.Grupo?.Curso ?? "Sin Grupo";
 
+                // 2. Formatear las horas para que no salgan segundos (opcional, queda más limpio)
+                string horaInicio = u.HoraInicio.ToString("HH:mm", null);
+                string horaFin = u.HoraFin.ToString("HH:mm", null);
+
+                // 3. Añadir a la tabla
                 int index = dataGridViewHorario.Rows.Add(
                     u.DiaSemana,
-                    u.HoraInicio,
-                    u.HoraFin,
-                    u.Plazas,
+                    horaInicio,
+                    horaFin,
+                    cursoAMostrar,
+                            // Asegúrate que la columna en el diseñador acepte números/texto
                     u.Servicio?.Nombre,
-                    u.Grupo?.Nombre
-
+                   u.Plazas     // Mostramos el texto del curso, no el objeto GrupoDto
                 );
 
                 dataGridViewHorario.Rows[index].Tag = u;

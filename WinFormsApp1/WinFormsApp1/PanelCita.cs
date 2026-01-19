@@ -320,41 +320,36 @@ namespace WinFormsApp1
         private void pasarPagina()
         {
             dataGridViewCitas.Rows.Clear();
+            if (_citas == null || _citas.Count == 0) return;
 
-            var tope = 0;
-            if (_citas.Count - ((contador - 1) * 20) < 20)
-            {
-                tope = ((contador - 1) * 20) + (_citas.Count - ((contador - 1) * 20)) - 1;
-            }
-            else
-            {
-                tope = contador * 20;
-            }
+            // Calculamos el tope para no salirnos del índice de la lista
+            int inicio = (contador - 1) * 20;
+            int tope = Math.Min(inicio + 20, _citas.Count);
 
-            for (int i = (contador - 1) * 20; i <= tope; i++)
+            for (int i = inicio; i < tope; i++)
             {
-                string fecha = _citas[i].Horario.DiaSemana + " " + _citas[i].Fecha.ToString();
-                string hora = _citas[i].Horario.HoraInicio.ToString().Substring(0,5);
-                string estado = "";
-                if (_citas[i].Estado.Equals("true"))
-                {
-                    estado = "Confirmada";
-                }
-                else if (_citas[i].Estado.Equals("false"))
-                {
-                    estado = "Cancelada";
-                }
+                var cita = _citas[i];
 
+                // 1. Formatear Estado
+                string estadoTexto = cita.Estado ? "Confirmada" : "Cancelada";
+
+                // 2. Obtener el nombre del curso del grupo
+                // Accedemos a cita.Horario.Grupo.Curso
+                string cursoMostrar = cita.Horario?.Grupo?.Curso ?? "Sin Grupo";
+
+                // 3. Añadir la fila al DataGridView
+                // Asegúrate de que el orden de los parámetros coincida con tus columnas
                 int index = dataGridViewCitas.Rows.Add(
-                    _citas[i].Cliente?.Nombre,
-                    _citas[i].Horario.Servicio?.Nombre,
-                    fecha,
-                    hora,
-                    estado,
-                    _citas[i].Horario.Grupo?.Nombre
+                    cita.Cliente?.Nombre ?? "Sin Nombre",
+                    cita.Horario?.Servicio?.Nombre ?? "Sin Servicio",
+                    cita.Fecha.ToString(),                     // Columna Fecha
+                    cita.Horario?.HoraInicio.ToString("HH:mm", null), // Columna Hora
+                    estadoTexto,                               // Columna Estado
+                    cursoMostrar                               // Columna Grupo (AQUÍ SALE EL CURSO)
                 );
 
-                dataGridViewCitas.Rows[index].Tag = _citas[i];
+                // Guardamos el objeto completo en el Tag para poder recuperarlo al hacer clic
+                dataGridViewCitas.Rows[index].Tag = cita;
             }
         }
         private void dataGridViewCitas_CellContentClick(object sender, DataGridViewCellEventArgs e)

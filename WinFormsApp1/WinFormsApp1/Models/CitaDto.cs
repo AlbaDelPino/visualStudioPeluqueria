@@ -2,11 +2,6 @@
 using NodaTime;
 using ServiciosInfo.Models;
 using UsersInfo.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CitasInfo.Models
 {
@@ -21,15 +16,16 @@ namespace CitasInfo.Models
         [JsonProperty("estado")]
         public bool Estado { get; set; }
 
-        [JsonProperty("horario")] // 👈 En Java la propiedad se llama 'horario'
+        [JsonProperty("horario")]
         public HorarioSemanalDto Horario { get; set; }
 
-        [JsonProperty("users")]
+        [JsonProperty("cliente")] // En Java: private Cliente cliente;
         public UsersDto Cliente { get; set; }
     }
+
     public class HorarioSemanalDto
     {
-        [JsonProperty("idHorario")]
+        [JsonProperty("id")] // El error indica que Java busca 'id' o 'id_horario'
         public long Id { get; set; }
 
         [JsonProperty("diaSemana")]
@@ -47,8 +43,7 @@ namespace CitasInfo.Models
         [JsonProperty("servicio")]
         public ServicioDto Servicio { get; set; }
 
-        [JsonProperty("users")]
-        public UsersDto Grupo { get; set; }
-
+        [JsonProperty("grupo")] // Asegúrate que en Java el campo se llame 'grupo'
+    public GrupoDto Grupo { get; set; }
     }
 }
