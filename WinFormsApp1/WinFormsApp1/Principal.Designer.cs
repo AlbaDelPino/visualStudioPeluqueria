@@ -118,7 +118,7 @@
             // 
             // panelLado
             // 
-            panelLado.BackColor = Color.SeaShell;
+            panelLado.BackColor = Color.FromArgb(255, 128, 0);
             panelLado.Controls.Add(pictureBox5);
             panelLado.Controls.Add(labelHorario);
             panelLado.Controls.Add(pictureBox4);
@@ -143,9 +143,9 @@
             // 
             pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(27, 423);
+            pictureBox5.Location = new Point(50, 402);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(23, 30);
+            pictureBox5.Size = new Size(23, 28);
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 21;
             pictureBox5.TabStop = false;
@@ -154,7 +154,7 @@
             // 
             labelHorario.AutoSize = true;
             labelHorario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelHorario.Location = new Point(56, 425);
+            labelHorario.Location = new Point(82, 410);
             labelHorario.Name = "labelHorario";
             labelHorario.Size = new Size(85, 20);
             labelHorario.TabIndex = 20;
@@ -167,9 +167,9 @@
             // 
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(27, 376);
+            pictureBox4.Location = new Point(50, 359);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(23, 30);
+            pictureBox4.Size = new Size(23, 28);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 19;
             pictureBox4.TabStop = false;
@@ -178,9 +178,9 @@
             // 
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(23, 210);
+            pictureBox3.Location = new Point(48, 219);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(23, 37);
+            pictureBox3.Size = new Size(23, 28);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 18;
             pictureBox3.TabStop = false;
@@ -189,9 +189,9 @@
             // 
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(23, 264);
+            pictureBox2.Location = new Point(48, 266);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(25, 30);
+            pictureBox2.Size = new Size(23, 28);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 17;
             pictureBox2.TabStop = false;
@@ -200,9 +200,9 @@
             // 
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = WinFormsApp1.Properties.Resources.Usuario;
-            pictureBox1.Location = new Point(22, 323);
+            pictureBox1.Location = new Point(48, 315);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(34, 28);
+            pictureBox1.Size = new Size(23, 28);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 16;
             pictureBox1.TabStop = false;
@@ -211,7 +211,7 @@
             // 
             labelCita.AutoSize = true;
             labelCita.Font = new Font("Microsoft Sans Serif", 12F);
-            labelCita.Location = new Point(56, 378);
+            labelCita.Location = new Point(108, 367);
             labelCita.Name = "labelCita";
             labelCita.Size = new Size(56, 20);
             labelCita.TabIndex = 15;
@@ -224,7 +224,7 @@
             // 
             labelUsuario.AutoSize = true;
             labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelUsuario.Location = new Point(56, 323);
+            labelUsuario.Location = new Point(80, 323);
             labelUsuario.Name = "labelUsuario";
             labelUsuario.Size = new Size(84, 20);
             labelUsuario.TabIndex = 14;
@@ -237,7 +237,7 @@
             // 
             labelServicio.AutoSize = true;
             labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
-            labelServicio.Location = new Point(52, 272);
+            labelServicio.Location = new Point(80, 274);
             labelServicio.Name = "labelServicio";
             labelServicio.Size = new Size(87, 20);
             labelServicio.TabIndex = 13;
@@ -253,7 +253,7 @@
             labelPrincipal.Font = new Font("Microsoft Sans Serif", 12F);
             labelPrincipal.Image = WinFormsApp1.Properties.Resources._7046041;
             labelPrincipal.ImageAlign = ContentAlignment.MiddleLeft;
-            labelPrincipal.Location = new Point(52, 221);
+            labelPrincipal.Location = new Point(106, 227);
             labelPrincipal.Name = "labelPrincipal";
             labelPrincipal.RightToLeft = RightToLeft.No;
             labelPrincipal.Size = new Size(58, 20);

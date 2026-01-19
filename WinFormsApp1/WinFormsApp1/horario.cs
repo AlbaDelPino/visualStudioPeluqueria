@@ -38,7 +38,7 @@ namespace WinFormsApp1
         public horario(string token)
         {
             InitializeComponent();
-        
+
 
             _token = token;
         }
@@ -55,6 +55,13 @@ namespace WinFormsApp1
 
             // --- CONFIGURACIÓN ESTÉTICA INICIAL ---
             ConfigurarUIEstiloImagen();
+
+            // Forzamos que se ejecute la lógica de reubicación una vez el formulario sea visible
+            this.BeginInvoke(new Action(() =>
+            {
+                ActualizarRegiones();
+                panelVisualHorario.Invalidate();
+            }));
         }
 
         private void ConfigurarUIEstiloImagen()
@@ -96,13 +103,13 @@ namespace WinFormsApp1
             buttonHorario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonHorario.Width, buttonHorario.Height, buttonHorario.Width, buttonHorario.Height));
         }
 
-        private void PanelUsuario_Resize(object sender, EventArgs e)
+        private void PanelHorario_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
             panelVisualHorario.Invalidate(); // Fuerza a redibujar el borde gris
         }
 
-        private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
+        private void panelVisualHorario_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -145,7 +152,7 @@ namespace WinFormsApp1
         }
 
 
-       
+
 
 
         private void RecargarHorario()
@@ -161,8 +168,8 @@ namespace WinFormsApp1
                 pagHo = (_Horario.Count / 15);
             }
 
-           // labelNumServicios.Text = $" {_Horario.Count}";
-           // labelNumTipoSer.Text = (comboBoxHorario.Items.Count - 1).ToString();
+            // labelNumServicios.Text = $" {_Horario.Count}";
+            // labelNumTipoSer.Text = (comboBoxHorario.Items.Count - 1).ToString();
         }
         private void pasarPagina()
         {
@@ -189,7 +196,7 @@ namespace WinFormsApp1
                     horaInicio,
                     horaFin,
                     cursoAMostrar,
-                            // Asegúrate que la columna en el diseñador acepte números/texto
+                    // Asegúrate que la columna en el diseñador acepte números/texto
                     u.Servicio?.Nombre,
                    u.Plazas     // Mostramos el texto del curso, no el objeto GrupoDto
                 );
@@ -251,6 +258,6 @@ namespace WinFormsApp1
             }
         }
 
-
+       
     }
 }

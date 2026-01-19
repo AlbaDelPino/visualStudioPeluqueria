@@ -44,6 +44,9 @@
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
             panelVisualHorario = new Panel();
+            buttonHorario = new Button();
+            comboBoxHorario = new ComboBox();
+            textBoxSHorarioBuscar = new TextBox();
             anyadirUsuario = new Button();
             label1 = new Label();
             panelAdmin = new Panel();
@@ -72,9 +75,6 @@
             dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
             dataGridViewImageColumnUsModificar = new DataGridViewImageColumn();
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
-            buttonHorario = new Button();
-            comboBoxHorario = new ComboBox();
-            textBoxSHorarioBuscar = new TextBox();
             panelPaginacion.SuspendLayout();
             panelVisualHorario.SuspendLayout();
             panelAdmin.SuspendLayout();
@@ -147,6 +147,47 @@
             panelVisualHorario.Padding = new Padding(15, 0, 0, 0);
             panelVisualHorario.Size = new Size(1613, 192);
             panelVisualHorario.TabIndex = 17;
+            panelVisualHorario.Paint += panelVisualHorario_Paint;
+            // 
+            // buttonHorario
+            // 
+            buttonHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonHorario.BackColor = Color.FromArgb(255, 128, 0);
+            buttonHorario.FlatAppearance.BorderSize = 0;
+            buttonHorario.FlatStyle = FlatStyle.Flat;
+            buttonHorario.ForeColor = Color.White;
+            buttonHorario.Location = new Point(1492, 124);
+            buttonHorario.Margin = new Padding(3, 4, 3, 4);
+            buttonHorario.Name = "buttonHorario";
+            buttonHorario.Size = new Size(86, 31);
+            buttonHorario.TabIndex = 21;
+            buttonHorario.Text = "+";
+            buttonHorario.UseVisualStyleBackColor = false;
+            // 
+            // comboBoxHorario
+            // 
+            comboBoxHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBoxHorario.DisplayMember = "1";
+            comboBoxHorario.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxHorario.FlatStyle = FlatStyle.Flat;
+            comboBoxHorario.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
+            comboBoxHorario.Location = new Point(1255, 132);
+            comboBoxHorario.Margin = new Padding(5, 4, 5, 4);
+            comboBoxHorario.Name = "comboBoxHorario";
+            comboBoxHorario.Size = new Size(153, 23);
+            comboBoxHorario.TabIndex = 20;
+            // 
+            // textBoxSHorarioBuscar
+            // 
+            textBoxSHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxSHorarioBuscar.BorderStyle = BorderStyle.None;
+            textBoxSHorarioBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxSHorarioBuscar.Location = new Point(14, 139);
+            textBoxSHorarioBuscar.Margin = new Padding(5, 4, 5, 4);
+            textBoxSHorarioBuscar.Name = "textBoxSHorarioBuscar";
+            textBoxSHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
+            textBoxSHorarioBuscar.Size = new Size(1053, 16);
+            textBoxSHorarioBuscar.TabIndex = 19;
             // 
             // anyadirUsuario
             // 
@@ -519,46 +560,6 @@
             dataGridViewImageColumnUsEliminar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
             dataGridViewImageColumnUsEliminar.Width = 101;
-            // 
-            // buttonHorario
-            // 
-            buttonHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonHorario.BackColor = Color.FromArgb(255, 128, 0);
-            buttonHorario.FlatAppearance.BorderSize = 0;
-            buttonHorario.FlatStyle = FlatStyle.Flat;
-            buttonHorario.ForeColor = Color.White;
-            buttonHorario.Location = new Point(1499, 124);
-            buttonHorario.Margin = new Padding(3, 4, 3, 4);
-            buttonHorario.Name = "buttonHorario";
-            buttonHorario.Size = new Size(86, 31);
-            buttonHorario.TabIndex = 21;
-            buttonHorario.Text = "+";
-            buttonHorario.UseVisualStyleBackColor = false;
-            // 
-            // comboBoxHorario
-            // 
-            comboBoxHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBoxHorario.DisplayMember = "1";
-            comboBoxHorario.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxHorario.FlatStyle = FlatStyle.Flat;
-            comboBoxHorario.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxHorario.Location = new Point(1263, 139);
-            comboBoxHorario.Margin = new Padding(5, 4, 5, 4);
-            comboBoxHorario.Name = "comboBoxHorario";
-            comboBoxHorario.Size = new Size(153, 23);
-            comboBoxHorario.TabIndex = 20;
-            // 
-            // textBoxSHorarioBuscar
-            // 
-            textBoxSHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSHorarioBuscar.BorderStyle = BorderStyle.None;
-            textBoxSHorarioBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSHorarioBuscar.Location = new Point(14, 139);
-            textBoxSHorarioBuscar.Margin = new Padding(5, 4, 5, 4);
-            textBoxSHorarioBuscar.Name = "textBoxSHorarioBuscar";
-            textBoxSHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
-            textBoxSHorarioBuscar.Size = new Size(1053, 16);
-            textBoxSHorarioBuscar.TabIndex = 19;
             // 
             // horario
             // 
