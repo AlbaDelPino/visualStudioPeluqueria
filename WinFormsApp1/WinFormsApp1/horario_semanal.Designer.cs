@@ -210,6 +210,7 @@
             buttonModificar.TabIndex = 93;
             buttonModificar.Text = "Modificar horario";
             buttonModificar.UseVisualStyleBackColor = true;
+            buttonModificar.Click += buttonModificar_Click;
             // 
             // numericPlazas
             // 
@@ -243,6 +244,7 @@
             Controls.Add(labelHoServicio);
             Name = "horario_semanal";
             Text = "horario_semanal";
+            Load += horario_semanal_Load_1;
             ((System.ComponentModel.ISupportInitialize)numericPlazas).EndInit();
             ResumeLayout(false);
             PerformLayout();

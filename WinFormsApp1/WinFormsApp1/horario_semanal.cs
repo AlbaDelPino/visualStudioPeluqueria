@@ -69,7 +69,6 @@ namespace WinFormsApp1
 
         private void ConfigurarControlesHora()
         {
-            // Formato de 24 horas y selectores arriba/abajo
             dateTimePickerHoaraInicio.Format = DateTimePickerFormat.Custom;
             dateTimePickerHoaraInicio.CustomFormat = "HH:mm";
             dateTimePickerHoaraInicio.ShowUpDown = true;
@@ -136,12 +135,12 @@ namespace WinFormsApp1
             try
             {
                 // Construcción del objeto JSON dinámico
+                // Usamos HH:mm:ss para que Java LocalTime lo reciba correctamente
                 var datosHorario = new
                 {
-                    id = _idHorarioExistente, // Será null en POST (ignorado) y tendrá valor en PUT
                     diaSemana = comboBoxDiaSemana.Text.ToUpper(),
-                    horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm"),
-                    horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm"),
+                    horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm:ss"),
+                    horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm:ss"),
                     plazas = (int)numericPlazas.Value,
                     servicio = new { id_servicio = _idServicioSeleccionado.Value },
                     grupo = new { id = _idGrupoSeleccionado.Value }
@@ -160,7 +159,13 @@ namespace WinFormsApp1
         {
             try
             {
+                // La URL se ajusta: para PUT debe ser /horarios/{id}
                 var url = "http://localhost:8082/horarios";
+                if (metodo == "PUT" && _idHorarioExistente.HasValue)
+                {
+                    url += $"/{_idHorarioExistente.Value}";
+                }
+
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = metodo;
                 request.ContentType = "application/json";
@@ -227,5 +232,10 @@ namespace WinFormsApp1
         }
 
         private void horario_semanal_Load(object sender, EventArgs e) { }
+
+        private void horario_semanal_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
