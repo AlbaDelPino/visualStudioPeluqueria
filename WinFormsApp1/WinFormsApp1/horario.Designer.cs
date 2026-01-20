@@ -173,6 +173,7 @@
             comboBoxHorario.Name = "comboBoxHorario";
             comboBoxHorario.Size = new Size(153, 23);
             comboBoxHorario.TabIndex = 20;
+            comboBoxHorario.SelectedIndexChanged += comboBoxHorario_SelectedIndexChanged;
             // 
             // textBoxSHorarioBuscar
             // 
@@ -185,6 +186,7 @@
             textBoxSHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
             textBoxSHorarioBuscar.Size = new Size(1053, 16);
             textBoxSHorarioBuscar.TabIndex = 19;
+            textBoxSHorarioBuscar.TextChanged += textBoxSHorarioBuscar_TextChanged;
             // 
             // anyadirUsuario
             // 
@@ -485,7 +487,7 @@
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
-            dataGridViewTextBoxColumn3.Width = 119;
+            dataGridViewTextBoxColumn3.Width = 95;
             // 
             // Servicio
             // 

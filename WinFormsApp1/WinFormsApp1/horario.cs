@@ -42,7 +42,8 @@ namespace WinFormsApp1
             ConfigurarUIEstiloImagen();
             RecargarHorario();
 
-            this.BeginInvoke(new Action(() => {
+            this.BeginInvoke(new Action(() =>
+            {
                 ActualizarRegiones();
                 panelVisualHorario.Invalidate();
             }));
@@ -181,5 +182,72 @@ namespace WinFormsApp1
         private void PanelHorario_Resize(object sender, EventArgs e) { ActualizarRegiones(); panelVisualHorario.Invalidate(); }
         private void buttonPaginacionAtras_Click(object sender, EventArgs e) { if (contador > 1) { contador--; pasarPagina(); } }
         private void buttonPaginacionDelante_Click(object sender, EventArgs e) { if (contador < pagHo) { contador++; pasarPagina(); } }
+
+
+        // --- LÓGICA DE FILTRADO ---
+
+        private void filtrarHorario()
+        {
+            // 1. Obtener los valores de los filtros
+            string filtroTexto = textBoxSHorarioBuscar.Text.Trim().ToLower();
+            string filtroDia = comboBoxHorario.SelectedItem?.ToString();
+
+            if (_Horario == null) return;
+
+            // 2. Aplicar filtros usando LINQ
+            var listaFiltrada = _Horario.AsEnumerable();
+
+            // Filtrar por texto (Servicio o Curso)
+            if (!string.IsNullOrEmpty(filtroTexto))
+            {
+                listaFiltrada = listaFiltrada.Where(h =>
+                    (h.Servicio?.Nombre?.ToLower().Contains(filtroTexto) ?? false) ||
+                    (h.Grupo?.Curso?.ToLower().Contains(filtroTexto) ?? false)
+                );
+            }
+
+            // Filtrar por día de la semana (ComboBox)
+            // Asumimos que el combo tiene opciones como "Lunes", "Martes", etc. 
+            // Si tiene una opción "Todos", la ignoramos.
+            if (!string.IsNullOrEmpty(filtroDia) && filtroDia != "Todos")
+            {
+                listaFiltrada = listaFiltrada.Where(h => h.DiaSemana.Equals(filtroDia, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // 3. Actualizar el DataGridView
+            dataGridViewHorario.Rows.Clear();
+
+            foreach (var h in listaFiltrada)
+            {
+                string inicio = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
+                string fin = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
+
+                int idx = dataGridViewHorario.Rows.Add(
+                    h.DiaSemana,
+                    inicio,
+                    fin,
+                    h.Grupo?.Curso ?? "Sin Grupo",
+                    h.Servicio?.Nombre ?? "Sin Servicio",
+                    h.Plazas,
+                    Properties.Resources.edit,
+                    Properties.Resources.trash
+                );
+                dataGridViewHorario.Rows[idx].Tag = h;
+            }
+        }
+
+        // --- EVENTOS CONECTADOS ---
+
+        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
+        private void textBoxSHorarioBuscar_TextChanged(object sender, EventArgs e)
+        {
+            filtrarHorario();
+        }
+
+        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
+        private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarHorario();
+        }
     }
-}
+    }
