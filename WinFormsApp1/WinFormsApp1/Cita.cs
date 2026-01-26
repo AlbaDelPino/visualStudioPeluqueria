@@ -17,6 +17,7 @@ using UsersInfo.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Text.Json;
 
 namespace WinFormsApp1
 {
@@ -188,11 +189,29 @@ namespace WinFormsApp1
                 using (var stream = response.GetResponseStream())
                 using (var reader = new StreamReader(stream))
                 {
-                    string json = reader.ReadToEnd();
-                    var plazas = JsonConvert.DeserializeObject<long>(json);
-                    if (plazas > 0)
+                    //string json = reader.ReadToEnd();
+                    //var plazas = JsonConvert.DeserializeObject<long>(json);
+                    //if (plazas > 0)
+                    //{
+                    //    disponibles.Add(h);
+                    //}
+
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    // 1. Deserializamos como un Diccionario
+                    var bloquesMap = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonResponse);
+
+                    List<HorarioBloqueDTO> listaTemporal = new List<HorarioBloqueDTO>();
+
+                    // 2. Separamos Hora y Plazas usando un bucle foreach sobre el diccionario
+                    foreach (var entrada in bloquesMap)
                     {
-                        disponibles.Add(h);
+                        listaTemporal.Add(new HorarioBloqueDTO
+                        {
+                            Hora = entrada.Key,       // La clave es la hora: "09:00:00"
+                            Plazas = entrada.Value,   // El valor son las plazas: 5
+                            HorarioObj = horarioBase  // El objeto padre que ya tenías
+                        });
                     }
                 }
             }

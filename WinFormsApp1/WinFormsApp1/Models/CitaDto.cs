@@ -46,4 +46,13 @@ namespace CitasInfo.Models
         [JsonProperty("grupo")] // Asegúrate que en Java el campo se llame 'grupo'
     public GrupoDto Grupo { get; set; }
     }
+
+    public class HorarioBloqueDTO
+    {
+        public string Hora { get; set; }
+        public int Plazas { get; set; }
+        public HorarioSemanalDto HorarioObj { get; set; } // El objeto que contiene el ID
+    }
+
+
 }

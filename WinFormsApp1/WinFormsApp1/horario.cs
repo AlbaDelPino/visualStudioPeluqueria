@@ -110,7 +110,7 @@ namespace WinFormsApp1
                 }
             }
         }
-        
+
 
         // --- LÓGICA DE ENVÍO (BOTONES) ---
 
@@ -231,6 +231,9 @@ namespace WinFormsApp1
             catch { return new List<UsersDto>(); }
         }
 
-        
+        private void Horario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
