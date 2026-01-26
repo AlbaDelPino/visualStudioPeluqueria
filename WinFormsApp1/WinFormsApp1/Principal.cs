@@ -30,10 +30,13 @@ namespace WindowsFormsApp1
         private readonly string _token;
         private static int pagSer;
         private static int contador = 1;
-        public Principal(string token)
+        private static List<UsersDto> _grupos;
+        private readonly UsersDto _usuarioActual;
+        public Principal(UsersDto usuarioActual,string token)
         {
             InitializeComponent();
             _token = token;
+            _usuarioActual = usuarioActual;
             this.WindowState = FormWindowState.Maximized;
             ConfigurarPanelContenedor();
         }
@@ -60,7 +63,7 @@ namespace WindowsFormsApp1
 
         private void MostrarContenidoInicio()
         {
-            PanelPrincipal pantallaIntro = new PanelPrincipal();
+            PanelPrincipal pantallaIntro = new PanelPrincipal(_usuarioActual, _token);
             panelControl.Controls.Clear();
             panelControl.Dock = DockStyle.Fill;
             pantallaIntro.TopLevel = false;
@@ -111,7 +114,7 @@ namespace WindowsFormsApp1
 
         private void labelServicio_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelServicios(_token));
+            CargarNuevaPagina(new PanelServicios(_usuarioActual,_token));
         }
         // Cuando el mouse entra al área del Label
 
@@ -119,17 +122,17 @@ namespace WindowsFormsApp1
 
         private void labelUsuario_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelUsuario(_token));
+            CargarNuevaPagina(new PanelUsuario(_usuarioActual, _token));
         }
 
 
         private void labelCita_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelCita(_token));
+            CargarNuevaPagina(new PanelCita(_usuarioActual,_grupos,_token));
         }
         private void labelHorario_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new horario(_token));
+            CargarNuevaPagina(new PanelHorario(_usuarioActual, _grupos, _token));
         }
 
 
@@ -201,12 +204,54 @@ namespace WindowsFormsApp1
 
         private void Principal_Load(object sender, EventArgs e)
         {
+            var grupos = ObtenerUsuarios();
+            _grupos = grupos.Where(u => u.Role.Equals("ROLE_GRUPO", StringComparison.OrdinalIgnoreCase)).ToList();
+            var gruposConVacio = new List<UsersDto>
+            {
+                new UsersDto
+                {
+                    Id = 0,
+                    Nombre = ""
+                }
+            };
+            gruposConVacio.AddRange(_grupos);
+            _grupos = gruposConVacio;
             MostrarContenidoInicio();
         }
 
         private void labTituto_Click(object sender, EventArgs e)
         {
              
+        }
+
+        private List<UsersDto> ObtenerUsuarios()
+        {
+            try
+            {
+                var url = "http://localhost:8082/api/auth/users";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+
+                // Aquí añadimos el token
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var usuarios = JsonConvert.DeserializeObject<List<UsersDto>>(json);
+                    return usuarios;
+                }
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
     }
 }

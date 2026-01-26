@@ -19,7 +19,7 @@ namespace WinFormsApp1
                 if (loginForm.DialogResult == DialogResult.OK)
                 {
                     // Si el login fue correcto, abrir Principal con el token
-                    Application.Run(new Principal(loginForm.Token));
+                    Application.Run(new Principal(loginForm.UsuarioActual,loginForm.Token));
                 }
             }
         }

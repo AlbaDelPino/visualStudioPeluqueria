@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UsersInfo.Models;
 
 namespace WinFormsApp1
 {
     public partial class PanelPrincipal : Form
     {
-        public PanelPrincipal()
+        public PanelPrincipal(UsersDto usuarioActual,string token)
         {
             InitializeComponent();
         }

@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UsersInfo.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
@@ -34,7 +35,7 @@ namespace WinFormsApp1
         private static int pagSer;
         private static int contador = 1;
         private static List<ServicioDto> _servicios;
-        public PanelServicios(string token)
+        public PanelServicios(UsersDto usuarioActual,string token)
         {
             InitializeComponent();
             _token = token;
@@ -137,19 +138,6 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {
             GraphicsPath path = new GraphicsPath();
@@ -161,6 +149,19 @@ namespace WinFormsApp1
             g.FillPath(b, path);
             g.DrawPath(p, path);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void ModificarServicio(ServicioDto servicio)
         {

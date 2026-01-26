@@ -14,7 +14,7 @@ namespace CitasInfo.Models
         public LocalDate Fecha { get; set; }
 
         [JsonProperty("estado")]
-        public bool Estado { get; set; }
+        public string Estado { get; set; }
 
         [JsonProperty("horario")]
         public HorarioSemanalDto Horario { get; set; }

@@ -42,11 +42,15 @@ namespace WinFormsApp1
         private static int pagCit;
         private static int contador = 1;
         private static List<CitaDto> _citas;
+        private readonly List<UsersDto> _grupos;
+        private readonly UsersDto _usuarioActual;
 
-        public PanelCita(string token)
+        public PanelCita(UsersDto usuarioActual, List<UsersDto> grupos,string token)
         {
             InitializeComponent();
             _token = token;
+            _grupos = grupos;
+            _usuarioActual = usuarioActual;
         }
 
         private void PanelCita_Load(object sender, EventArgs e)
@@ -60,11 +64,15 @@ namespace WinFormsApp1
             pasarPagina();
 
             ConfigurarUIEstiloImagen();
+
+            comboBoxCitFiltrar.DataSource = _grupos;
+            comboBoxCitFiltrar.DisplayMember = "Nombre";
+            comboBoxCitFiltrar.ValueMember = "Id";
+            comboBoxCitFiltrar.SelectedItem = _usuarioActual.Id;
         }
 
         private void ConfigurarUIEstiloImagen()
         {
-            // BOTÓN (+) CIRCULAR
             anyadirCita.Text = "+";
             anyadirCita.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             anyadirCita.FlatStyle = FlatStyle.Flat;
@@ -74,18 +82,14 @@ namespace WinFormsApp1
             anyadirCita.Size = new Size(45, 45);
 
 
-            anyadirCita.Left = panelVisualCitas.Width - 60; // A la derecha
+            anyadirCita.Left = panelVisualCitas.Width - 60;
 
-            // BUSCADOR Y COMBO
             textBoxCitBuscar.Left = 50;
-            // AjCittamos el ancho para que sea dinámico pero deje espacio al combo
             textBoxCitBuscar.Width = panelVisualCitas.Width - 350;
 
-            // COMBO (Alargado)
-            comboBoxCitFiltrar.Width = 180; // Más ancho
-            comboBoxCitFiltrar.Left = textBoxCitBuscar.Right + 30; // Se posiciona justo después del buscador
+            comboBoxCitFiltrar.Width = 180;
+            comboBoxCitFiltrar.Left = textBoxCitBuscar.Right + 30;
 
-            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
             textBoxCitBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxCitFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirCita.Anchor = AnchorStyles.Right;
@@ -95,14 +99,13 @@ namespace WinFormsApp1
 
         private void ActualizarRegiones()
         {
-            // Redondeo físico del botón naranja (Círculo perfecto)
             anyadirCita.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirCita.Width, anyadirCita.Height, anyadirCita.Width, anyadirCita.Height));
         }
 
         private void PanelCita_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
-            panelVisualCitas.Invalidate(); // Fuerza a redibujar el borde gris
+            panelVisualCitas.Invalidate(); 
         }
 
         private void panelVisualCitas_Paint(object sender, PaintEventArgs e)
@@ -113,8 +116,6 @@ namespace WinFormsApp1
             Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
             Brush fondoBlanco = Brushes.White;
 
-            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
-            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxCitBuscar.Left - 35,
                 textBoxCitBuscar.Top - 15,
@@ -124,11 +125,10 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxCitBuscar.Left - 25, textBoxCitBuscar.Top - 2);
 
-            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
             Rectangle rectFiltro = new Rectangle(
                 comboBoxCitFiltrar.Left - 10,
                 comboBoxCitFiltrar.Top - 10,
-                comboBoxCitFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxCitFiltrar.Width + 25, 
                 comboBoxCitFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -156,127 +156,105 @@ namespace WinFormsApp1
 
 
 
-        private void ModificarCita(CitaDto cita)
+        private void CompletarCita(CitaDto cita)
         {
-            
-            Cita pantallaModificar = new Cita(cita, _token);
-            /*pantallaModificar.Form = "Modificar información de " + servicio.Nombre;
-            pantallaModificar.LabelTituoCrearServicio = "MODIFICAR SERVICIO";
-            pantallaModificar.buttonSerModificar = true;
-            pantallaModificar.buttonSerAnyadir = false;
 
-            pantallaModificar.TboxNombreServicio.Text = servicio.Nombre;
-            pantallaModificar.TxtBoxDescripcion.Text = servicio.Descripcion;
-            pantallaModificar.TextBoxPrecio.Text = servicio.Precio.ToString();
-            pantallaModificar.TextBoxDuracion.Text = servicio.Duracion.ToString();
-            pantallaModificar.ComboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
-            */
-            if (pantallaModificar.ShowDialog() == DialogResult.OK)
+            if (cita.Estado.Equals("CONFIRMADO"))
             {
-                RecargarCitas();
-                pasarPagina();
+                FichaCita ficha = new FichaCita(cita, _token);
+
+                if (ficha.ShowDialog() == DialogResult.OK)
+                {
+                    RecargarCitas();
+                    pasarPagina();
+                }
+            }
+            else if (cita.Estado.Equals("CANCELADO"))
+            {
+                MessageBox.Show($"No se puede completar una cita cancelada", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (cita.Estado.Equals("COMPLETADO"))
+            {
+                MessageBox.Show($"La cida ya ha sido completada", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void EliminarCita(CitaDto cita)
+        private void CancelarCita(CitaDto cita)
         {
-            var confirmResult = MessageBox.Show(
-                    $"¿Seguro que quieres eliminar la cita?",
-                    "Confirmar eliminación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
+            if (cita.Estado.Equals("CONFIRMADO")) {
+                var confirmResult = MessageBox.Show(
+                        $"¿Seguro que quieres cancelar la cita?",
+                        "Confirmar cancelación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                    );
 
-            if (confirmResult == DialogResult.Yes)
-            {
                 if (confirmResult == DialogResult.Yes)
                 {
-                    try
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        var url = $"http://localhost:8082/citas/{cita.Id}";
-                        var request = (HttpWebRequest)WebRequest.Create(url);
-                        request.Method = "DELETE";
-                        request.ContentType = "application/json";
-                        request.Accept = "application/json";
-                        request.Headers["Authorization"] = $"Bearer {_token}";
-
-                        using (var response = (HttpWebResponse)request.GetResponse())
+                        try
                         {
-                            if (response.StatusCode == HttpStatusCode.OK)
-                            {
-                                MessageBox.Show("Cita eliminada correctamente", "Éxito",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            var url = $"http://localhost:8082/citas/{cita.Id}/estado/CANCELADO";
+                            var request = (HttpWebRequest)WebRequest.Create(url);
+                            request.Method = "PUT";
+                            request.ContentType = "application/json";
+                            request.Accept = "application/json";
+                            request.Headers["Authorization"] = $"Bearer {_token}";
 
-                                // Refrescar la tabla
-                                RecargarCitas();
-                                pasarPagina();
-                            }
-                            else
+                            using (var response = (HttpWebResponse)request.GetResponse())
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                if (response.StatusCode == HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show("Cita cancelada correctamente", "Éxito",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    // Refrescar la tabla
+                                    RecargarCitas();
+                                    pasarPagina();
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Error al cancelar: {response.StatusCode}", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error en la cancelación: {ex.Message}", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
 
+                }
+            }
+            else if (cita.Estado.Equals("CANCELADO")){
+                MessageBox.Show($"La cita ya está cancelada", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (cita.Estado.Equals("COMPLETADO"))
+            {
+                MessageBox.Show($"No se puede cancelar una cita completada", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void anyadirCita_Click(object sender, EventArgs e)
         {
-            // 1. Creamos la instancia. Pasamos 'null' como primer argumento porque es una cita NUEVA.
             using (Cita pantallaAnyadir = new Cita(null, _token))
             {
-                try
+                pantallaAnyadir.ComboBoxCitHora.Enabled = false;
+
+                if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
                 {
-                    // Cambiamos el texto de la barra de título del formulario
-                    pantallaAnyadir.Text = "Crear nueva cita";
-
-                    // 2. CONFIGURACIÓN DE LA INTERFAZ PARA "MODO CREAR"
-                    // Ocultamos el título de modificar y mostramos el de añadir
-                    if (pantallaAnyadir.LabelTituoCrearCita != null)
-                        pantallaAnyadir.LabelTituoCrearCita.Visible = true;
-
-                    if (pantallaAnyadir.LabelTituoModificarCita != null)
-                        pantallaAnyadir.LabelTituoModificarCita.Visible = false;
-
-                    // Gestionamos la visibilidad de los botones de acción
-                    pantallaAnyadir.buttonCitModificar = false; // Ocultar o desactivar botón de editar
-                    pantallaAnyadir.buttonCitAnyadir = true;    // Mostrar o activar botón de guardar nuevo
-
-                    // 3. RESETEO DE VALORES POR DEFECTO
-                    if (pantallaAnyadir.CheckBoxEstado != null)
-                        pantallaAnyadir.CheckBoxEstado.Checked = true;
-
-                    if (pantallaAnyadir.ComboBoxServivioCita != null)
-                        pantallaAnyadir.ComboBoxServivioCita.SelectedIndex = -1;
-
-                    if (pantallaAnyadir.ComboBoxHoraCita != null)
-                    {
-                        pantallaAnyadir.ComboBoxHoraCita.SelectedIndex = -1;
-                        pantallaAnyadir.ComboBoxHoraCita.Enabled = false; // Se activará al elegir servicio/fecha
-                    }
-
-                    // 4. MOSTRAR EL FORMULARIO
-                    // Si el usuario pulsa el botón "Añadir" en el formulario Cita y todo sale bien (DialogResult.OK)
-                    if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
-                    {
-                        RecargarCitas();
-                        pasarPagina();
-                        MessageBox.Show("Cita creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    RecargarCitas();
+                    pasarPagina();
+                    MessageBox.Show("Cita creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error al intentar abrir el formulario de citas: " + ex.Message,
-                                    "Error de interfaz", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+               
             }
         }
 
@@ -355,22 +333,30 @@ namespace WinFormsApp1
             {
                 var cita = _citas[i];
 
-                // 1. Formatear Estado
-                string estadoTexto = cita.Estado ? "Confirmada" : "Cancelada";
+                string fecha = cita.Horario.DiaSemana + " " + cita.Fecha.ToString();
+                string hora = cita.Horario.HoraInicio.ToString().Substring(0, 4);
 
-                // 2. Obtener el nombre del curso del grupo
-                // Accedemos a cita.Horario.Grupo.Curso
-                string cursoMostrar = cita.Horario?.Grupo?.Curso ?? "Sin Grupo";
+                string estado = "";
+                if (cita.Estado.Equals("CONFIRMADO"))
+                {
+                    estado = "Confirmada";
+                }
+                else if (cita.Estado.Equals("CANCELADO"))
+                {
+                    estado = "Cancelada";
+                }
+                else if (cita.Estado.Equals("COMPLETADO"))
+                {
+                    estado = "Completada";
+                }
 
-                // 3. Añadir la fila al DataGridView
-                // Asegúrate de que el orden de los parámetros coincida con tus columnas
                 int index = dataGridViewCitas.Rows.Add(
-                    cita.Cliente?.Username ?? "Sin Nombre",
-                    cita.Horario?.Servicio?.Nombre ?? "Sin Servicio",
-                    cita.Fecha.ToString(),                     // Columna Fecha
-                    cita.Horario?.HoraInicio.ToString("HH:mm", null), // Columna Hora
-                    estadoTexto,                               // Columna Estado
-                    cursoMostrar                               // Columna Grupo (AQUÍ SALE EL CURSO)
+                    cita.Cliente?.Nombre ?? "Sin Nombre",
+                    cita.Horario.Servicio?.Nombre ?? "Sin Servicio",
+                    fecha,
+                    hora,
+                    estado,
+                    cita.Horario.Grupo.Curso ?? "Sin Grupo"                              // Columna Grupo (AQUÍ SALE EL CURSO)
                 );
 
                 // Guardamos el objeto completo en el Tag para poder recuperarlo al hacer clic
@@ -386,25 +372,25 @@ namespace WinFormsApp1
             if (e.RowIndex >= dataGridViewCitas.Rows.Count) return;
 
             var fila = dataGridViewCitas.Rows[e.RowIndex];
-            var servicio = fila.Tag as CitaDto;
-            if (servicio == null) return;
+            var cita = fila.Tag as CitaDto;
+            if (cita == null) return;
 
             var columna = dataGridViewCitas.Columns[e.ColumnIndex].Name;
 
-            if (columna == "dataGridViewImageColumnModificar")
+            if (columna == "dataGridViewImageColumnCitCompletar")
             {
-                ModificarCita(servicio);
+                CompletarCita(cita);
             }
-            else if (columna == "dataGridViewImageColumnEliminar")
+            else if (columna == "dataGridViewImageColumnCitCancelar")
             {
-                EliminarCita(servicio);
+                CancelarCita(cita);
             }
         }
 
         private void filtrarCitas()
         {
             string filtro = textBoxCitBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxCitFiltrar.SelectedItem?.ToString();
+            string filtroCombo = comboBoxCitFiltrar.SelectedValue.ToString();
 
             // Obtener todos los usuarios
             if (_citas == null) return;
@@ -428,51 +414,55 @@ namespace WinFormsApp1
 
             switch (filtroCombo)
             {
-                case "Hoy":
-                    listaFiltrada = listaFiltrada
-                        .Where(c => c.Fecha.CompareTo(hoy)==0);
+                case " ":
+                case "":
                     break;
 
-                case "Esta semana":
-                    listaFiltrada = listaFiltrada
-                        .Where(c => c.Fecha >= hoy && c.Fecha <= viernes);
-                    break;
+                default:
+                    UsersDto grupoSeleccionado = _grupos[1];//.Select(g => g.Id.ToString().Equals(filtroCombo));
 
-                case "Próxima semana":
-                    listaFiltrada = listaFiltrada
-                        .Where(c => c.Fecha >= proximoLunes && c.Fecha <= proximoViernes);
+                    if (grupoSeleccionado != null)
+                    {
+                        listaFiltrada = listaFiltrada
+                            .Where(c =>
+                                c.Horario != null &&
+                                c.Horario.Grupo != null &&
+                                c.Horario.Grupo.Id == grupoSeleccionado.Id
+                            )
+                            .ToList();
+                    }
                     break;
-
             }
-
             // Limpiar la tabla
             dataGridViewCitas.Rows.Clear();
 
             // Rellenar con los resultados filtrados
             foreach (var c in listaFiltrada)
             {
-                string clienteNombre = c.Cliente?.Username ?? "Sin Nombre";
-
                 string fecha = c.Horario.DiaSemana + " " + c.Fecha.ToString();
-                string hora = c.Horario.HoraInicio.ToString().Substring(0, 5);
+                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
                
                 string estado = "";
-                if (c.Estado.Equals("true"))
+                if (c.Estado.Equals("CONFIRMADO"))
                 {
                     estado = "Confirmada";
                 }
-                else if (c.Estado.Equals("false"))
+                else if (c.Estado.Equals("CANCELADO"))
                 {
                     estado = "Cancelada";
                 }
+                else if (c.Estado.Equals("COMPLETADO"))
+                {
+                    estado = "Completada";
+                }
 
                 int index = dataGridViewCitas.Rows.Add(
-                    clienteNombre,
-                    c.Horario.Servicio,
+                    c.Cliente?.Nombre ?? "Sin Nombre",
+                    c.Horario.Servicio?.Nombre ?? "Sin Servicio",
                     fecha,
                     hora,
                     estado,
-                    c.Horario.Grupo
+                    c.Horario.Grupo.Curso ?? "Sin Grupo"
                 );
 
                 dataGridViewCitas.Rows[index].Tag = c;

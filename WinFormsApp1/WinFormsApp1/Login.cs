@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,13 +10,15 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UsersInfo.Models;
 using WindowsFormsApp1;
 using static System.Collections.Specialized.BitVector32;
 namespace WinFormsApp1
 {
     public partial class Login : Form
     {
-        public string Token { get; private set; } // propiedad para devolver el token
+        public string Token { get; private set; }
+        public UsersDto UsuarioActual { get; private set; }// propiedad para devolver el token
         public Login()
         {
             InitializeComponent();
@@ -47,6 +50,8 @@ namespace WinFormsApp1
                 {
                     string responseBody = reader.ReadToEnd();
 
+                    var usuarioActual = JsonConvert.DeserializeObject<UsersDto>(responseBody);
+
                     // Parsear JSON y obtener token
                     var jsonObject = JObject.Parse(responseBody);
                     string token = jsonObject["token"]?.ToString();
@@ -65,7 +70,8 @@ namespace WinFormsApp1
                             return; // salir sin cerrar el formulario
                         }
 
-                        Token = token; // guardar en propiedad
+                        Token = token;
+                        UsuarioActual = usuarioActual;// guardar en propiedad
                         this.DialogResult = DialogResult.OK; // devolver OK al Program.cs
                         this.Close(); // cerrar login
                     }

@@ -35,7 +35,7 @@ namespace WinFormsApp1
         private static int pagUs;
         private static int contador = 1;
         private static List<UsersDto> _usuarios;
-        public PanelUsuario(string token)
+        public PanelUsuario(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -725,11 +725,7 @@ namespace WinFormsApp1
 
             var columna = dataGridViewUsuarios.Columns[e.ColumnIndex].Name;
 
-            if (columna == "dataGridViewImageColumnUsModificar")
-            {
-                ModificarUsuario(usuario);
-            }
-            else if (columna == "dataGridViewImageColumnUsEliminar")
+            if (columna == "dataGridViewImageColumnUsEliminar")
             {
                 EliminarUsuario(usuario);
             }

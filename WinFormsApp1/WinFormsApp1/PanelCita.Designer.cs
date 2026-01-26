@@ -38,6 +38,7 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelCita));
             panelVisualCitas = new Panel();
             anyadirCita = new Button();
             comboBoxCitFiltrar = new ComboBox();
@@ -62,8 +63,8 @@
             dataGridViewTextBoxColumnHora = new DataGridViewTextBoxColumn();
             DataGridViewTextBoxColumnEstado = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumnGrupo = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumnCitModificar = new DataGridViewImageColumn();
-            dataGridViewImageColumnCitEliminar = new DataGridViewImageColumn();
+            dataGridViewImageColumnCitCompletar = new DataGridViewImageColumn();
+            dataGridViewImageColumnCitCancelar = new DataGridViewImageColumn();
             panelVisualCitas.SuspendLayout();
             panelProximas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureProximas).BeginInit();
@@ -115,7 +116,7 @@
             comboBoxCitFiltrar.Location = new Point(1234, 187);
             comboBoxCitFiltrar.Margin = new Padding(5, 4, 5, 4);
             comboBoxCitFiltrar.Name = "comboBoxCitFiltrar";
-            comboBoxCitFiltrar.Size = new Size(153, 23);
+            comboBoxCitFiltrar.Size = new Size(153, 28);
             comboBoxCitFiltrar.TabIndex = 17;
             comboBoxCitFiltrar.SelectedIndexChanged += comboBoxCitFiltrar_SelectedIndexChanged;
             // 
@@ -128,7 +129,7 @@
             textBoxCitBuscar.Margin = new Padding(5, 4, 5, 4);
             textBoxCitBuscar.Name = "textBoxCitBuscar";
             textBoxCitBuscar.PlaceholderText = "Buscar por cliente o servicio...";
-            textBoxCitBuscar.Size = new Size(947, 16);
+            textBoxCitBuscar.Size = new Size(947, 20);
             textBoxCitBuscar.TabIndex = 16;
             textBoxCitBuscar.TextChanged += textBoxCitBuscar_TextChanged;
             // 
@@ -154,7 +155,7 @@
             labelNumProximas.Location = new Point(74, 56);
             labelNumProximas.Margin = new Padding(5, 0, 5, 0);
             labelNumProximas.Name = "labelNumProximas";
-            labelNumProximas.Size = new Size(23, 25);
+            labelNumProximas.Size = new Size(27, 29);
             labelNumProximas.TabIndex = 2;
             labelNumProximas.Text = "5";
             // 
@@ -165,7 +166,7 @@
             labelProximas.Location = new Point(18, 24);
             labelProximas.Margin = new Padding(5, 0, 5, 0);
             labelProximas.Name = "labelProximas";
-            labelProximas.Size = new Size(100, 17);
+            labelProximas.Size = new Size(123, 20);
             labelProximas.TabIndex = 0;
             labelProximas.Text = "Próximas Citas";
             // 
@@ -202,7 +203,7 @@
             labelNumHoy.Location = new Point(66, 56);
             labelNumHoy.Margin = new Padding(5, 0, 5, 0);
             labelNumHoy.Name = "labelNumHoy";
-            labelNumHoy.Size = new Size(23, 25);
+            labelNumHoy.Size = new Size(27, 29);
             labelNumHoy.TabIndex = 2;
             labelNumHoy.Text = "2";
             // 
@@ -213,7 +214,7 @@
             labelHoy.Location = new Point(18, 24);
             labelHoy.Margin = new Padding(5, 0, 5, 0);
             labelHoy.Name = "labelHoy";
-            labelHoy.Size = new Size(88, 17);
+            labelHoy.Size = new Size(106, 20);
             labelHoy.TabIndex = 0;
             labelHoy.Text = "Citas de Hoy";
             // 
@@ -257,7 +258,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewCitas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCitas.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnCliente, dataGridViewTextBoxColumnServicio, dataGridViewTextBoxColumnFecha, dataGridViewTextBoxColumnHora, DataGridViewTextBoxColumnEstado, dataGridViewTextBoxColumnGrupo, dataGridViewImageColumnCitModificar, dataGridViewImageColumnCitEliminar });
+            dataGridViewCitas.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnCliente, dataGridViewTextBoxColumnServicio, dataGridViewTextBoxColumnFecha, dataGridViewTextBoxColumnHora, DataGridViewTextBoxColumnEstado, dataGridViewTextBoxColumnGrupo, dataGridViewImageColumnCitCompletar, dataGridViewImageColumnCitCancelar });
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = SystemColors.Window;
             dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
@@ -371,7 +372,7 @@
             dataGridViewTextBoxColumnFecha.MinimumWidth = 6;
             dataGridViewTextBoxColumnFecha.Name = "dataGridViewTextBoxColumnFecha";
             dataGridViewTextBoxColumnFecha.ReadOnly = true;
-            dataGridViewTextBoxColumnFecha.Width = 85;
+            dataGridViewTextBoxColumnFecha.Width = 103;
             // 
             // dataGridViewTextBoxColumnHora
             // 
@@ -382,7 +383,7 @@
             dataGridViewTextBoxColumnHora.MinimumWidth = 6;
             dataGridViewTextBoxColumnHora.Name = "dataGridViewTextBoxColumnHora";
             dataGridViewTextBoxColumnHora.ReadOnly = true;
-            dataGridViewTextBoxColumnHora.Width = 80;
+            dataGridViewTextBoxColumnHora.Width = 95;
             // 
             // DataGridViewTextBoxColumnEstado
             // 
@@ -391,7 +392,7 @@
             DataGridViewTextBoxColumnEstado.MinimumWidth = 6;
             DataGridViewTextBoxColumnEstado.Name = "DataGridViewTextBoxColumnEstado";
             DataGridViewTextBoxColumnEstado.Resizable = DataGridViewTriState.True;
-            DataGridViewTextBoxColumnEstado.Width = 92;
+            DataGridViewTextBoxColumnEstado.Width = 110;
             // 
             // dataGridViewTextBoxColumnGrupo
             // 
@@ -401,43 +402,44 @@
             dataGridViewTextBoxColumnGrupo.Name = "dataGridViewTextBoxColumnGrupo";
             dataGridViewTextBoxColumnGrupo.Resizable = DataGridViewTriState.True;
             // 
-            // dataGridViewImageColumnCitModificar
+            // dataGridViewImageColumnCitCompletar
             // 
-            dataGridViewImageColumnCitModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewImageColumnCitCompletar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle6.NullValue = null;
-            dataGridViewImageColumnCitModificar.DefaultCellStyle = dataGridViewCellStyle6;
-            dataGridViewImageColumnCitModificar.HeaderText = "Modificar";
-            dataGridViewImageColumnCitModificar.Image = Properties.Resources.edit;
-            dataGridViewImageColumnCitModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnCitModificar.MinimumWidth = 22;
-            dataGridViewImageColumnCitModificar.Name = "dataGridViewImageColumnCitModificar";
-            dataGridViewImageColumnCitModificar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnCitModificar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnCitModificar.Width = 111;
+            dataGridViewImageColumnCitCompletar.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewImageColumnCitCompletar.HeaderText = "Completar";
+            dataGridViewImageColumnCitCompletar.Image = Properties.Resources.completada;
+            dataGridViewImageColumnCitCompletar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnCitCompletar.MinimumWidth = 22;
+            dataGridViewImageColumnCitCompletar.Name = "dataGridViewImageColumnCitCompletar";
+            dataGridViewImageColumnCitCompletar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnCitCompletar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnCitCompletar.Width = 142;
             // 
-            // dataGridViewImageColumnCitEliminar
+            // dataGridViewImageColumnCitCancelar
             // 
-            dataGridViewImageColumnCitEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewImageColumnCitCancelar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle7.NullValue = null;
-            dataGridViewImageColumnCitEliminar.DefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewImageColumnCitEliminar.HeaderText = "Eliminar";
-            dataGridViewImageColumnCitEliminar.Image = Properties.Resources.trash;
-            dataGridViewImageColumnCitEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnCitEliminar.MinimumWidth = 6;
-            dataGridViewImageColumnCitEliminar.Name = "dataGridViewImageColumnCitEliminar";
-            dataGridViewImageColumnCitEliminar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnCitEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnCitEliminar.Width = 101;
+            dataGridViewImageColumnCitCancelar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewImageColumnCitCancelar.HeaderText = "Cancelar";
+            dataGridViewImageColumnCitCancelar.Image = Properties.Resources.x_icon4;
+            dataGridViewImageColumnCitCancelar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnCitCancelar.MinimumWidth = 6;
+            dataGridViewImageColumnCitCancelar.Name = "dataGridViewImageColumnCitCancelar";
+            dataGridViewImageColumnCitCancelar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnCitCancelar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnCitCancelar.Width = 128;
             // 
             // PanelCita
             // 
             ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
             Controls.Add(panelVisualCitas);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "PanelCita";
             Text = "PanelCita";
             Load += PanelCita_Load;
@@ -483,7 +485,7 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnHora;
         private DataGridViewTextBoxColumn DataGridViewTextBoxColumnEstado;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnGrupo;
-        private DataGridViewImageColumn dataGridViewImageColumnCitModificar;
-        private DataGridViewImageColumn dataGridViewImageColumnCitEliminar;
+        private DataGridViewImageColumn dataGridViewImageColumnCitCompletar;
+        private DataGridViewImageColumn dataGridViewImageColumnCitCancelar;
     }
 }

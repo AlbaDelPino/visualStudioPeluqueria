@@ -75,7 +75,7 @@ namespace WinFormsApp1
                 string descripcion = txtBoxDescripcion.Text;
                 string precio = textBoxPrecio.Text;
                 string duracion = textBoxDuracion.Text;
-                string idTipo = (comboTipoServicio.SelectedIndex+1).ToString();
+                string idTipo = (comboTipoServicio.SelectedIndex + 1).ToString();
                 string nombreTipo = comboTipoServicio.SelectedItem.ToString();
 
                 var url = $"http://localhost:8082/servicio";
@@ -95,7 +95,7 @@ namespace WinFormsApp1
                     streamWriter.Flush();
                     streamWriter.Close();
                 }
-            
+
                 using (WebResponse response = request.GetResponse())
                 {
                     using (Stream strReader = response.GetResponseStream())
@@ -119,7 +119,8 @@ namespace WinFormsApp1
                     mensaje = reader.ReadToEnd();
                 }
                 MessageBox.Show("Error al añadir el servicio", "Error al añadir el servicio", MessageBoxButtons.OK);
-            }catch (NullReferenceException exc)
+            }
+            catch (NullReferenceException exc)
             {
                 MessageBox.Show("Error al añadir el servicio", "Error al añadir el servicio", MessageBoxButtons.OK);
             }
@@ -134,10 +135,10 @@ namespace WinFormsApp1
             string descripcion = txtBoxDescripcion.Text;
             string precio = textBoxPrecio.Text;
             string duracion = textBoxDuracion.Text;
-            string idTipo = (comboTipoServicio.SelectedIndex+1).ToString();
+            string idTipo = (comboTipoServicio.SelectedIndex + 1).ToString();
             string nombreTipo = comboTipoServicio.SelectedItem.ToString();
 
-            var url = $"http://localhost:8082/servicio/"+ _servicio.Id_Servicio;
+            var url = $"http://localhost:8082/servicio/" + _servicio.Id_Servicio;
             string data = "{\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"descripcion\": \"" + descripcion + "\",\r\n  \"precio\": \"" + precio + "\",\r\n  \"duracion\": \"" + duracion + "\",\r\n  \"tipoServicio\": {\r\n\n\"id\": \"" + idTipo + "\",\r\n\n  \"nombre\": \"" + nombreTipo + "\"\r\n}\r}";
 
             var request = (HttpWebRequest)WebRequest.Create(url);

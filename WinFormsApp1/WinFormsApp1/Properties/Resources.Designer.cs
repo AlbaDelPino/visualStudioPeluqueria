@@ -103,6 +103,16 @@ namespace WinFormsApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap completada {
+            get {
+                object obj = ResourceManager.GetObject("completada", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
@@ -186,6 +196,16 @@ namespace WinFormsApp1.Properties {
         internal static System.Drawing.Bitmap UusarioActivo {
             get {
                 object obj = ResourceManager.GetObject("UusarioActivo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap x_icon4 {
+            get {
+                object obj = ResourceManager.GetObject("x_icon4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

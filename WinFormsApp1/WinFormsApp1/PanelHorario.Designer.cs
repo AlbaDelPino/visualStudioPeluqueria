@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1
 {
-    partial class PanelUsuario
+    partial class PanelHorario
     {
         /// <summary>
         /// Required designer variable.
@@ -38,11 +38,13 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            panelVisualUsuarios = new Panel();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelHorario));
+            panelVisualHorarios = new Panel();
+            anyadirHorario = new Button();
+            comboBoxHorario = new ComboBox();
+            textBoxHorarioBuscar = new TextBox();
             anyadirUsuario = new Button();
             label1 = new Label();
-            comboBoxUsFiltrar = new ComboBox();
-            textBoxSUsBuscar = new TextBox();
             panelAdmin = new Panel();
             pictureAdmin = new PictureBox();
             labelNumAdmin = new Label();
@@ -59,20 +61,21 @@
             labelNumUsuarios = new Label();
             labelUsuarios = new Label();
             pictureUsuarios = new PictureBox();
-            dataGridViewUsuarios = new DataGridView();
-            panelEspaciado = new Panel();
-            panelPaginacion = new Panel();
-            buttonPaginacionDelante = new Button();
-            buttonPaginacionAtras = new Button();
-            panelMargenes = new Panel();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            dataGridViewHorarios = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            Servicio = new DataGridViewTextBoxColumn();
+            Grupo = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
+            dataGridViewImageColumnUsModificar = new DataGridViewImageColumn();
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
-            panelVisualUsuarios.SuspendLayout();
+            panelMargenes = new Panel();
+            panel1 = new Panel();
+            buttonPaginacionDelante = new Button();
+            buttonPaginacionAtras = new Button();
+            panel2 = new Panel();
+            panelVisualHorarios.SuspendLayout();
             panelAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAdmin).BeginInit();
             panelUInactivos.SuspendLayout();
@@ -81,31 +84,73 @@
             ((System.ComponentModel.ISupportInitialize)pictureUActivos).BeginInit();
             panelUsuarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).BeginInit();
-            panelPaginacion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).BeginInit();
             panelMargenes.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // panelVisualUsuarios
+            // panelVisualHorarios
             // 
-            panelVisualUsuarios.Controls.Add(anyadirUsuario);
-            panelVisualUsuarios.Controls.Add(label1);
-            panelVisualUsuarios.Controls.Add(comboBoxUsFiltrar);
-            panelVisualUsuarios.Controls.Add(textBoxSUsBuscar);
-            panelVisualUsuarios.Controls.Add(panelAdmin);
-            panelVisualUsuarios.Controls.Add(panelUInactivos);
-            panelVisualUsuarios.Controls.Add(panelUActivos);
-            panelVisualUsuarios.Controls.Add(panelUsuarios);
-            panelVisualUsuarios.Dock = DockStyle.Top;
-            panelVisualUsuarios.ForeColor = Color.FromArgb(255, 128, 0);
-            panelVisualUsuarios.Location = new Point(0, 0);
-            panelVisualUsuarios.Margin = new Padding(5, 4, 5, 4);
-            panelVisualUsuarios.Name = "panelVisualUsuarios";
-            panelVisualUsuarios.Padding = new Padding(17, 0, 0, 0);
-            panelVisualUsuarios.Size = new Size(1571, 256);
-            panelVisualUsuarios.TabIndex = 5;
-            panelVisualUsuarios.Paint += panelVisualUsuarios_Paint;
-            panelVisualUsuarios.Resize += PanelUsuario_Resize;
+            panelVisualHorarios.Controls.Add(anyadirHorario);
+            panelVisualHorarios.Controls.Add(comboBoxHorario);
+            panelVisualHorarios.Controls.Add(textBoxHorarioBuscar);
+            panelVisualHorarios.Controls.Add(anyadirUsuario);
+            panelVisualHorarios.Controls.Add(label1);
+            panelVisualHorarios.Controls.Add(panelAdmin);
+            panelVisualHorarios.Controls.Add(panelUInactivos);
+            panelVisualHorarios.Controls.Add(panelUActivos);
+            panelVisualHorarios.Controls.Add(panelUsuarios);
+            panelVisualHorarios.Dock = DockStyle.Top;
+            panelVisualHorarios.ForeColor = Color.FromArgb(255, 128, 0);
+            panelVisualHorarios.Location = new Point(0, 0);
+            panelVisualHorarios.Margin = new Padding(5, 4, 5, 4);
+            panelVisualHorarios.Name = "panelVisualHorarios";
+            panelVisualHorarios.Padding = new Padding(17, 0, 0, 0);
+            panelVisualHorarios.Size = new Size(1571, 256);
+            panelVisualHorarios.TabIndex = 17;
+            panelVisualHorarios.Paint += panelVisualHorarios_Paint;
+            // 
+            // anyadirHorario
+            // 
+            anyadirHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            anyadirHorario.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirHorario.FlatAppearance.BorderSize = 0;
+            anyadirHorario.FlatStyle = FlatStyle.Flat;
+            anyadirHorario.ForeColor = Color.White;
+            anyadirHorario.Location = new Point(1451, 175);
+            anyadirHorario.Margin = new Padding(3, 5, 3, 5);
+            anyadirHorario.Name = "anyadirHorario";
+            anyadirHorario.Size = new Size(86, 31);
+            anyadirHorario.TabIndex = 21;
+            anyadirHorario.Text = "+";
+            anyadirHorario.UseVisualStyleBackColor = false;
+            anyadirHorario.Click += anyadirHorario_Click;
+            // 
+            // comboBoxHorario
+            // 
+            comboBoxHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboBoxHorario.DisplayMember = "1";
+            comboBoxHorario.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxHorario.FlatStyle = FlatStyle.Flat;
+            comboBoxHorario.Location = new Point(1234, 187);
+            comboBoxHorario.Margin = new Padding(6, 5, 6, 5);
+            comboBoxHorario.Name = "comboBoxHorario";
+            comboBoxHorario.Size = new Size(153, 28);
+            comboBoxHorario.TabIndex = 20;
+            comboBoxHorario.SelectedIndexChanged += comboBoxHorario_SelectedIndexChanged;
+            // 
+            // textBoxHorarioBuscar
+            // 
+            textBoxHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxHorarioBuscar.BorderStyle = BorderStyle.None;
+            textBoxHorarioBuscar.ForeColor = SystemColors.WindowFrame;
+            textBoxHorarioBuscar.Location = new Point(34, 192);
+            textBoxHorarioBuscar.Margin = new Padding(6, 5, 6, 5);
+            textBoxHorarioBuscar.Name = "textBoxHorarioBuscar";
+            textBoxHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
+            textBoxHorarioBuscar.Size = new Size(947, 20);
+            textBoxHorarioBuscar.TabIndex = 19;
+            textBoxHorarioBuscar.TextChanged += textBoxSHorarioBuscar_TextChanged;
             // 
             // anyadirUsuario
             // 
@@ -114,50 +159,22 @@
             anyadirUsuario.FlatAppearance.BorderSize = 0;
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
             anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Location = new Point(1451, 175);
+            anyadirUsuario.Location = new Point(2794, 175);
             anyadirUsuario.Margin = new Padding(3, 4, 3, 4);
             anyadirUsuario.Name = "anyadirUsuario";
             anyadirUsuario.Size = new Size(86, 31);
             anyadirUsuario.TabIndex = 15;
             anyadirUsuario.Text = "+";
             anyadirUsuario.UseVisualStyleBackColor = false;
-            anyadirUsuario.Click += anyadirUsuario_Click;
+            anyadirUsuario.Visible = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(1019, 111);
+            label1.Location = new Point(1037, 111);
             label1.Name = "label1";
             label1.Size = new Size(0, 20);
             label1.TabIndex = 14;
-            // 
-            // comboBoxUsFiltrar
-            // 
-            comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBoxUsFiltrar.DisplayMember = "1";
-            comboBoxUsFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
-            comboBoxUsFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxUsFiltrar.Location = new Point(1234, 187);
-            comboBoxUsFiltrar.Margin = new Padding(5, 4, 5, 4);
-            comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
-            comboBoxUsFiltrar.Size = new Size(153, 28);
-            comboBoxUsFiltrar.TabIndex = 13;
-            comboBoxUsFiltrar.SelectedIndexChanged += comboBoxUsFiltrar_SelectedIndexChanged;
-            // 
-            // textBoxSUsBuscar
-            // 
-            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxSUsBuscar.BorderStyle = BorderStyle.None;
-            textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(34, 192);
-            textBoxSUsBuscar.Margin = new Padding(5, 4, 5, 4);
-            textBoxSUsBuscar.Name = "textBoxSUsBuscar";
-            textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
-            textBoxSUsBuscar.Size = new Size(947, 20);
-            textBoxSUsBuscar.TabIndex = 12;
-            textBoxSUsBuscar.Visible = false;
-            textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
             // panelAdmin
             // 
@@ -351,13 +368,13 @@
             pictureUsuarios.TabIndex = 1;
             pictureUsuarios.TabStop = false;
             // 
-            // dataGridViewUsuarios
+            // dataGridViewHorarios
             // 
-            dataGridViewUsuarios.AllowUserToOrderColumns = true;
-            dataGridViewUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewUsuarios.BackgroundColor = Color.White;
-            dataGridViewUsuarios.BorderStyle = BorderStyle.None;
-            dataGridViewUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewHorarios.AllowUserToOrderColumns = true;
+            dataGridViewHorarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewHorarios.BackgroundColor = Color.White;
+            dataGridViewHorarios.BorderStyle = BorderStyle.None;
+            dataGridViewHorarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
@@ -366,9 +383,9 @@
             dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsEliminar });
+            dataGridViewHorarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewHorarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewHorarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsModificar, dataGridViewImageColumnUsEliminar });
             dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = SystemColors.Window;
             dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
@@ -377,16 +394,16 @@
             dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dataGridViewUsuarios.DefaultCellStyle = dataGridViewCellStyle8;
-            dataGridViewUsuarios.Dock = DockStyle.Fill;
-            dataGridViewUsuarios.EnableHeadersVisualStyles = false;
-            dataGridViewUsuarios.GridColor = Color.Black;
-            dataGridViewUsuarios.ImeMode = ImeMode.NoControl;
-            dataGridViewUsuarios.Location = new Point(34, 0);
-            dataGridViewUsuarios.Margin = new Padding(3, 4, 3, 4);
-            dataGridViewUsuarios.MultiSelect = false;
-            dataGridViewUsuarios.Name = "dataGridViewUsuarios";
-            dataGridViewUsuarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewHorarios.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewHorarios.Dock = DockStyle.Fill;
+            dataGridViewHorarios.EnableHeadersVisualStyles = false;
+            dataGridViewHorarios.GridColor = Color.Black;
+            dataGridViewHorarios.ImeMode = ImeMode.NoControl;
+            dataGridViewHorarios.Location = new Point(30, 0);
+            dataGridViewHorarios.Margin = new Padding(3, 4, 3, 4);
+            dataGridViewHorarios.MultiSelect = false;
+            dataGridViewHorarios.Name = "dataGridViewHorarios";
+            dataGridViewHorarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
@@ -394,38 +411,128 @@
             dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
             dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            dataGridViewUsuarios.RowHeadersVisible = false;
-            dataGridViewUsuarios.RowHeadersWidth = 51;
+            dataGridViewHorarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewHorarios.RowHeadersVisible = false;
+            dataGridViewHorarios.RowHeadersWidth = 51;
             dataGridViewCellStyle10.BackColor = Color.White;
             dataGridViewCellStyle10.SelectionForeColor = Color.White;
-            dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            dataGridViewUsuarios.RowTemplate.Height = 35;
-            dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dataGridViewUsuarios.Size = new Size(1503, 657);
-            dataGridViewUsuarios.TabIndex = 9;
-            dataGridViewUsuarios.CellContentClick += dataGridViewUsuarios_CellContentClick;
+            dataGridViewHorarios.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewHorarios.RowTemplate.Height = 35;
+            dataGridViewHorarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridViewHorarios.Size = new Size(1511, 657);
+            dataGridViewHorarios.TabIndex = 18;
+            dataGridViewHorarios.CellContentClick += dataGridViewHorario_CellContentClick;
             // 
-            // panelEspaciado
+            // dataGridViewTextBoxColumn2
             // 
-            panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 956);
-            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
-            panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1571, 68);
-            panelEspaciado.TabIndex = 14;
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewTextBoxColumn2.HeaderText = "Dia de la semana";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
-            // panelPaginacion
+            // dataGridViewTextBoxColumn1
             // 
-            panelPaginacion.Controls.Add(buttonPaginacionDelante);
-            panelPaginacion.Controls.Add(buttonPaginacionAtras);
-            panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 913);
-            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
-            panelPaginacion.Name = "panelPaginacion";
-            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
-            panelPaginacion.Size = new Size(1571, 43);
-            panelPaginacion.TabIndex = 15;
+            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewTextBoxColumn1.HeaderText = "Hora de incio";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewTextBoxColumn3.HeaderText = "hora de fin";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.ReadOnly = true;
+            dataGridViewTextBoxColumn3.Width = 115;
+            // 
+            // Servicio
+            // 
+            Servicio.HeaderText = "Grupo";
+            Servicio.MinimumWidth = 6;
+            Servicio.Name = "Servicio";
+            // 
+            // Grupo
+            // 
+            Grupo.HeaderText = "Servicio";
+            Grupo.MinimumWidth = 6;
+            Grupo.Name = "Grupo";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewTextBoxColumn4.HeaderText = "Plaza";
+            dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ReadOnly = true;
+            dataGridViewTextBoxColumn4.Width = 99;
+            // 
+            // dataGridViewImageColumnUsModificar
+            // 
+            dataGridViewImageColumnUsModificar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewImageColumnUsModificar.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewImageColumnUsModificar.HeaderText = "Modificar";
+            dataGridViewImageColumnUsModificar.Image = Properties.Resources.edit;
+            dataGridViewImageColumnUsModificar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnUsModificar.MinimumWidth = 22;
+            dataGridViewImageColumnUsModificar.Name = "dataGridViewImageColumnUsModificar";
+            dataGridViewImageColumnUsModificar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnUsModificar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnUsModificar.Width = 135;
+            // 
+            // dataGridViewImageColumnUsEliminar
+            // 
+            dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
+            dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
+            dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            dataGridViewImageColumnUsEliminar.MinimumWidth = 6;
+            dataGridViewImageColumnUsEliminar.Name = "dataGridViewImageColumnUsEliminar";
+            dataGridViewImageColumnUsEliminar.Resizable = DataGridViewTriState.True;
+            dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
+            dataGridViewImageColumnUsEliminar.Width = 123;
+            // 
+            // panelMargenes
+            // 
+            panelMargenes.Controls.Add(dataGridViewHorarios);
+            panelMargenes.Controls.Add(panel1);
+            panelMargenes.Controls.Add(panel2);
+            panelMargenes.Dock = DockStyle.Fill;
+            panelMargenes.Location = new Point(0, 256);
+            panelMargenes.Name = "panelMargenes";
+            panelMargenes.Padding = new Padding(30, 0, 30, 0);
+            panelMargenes.Size = new Size(1571, 768);
+            panelMargenes.TabIndex = 18;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(buttonPaginacionDelante);
+            panel1.Controls.Add(buttonPaginacionAtras);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(30, 657);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(34, 0, 0, 0);
+            panel1.Size = new Size(1511, 43);
+            panel1.TabIndex = 18;
             // 
             // buttonPaginacionDelante
             // 
@@ -452,110 +559,30 @@
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
             buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
             // 
-            // panelMargenes
+            // panel2
             // 
-            panelMargenes.Controls.Add(dataGridViewUsuarios);
-            panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 256);
-            panelMargenes.Margin = new Padding(3, 4, 3, 4);
-            panelMargenes.Name = "panelMargenes";
-            panelMargenes.Padding = new Padding(34, 0, 34, 0);
-            panelMargenes.Size = new Size(1571, 657);
-            panelMargenes.TabIndex = 16;
+            panel2.Dock = DockStyle.Bottom;
+            panel2.Location = new Point(30, 700);
+            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1511, 68);
+            panel2.TabIndex = 17;
             // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewTextBoxColumn2.HeaderText = "Usuario";
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewTextBoxColumn1.HeaderText = "Nombre";
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
-            dataGridViewTextBoxColumn3.HeaderText = "Tipo";
-            dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.ReadOnly = true;
-            dataGridViewTextBoxColumn3.Width = 91;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewTextBoxColumn4.HeaderText = "Estado";
-            dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.ReadOnly = true;
-            dataGridViewTextBoxColumn4.Width = 110;
-            // 
-            // dataGridViewImageColumnUsInfo
-            // 
-            dataGridViewImageColumnUsInfo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
-            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle6;
-            dataGridViewImageColumnUsInfo.HeaderText = "Ficha";
-            dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
-            dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnUsInfo.MinimumWidth = 6;
-            dataGridViewImageColumnUsInfo.Name = "dataGridViewImageColumnUsInfo";
-            dataGridViewImageColumnUsInfo.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnUsInfo.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnUsInfo.Width = 98;
-            // 
-            // dataGridViewImageColumnUsEliminar
-            // 
-            dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
-            dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
-            dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnUsEliminar.MinimumWidth = 6;
-            dataGridViewImageColumnUsEliminar.Name = "dataGridViewImageColumnUsEliminar";
-            dataGridViewImageColumnUsEliminar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnUsEliminar.Width = 123;
-            // 
-            // PanelUsuario
+            // PanelHorario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
-            Controls.Add(panelPaginacion);
-            Controls.Add(panelEspaciado);
-            Controls.Add(panelVisualUsuarios);
+            Controls.Add(panelVisualHorarios);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
-            Name = "PanelUsuario";
-            Text = "PanelUsuario";
-            Load += PanelUsuario_Load;
-            panelVisualUsuarios.ResumeLayout(false);
-            panelVisualUsuarios.PerformLayout();
+            Name = "PanelHorario";
+            Text = "PanelHorario";
+            Load += PanelHorario_Load;
+            Resize += PanelHorario_Resize;
+            panelVisualHorarios.ResumeLayout(false);
+            panelVisualHorarios.PerformLayout();
             panelAdmin.ResumeLayout(false);
             panelAdmin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAdmin).EndInit();
@@ -568,16 +595,17 @@
             panelUsuarios.ResumeLayout(false);
             panelUsuarios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).EndInit();
-            panelPaginacion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).EndInit();
             panelMargenes.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panelVisualUsuarios;
-        private ComboBox comboBoxUsFiltrar;
+        private Panel panelVisualHorarios;
+        private Button anyadirUsuario;
+        private Label label1;
+      
         private Panel panelAdmin;
         private PictureBox pictureAdmin;
         private Label labelNumAdmin;
@@ -594,21 +622,22 @@
         private Label labelNumUsuarios;
         private Label labelUsuarios;
         private PictureBox pictureUsuarios;
-        private TextBox textBoxSUsBuscar;
-        private DataGridView dataGridViewUsuarios;
-        private Panel panelEspaciado;
-        private Panel panelPaginacion;
-        private Button buttonPaginacionDelante;
-        private Button buttonPaginacionAtras;
-        private Panel panelMargenes;
-        private Label label1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Button anyadirUsuario;
+        private DataGridView dataGridViewHorarios;
+        private Button anyadirHorario;
+        private ComboBox comboBoxHorario;
+        private TextBox textBoxHorarioBuscar;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn Servicio;
+        private DataGridViewTextBoxColumn Grupo;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
+        private DataGridViewImageColumn dataGridViewImageColumnUsModificar;
         private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
+        private Panel panelMargenes;
+        private Panel panel1;
+        private Button buttonPaginacionDelante;
+        private Button buttonPaginacionAtras;
+        private Panel panel2;
     }
 }

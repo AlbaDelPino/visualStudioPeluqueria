@@ -1,253 +1,236 @@
-﻿using CitasInfo.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using ServiciosInfo.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.IO;
 using System.Windows.Forms;
-using System.Globalization; // Necesario para CultureInfo
+using UsersInfo.Models;
+using CitasInfo.Models;
 
 namespace WinFormsApp1
 {
-    public partial class horario : Form
+    public partial class Horario : Form
     {
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
-
         private readonly string _token;
-        private int pagHo;
-        private int contador = 1;
-        private List<HorarioSemanalDto> _Horario = new List<HorarioSemanalDto>();
 
-        public horario(string token)
+        // IDs para las relaciones con Servicio y Grupo
+        private long? _idServicioSeleccionado = null;
+        private long? _idGrupoSeleccionado = null;
+
+        // ID del registro actual (solo se usa en modo Edición)
+        private long? _idHorarioExistente = null;
+
+        // CONSTRUCTOR 1: Para Crear nuevo horario
+        public Horario(HorarioSemanalDto horario, string token)
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
-            this.ResizeRedraw = true;
             _token = token;
-            buttonHorario.Click += new EventHandler(buttonHorario_Click);
+            ConfigurarControlesHora();
+
+            // Configuración visual modo CREAR
+            labelTituloCrearHorario.Visible = true;
+            labelTituoModificarHorario.Visible = false;
+            buttonGuardar.Visible = true;      // Botón que hace el POST
+            buttonModificar.Visible = false;   // Botón que hace el PUT
         }
 
-        private void horario_Load(object sender, EventArgs e)
+        // CONSTRUCTOR 2: Para Modificar horario existente
+        public Horario(string token, HorarioSemanalDto datos) : this(null, token)
         {
-            dataGridViewHorario.ReadOnly = true;
-            dataGridViewHorario.AllowUserToAddRows = false;
-            dataGridViewHorario.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewHorario.DataError += (s, ev) => { ev.ThrowException = false; };
+            _idHorarioExistente = datos.Id;
 
-            ConfigurarUIEstiloImagen();
-            RecargarHorario();
+            // Configuración visual modo EDITAR
+            labelTituloCrearHorario.Visible = false;
+            labelTituoModificarHorario.Visible = true;
+            buttonGuardar.Visible = false;
+            buttonModificar.Visible = true;
 
-            this.BeginInvoke(new Action(() =>
+            // Rellenar los campos con los datos recibidos del DTO
+            comboBoxDiaSemana.Text = datos.DiaSemana;
+            numericPlazas.Value = datos.Plazas;
+
+            // Mostrar nombres en los TextBox de búsqueda
+            textBoxHoServicio.Text = datos.Servicio?.Nombre;
+            textBoxHoGrupo.Text = datos.Grupo?.Curso;
+
+            // Guardar los IDs de las relaciones
+            _idServicioSeleccionado = datos.Servicio?.Id_Servicio;
+            _idGrupoSeleccionado = datos.Grupo?.Id;
+
+            // CORRECCIÓN NodaTime: Convertir LocalTime a DateTime para el Picker
+            DateTime hoy = DateTime.Today;
+            dateTimePickerHoaraInicio.Value = new DateTime(hoy.Year, hoy.Month, hoy.Day,
+                                                           datos.HoraInicio.Hour, datos.HoraInicio.Minute, 0);
+            dateTimePickerHoraFin.Value = new DateTime(hoy.Year, hoy.Month, hoy.Day,
+                                                         datos.HoraFin.Hour, datos.HoraFin.Minute, 0);
+        }
+
+        private void ConfigurarControlesHora()
+        {
+            dateTimePickerHoaraInicio.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHoaraInicio.CustomFormat = "HH:mm";
+            dateTimePickerHoaraInicio.ShowUpDown = true;
+
+            dateTimePickerHoraFin.Format = DateTimePickerFormat.Custom;
+            dateTimePickerHoraFin.CustomFormat = "HH:mm";
+            dateTimePickerHoraFin.ShowUpDown = true;
+        }
+
+        // --- LÓGICA DE BUSCADORES ---
+
+        private void buttonHoServicio_Click(object sender, EventArgs e)
+        {
+            var listaServicios = ObtenerServicios();
+            if (listaServicios == null || listaServicios.Count == 0) return;
+
+            using (var buscador = new Busqueda("Seleccionar Servicio", listaServicios))
             {
-                ActualizarRegiones();
-                panelVisualHorario.Invalidate();
-            }));
+                if (buscador.ShowDialog() == DialogResult.OK)
+                {
+                    var serv = (ServicioDto)buscador.ItemSeleccionado;
+                    textBoxHoServicio.Text = serv.Nombre;
+                    _idServicioSeleccionado = serv.Id_Servicio;
+                }
+            }
         }
-
-        // --- SOLUCIÓN AL ERROR DE FORMATO (NodaTime) ---
-        private void pasarPagina()
+        private void buttonHoGrupo_Click(object sender, EventArgs e)
         {
-            dataGridViewHorario.Rows.Clear();
-            if (_Horario == null || _Horario.Count == 0) return;
+            var listaGrupos = ObtenerGrupos();
+            if (listaGrupos == null || listaGrupos.Count == 0) return;
 
-            var lista = _Horario.Skip((contador - 1) * 15).Take(15).ToList();
-            foreach (var h in lista)
+            using (var buscador = new Busqueda("Seleccionar Grupo", listaGrupos))
             {
-                // ✅ CORRECCIÓN: Se añade CultureInfo.InvariantCulture como segundo argumento
-                string inicio = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
-                string fin = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
-
-                int idx = dataGridViewHorario.Rows.Add(
-                    h.DiaSemana,
-                    inicio,
-                    fin,
-                    h.Grupo?.Curso ?? "Sin Grupo",
-                    h.Servicio?.Nombre ?? "Sin Servicio",
-                    h.Plazas,
-                    Properties.Resources.edit,
-                    Properties.Resources.trash
-                );
-                dataGridViewHorario.Rows[idx].Tag = h;
+                if (buscador.ShowDialog() == DialogResult.OK)
+                {
+                    UsersDto grupo = (UsersDto)buscador.ItemSeleccionado;
+                    textBoxHoGrupo.Text = grupo.Nombre;
+                    _idGrupoSeleccionado = grupo.Id;
+                }
             }
-            buttonPaginacionAtras.Enabled = (contador > 1);
-            buttonPaginacionDelante.Enabled = (contador < pagHo);
+        }
+        
+
+        // --- LÓGICA DE ENVÍO (BOTONES) ---
+
+        private void buttonGuardar_Click(object sender, EventArgs e)
+        {
+            EjecutarOperacion("POST");
         }
 
-        // --- DISEÑO VISUAL ---
-        private void ConfigurarUIEstiloImagen()
+        private void buttonModificar_Click(object sender, EventArgs e)
         {
-            panelVisualHorario.BackColor = Color.FromArgb(242, 242, 242);
-            textBoxSHorarioBuscar.BorderStyle = BorderStyle.None;
-            comboBoxHorario.FlatStyle = FlatStyle.Flat;
-            buttonHorario.BackColor = Color.FromArgb(255, 128, 0);
-            buttonHorario.Size = new Size(42, 42);
+            EjecutarOperacion("PUT");
         }
 
-        private void panelVisualHorario_Paint(object sender, PaintEventArgs e)
+        private void EjecutarOperacion(string metodo)
         {
-            Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            Pen p = new Pen(Color.FromArgb(225, 225, 225), 1);
-
-            // Cápsula Buscador
-            Rectangle rBus = new Rectangle(textBoxSHorarioBuscar.Left - 45, textBoxSHorarioBuscar.Top - 12, textBoxSHorarioBuscar.Width + 55, textBoxSHorarioBuscar.Height + 24);
-            DibujarCapsula(g, rBus, p, Brushes.White);
-            g.DrawString("🔍", new Font("Segoe UI Symbol", 9), Brushes.Gray, textBoxSHorarioBuscar.Left - 32, textBoxSHorarioBuscar.Top - 1);
-
-            // Cápsula Combo
-            Rectangle rCom = new Rectangle(comboBoxHorario.Left - 15, comboBoxHorario.Top - 12, comboBoxHorario.Width + 30, comboBoxHorario.Height + 24);
-            DibujarCapsula(g, rCom, p, Brushes.White);
-        }
-
-        private void DibujarCapsula(Graphics g, Rectangle r, Pen p, Brush b)
-        {
-            GraphicsPath path = new GraphicsPath();
-            int rad = r.Height - 1;
-            path.AddArc(r.X, r.Y, rad, rad, 90, 180);
-            path.AddArc(r.Right - rad, r.Y, rad, rad, 270, 180);
-            path.CloseFigure();
-            g.FillPath(b, path);
-            g.DrawPath(p, path);
-        }
-
-        private void ActualizarRegiones()
-        {
-            if (buttonHorario.Width > 0)
-                buttonHorario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, buttonHorario.Width, buttonHorario.Height, buttonHorario.Width, buttonHorario.Height));
-        }
-
-        // --- LÓGICA ---
-        private void RecargarHorario()
-        {
-            _Horario = ObtenerHorarioDesdeAPI() ?? new List<HorarioSemanalDto>();
-            pagHo = (int)Math.Ceiling((double)_Horario.Count / 15);
-            if (pagHo == 0) pagHo = 1;
-            pasarPagina();
-        }
-
-        private void buttonHorario_Click(object sender, EventArgs e)
-        {
-            using (var f = new horario_semanal(_token))
-                if (f.ShowDialog() == DialogResult.OK) RecargarHorario();
-        }
-
-        private void dataGridViewHorario_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            var h = dataGridViewHorario.Rows[e.RowIndex].Tag as HorarioSemanalDto;
-            if (h == null) return;
-
-            if (e.ColumnIndex == 6)
-            { // Editar
-                using (var f = new horario_semanal(_token, h))
-                    if (f.ShowDialog() == DialogResult.OK) RecargarHorario();
+            if (!_idServicioSeleccionado.HasValue || !_idGrupoSeleccionado.HasValue)
+            {
+                MessageBox.Show("Por favor, selecciona un Servicio y un Grupo.");
+                return;
             }
-            else if (e.ColumnIndex == 7)
-            { // Eliminar
-                if (MessageBox.Show("¿Eliminar?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes) EliminarHorario(h.Id);
+
+            try
+            {
+                // Construcción del objeto JSON dinámico
+                // Usamos HH:mm:ss para que Java LocalTime lo reciba correctamente
+                var datosHorario = new
+                {
+                    diaSemana = comboBoxDiaSemana.Text.ToUpper(),
+                    horaInicio = dateTimePickerHoaraInicio.Value.ToString("HH:mm:ss"),
+                    horaFin = dateTimePickerHoraFin.Value.ToString("HH:mm:ss"),
+                    plazas = (int)numericPlazas.Value,
+                    servicio = new { id_servicio = _idServicioSeleccionado.Value },
+                    grupo = new { id = _idGrupoSeleccionado.Value }
+                };
+
+                string json = JsonConvert.SerializeObject(datosHorario);
+                EnviarDatosAPI(json, metodo);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al preparar datos: " + ex.Message);
             }
         }
 
-        private List<HorarioSemanalDto> ObtenerHorarioDesdeAPI()
+        private void EnviarDatosAPI(string json, string metodo)
         {
             try
             {
-                var req = (HttpWebRequest)WebRequest.Create("http://localhost:8082/horarios");
-                req.Headers["Authorization"] = $"Bearer {_token}";
-                using (var res = (HttpWebResponse)req.GetResponse())
-                using (var r = new StreamReader(res.GetResponseStream()))
-                    return JsonConvert.DeserializeObject<List<HorarioSemanalDto>>(r.ReadToEnd());
+                // La URL se ajusta: para PUT debe ser /horarios/{id}
+                var url = "http://localhost:8082/horarios";
+                if (metodo == "PUT" && _idHorarioExistente.HasValue)
+                {
+                    url += $"/{_idHorarioExistente.Value}";
+                }
+
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = metodo;
+                request.ContentType = "application/json";
+                request.Headers["Authorization"] = $"Bearer {_token}";
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                }
+
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        string msg = (metodo == "POST") ? "Horario creado." : "Horario actualizado.";
+                        MessageBox.Show(msg, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
             }
-            catch { return null; }
+            catch (WebException ex)
+            {
+                if (ex.Response != null)
+                {
+                    using (var reader = new StreamReader(ex.Response.GetResponseStream()))
+                    {
+                        MessageBox.Show("Error del servidor: " + reader.ReadToEnd());
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error de red: " + ex.Message);
+                }
+            }
         }
 
-        private void EliminarHorario(long id)
+        // --- MÉTODOS AUXILIARES DE CARGA ---
+
+        private List<ServicioDto> ObtenerServicios()
         {
             try
             {
-                var req = (HttpWebRequest)WebRequest.Create($"http://localhost:8082/horarios/{id}");
-                req.Method = "DELETE";
-                req.Headers["Authorization"] = $"Bearer {_token}";
-                req.GetResponse().Dispose();
-                RecargarHorario();
+                var request = (HttpWebRequest)WebRequest.Create("http://localhost:8082/servicio");
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var resp = (HttpWebResponse)request.GetResponse())
+                using (var reader = new StreamReader(resp.GetResponseStream()))
+                    return JsonConvert.DeserializeObject<List<ServicioDto>>(reader.ReadToEnd());
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch { return new List<ServicioDto>(); }
         }
 
-        private void PanelHorario_Resize(object sender, EventArgs e) { ActualizarRegiones(); panelVisualHorario.Invalidate(); }
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e) { if (contador > 1) { contador--; pasarPagina(); } }
-        private void buttonPaginacionDelante_Click(object sender, EventArgs e) { if (contador < pagHo) { contador++; pasarPagina(); } }
-
-
-        // --- LÓGICA DE FILTRADO ---
-
-        private void filtrarHorario()
+        private List<UsersDto> ObtenerGrupos()
         {
-            // 1. Obtener los valores de los filtros
-            string filtroTexto = textBoxSHorarioBuscar.Text.Trim().ToLower();
-            string filtroDia = comboBoxHorario.SelectedItem?.ToString();
-
-            if (_Horario == null) return;
-
-            // 2. Aplicar filtros usando LINQ
-            var listaFiltrada = _Horario.AsEnumerable();
-
-            // Filtrar por texto (Servicio o Curso)
-            if (!string.IsNullOrEmpty(filtroTexto))
+            try
             {
-                listaFiltrada = listaFiltrada.Where(h =>
-                    (h.Servicio?.Nombre?.ToLower().Contains(filtroTexto) ?? false) ||
-                    (h.Grupo?.Curso?.ToLower().Contains(filtroTexto) ?? false)
-                );
+                var request = (HttpWebRequest)WebRequest.Create("http://localhost:8082/api/auth/users");
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var resp = (HttpWebResponse)request.GetResponse())
+                using (var reader = new StreamReader(resp.GetResponseStream()))
+                    return JsonConvert.DeserializeObject<List<UsersDto>>(reader.ReadToEnd()).Where(u => u.Role.Equals("ROLE_GRUPO")).ToList();
             }
-
-            // Filtrar por día de la semana (ComboBox)
-            // Asumimos que el combo tiene opciones como "Lunes", "Martes", etc. 
-            // Si tiene una opción "Todos", la ignoramos.
-            if (!string.IsNullOrEmpty(filtroDia) && filtroDia != "Todos")
-            {
-                listaFiltrada = listaFiltrada.Where(h => h.DiaSemana.Equals(filtroDia, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // 3. Actualizar el DataGridView
-            dataGridViewHorario.Rows.Clear();
-
-            foreach (var h in listaFiltrada)
-            {
-                string inicio = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
-                string fin = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
-
-                int idx = dataGridViewHorario.Rows.Add(
-                    h.DiaSemana,
-                    inicio,
-                    fin,
-                    h.Grupo?.Curso ?? "Sin Grupo",
-                    h.Servicio?.Nombre ?? "Sin Servicio",
-                    h.Plazas,
-                    Properties.Resources.edit,
-                    Properties.Resources.trash
-                );
-                dataGridViewHorario.Rows[idx].Tag = h;
-            }
+            catch { return new List<UsersDto>(); }
         }
 
-        // --- EVENTOS CONECTADOS ---
-
-        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
-        private void textBoxSHorarioBuscar_TextChanged(object sender, EventArgs e)
-        {
-            filtrarHorario();
-        }
-
-        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
-        private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtrarHorario();
-        }
+        
     }
-    }
+}
