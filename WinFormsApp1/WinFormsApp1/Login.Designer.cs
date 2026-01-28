@@ -9,6 +9,7 @@
 
         /// <summary>
         /// Clean up any resources being used.
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         /// 7767
@@ -38,49 +39,54 @@
             labelTituoInicioSesion = new Label();
             panelIcon = new Panel();
             pictureBox1 = new PictureBox();
+            pictureBoxMostrar = new PictureBox();
             panelIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMostrar).BeginInit();
             SuspendLayout();
             // 
             // LabelUsuario
             // 
             LabelUsuario.AutoSize = true;
-            LabelUsuario.Location = new Point(336, 140);
+            LabelUsuario.Location = new Point(384, 187);
             LabelUsuario.Name = "LabelUsuario";
-            LabelUsuario.Size = new Size(47, 15);
+            LabelUsuario.Size = new Size(59, 20);
             LabelUsuario.TabIndex = 0;
             LabelUsuario.Text = "Usuario";
             // 
             // labelContraseña
             // 
             labelContraseña.AutoSize = true;
-            labelContraseña.Location = new Point(336, 173);
+            labelContraseña.Location = new Point(384, 231);
             labelContraseña.Name = "labelContraseña";
-            labelContraseña.Size = new Size(67, 15);
+            labelContraseña.Size = new Size(83, 20);
             labelContraseña.TabIndex = 1;
             labelContraseña.Text = "Contraseña";
             // 
             // textBoxUsuario
             // 
-            textBoxUsuario.Location = new Point(434, 139);
+            textBoxUsuario.Location = new Point(496, 185);
+            textBoxUsuario.Margin = new Padding(3, 4, 3, 4);
             textBoxUsuario.Name = "textBoxUsuario";
-            textBoxUsuario.Size = new Size(100, 23);
+            textBoxUsuario.Size = new Size(114, 27);
             textBoxUsuario.TabIndex = 1;
             // 
             // textBoxContrasenya
             // 
             textBoxContrasenya.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxContrasenya.Location = new Point(434, 168);
+            textBoxContrasenya.Location = new Point(496, 224);
+            textBoxContrasenya.Margin = new Padding(3, 4, 3, 4);
             textBoxContrasenya.Name = "textBoxContrasenya";
             textBoxContrasenya.PasswordChar = '●';
-            textBoxContrasenya.Size = new Size(100, 23);
+            textBoxContrasenya.Size = new Size(114, 27);
             textBoxContrasenya.TabIndex = 2;
             // 
             // buttonInicioSesion
             // 
-            buttonInicioSesion.Location = new Point(399, 233);
+            buttonInicioSesion.Location = new Point(456, 311);
+            buttonInicioSesion.Margin = new Padding(3, 4, 3, 4);
             buttonInicioSesion.Name = "buttonInicioSesion";
-            buttonInicioSesion.Size = new Size(75, 23);
+            buttonInicioSesion.Size = new Size(86, 31);
             buttonInicioSesion.TabIndex = 3;
             buttonInicioSesion.Text = "Iniciar Session";
             buttonInicioSesion.UseVisualStyleBackColor = true;
@@ -90,9 +96,9 @@
             // 
             labelTituoInicioSesion.AutoSize = true;
             labelTituoInicioSesion.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoInicioSesion.Location = new Point(361, 82);
+            labelTituoInicioSesion.Location = new Point(413, 109);
             labelTituoInicioSesion.Name = "labelTituoInicioSesion";
-            labelTituoInicioSesion.Size = new Size(154, 25);
+            labelTituoInicioSesion.Size = new Size(196, 32);
             labelTituoInicioSesion.TabIndex = 25;
             labelTituoInicioSesion.Text = "INICIAR SESIÓN";
             // 
@@ -102,25 +108,39 @@
             panelIcon.Controls.Add(pictureBox1);
             panelIcon.Dock = DockStyle.Left;
             panelIcon.Location = new Point(0, 0);
+            panelIcon.Margin = new Padding(3, 4, 3, 4);
             panelIcon.Name = "panelIcon";
-            panelIcon.Size = new Size(292, 333);
+            panelIcon.Size = new Size(334, 433);
             panelIcon.TabIndex = 26;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.iconPeluqueria;
-            pictureBox1.Location = new Point(3, 82);
+            pictureBox1.Location = new Point(3, 109);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(284, 183);
+            pictureBox1.Size = new Size(325, 244);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
+            // pictureBoxMostrar
+            // 
+            pictureBoxMostrar.Image = Properties.Resources.Ojo;
+            pictureBoxMostrar.Location = new Point(607, 219);
+            pictureBoxMostrar.Name = "pictureBoxMostrar";
+            pictureBoxMostrar.Size = new Size(46, 40);
+            pictureBoxMostrar.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxMostrar.TabIndex = 27;
+            pictureBoxMostrar.TabStop = false;
+            pictureBoxMostrar.Click += pictureBoxMostrar_Click;
+            // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(594, 333);
+            ClientSize = new Size(677, 433);
+            Controls.Add(pictureBoxMostrar);
             Controls.Add(panelIcon);
             Controls.Add(labelTituoInicioSesion);
             Controls.Add(buttonInicioSesion);
@@ -129,14 +149,16 @@
             Controls.Add(labelContraseña);
             Controls.Add(LabelUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(610, 372);
+            MaximumSize = new Size(695, 480);
             MinimizeBox = false;
-            MinimumSize = new Size(610, 372);
+            MinimumSize = new Size(695, 480);
             Name = "Login";
             Text = "Login";
             panelIcon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxMostrar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -151,5 +173,6 @@
         private Label labelTituoInicioSesion;
         private Panel panelIcon;
         private PictureBox pictureBox1;
+        private PictureBox pictureBoxMostrar;
     }
 }

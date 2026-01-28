@@ -98,7 +98,7 @@
             // 
             labTipoUser.AutoSize = true;
             labTipoUser.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labTipoUser.Location = new Point(30, 355);
+            labTipoUser.Location = new Point(30, 211);
             labTipoUser.Margin = new Padding(5, 0, 5, 0);
             labTipoUser.Name = "labTipoUser";
             labTipoUser.Size = new Size(124, 20);
@@ -111,7 +111,7 @@
             comboTipoUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
             comboTipoUsuario.FormattingEnabled = true;
             comboTipoUsuario.Items.AddRange(new object[] { "Cliente", "Grupo", "Admin" });
-            comboTipoUsuario.Location = new Point(193, 352);
+            comboTipoUsuario.Location = new Point(193, 208);
             comboTipoUsuario.Margin = new Padding(5, 4, 5, 4);
             comboTipoUsuario.MaxDropDownItems = 3;
             comboTipoUsuario.Name = "comboTipoUsuario";
@@ -122,7 +122,7 @@
             // 
             // textBoxUsConfigContrasenya
             // 
-            textBoxUsConfigContrasenya.Location = new Point(193, 313);
+            textBoxUsConfigContrasenya.Location = new Point(573, 205);
             textBoxUsConfigContrasenya.Margin = new Padding(3, 4, 3, 4);
             textBoxUsConfigContrasenya.Name = "textBoxUsConfigContrasenya";
             textBoxUsConfigContrasenya.Size = new Size(159, 27);
@@ -132,7 +132,7 @@
             // 
             LabUsConfigContraseña.AutoSize = true;
             LabUsConfigContraseña.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabUsConfigContraseña.Location = new Point(30, 316);
+            LabUsConfigContraseña.Location = new Point(410, 208);
             LabUsConfigContraseña.Margin = new Padding(5, 0, 5, 0);
             LabUsConfigContraseña.Name = "LabUsConfigContraseña";
             LabUsConfigContraseña.Size = new Size(171, 20);
@@ -141,7 +141,7 @@
             // 
             // textBoxUsContrasenya
             // 
-            textBoxUsContrasenya.Location = new Point(193, 277);
+            textBoxUsContrasenya.Location = new Point(573, 169);
             textBoxUsContrasenya.Margin = new Padding(3, 4, 3, 4);
             textBoxUsContrasenya.Name = "textBoxUsContrasenya";
             textBoxUsContrasenya.Size = new Size(159, 27);
@@ -151,7 +151,7 @@
             // 
             LabUsContrasenya.AutoSize = true;
             LabUsContrasenya.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LabUsContrasenya.Location = new Point(30, 280);
+            LabUsContrasenya.Location = new Point(410, 172);
             LabUsContrasenya.Margin = new Padding(5, 0, 5, 0);
             LabUsContrasenya.Name = "LabUsContrasenya";
             LabUsContrasenya.Size = new Size(95, 20);
@@ -197,7 +197,7 @@
             // 
             // ButtonUsAnyadir
             // 
-            ButtonUsAnyadir.Location = new Point(267, 569);
+            ButtonUsAnyadir.Location = new Point(666, 570);
             ButtonUsAnyadir.Margin = new Padding(3, 4, 3, 4);
             ButtonUsAnyadir.Name = "ButtonUsAnyadir";
             ButtonUsAnyadir.Size = new Size(86, 31);
@@ -210,7 +210,7 @@
             // 
             labelTituoCrearUsuario.AutoSize = true;
             labelTituoCrearUsuario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoCrearUsuario.Location = new Point(83, 28);
+            labelTituoCrearUsuario.Location = new Point(262, 37);
             labelTituoCrearUsuario.Name = "labelTituoCrearUsuario";
             labelTituoCrearUsuario.Size = new Size(221, 32);
             labelTituoCrearUsuario.TabIndex = 18;
@@ -233,7 +233,7 @@
             panelUsGrupo.Controls.Add(tboxUserCurso);
             panelUsGrupo.Controls.Add(labUserTurno);
             panelUsGrupo.Controls.Add(labUserCurso);
-            panelUsGrupo.Location = new Point(30, 387);
+            panelUsGrupo.Location = new Point(28, 271);
             panelUsGrupo.Margin = new Padding(3, 4, 3, 4);
             panelUsGrupo.Name = "panelUsGrupo";
             panelUsGrupo.Size = new Size(323, 175);
@@ -282,7 +282,7 @@
             // 
             panelAdmin.Controls.Add(tboxUserEspec);
             panelAdmin.Controls.Add(labUserEspecialidad);
-            panelAdmin.Location = new Point(358, 99);
+            panelAdmin.Location = new Point(28, 271);
             panelAdmin.Margin = new Padding(3, 4, 3, 4);
             panelAdmin.Name = "panelAdmin";
             panelAdmin.Size = new Size(323, 175);
@@ -316,10 +316,10 @@
             panelCliente.Controls.Add(tboxUserAlerg);
             panelCliente.Controls.Add(labUserObser);
             panelCliente.Controls.Add(labUserAlerg);
-            panelCliente.Location = new Point(30, 387);
+            panelCliente.Location = new Point(28, 271);
             panelCliente.Margin = new Padding(3, 4, 3, 4);
             panelCliente.Name = "panelCliente";
-            panelCliente.Size = new Size(323, 175);
+            panelCliente.Size = new Size(718, 290);
             panelCliente.TabIndex = 12;
             panelCliente.Visible = false;
             // 
@@ -327,7 +327,7 @@
             // 
             labUserComCit.AutoSize = true;
             labUserComCit.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUserComCit.Location = new Point(-2, 101);
+            labUserComCit.Location = new Point(341, 6);
             labUserComCit.Margin = new Padding(5, 0, 5, 0);
             labUserComCit.Name = "labUserComCit";
             labUserComCit.Size = new Size(150, 20);
@@ -336,9 +336,9 @@
             // 
             // tboxUserComCit
             // 
-            tboxUserComCit.Location = new Point(159, 98);
+            tboxUserComCit.Location = new Point(341, 29);
             tboxUserComCit.Name = "tboxUserComCit";
-            tboxUserComCit.Size = new Size(159, 63);
+            tboxUserComCit.Size = new Size(347, 243);
             tboxUserComCit.TabIndex = 14;
             tboxUserComCit.Text = "";
             // 
@@ -398,7 +398,7 @@
             // 
             labUsEmail.AutoSize = true;
             labUsEmail.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUsEmail.Location = new Point(30, 207);
+            labUsEmail.Location = new Point(410, 99);
             labUsEmail.Margin = new Padding(5, 0, 5, 0);
             labUsEmail.Name = "labUsEmail";
             labUsEmail.Size = new Size(51, 20);
@@ -407,7 +407,7 @@
             // 
             // textBoxUsEmail
             // 
-            textBoxUsEmail.Location = new Point(193, 204);
+            textBoxUsEmail.Location = new Point(573, 96);
             textBoxUsEmail.Margin = new Padding(3, 4, 3, 4);
             textBoxUsEmail.Name = "textBoxUsEmail";
             textBoxUsEmail.Size = new Size(159, 27);
@@ -415,7 +415,7 @@
             // 
             // textBoxUsTel
             // 
-            textBoxUsTel.Location = new Point(193, 240);
+            textBoxUsTel.Location = new Point(573, 132);
             textBoxUsTel.Margin = new Padding(3, 4, 3, 4);
             textBoxUsTel.Name = "textBoxUsTel";
             textBoxUsTel.Size = new Size(159, 27);
@@ -425,7 +425,7 @@
             // 
             labUsTel.AutoSize = true;
             labUsTel.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUsTel.Location = new Point(30, 243);
+            labUsTel.Location = new Point(410, 135);
             labUsTel.Margin = new Padding(5, 0, 5, 0);
             labUsTel.Name = "labUsTel";
             labUsTel.Size = new Size(73, 20);
@@ -434,7 +434,7 @@
             // 
             // ButtonUsGuardar
             // 
-            ButtonUsGuardar.Location = new Point(207, 571);
+            ButtonUsGuardar.Location = new Point(606, 572);
             ButtonUsGuardar.Margin = new Padding(3, 4, 3, 4);
             ButtonUsGuardar.Name = "ButtonUsGuardar";
             ButtonUsGuardar.Size = new Size(146, 31);
@@ -446,7 +446,7 @@
             // 
             // ButtonUsVolver
             // 
-            ButtonUsVolver.Location = new Point(266, 571);
+            ButtonUsVolver.Location = new Point(665, 572);
             ButtonUsVolver.Margin = new Padding(3, 4, 3, 4);
             ButtonUsVolver.Name = "ButtonUsVolver";
             ButtonUsVolver.Size = new Size(86, 31);
@@ -460,7 +460,7 @@
             // 
             labelTituoInfoUsuario.AutoSize = true;
             labelTituoInfoUsuario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoInfoUsuario.Location = new Point(28, 28);
+            labelTituoInfoUsuario.Location = new Point(207, 37);
             labelTituoInfoUsuario.Name = "labelTituoInfoUsuario";
             labelTituoInfoUsuario.Size = new Size(337, 32);
             labelTituoInfoUsuario.TabIndex = 49;
@@ -470,8 +470,10 @@
             // 
             panelUsuario.Controls.Add(buttonModificar);
             panelUsuario.Controls.Add(labelTituoInfoUsuario);
+            panelUsuario.Controls.Add(panelCliente);
             panelUsuario.Controls.Add(NombreUsuario);
             panelUsuario.Controls.Add(ButtonUsVolver);
+            panelUsuario.Controls.Add(panelAdmin);
             panelUsuario.Controls.Add(tboxNombreUsuario);
             panelUsuario.Controls.Add(ButtonUsGuardar);
             panelUsuario.Controls.Add(labTipoUser);
@@ -479,7 +481,6 @@
             panelUsuario.Controls.Add(comboTipoUsuario);
             panelUsuario.Controls.Add(textBoxUsEmail);
             panelUsuario.Controls.Add(LabUsConfigContraseña);
-            panelUsuario.Controls.Add(panelAdmin);
             panelUsuario.Controls.Add(textBoxUsConfigContrasenya);
             panelUsuario.Controls.Add(LabUsContrasenya);
             panelUsuario.Controls.Add(textBoxUsTel);
@@ -488,7 +489,6 @@
             panelUsuario.Controls.Add(labUsApellido);
             panelUsuario.Controls.Add(checkBoxEstado);
             panelUsuario.Controls.Add(textBoxUsApellidos);
-            panelUsuario.Controls.Add(panelCliente);
             panelUsuario.Controls.Add(lavUsNombre);
             panelUsuario.Controls.Add(panelUsGrupo);
             panelUsuario.Controls.Add(txtBoxUsNombre);
@@ -498,12 +498,12 @@
             panelUsuario.Dock = DockStyle.Fill;
             panelUsuario.Location = new Point(0, 0);
             panelUsuario.Name = "panelUsuario";
-            panelUsuario.Size = new Size(377, 616);
+            panelUsuario.Size = new Size(777, 616);
             panelUsuario.TabIndex = 50;
             // 
             // buttonModificar
             // 
-            buttonModificar.Location = new Point(174, 571);
+            buttonModificar.Location = new Point(573, 572);
             buttonModificar.Margin = new Padding(3, 4, 3, 4);
             buttonModificar.Name = "buttonModificar";
             buttonModificar.Size = new Size(86, 31);
@@ -517,13 +517,11 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(377, 616);
+            ClientSize = new Size(777, 616);
             Controls.Add(panelUsuario);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
-            MaximizeBox = false;
-            MaximumSize = new Size(395, 663);
-            MinimizeBox = false;
+            MaximumSize = new Size(795, 663);
             MinimumSize = new Size(395, 663);
             Name = "Usuario";
             Text = "Añadir Usuario";

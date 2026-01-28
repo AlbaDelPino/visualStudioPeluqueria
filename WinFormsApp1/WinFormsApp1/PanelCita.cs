@@ -161,7 +161,7 @@ namespace WinFormsApp1
         private void CompletarCita(CitaDto cita)
         {
 
-            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 0)
+            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
             {
                 MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

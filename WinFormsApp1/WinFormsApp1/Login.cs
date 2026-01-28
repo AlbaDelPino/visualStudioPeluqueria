@@ -61,17 +61,21 @@ namespace WinFormsApp1
 
                         // Validar roles
                         if (roles != null)
-                        { 
-                            if(roles.Contains("ROLE_CLIENTE"))
-                            { 
+                        {
+                            if (roles.Contains("ROLE_CLIENTE"))
+                            {
                                 MessageBox.Show("No tienes permisos suficientes para iniciar sesión.",
                                                 "Acceso denegado",
                                                 MessageBoxButtons.OK,
                                                 MessageBoxIcon.Warning);
                                 return; // salir sin cerrar el formulario
-                            } else if (roles.Contains("ROLE_ADMIN")){
+                            }
+                            else if (roles.Contains("ROLE_ADMIN"))
+                            {
                                 usuarioActual.Role = "ROLE_ADMIN";
-                            } else if (roles.Contains("ROLE_GRUPO")){
+                            }
+                            else if (roles.Contains("ROLE_GRUPO"))
+                            {
                                 usuarioActual.Role = "ROLE_GRUPO";
                             }
                         }
@@ -102,6 +106,17 @@ namespace WinFormsApp1
             }
 
         }
-       
+
+        private void pictureBoxMostrar_Click(object sender, EventArgs e)
+        {
+            if (textBoxContrasenya.PasswordChar == '●')
+            {
+                textBoxContrasenya.PasswordChar = '\0';
+            }
+            else if (textBoxContrasenya.PasswordChar == '\0')
+            {
+                textBoxContrasenya.PasswordChar = '●';
+            }
+        }
     }
 }

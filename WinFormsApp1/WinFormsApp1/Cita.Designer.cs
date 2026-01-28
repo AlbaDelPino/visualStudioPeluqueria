@@ -200,7 +200,7 @@
             CalendarCitas.BackColor = Color.FromArgb(255, 128, 0);
             CalendarCitas.FirstDayOfWeek = Day.Monday;
             CalendarCitas.Location = new Point(83, 121);
-            CalendarCitas.MinDate = new DateTime(2026, 1, 27, 0, 0, 0, 0);
+            CalendarCitas.MinDate = new DateTime(2026, 1, 28, 0, 0, 0, 0);
             CalendarCitas.Name = "CalendarCitas";
             CalendarCitas.TabIndex = 55;
             CalendarCitas.DateSelected += CalendarCitas_SelectedChanged;

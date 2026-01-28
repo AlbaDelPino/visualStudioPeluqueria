@@ -1,4 +1,8 @@
-﻿namespace WinFormsApp1
+﻿using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+
+namespace WinFormsApp1
 {
     partial class PanelPrincipal
     {
@@ -54,6 +58,9 @@
             labelSer = new Label();
             pictureSer = new PictureBox();
             labelBienvenido = new Label();
+            monthCalendarFiltrar = new MyMonthCalendar();
+            panel1 = new Panel();
+            dataGridView1 = new DataGridView();
             panelCitHoy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureCitHoy).BeginInit();
             panelCit.SuspendLayout();
@@ -66,6 +73,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureCli).BeginInit();
             panelSer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureSer).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panelCitHoy
@@ -76,10 +85,10 @@
             panelCitHoy.Controls.Add(labelCitHoy);
             panelCitHoy.Controls.Add(pictureCitHoy);
             panelCitHoy.ForeColor = SystemColors.ControlDarkDark;
-            panelCitHoy.Location = new Point(773, 12);
-            panelCitHoy.Margin = new Padding(4, 3, 4, 3);
+            panelCitHoy.Location = new Point(883, 16);
+            panelCitHoy.Margin = new Padding(5, 4, 5, 4);
             panelCitHoy.Name = "panelCitHoy";
-            panelCitHoy.Size = new Size(142, 85);
+            panelCitHoy.Size = new Size(162, 113);
             panelCitHoy.TabIndex = 16;
             // 
             // labelNumCitHoy
@@ -87,10 +96,10 @@
             labelNumCitHoy.AutoSize = true;
             labelNumCitHoy.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumCitHoy.ForeColor = SystemColors.ControlText;
-            labelNumCitHoy.Location = new Point(58, 42);
-            labelNumCitHoy.Margin = new Padding(4, 0, 4, 0);
+            labelNumCitHoy.Location = new Point(66, 56);
+            labelNumCitHoy.Margin = new Padding(5, 0, 5, 0);
             labelNumCitHoy.Name = "labelNumCitHoy";
-            labelNumCitHoy.Size = new Size(23, 25);
+            labelNumCitHoy.Size = new Size(27, 29);
             labelNumCitHoy.TabIndex = 2;
             labelNumCitHoy.Text = "5";
             // 
@@ -98,20 +107,20 @@
             // 
             labelCitHoy.AutoSize = true;
             labelCitHoy.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitHoy.Location = new Point(16, 18);
-            labelCitHoy.Margin = new Padding(4, 0, 4, 0);
+            labelCitHoy.Location = new Point(18, 24);
+            labelCitHoy.Margin = new Padding(5, 0, 5, 0);
             labelCitHoy.Name = "labelCitHoy";
-            labelCitHoy.Size = new Size(68, 17);
+            labelCitHoy.Size = new Size(83, 20);
             labelCitHoy.TabIndex = 0;
             labelCitHoy.Text = "Citas Hoy";
             // 
             // pictureCitHoy
             // 
             pictureCitHoy.Image = Properties.Resources.cita_previa;
-            pictureCitHoy.Location = new Point(20, 33);
-            pictureCitHoy.Margin = new Padding(4, 3, 4, 3);
+            pictureCitHoy.Location = new Point(23, 44);
+            pictureCitHoy.Margin = new Padding(5, 4, 5, 4);
             pictureCitHoy.Name = "pictureCitHoy";
-            pictureCitHoy.Size = new Size(38, 38);
+            pictureCitHoy.Size = new Size(43, 51);
             pictureCitHoy.SizeMode = PictureBoxSizeMode.Zoom;
             pictureCitHoy.TabIndex = 1;
             pictureCitHoy.TabStop = false;
@@ -124,10 +133,10 @@
             panelCit.Controls.Add(labelCit);
             panelCit.Controls.Add(pictureCit);
             panelCit.ForeColor = SystemColors.ControlDarkDark;
-            panelCit.Location = new Point(623, 12);
-            panelCit.Margin = new Padding(4, 3, 4, 3);
+            panelCit.Location = new Point(712, 16);
+            panelCit.Margin = new Padding(5, 4, 5, 4);
             panelCit.Name = "panelCit";
-            panelCit.Size = new Size(142, 85);
+            panelCit.Size = new Size(162, 113);
             panelCit.TabIndex = 15;
             // 
             // labelNumCit
@@ -135,10 +144,10 @@
             labelNumCit.AutoSize = true;
             labelNumCit.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumCit.ForeColor = SystemColors.ControlText;
-            labelNumCit.Location = new Point(58, 42);
-            labelNumCit.Margin = new Padding(4, 0, 4, 0);
+            labelNumCit.Location = new Point(66, 56);
+            labelNumCit.Margin = new Padding(5, 0, 5, 0);
             labelNumCit.Name = "labelNumCit";
-            labelNumCit.Size = new Size(34, 25);
+            labelNumCit.Size = new Size(41, 29);
             labelNumCit.TabIndex = 2;
             labelNumCit.Text = "23";
             // 
@@ -146,20 +155,20 @@
             // 
             labelCit.AutoSize = true;
             labelCit.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCit.Location = new Point(16, 18);
-            labelCit.Margin = new Padding(4, 0, 4, 0);
+            labelCit.Location = new Point(18, 24);
+            labelCit.Margin = new Padding(5, 0, 5, 0);
             labelCit.Name = "labelCit";
-            labelCit.Size = new Size(95, 17);
+            labelCit.Size = new Size(117, 20);
             labelCit.TabIndex = 0;
             labelCit.Text = "Póximas Citas";
             // 
             // pictureCit
             // 
             pictureCit.Image = Properties.Resources.cita_previa;
-            pictureCit.Location = new Point(20, 33);
-            pictureCit.Margin = new Padding(4, 3, 4, 3);
+            pictureCit.Location = new Point(23, 44);
+            pictureCit.Margin = new Padding(5, 4, 5, 4);
             pictureCit.Name = "pictureCit";
-            pictureCit.Size = new Size(38, 38);
+            pictureCit.Size = new Size(43, 51);
             pictureCit.SizeMode = PictureBoxSizeMode.Zoom;
             pictureCit.TabIndex = 1;
             pictureCit.TabStop = false;
@@ -172,10 +181,10 @@
             panelGrup.Controls.Add(labelGrup);
             panelGrup.Controls.Add(pictureGrup);
             panelGrup.ForeColor = SystemColors.ControlDarkDark;
-            panelGrup.Location = new Point(473, 12);
-            panelGrup.Margin = new Padding(4, 3, 4, 3);
+            panelGrup.Location = new Point(541, 16);
+            panelGrup.Margin = new Padding(5, 4, 5, 4);
             panelGrup.Name = "panelGrup";
-            panelGrup.Size = new Size(142, 85);
+            panelGrup.Size = new Size(162, 113);
             panelGrup.TabIndex = 14;
             // 
             // labelNumGrup
@@ -183,10 +192,10 @@
             labelNumGrup.AutoSize = true;
             labelNumGrup.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumGrup.ForeColor = SystemColors.ControlText;
-            labelNumGrup.Location = new Point(58, 42);
-            labelNumGrup.Margin = new Padding(4, 0, 4, 0);
+            labelNumGrup.Location = new Point(66, 56);
+            labelNumGrup.Margin = new Padding(5, 0, 5, 0);
             labelNumGrup.Name = "labelNumGrup";
-            labelNumGrup.Size = new Size(23, 25);
+            labelNumGrup.Size = new Size(27, 29);
             labelNumGrup.TabIndex = 2;
             labelNumGrup.Text = "3";
             // 
@@ -194,20 +203,20 @@
             // 
             labelGrup.AutoSize = true;
             labelGrup.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelGrup.Location = new Point(16, 18);
-            labelGrup.Margin = new Padding(4, 0, 4, 0);
+            labelGrup.Location = new Point(18, 24);
+            labelGrup.Margin = new Padding(5, 0, 5, 0);
             labelGrup.Name = "labelGrup";
-            labelGrup.Size = new Size(91, 17);
+            labelGrup.Size = new Size(106, 20);
             labelGrup.TabIndex = 0;
             labelGrup.Text = "Total Grupos";
             // 
             // pictureGrup
             // 
             pictureGrup.Image = (Image)resources.GetObject("pictureGrup.Image");
-            pictureGrup.Location = new Point(20, 33);
-            pictureGrup.Margin = new Padding(4, 3, 4, 3);
+            pictureGrup.Location = new Point(23, 44);
+            pictureGrup.Margin = new Padding(5, 4, 5, 4);
             pictureGrup.Name = "pictureGrup";
-            pictureGrup.Size = new Size(38, 38);
+            pictureGrup.Size = new Size(43, 51);
             pictureGrup.SizeMode = PictureBoxSizeMode.Zoom;
             pictureGrup.TabIndex = 1;
             pictureGrup.TabStop = false;
@@ -220,10 +229,10 @@
             panelAdm.Controls.Add(labelAdm);
             panelAdm.Controls.Add(pictureAdm);
             panelAdm.ForeColor = SystemColors.ControlDarkDark;
-            panelAdm.Location = new Point(323, 12);
-            panelAdm.Margin = new Padding(4, 3, 4, 3);
+            panelAdm.Location = new Point(369, 16);
+            panelAdm.Margin = new Padding(5, 4, 5, 4);
             panelAdm.Name = "panelAdm";
-            panelAdm.Size = new Size(142, 85);
+            panelAdm.Size = new Size(162, 113);
             panelAdm.TabIndex = 13;
             // 
             // labelNumAdm
@@ -231,10 +240,10 @@
             labelNumAdm.AutoSize = true;
             labelNumAdm.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumAdm.ForeColor = SystemColors.ControlText;
-            labelNumAdm.Location = new Point(58, 42);
-            labelNumAdm.Margin = new Padding(4, 0, 4, 0);
+            labelNumAdm.Location = new Point(66, 56);
+            labelNumAdm.Margin = new Padding(5, 0, 5, 0);
             labelNumAdm.Name = "labelNumAdm";
-            labelNumAdm.Size = new Size(23, 25);
+            labelNumAdm.Size = new Size(27, 29);
             labelNumAdm.TabIndex = 2;
             labelNumAdm.Text = "3";
             // 
@@ -242,20 +251,20 @@
             // 
             labelAdm.AutoSize = true;
             labelAdm.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelAdm.Location = new Point(16, 18);
-            labelAdm.Margin = new Padding(4, 0, 4, 0);
+            labelAdm.Location = new Point(18, 24);
+            labelAdm.Margin = new Padding(5, 0, 5, 0);
             labelAdm.Name = "labelAdm";
-            labelAdm.Size = new Size(90, 17);
+            labelAdm.Size = new Size(107, 20);
             labelAdm.TabIndex = 0;
             labelAdm.Text = "Total Admins";
             // 
             // pictureAdm
             // 
             pictureAdm.Image = (Image)resources.GetObject("pictureAdm.Image");
-            pictureAdm.Location = new Point(20, 33);
-            pictureAdm.Margin = new Padding(4, 3, 4, 3);
+            pictureAdm.Location = new Point(23, 44);
+            pictureAdm.Margin = new Padding(5, 4, 5, 4);
             pictureAdm.Name = "pictureAdm";
-            pictureAdm.Size = new Size(38, 38);
+            pictureAdm.Size = new Size(43, 51);
             pictureAdm.SizeMode = PictureBoxSizeMode.Zoom;
             pictureAdm.TabIndex = 1;
             pictureAdm.TabStop = false;
@@ -268,10 +277,10 @@
             panelCli.Controls.Add(labelCli);
             panelCli.Controls.Add(pictureCli);
             panelCli.ForeColor = SystemColors.ControlDarkDark;
-            panelCli.Location = new Point(173, 12);
-            panelCli.Margin = new Padding(4, 3, 4, 3);
+            panelCli.Location = new Point(198, 16);
+            panelCli.Margin = new Padding(5, 4, 5, 4);
             panelCli.Name = "panelCli";
-            panelCli.Size = new Size(142, 85);
+            panelCli.Size = new Size(162, 113);
             panelCli.TabIndex = 12;
             // 
             // labelNumCli
@@ -279,10 +288,10 @@
             labelNumCli.AutoSize = true;
             labelNumCli.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumCli.ForeColor = SystemColors.ControlText;
-            labelNumCli.Location = new Point(58, 42);
-            labelNumCli.Margin = new Padding(4, 0, 4, 0);
+            labelNumCli.Location = new Point(66, 56);
+            labelNumCli.Margin = new Padding(5, 0, 5, 0);
             labelNumCli.Name = "labelNumCli";
-            labelNumCli.Size = new Size(23, 25);
+            labelNumCli.Size = new Size(27, 29);
             labelNumCli.TabIndex = 2;
             labelNumCli.Text = "3";
             // 
@@ -290,20 +299,20 @@
             // 
             labelCli.AutoSize = true;
             labelCli.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCli.Location = new Point(16, 18);
-            labelCli.Margin = new Padding(4, 0, 4, 0);
+            labelCli.Location = new Point(18, 24);
+            labelCli.Margin = new Padding(5, 0, 5, 0);
             labelCli.Name = "labelCli";
-            labelCli.Size = new Size(94, 17);
+            labelCli.Size = new Size(112, 20);
             labelCli.TabIndex = 0;
             labelCli.Text = "Total Clientes";
             // 
             // pictureCli
             // 
             pictureCli.Image = (Image)resources.GetObject("pictureCli.Image");
-            pictureCli.Location = new Point(20, 33);
-            pictureCli.Margin = new Padding(4, 3, 4, 3);
+            pictureCli.Location = new Point(23, 44);
+            pictureCli.Margin = new Padding(5, 4, 5, 4);
             pictureCli.Name = "pictureCli";
-            pictureCli.Size = new Size(38, 38);
+            pictureCli.Size = new Size(43, 51);
             pictureCli.SizeMode = PictureBoxSizeMode.Zoom;
             pictureCli.TabIndex = 1;
             pictureCli.TabStop = false;
@@ -316,10 +325,10 @@
             panelSer.Controls.Add(labelSer);
             panelSer.Controls.Add(pictureSer);
             panelSer.ForeColor = SystemColors.ControlDarkDark;
-            panelSer.Location = new Point(23, 12);
-            panelSer.Margin = new Padding(4, 3, 4, 3);
+            panelSer.Location = new Point(26, 16);
+            panelSer.Margin = new Padding(5, 4, 5, 4);
             panelSer.Name = "panelSer";
-            panelSer.Size = new Size(142, 85);
+            panelSer.Size = new Size(162, 113);
             panelSer.TabIndex = 11;
             // 
             // labelNumSer
@@ -327,10 +336,10 @@
             labelNumSer.AutoSize = true;
             labelNumSer.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumSer.ForeColor = SystemColors.ControlText;
-            labelNumSer.Location = new Point(58, 42);
-            labelNumSer.Margin = new Padding(4, 0, 4, 0);
+            labelNumSer.Location = new Point(66, 56);
+            labelNumSer.Margin = new Padding(5, 0, 5, 0);
             labelNumSer.Name = "labelNumSer";
-            labelNumSer.Size = new Size(23, 25);
+            labelNumSer.Size = new Size(27, 29);
             labelNumSer.TabIndex = 2;
             labelNumSer.Text = "3";
             // 
@@ -338,10 +347,10 @@
             // 
             labelSer.AutoSize = true;
             labelSer.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSer.Location = new Point(16, 18);
-            labelSer.Margin = new Padding(4, 0, 4, 0);
+            labelSer.Location = new Point(18, 24);
+            labelSer.Margin = new Padding(5, 0, 5, 0);
             labelSer.Name = "labelSer";
-            labelSer.Size = new Size(101, 17);
+            labelSer.Size = new Size(120, 20);
             labelSer.TabIndex = 0;
             labelSer.Text = "Total Servicios";
             // 
@@ -349,10 +358,10 @@
             // 
             pictureSer.Image = Properties.Resources.servicio;
             pictureSer.InitialImage = Properties.Resources.servicio;
-            pictureSer.Location = new Point(30, 40);
-            pictureSer.Margin = new Padding(4, 3, 4, 3);
+            pictureSer.Location = new Point(34, 53);
+            pictureSer.Margin = new Padding(5, 4, 5, 4);
             pictureSer.Name = "pictureSer";
-            pictureSer.Size = new Size(30, 30);
+            pictureSer.Size = new Size(34, 40);
             pictureSer.SizeMode = PictureBoxSizeMode.Zoom;
             pictureSer.TabIndex = 1;
             pictureSer.TabStop = false;
@@ -361,19 +370,50 @@
             // 
             labelBienvenido.AutoSize = true;
             labelBienvenido.Font = new Font("Microsoft Sans Serif", 25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelBienvenido.Location = new Point(549, 371);
-            labelBienvenido.Margin = new Padding(4, 0, 4, 0);
+            labelBienvenido.Location = new Point(627, 495);
+            labelBienvenido.Margin = new Padding(5, 0, 5, 0);
             labelBienvenido.Name = "labelBienvenido";
-            labelBienvenido.Size = new Size(551, 39);
+            labelBienvenido.Size = new Size(666, 48);
             labelBienvenido.TabIndex = 17;
             labelBienvenido.Text = "Bienvenido a la gestión de datos!";
             labelBienvenido.TextAlign = ContentAlignment.BottomCenter;
             // 
+            // monthCalendarFiltrar
+            // 
+            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F);
+            monthCalendarFiltrar.Location = new Point(1171, 18);
+            monthCalendarFiltrar.MaxSelectionCount = 31;
+            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
+            monthCalendarFiltrar.ShowToday = false;
+            monthCalendarFiltrar.TabIndex = 0;
+            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
+            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(dataGridView1);
+            panel1.Location = new Point(45, 214);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(494, 603);
+            panel1.TabIndex = 18;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(494, 603);
+            dataGridView1.TabIndex = 0;
+            // 
             // PanelPrincipal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1402, 655);
+            ClientSize = new Size(1602, 873);
+            Controls.Add(panel1);
+            Controls.Add(monthCalendarFiltrar);
             Controls.Add(labelBienvenido);
             Controls.Add(panelCitHoy);
             Controls.Add(panelCit);
@@ -381,6 +421,7 @@
             Controls.Add(panelAdm);
             Controls.Add(panelCli);
             Controls.Add(panelSer);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "PanelPrincipal";
             Text = "PanelPrincipal";
             Load += PanelPrincipal_Load;
@@ -402,6 +443,8 @@
             panelSer.ResumeLayout(false);
             panelSer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureSer).EndInit();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -433,5 +476,18 @@
         private Label labelSer;
         private PictureBox pictureSer;
         private Label labelBienvenido;
+        private MyMonthCalendar monthCalendarFiltrar;
+        public class MyMonthCalendar : MonthCalendar
+        {
+            [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+            static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+            protected override void OnHandleCreated(EventArgs e)
+            {
+                SetWindowTheme(Handle, string.Empty, string.Empty);
+                base.OnHandleCreated(e);
+            }
+        }
+        private Panel panel1;
+        private DataGridView dataGridView1;
     }
 }

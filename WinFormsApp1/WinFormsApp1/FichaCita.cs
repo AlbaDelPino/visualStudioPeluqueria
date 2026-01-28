@@ -21,7 +21,6 @@ namespace WinFormsApp1
 {
     public partial class FichaCita : Form
     {
-
         private readonly string _token;
         private readonly CitaDto _cita;
         public FichaCita(CitaDto cita, string token)
@@ -65,19 +64,20 @@ namespace WinFormsApp1
         {
             string comentario = "";
             string alergenos = "";
-            string observaciones = "";
+            var observaciones = "";
             var clientes = ObtenerClientes();
             foreach (ClienteDto c in clientes)
             {
                 if (c.Id == _cita.Cliente.Id)
                 {
                     comentario = c.Comentario ?? "";
+                    comentario = comentario.Replace("\n", "\\n");
                     alergenos = c.Alergenos ?? "";
                     observaciones = c.Observacion ?? "";
                 }
             }
 
-            comentario += "Fecha: " + _cita.Fecha.ToString() + "\\nServicio: " + _cita.Horario.Servicio;
+            comentario += "Fecha: " + _cita.Fecha.ToString() + "\\nServicio: " + _cita.Horario.Servicio.Nombre;
             if (!string.IsNullOrEmpty(richTextBoxTratamientos.Text))
             {
                 comentario += "\\nTratamientos: " + richTextBoxTratamientos.Text;
@@ -151,6 +151,7 @@ namespace WinFormsApp1
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
+                        this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
