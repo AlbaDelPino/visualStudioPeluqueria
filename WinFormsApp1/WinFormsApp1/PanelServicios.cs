@@ -57,7 +57,6 @@ namespace WinFormsApp1
 
         private void ConfigurarUIEstiloImagen()
         {
-            // BOTÓN (+) CIRCULAR
             anyadirServicio.Text = "+";
             anyadirServicio.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             anyadirServicio.FlatStyle = FlatStyle.Flat;
@@ -66,22 +65,14 @@ namespace WinFormsApp1
             anyadirServicio.ForeColor = Color.White;
             anyadirServicio.Size = new Size(45, 45);
 
-            // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
-            //anyadirUsuario.Top = 15;
-            anyadirServicio.Left = panelVisualServicios.Width - 60; // A la derecha
+            anyadirServicio.Left = panelVisualServicios.Width - 60; 
 
-            // BUSCADOR Y COMBO
-            //textBoxSUsBuscar.Top = 25;
             textBoxSerBuscar.Left = 50;
-            // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
             textBoxSerBuscar.Width = panelVisualServicios.Width - 350;
 
-            // COMBO (Alargado)
-            // comboBoxUsFiltrar.Top = 25;
-            comboBoxSerFiltrar.Width = 180; // Más ancho
-            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30; // Se posiciona justo después del buscador
+            comboBoxSerFiltrar.Width = 180;
+            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30; 
 
-            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
             textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirServicio.Anchor = AnchorStyles.Right;
@@ -89,25 +80,21 @@ namespace WinFormsApp1
             ActualizarRegiones();
         }
 
-        // Se llama al cargar y al cambiar el tamaño de la ventana
         private void ActualizarRegiones()
         {
-            // Redondeo físico del botón naranja (Círculo perfecto)
             anyadirServicio.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirServicio.Width, anyadirServicio.Height, anyadirServicio.Width, anyadirServicio.Height));
         }
 
-        // Evento que ocurre cuando cambias el tamaño de la ventana
         private void PanelUsuario_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
-            panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
+            panelVisualServicios.Invalidate(); 
         }
         private void PanelServicios_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
-            panelVisualServicios.Invalidate(); // Fuerza a redibujar el borde gris
+            panelVisualServicios.Invalidate(); 
         }
-
 
         private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
         {
@@ -117,8 +104,6 @@ namespace WinFormsApp1
             Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
             Brush fondoBlanco = Brushes.White;
 
-            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
-            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxSerBuscar.Left - 35,
                 textBoxSerBuscar.Top - 15,
@@ -128,11 +113,10 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSerBuscar.Left - 25, textBoxSerBuscar.Top - 2);
 
-            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
             Rectangle rectFiltro = new Rectangle(
                 comboBoxSerFiltrar.Left - 10,
                 comboBoxSerFiltrar.Top - 10,
-                comboBoxSerFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxSerFiltrar.Width + 25, 
                 comboBoxSerFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -269,9 +253,7 @@ namespace WinFormsApp1
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            // Aquí añadimos el token
             request.Headers["Authorization"] = $"Bearer {_token}";
-
             using (var response = (HttpWebResponse)request.GetResponse())
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream))
@@ -302,7 +284,6 @@ namespace WinFormsApp1
         private void pasarPagina()
         {
             dataGridViewServicios.Rows.Clear();
-
        
             int registrosASaltar = (contador - 1) * 15;
             var servicioPagina = _servicios.Skip(registrosASaltar).Take(15).ToList();
@@ -327,10 +308,8 @@ namespace WinFormsApp1
 
         private void dataGridViewServicios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Ignorar clics en encabezados
             if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
 
-            // Validar que la fila existe
             if (e.RowIndex >= dataGridViewServicios.Rows.Count) return;
 
             var fila = dataGridViewServicios.Rows[e.RowIndex];
@@ -359,7 +338,6 @@ namespace WinFormsApp1
 
             var listaFiltrada = _servicios.AsEnumerable();
 
-            // --- FILTRO POR TEXTO ---
             if (!string.IsNullOrEmpty(texto))
             {
                 listaFiltrada = listaFiltrada.Where(s =>
@@ -368,7 +346,6 @@ namespace WinFormsApp1
                 );
             }
 
-            // --- FILTRO POR CATEGORÍA ---
             if (!string.IsNullOrEmpty(categoria))
             {
                 listaFiltrada = listaFiltrada.Where(s =>
@@ -377,10 +354,8 @@ namespace WinFormsApp1
                 );
             }
 
-            // Limpiar tabla
             dataGridViewServicios.Rows.Clear();
 
-            // Rellenar con los resultados
             foreach (var s in listaFiltrada)
             {
                 var precio = s.Precio + " €";

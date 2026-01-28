@@ -18,7 +18,7 @@ namespace WinFormsApp1
     public partial class Login : Form
     {
         public string Token { get; private set; }
-        public UsersDto UsuarioActual { get; private set; }// propiedad para devolver el token
+        public UsersDto UsuarioActual { get; private set; }
         public Login()
         {
             InitializeComponent();
@@ -51,7 +51,6 @@ namespace WinFormsApp1
                     string responseBody = reader.ReadToEnd();
 
                     var usuarioActual = JsonConvert.DeserializeObject<UsersDto>(responseBody);
-
                     // Parsear JSON y obtener token
                     var jsonObject = JObject.Parse(responseBody);
                     string token = jsonObject["token"]?.ToString();
@@ -61,13 +60,20 @@ namespace WinFormsApp1
                     {
 
                         // Validar roles
-                        if (roles != null && roles.Contains("ROLE_CLIENTE"))
-                        {
-                            MessageBox.Show("No tienes permisos suficientes para iniciar sesión.",
-                                            "Acceso denegado",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Warning);
-                            return; // salir sin cerrar el formulario
+                        if (roles != null)
+                        { 
+                            if(roles.Contains("ROLE_CLIENTE"))
+                            { 
+                                MessageBox.Show("No tienes permisos suficientes para iniciar sesión.",
+                                                "Acceso denegado",
+                                                MessageBoxButtons.OK,
+                                                MessageBoxIcon.Warning);
+                                return; // salir sin cerrar el formulario
+                            } else if (roles.Contains("ROLE_ADMIN")){
+                                usuarioActual.Role = "ROLE_ADMIN";
+                            } else if (roles.Contains("ROLE_GRUPO")){
+                                usuarioActual.Role = "ROLE_GRUPO";
+                            }
                         }
 
                         Token = token;
@@ -96,11 +102,6 @@ namespace WinFormsApp1
             }
 
         }
-        public static class Session
-        {
-            public static string Token { get; set; }
-        }
-
        
     }
 }

@@ -575,7 +575,6 @@
             ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
             Controls.Add(panelVisualHorarios);
-            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "PanelHorario";
             Text = "PanelHorario";

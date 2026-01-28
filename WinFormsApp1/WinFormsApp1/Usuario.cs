@@ -20,11 +20,13 @@ namespace WinFormsApp1
     {
         private readonly UsersDto _usuario;
         private readonly string _token;
-        public Usuario(UsersDto usuario, string token)
+        private readonly UsersDto _usuarioActual;
+        public Usuario(UsersDto usuario, string token, UsersDto usuarioActual)
         {
             InitializeComponent();
             _usuario = usuario;
             _token = token;
+            _usuarioActual = usuarioActual;
         }
 
         private void comboTipoUsuario_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,7 +108,7 @@ namespace WinFormsApp1
                         streamWriter.Close();
                     }
 
-                
+
                     using (WebResponse response = request.GetResponse())
                     {
                         using (Stream strReader = response.GetResponseStream())
@@ -115,12 +117,11 @@ namespace WinFormsApp1
                             using (StreamReader objReader = new StreamReader(strReader))
                             {
                                 string responseBody = objReader.ReadToEnd();
-                                // Do something with responseBody
-                                Console.WriteLine(responseBody);
-                                MessageBox.Show("Usuario añadido correctamente", "Usuario añadido correctamente", MessageBoxButtons.OK);
                             }
                         }
                     }
+                    this.Close();
+                    this.DialogResult = DialogResult.OK;
                 }
                 catch (WebException ex)
                 {
@@ -135,8 +136,6 @@ namespace WinFormsApp1
                 {
                     MessageBox.Show("Error al añadir usuario", "Error al añadir usuario", MessageBoxButtons.OK);
                 }
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             else
             {
@@ -145,7 +144,12 @@ namespace WinFormsApp1
 
         }
 
-        private void ButtonUsModificar_Click(object sender, EventArgs e)
+        private void ButtonUsVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ButtonUsGuardar_Click(object sender, EventArgs e)
         {
             string username = tboxNombreUsuario.Text;
             string primernombre = txtBoxUsNombre.Text;
@@ -218,12 +222,11 @@ namespace WinFormsApp1
                             using (StreamReader objReader = new StreamReader(strReader))
                             {
                                 string responseBody = objReader.ReadToEnd();
-                                // Do something with responseBody
-                                Console.WriteLine(responseBody);
-                                MessageBox.Show("Usuario modificado correctamente", "Usuario modificado correctamente", MessageBoxButtons.OK);
                             }
                         }
                     }
+                    this.Close();
+                    this.DialogResult = DialogResult.OK;
                 }
                 catch (WebException ex)
                 {
@@ -234,24 +237,59 @@ namespace WinFormsApp1
                     }
                     MessageBox.Show("Error al modificar usuario", "Error al modificar usuario", MessageBoxButtons.OK);
                 }
-                this.Close();
-                this.DialogResult = DialogResult.OK;
             }
             else
             {
                 MessageBox.Show("Las contrasenyas introducidas deben de ser iguales", "Error al validar la contraseña", MessageBoxButtons.OK);
             }
-
         }
 
-        private void ButtonUsVolver_Click(object sender, EventArgs e)
+        private void buttonModificar_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            labelTituoCrearUsuario.Text = "MODIFICAR USUARIO";
 
-        private void labelTituoCrearUsuario_Click(object sender, EventArgs e)
-        {
+            buttonModificar.Visible = false;
+            ButtonUsVolver.Visible = false;
+            ButtonUsAnyadir.Visible = false;
+            ButtonUsGuardar.Visible = true;
 
+            ComboTipoUsuario.Enabled = false;
+
+            if (_usuario.Role.Equals("ROLE_CLIENTE"))
+            {
+                TextBoxUsContrasenya.ReadOnly = true;
+                TextBoxUsConfigContrasenya.ReadOnly = true;
+            }
+            else if (_usuarioActual.Id == _usuario.Id)
+            {
+                TextBoxUsContrasenya.ReadOnly = false;
+                TextBoxUsConfigContrasenya.ReadOnly = false;
+            }
+            else if (_usuario.Role.Equals("ROLE_GRUPO") && _usuarioActual.Role.Equals("ROLE_ADMIN"))
+            {
+                TextBoxUsContrasenya.ReadOnly = false;
+                TextBoxUsConfigContrasenya.ReadOnly = false;
+            }
+            else if (_usuario.Role.Equals("ROLE_ADMIN") || _usuario.Role.Equals("ROLE_GRUPO"))
+            {
+                TextBoxUsContrasenya.ReadOnly = true;
+                TextBoxUsConfigContrasenya.ReadOnly = true;
+            }
+
+
+            TboxNombreUsuario.ReadOnly = false;
+            TxtBoxUsNombre.ReadOnly = false;
+            TextBoxUsApellidos.ReadOnly = false;
+            TextBoxUsEmail.ReadOnly = false;
+            TextBoxUsTel.ReadOnly = false;
+            ComboTipoUsuario.Enabled = true;
+            CheckBoxEstado.Enabled = true;
+            TboxUserDirecc.ReadOnly = false;
+            TboxUserAlerg.ReadOnly = false;
+            TboxUserObserv.ReadOnly = false;
+            TboxUserCurso.ReadOnly = false;
+            TboxUserTurno.ReadOnly = false;
+            TboxUserEspec.ReadOnly = false;
         }
     }
 }

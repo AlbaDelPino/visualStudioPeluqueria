@@ -35,6 +35,7 @@ namespace WinFormsApp1
         private static int pagUs;
         private static int contador = 1;
         private static List<UsersDto> _usuarios;
+        private readonly UsersDto _usuarioActual;
         public PanelUsuario(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace WinFormsApp1
             this.ResizeRedraw = true;
 
             _token = token;
+            _usuarioActual = usuarioActual;
         }
 
         private void PanelUsuario_Load(object sender, EventArgs e)
@@ -173,13 +175,14 @@ namespace WinFormsApp1
                 nombre = nombreYapellidos[0];
             }
 
-            Usuario pantallaInfo = new Usuario(usuario, _token);
+            Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
             pantallaInfo.Form = "Información de " + usuario.Nombre;
             pantallaInfo.LabelTituoCrearUsuario.Visible = false;
             pantallaInfo.LabelTituoInfoUsuario.Visible = true;
 
 
-            pantallaInfo.buttonUsModificar = false;
+            pantallaInfo.buttonUsGuardar = false;
+            pantallaInfo.ButtonUsModificar = true;
             pantallaInfo.buttonUsVolver = true;
             pantallaInfo.buttonUsAnyadir = false;
 
@@ -270,130 +273,15 @@ namespace WinFormsApp1
             }
             pantallaInfo.ComboTipoUsuario.SelectedIndex = indexRol;
 
-            pantallaInfo.Show();
-
-        }
-
-
-        private void ModificarUsuario(UsersDto usuario)
-        {
-            var nombreYapellidos = usuario.Nombre.Split(' ');
-            var nombre = "";
-            var apellidos = "";
-
-            if (nombreYapellidos.Length == 4)
-            {
-                nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[3];
-            }
-            else if (nombreYapellidos.Length == 3)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
-            }
-            else if (nombreYapellidos.Length == 2)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1];
-            }
-            else if (nombreYapellidos.Length == 1)
-            {
-                nombre = nombreYapellidos[0];
-            }
-
-            Usuario pantallaModificar = new Usuario(usuario, _token);
-            pantallaModificar.Form = "Modificar información de " + usuario.Nombre;
-            pantallaModificar.LabelTituoCrearUsuario.Text = "MODIFICAR USUARIO";
-            pantallaModificar.LabelTituoCrearUsuario.Visible = true;
-            pantallaModificar.LabelTituoInfoUsuario.Visible = false;
-            pantallaModificar.buttonUsModificar = true;
-            pantallaModificar.buttonUsVolver = false;
-            pantallaModificar.buttonUsAnyadir = false;
-
-            pantallaModificar.TboxNombreUsuario.Text = usuario.Username;
-            pantallaModificar.TxtBoxUsNombre.Text = nombre;
-            pantallaModificar.TextBoxUsApellidos.Text = apellidos;
-            pantallaModificar.TextBoxUsEmail.Text = usuario.Email;
-            pantallaModificar.TextBoxUsTel.Text = usuario.Telefono.ToString();
-            pantallaModificar.ComboTipoUsuario.Enabled = false;
-
-            if (usuario.Estado.Equals("true"))
-            {
-                pantallaModificar.CheckBoxEstado.Checked = true;
-            }
-            else if (usuario.Estado.Equals("false"))
-            {
-                pantallaModificar.CheckBoxEstado.Checked = false;
-            }
-
-            var indexRol = 3;
-            if (usuario.Role.Equals("ROLE_CLIENTE"))
-            {
-                var clientes = ObtenerClientes();
-                foreach (ClienteDto c in clientes)
-                {
-                    if (c.Id == usuario.Id)
-                    {
-                        pantallaModificar.TboxUserDirecc.Text = c.Direccion ?? "";
-                        pantallaModificar.TboxUserAlerg.Text = c.Alergenos ?? "";
-                        pantallaModificar.TboxUserObserv.Text = c.Observacion ?? "";
-                    }
-                }
-                pantallaModificar.PanelAdmin.Visible = false;
-                pantallaModificar.PanelUsGrupo.Visible = false;
-                pantallaModificar.PanelCliente.Visible = true;
-
-                pantallaModificar.TextBoxUsContrasenya.ReadOnly = true;
-                pantallaModificar.TextBoxUsConfigContrasenya.ReadOnly = true;
-
-                indexRol = 0;
-            }
-            else if (usuario.Role.Equals("ROLE_GRUPO"))
-            {
-
-                var grupos = ObtenerGrupos();
-                foreach (GrupoDto g in grupos)
-                {
-                    if (g.Id == usuario.Id)
-                    {
-                        pantallaModificar.TboxUserCurso.Text = g.Curso ?? "";
-                        pantallaModificar.TboxUserTurno.Text = g.Turno ?? "";
-                    }
-                }
-                pantallaModificar.PanelAdmin.Visible = false;
-                pantallaModificar.PanelUsGrupo.Visible = true;
-                pantallaModificar.PanelCliente.Visible = false;
-
-                indexRol = 1;
-            }
-            else if (usuario.Role.Equals("ROLE_ADMIN"))
-            {
-                var admins = ObtenerAdmins();
-                foreach (AdminDto a in admins)
-                {
-                    if (a.Id == usuario.Id)
-                    {
-                        pantallaModificar.TboxUserEspec.Text = a.Especialidad ?? "";
-                    }
-                }
-                pantallaModificar.PanelAdmin.Visible = true;
-                pantallaModificar.PanelUsGrupo.Visible = false;
-                pantallaModificar.PanelCliente.Visible = false;
-
-                pantallaModificar.TextBoxUsContrasenya.ReadOnly = true;
-                pantallaModificar.TextBoxUsConfigContrasenya.ReadOnly = true;
-
-                indexRol = 2;
-            }
-            pantallaModificar.ComboTipoUsuario.SelectedIndex = indexRol;
-
-
-            if (pantallaModificar.ShowDialog() == DialogResult.OK)
+            if (pantallaInfo.ShowDialog() == DialogResult.OK)
             {
                 RecargarUsuarios();
                 pasarPagina();
+                MessageBox.Show("Usuario modificado correctamente", "Éxito", MessageBoxButtons.OK);
             }
+
         }
+
 
 
         private void EliminarUsuario(UsersDto usuario)
@@ -462,15 +350,12 @@ namespace WinFormsApp1
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
 
-
-
-            Usuario pantallaAnyadir = new Usuario(null, _token);
+            Usuario pantallaAnyadir = new Usuario(null, _token, null);
             pantallaAnyadir.Form = "Añadir usuario nuevo";
-            pantallaAnyadir.LabelTituoCrearUsuario.Text = "AÑADIR USUARIO";
             pantallaAnyadir.LabelTituoCrearUsuario.Visible = true;
             pantallaAnyadir.LabelTituoInfoUsuario.Visible = false;
 
-            pantallaAnyadir.buttonUsModificar = false;
+            pantallaAnyadir.ButtonUsModificar = false;
             pantallaAnyadir.buttonUsVolver = false;
             pantallaAnyadir.buttonUsAnyadir = true;
             pantallaAnyadir.ComboTipoUsuario.Enabled = true;
@@ -489,11 +374,11 @@ namespace WinFormsApp1
             pantallaAnyadir.TboxUserTurno.Text = "";
             pantallaAnyadir.TboxUserEspec.Text = "";
 
-
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 RecargarUsuarios();
                 pasarPagina();
+                MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         private List<UsersDto> ObtenerUsuarios()
@@ -506,7 +391,6 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -718,7 +602,8 @@ namespace WinFormsApp1
 
             // Validar que la fila existe
             if (e.RowIndex >= dataGridViewUsuarios.Rows.Count) return;
-
+            
+            
             var fila = dataGridViewUsuarios.Rows[e.RowIndex];
             var usuario = fila.Tag as UsersDto;
             if (usuario == null) return;

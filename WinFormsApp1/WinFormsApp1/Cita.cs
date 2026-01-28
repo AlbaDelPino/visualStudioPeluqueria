@@ -26,10 +26,9 @@ namespace WinFormsApp1
         private readonly string _token;
         private readonly CitaDto _cita;
 
-        private long? _idServicioSeleccionado = null;
-        private long? _idGrupoSeleccionado = null;
         private long? _idHorarioSeleccionado = null;
         private long? _idClienteSeleccionado = null;
+        private string _HoraSeleccionada = null;
 
         public Cita(CitaDto cita, string token)
         {
@@ -49,7 +48,6 @@ namespace WinFormsApp1
                 {
                     var serv = (ServicioDto)buscador.ItemSeleccionado;
                     textBoxCitServicio.Text = serv.Nombre;
-                    _idServicioSeleccionado = serv.Id_Servicio;
                     if (textBoxCitFecha.Text != "")
                     {
                         comboBoxCitHora.Enabled = true;
@@ -70,7 +68,7 @@ namespace WinFormsApp1
                 {
                     UsersDto cliente = (UsersDto)buscador.ItemSeleccionado;
                     textBoxCitCliente.Text = cliente.Nombre;
-                    _idGrupoSeleccionado = cliente.Id;
+                    _idClienteSeleccionado = cliente.Id;
                 }
             }
         }
@@ -127,11 +125,16 @@ namespace WinFormsApp1
             }
         }
 
-        private List<HorarioSemanalDto> ComprobarHorarios()
+        private List<BloqueDto> ComprobarHorarios()
         {
             string fecha = textBoxCitFecha.Text;
-            var fechaFormato = DateTime.ParseExact(fecha, "dd/MM/yyyy", new CultureInfo("es-ES"));
-            string fechaConsulta = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
+            var fechaFormato = DateTime.Now;
+            string fechaConsulta = "";
+            if (fecha != null)
+            {
+                fechaFormato = DateTime.ParseExact(fecha, "dd/MM/yyyy", new CultureInfo("es-ES"));
+                fechaConsulta = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
+            }
             var horariosExistentes = ObtenerHorarios();
             var dia = "";
 
@@ -173,7 +176,7 @@ namespace WinFormsApp1
 
                 }
             }
-            var disponibles = new List<HorarioSemanalDto>();
+            var disponibles = new List<BloqueDto>();
             foreach (HorarioSemanalDto h in horariosFecha)
             {
                 var url = "http://localhost:8082/citas/disponible?fecha=" + fechaConsulta + "&horarioId=" + h.Id;
@@ -182,36 +185,25 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
                 using (var reader = new StreamReader(stream))
                 {
-                    //string json = reader.ReadToEnd();
-                    //var plazas = JsonConvert.DeserializeObject<long>(json);
-                    //if (plazas > 0)
-                    //{
-                    //    disponibles.Add(h);
-                    //}
+                    string json = reader.ReadToEnd();
+                    var data = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
 
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    // 1. Deserializamos como un Diccionario
-                    var bloquesMap = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonResponse);
-
-                    List<HorarioBloqueDTO> listaTemporal = new List<HorarioBloqueDTO>();
-
-                    // 2. Separamos Hora y Plazas usando un bucle foreach sobre el diccionario
-                    foreach (var entrada in bloquesMap)
+                    BloqueDto bl = new BloqueDto();
+                    foreach (var entrada in data)
                     {
-                        listaTemporal.Add(new HorarioBloqueDTO
+                        bl.Plazas = entrada.Value;
+                        if (bl.Plazas > 0)
                         {
-                            Hora = entrada.Key,       // La clave es la hora: "09:00:00"
-                            Plazas = entrada.Value,   // El valor son las plazas: 5
-                            HorarioObj = horarioBase  // El objeto padre que ya tenías
-                        });
+                            bl.Hora = entrada.Key;
+                            bl.Horario = h;
+                            disponibles.Add(bl);
+                        }
                     }
                 }
             }
@@ -227,20 +219,25 @@ namespace WinFormsApp1
         {
             if (textBoxCitFecha.Text != "" && textBoxCitServicio.Text != "")
             {
-                //comboBoxCitHora.DataSource = ComprobarHorarios().GroupBy(h => h.HoraInicio).Select(g => g.First()).OrderBy(h => h.HoraInicio).ToList();
-                comboBoxCitHora.DisplayMember = "HoraInicio";
-                comboBoxCitHora.ValueMember = "Id";
+                comboBoxCitHora.DataSource = ComprobarHorarios().OrderBy(b => b.Hora).ToList();
+                comboBoxCitHora.DisplayMember = "Hora";
+                comboBoxCitHora.ValueMember = "Horario";
                 comboBoxCitHora.SelectedIndex = -1;
             }
         }
 
         private void comboBoxCitHora_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var horario = (HorarioSemanalDto)comboBoxCitHora.SelectedItem;
-            _idHorarioSeleccionado = horario.Id;
-            if (horario != null)
+            var bloque = (BloqueDto)comboBoxCitHora.SelectedItem;
+
+            if (bloque != null)
             {
-                textBoxCitGrupo.Text = horario.Grupo.Curso;
+                _idHorarioSeleccionado = bloque.Horario.Id;
+                _HoraSeleccionada = bloque.Hora;
+                if (comboBoxCitHora.Text != null)
+                {
+                    textBoxCitGrupo.Text = bloque.Horario.Grupo.Curso;
+                }
             }
         }
 
@@ -259,14 +256,19 @@ namespace WinFormsApp1
             try
             {
                 string fecha = textBoxCitFecha.Text;
-                string fechaFormato = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
-                //string horaInicio = comboBoxCitHora.SelectedText;
+                string fechaFormato = "";
+                if (fecha != null)
+                {
+                    fechaFormato = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
+                }
+                string horaInicio = _HoraSeleccionada;
                 string idHorario = _idHorarioSeleccionado.ToString();
                 string idCliente = _idClienteSeleccionado.ToString();
 
                 var url = $"http://localhost:8082/citas/reservar";
                 string data = "{\r\n  \"fecha\": \"" + fechaFormato + "\",\r\n  \"horaInicio\":\"" + horaInicio + "\",\r\n  \"horario\": {\r\n \"id\": " + idHorario + "\r\n },\r\n  \"cliente\": {\r\n  \"id\": " + idCliente + " \r\n  }\r\n}";
                 //string json = $"{{\"data\":\"{data}\"}}";
+                var request = (HttpWebRequest)WebRequest.Create(url);
                 string json = data;
                 request.Method = "POST";
                 request.ContentType = "application/json";
@@ -288,12 +290,10 @@ namespace WinFormsApp1
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-                            Console.WriteLine(responseBody);
-                            MessageBox.Show("Cita añadida correctamente", "Cita añadida correctamente", MessageBoxButtons.OK);
                         }
                     }
                 }
+                this.DialogResult = DialogResult.OK;
             }
             catch (WebException ex)
             {
@@ -302,15 +302,12 @@ namespace WinFormsApp1
                 {
                     mensaje = reader.ReadToEnd();
                 }
-                MessageBox.Show("Error al añadir la cita", "Error al añadir la cita", MessageBoxButtons.OK);
+                MessageBox.Show("Error al añadir la cita !", "Error al añadir la cita", MessageBoxButtons.OK);
             }
             catch (NullReferenceException exc)
             {
                 MessageBox.Show("Error al añadir la cita", "Error al añadir la cita", MessageBoxButtons.OK);
             }
-            this.Close();
-            this.DialogResult = DialogResult.OK;
         }
-
     }
 }

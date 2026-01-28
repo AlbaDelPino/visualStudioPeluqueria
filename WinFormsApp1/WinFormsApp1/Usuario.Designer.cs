@@ -62,13 +62,13 @@
             checkBoxEstado = new CheckBox();
             labUsEmail = new Label();
             textBoxUsEmail = new TextBox();
-            label2 = new Label();
             textBoxUsTel = new TextBox();
             labUsTel = new Label();
-            ButtonUsModificar = new Button();
+            ButtonUsGuardar = new Button();
             ButtonUsVolver = new Button();
             labelTituoInfoUsuario = new Label();
             panelUsuario = new Panel();
+            buttonModificar = new Button();
             panelUsGrupo.SuspendLayout();
             panelAdmin.SuspendLayout();
             panelCliente.SuspendLayout();
@@ -215,7 +215,6 @@
             labelTituoCrearUsuario.Size = new Size(221, 32);
             labelTituoCrearUsuario.TabIndex = 18;
             labelTituoCrearUsuario.Text = "AÑADIR USUARIO";
-            labelTituoCrearUsuario.Click += labelTituoCrearUsuario_Click;
             // 
             // labelUsNombre
             // 
@@ -414,16 +413,6 @@
             textBoxUsEmail.Size = new Size(159, 27);
             textBoxUsEmail.TabIndex = 4;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(5, 197);
-            label2.Margin = new Padding(5, 0, 5, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(0, 20);
-            label2.TabIndex = 44;
-            // 
             // textBoxUsTel
             // 
             textBoxUsTel.Location = new Point(193, 240);
@@ -443,17 +432,17 @@
             labUsTel.TabIndex = 42;
             labUsTel.Text = "Teléfono";
             // 
-            // ButtonUsModificar
+            // ButtonUsGuardar
             // 
-            ButtonUsModificar.Location = new Point(207, 571);
-            ButtonUsModificar.Margin = new Padding(3, 4, 3, 4);
-            ButtonUsModificar.Name = "ButtonUsModificar";
-            ButtonUsModificar.Size = new Size(146, 31);
-            ButtonUsModificar.TabIndex = 47;
-            ButtonUsModificar.Text = "Guardar cambios";
-            ButtonUsModificar.UseVisualStyleBackColor = true;
-            ButtonUsModificar.Visible = false;
-            ButtonUsModificar.Click += ButtonUsModificar_Click;
+            ButtonUsGuardar.Location = new Point(207, 571);
+            ButtonUsGuardar.Margin = new Padding(3, 4, 3, 4);
+            ButtonUsGuardar.Name = "ButtonUsGuardar";
+            ButtonUsGuardar.Size = new Size(146, 31);
+            ButtonUsGuardar.TabIndex = 47;
+            ButtonUsGuardar.Text = "Guardar cambios";
+            ButtonUsGuardar.UseVisualStyleBackColor = true;
+            ButtonUsGuardar.Visible = false;
+            ButtonUsGuardar.Click += ButtonUsGuardar_Click;
             // 
             // ButtonUsVolver
             // 
@@ -471,7 +460,7 @@
             // 
             labelTituoInfoUsuario.AutoSize = true;
             labelTituoInfoUsuario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoInfoUsuario.Location = new Point(34, 28);
+            labelTituoInfoUsuario.Location = new Point(28, 28);
             labelTituoInfoUsuario.Name = "labelTituoInfoUsuario";
             labelTituoInfoUsuario.Size = new Size(337, 32);
             labelTituoInfoUsuario.TabIndex = 49;
@@ -479,11 +468,12 @@
             // 
             // panelUsuario
             // 
+            panelUsuario.Controls.Add(buttonModificar);
             panelUsuario.Controls.Add(labelTituoInfoUsuario);
             panelUsuario.Controls.Add(NombreUsuario);
             panelUsuario.Controls.Add(ButtonUsVolver);
             panelUsuario.Controls.Add(tboxNombreUsuario);
-            panelUsuario.Controls.Add(ButtonUsModificar);
+            panelUsuario.Controls.Add(ButtonUsGuardar);
             panelUsuario.Controls.Add(labTipoUser);
             panelUsuario.Controls.Add(labUsEmail);
             panelUsuario.Controls.Add(comboTipoUsuario);
@@ -491,7 +481,6 @@
             panelUsuario.Controls.Add(LabUsConfigContraseña);
             panelUsuario.Controls.Add(panelAdmin);
             panelUsuario.Controls.Add(textBoxUsConfigContrasenya);
-            panelUsuario.Controls.Add(label2);
             panelUsuario.Controls.Add(LabUsContrasenya);
             panelUsuario.Controls.Add(textBoxUsTel);
             panelUsuario.Controls.Add(textBoxUsContrasenya);
@@ -511,6 +500,18 @@
             panelUsuario.Name = "panelUsuario";
             panelUsuario.Size = new Size(377, 616);
             panelUsuario.TabIndex = 50;
+            // 
+            // buttonModificar
+            // 
+            buttonModificar.Location = new Point(174, 571);
+            buttonModificar.Margin = new Padding(3, 4, 3, 4);
+            buttonModificar.Name = "buttonModificar";
+            buttonModificar.Size = new Size(86, 31);
+            buttonModificar.TabIndex = 50;
+            buttonModificar.Text = "Modificar";
+            buttonModificar.UseVisualStyleBackColor = true;
+            buttonModificar.Visible = false;
+            buttonModificar.Click += buttonModificar_Click;
             // 
             // Usuario
             // 
@@ -576,12 +577,13 @@
         private Label label2;
         private TextBox textBoxUsTel;
         private Label labUsTel;
-        private Button ButtonUsModificar;
+        private Button ButtonUsGuardar;
         private long id;
         private string contrasenya;
         private Button ButtonUsVolver;
         private Label labelTituoInfoUsuario;
         private Panel panelUsuario;
+        private Button buttonModificar;
 
         public Panel PanelAdmin
         {
@@ -823,15 +825,15 @@
                 this.ButtonUsAnyadir.Visible = value;
             }
         }
-        public bool buttonUsModificar
+        public bool ButtonUsModificar
         {
             get
             {
-                return this.ButtonUsModificar.Visible;
+                return this.buttonModificar.Visible;
             }
             set
             {
-                this.ButtonUsModificar.Visible = value;
+                this.buttonModificar.Visible = value;
             }
         }
         public bool buttonUsVolver
@@ -845,6 +847,18 @@
                 this.ButtonUsVolver.Visible = value;
             }
         }
+        public bool buttonUsGuardar
+        {
+            get
+            {
+                return this.ButtonUsGuardar.Visible;
+            }
+            set
+            {
+                this.ButtonUsGuardar.Visible = value;
+            }
+        }
+
 
 
         public CheckBox CheckBoxEstado

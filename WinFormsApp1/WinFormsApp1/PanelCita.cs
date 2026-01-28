@@ -59,16 +59,18 @@ namespace WinFormsApp1
             dataGridViewCitas.AllowUserToAddRows = false;
             dataGridViewCitas.AllowUserToDeleteRows = false;
             dataGridViewCitas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            comboBoxCitFiltrar.DataSource = _grupos;
+            comboBoxCitFiltrar.DisplayMember = "Nombre";
+            comboBoxCitFiltrar.ValueMember = "Id";
+            comboBoxCitFiltrar.SelectedItem = _usuarioActual.Id;
+
             _citas = new List<CitaDto>();
             RecargarCitas();
             pasarPagina();
 
             ConfigurarUIEstiloImagen();
 
-            comboBoxCitFiltrar.DataSource = _grupos;
-            comboBoxCitFiltrar.DisplayMember = "Nombre";
-            comboBoxCitFiltrar.ValueMember = "Id";
-            comboBoxCitFiltrar.SelectedItem = _usuarioActual.Id;
         }
 
         private void ConfigurarUIEstiloImagen()
@@ -244,9 +246,8 @@ namespace WinFormsApp1
 
         private void anyadirCita_Click(object sender, EventArgs e)
         {
-            using (Cita pantallaAnyadir = new Cita(null, _token))
-            {
-                pantallaAnyadir.ComboBoxCitHora.Enabled = false;
+            Cita pantallaAnyadir = new Cita(null, _token);
+            pantallaAnyadir.ComboBoxCitHora.Enabled = false;
 
                 if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
                 {
@@ -254,21 +255,16 @@ namespace WinFormsApp1
                     pasarPagina();
                     MessageBox.Show("Cita creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-               
-            }
         }
 
         private List<CitaDto> ObtenerCitas()
         {
-            try
-            {
                 var url = "http://localhost:8082/citas/todas";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -279,13 +275,6 @@ namespace WinFormsApp1
                     return citas;
                 }
 
-            }
-            catch (WebException e)
-            {
-                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
-                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
         }
 
         private void RecargarCitas()
@@ -307,10 +296,10 @@ namespace WinFormsApp1
             foreach (var c in _citas)
             {
 
-                if (c.Estado.Equals("true") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date))==0)
+                if (c.Estado.Equals("CONFIRMADO") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date))==0)
                 {
                     hoy++;
-                } else if (c.Estado.Equals("true") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
+                } else if (c.Estado.Equals("CONFIRMADO") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
                 {
                     proximas++;
                 }
@@ -323,52 +312,44 @@ namespace WinFormsApp1
         private void pasarPagina()
         {
             dataGridViewCitas.Rows.Clear();
-            if (_citas == null || _citas.Count == 0) return;
 
-            // Calculamos el tope para no salirnos del índice de la lista
-            int inicio = (contador - 1) * 20;
-            int tope = Math.Min(inicio + 20, _citas.Count);
+            int registrosASaltar = (contador - 1) * 15;
+            var citasPagina = _citas.Skip(registrosASaltar).Take(15).ToList();
 
-            for (int i = inicio; i < tope; i++)
+            foreach (var c in citasPagina)
             {
-                var cita = _citas[i];
-
-                string fecha = cita.Horario.DiaSemana + " " + cita.Fecha.ToString();
-                string hora = cita.Horario.HoraInicio.ToString().Substring(0, 4);
+                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
 
                 string estado = "";
-                if (cita.Estado.Equals("CONFIRMADO"))
+                if (c.Estado.Equals("CONFIRMADO"))
                 {
                     estado = "Confirmada";
                 }
-                else if (cita.Estado.Equals("CANCELADO"))
+                else if (c.Estado.Equals("CANCELADO"))
                 {
                     estado = "Cancelada";
                 }
-                else if (cita.Estado.Equals("COMPLETADO"))
+                else if (c.Estado.Equals("COMPLETADO"))
                 {
                     estado = "Completada";
                 }
 
                 int index = dataGridViewCitas.Rows.Add(
-                    cita.Cliente?.Nombre ?? "Sin Nombre",
-                    cita.Horario.Servicio?.Nombre ?? "Sin Servicio",
-                    fecha,
+                    c.Cliente?.Nombre ?? "Sin Nombre",
+                    c.Horario.Servicio?.Nombre ?? "Sin Servicio",
+                    c.Fecha.ToString(),
                     hora,
                     estado,
-                    cita.Horario.Grupo.Curso ?? "Sin Grupo"                              // Columna Grupo (AQUÍ SALE EL CURSO)
+                    c.Horario.Grupo.Curso ?? "Sin Grupo"
                 );
 
-                // Guardamos el objeto completo en el Tag para poder recuperarlo al hacer clic
-                dataGridViewCitas.Rows[index].Tag = cita;
+                dataGridViewCitas.Rows[index].Tag = c;
             }
         }
         private void dataGridViewCitas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Ignorar clics en encabezados
             if (e.RowIndex < 0 || e.ColumnIndex < 5) return;
 
-            // Validar que la fila existe
             if (e.RowIndex >= dataGridViewCitas.Rows.Count) return;
 
             var fila = dataGridViewCitas.Rows[e.RowIndex];
@@ -389,24 +370,21 @@ namespace WinFormsApp1
 
         private void filtrarCitas()
         {
-            string filtro = textBoxCitBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxCitFiltrar.SelectedValue.ToString();
+            string texto = textBoxCitBuscar.Text.Trim().ToLower();
+            string filtroCombo = comboBoxCitFiltrar.SelectedItem.ToString();
 
-            // Obtener todos los usuarios
             if (_citas == null) return;
 
             var listaFiltrada = _citas.AsEnumerable();
 
-            // Filtrar por nombre o username
-            if (!string.IsNullOrEmpty(filtro))
+            if (!string.IsNullOrEmpty(texto))
             {
                 listaFiltrada = listaFiltrada
-                    .Where(c => c.Cliente.Nombre.ToLower().Contains(filtro)
-                             || c.Cliente.Username.ToLower().Contains(filtro)
-                             || c.Horario.Servicio.Nombre.ToLower().Contains(filtro)).ToList();
+                    .Where(c => c.Cliente.Nombre.ToLower().Contains(texto)
+                             || c.Cliente.Username.ToLower().Contains(texto)
+                             || c.Horario.Servicio.Nombre.ToLower().Contains(texto)).ToList();
             }
 
-            // Filtro por categoria
             LocalDate hoy = LocalDate.FromDateTime(DateTime.Now.Date);
             LocalDate viernes = hoy.Next(IsoDayOfWeek.Friday);
             LocalDate proximoLunes = viernes.PlusDays(3);
@@ -433,13 +411,11 @@ namespace WinFormsApp1
                     }
                     break;
             }
-            // Limpiar la tabla
+
             dataGridViewCitas.Rows.Clear();
 
-            // Rellenar con los resultados filtrados
             foreach (var c in listaFiltrada)
             {
-                string fecha = c.Horario.DiaSemana + " " + c.Fecha.ToString();
                 string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
                
                 string estado = "";
@@ -459,7 +435,7 @@ namespace WinFormsApp1
                 int index = dataGridViewCitas.Rows.Add(
                     c.Cliente?.Nombre ?? "Sin Nombre",
                     c.Horario.Servicio?.Nombre ?? "Sin Servicio",
-                    fecha,
+                    c.Fecha.ToString(),
                     hora,
                     estado,
                     c.Horario.Grupo.Curso ?? "Sin Grupo"

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FichaCita));
             panel1 = new Panel();
             buttonCompletar = new Button();
             panel1.SuspendLayout();
@@ -36,16 +37,17 @@
             // panel1
             // 
             panel1.Controls.Add(buttonCompletar);
-            panel1.Location = new Point(189, 134);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(420, 157);
+            panel1.Size = new Size(914, 600);
             panel1.TabIndex = 0;
             // 
             // buttonCompletar
             // 
-            buttonCompletar.Location = new Point(147, 49);
+            buttonCompletar.Location = new Point(336, 484);
             buttonCompletar.Name = "buttonCompletar";
-            buttonCompletar.Size = new Size(94, 29);
+            buttonCompletar.Size = new Size(176, 69);
             buttonCompletar.TabIndex = 0;
             buttonCompletar.Text = "Completar";
             buttonCompletar.UseVisualStyleBackColor = true;
@@ -57,6 +59,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "FichaCita";
             Text = "FichaCita";
