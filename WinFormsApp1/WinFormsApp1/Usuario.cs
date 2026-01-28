@@ -69,24 +69,24 @@ namespace WinFormsApp1
 
             if (comboTipoUsuario.SelectedIndex == 0)
             {
-                string direccion = tboxUserDirecc.Text;
+                string comentario = tboxUserComCit.Text;
                 string alergenos = tboxUserAlerg.Text;
                 string observciones = tboxUserObserv.Text;
                 url = $"http://localhost:8082/api/auth/signup/cliente";
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"direccion\": \"" + direccion + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 1)
             {
                 string curso = tboxUserCurso.Text;
                 string turno = tboxUserTurno.Text;
                 url = $"http://localhost:8082/api/auth/signup/grupo";
-                data = "";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"curso\": \"" + curso + "\",\r\n  \"turno\": \"" + turno + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 2)
             {
                 string especialidad = tboxUserEspec.Text;
                 url = $"http://localhost:8082/api/auth/signup/admin";
-                data = "";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"especialidad\": \"" + especialidad + "\"\r\n}\r\n";
             }
 
             if (contrasenya == validarContrasenya)
@@ -173,12 +173,12 @@ namespace WinFormsApp1
 
             if (comboTipoUsuario.SelectedIndex == 0)
             {
-                string direccion = tboxUserDirecc.Text;
+                string comentario = tboxUserComCit.Text;
                 string alergenos = tboxUserAlerg.Text;
                 string observciones = tboxUserObserv.Text;
                 contrasenya = _usuario.Contrasenya;
                 url = $"http://localhost:8082/clientes/" + id;
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"direccion\": \"" + direccion + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 1)
             {
@@ -284,7 +284,7 @@ namespace WinFormsApp1
             TextBoxUsTel.ReadOnly = false;
             ComboTipoUsuario.Enabled = true;
             CheckBoxEstado.Enabled = true;
-            TboxUserDirecc.ReadOnly = false;
+            TboxUserComCit.ReadOnly = false;
             TboxUserAlerg.ReadOnly = false;
             TboxUserObserv.ReadOnly = false;
             TboxUserCurso.ReadOnly = false;

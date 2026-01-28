@@ -53,12 +53,12 @@
             tboxUserEspec = new TextBox();
             labUserEspecialidad = new Label();
             panelCliente = new Panel();
+            labUserComCit = new Label();
+            tboxUserComCit = new RichTextBox();
             tboxUserObserv = new TextBox();
             tboxUserAlerg = new TextBox();
-            tboxUserDirecc = new TextBox();
             labUserObser = new Label();
             labUserAlerg = new Label();
-            labUserDirrec = new Label();
             checkBoxEstado = new CheckBox();
             labUsEmail = new Label();
             textBoxUsEmail = new TextBox();
@@ -282,7 +282,7 @@
             // 
             panelAdmin.Controls.Add(tboxUserEspec);
             panelAdmin.Controls.Add(labUserEspecialidad);
-            panelAdmin.Location = new Point(30, 387);
+            panelAdmin.Location = new Point(358, 99);
             panelAdmin.Margin = new Padding(3, 4, 3, 4);
             panelAdmin.Name = "panelAdmin";
             panelAdmin.Size = new Size(323, 175);
@@ -310,12 +310,12 @@
             // 
             // panelCliente
             // 
+            panelCliente.Controls.Add(labUserComCit);
+            panelCliente.Controls.Add(tboxUserComCit);
             panelCliente.Controls.Add(tboxUserObserv);
             panelCliente.Controls.Add(tboxUserAlerg);
-            panelCliente.Controls.Add(tboxUserDirecc);
             panelCliente.Controls.Add(labUserObser);
             panelCliente.Controls.Add(labUserAlerg);
-            panelCliente.Controls.Add(labUserDirrec);
             panelCliente.Location = new Point(30, 387);
             panelCliente.Margin = new Padding(3, 4, 3, 4);
             panelCliente.Name = "panelCliente";
@@ -323,9 +323,28 @@
             panelCliente.TabIndex = 12;
             panelCliente.Visible = false;
             // 
+            // labUserComCit
+            // 
+            labUserComCit.AutoSize = true;
+            labUserComCit.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labUserComCit.Location = new Point(-2, 101);
+            labUserComCit.Margin = new Padding(5, 0, 5, 0);
+            labUserComCit.Name = "labUserComCit";
+            labUserComCit.Size = new Size(150, 20);
+            labUserComCit.TabIndex = 15;
+            labUserComCit.Text = "Comentarios citas ";
+            // 
+            // tboxUserComCit
+            // 
+            tboxUserComCit.Location = new Point(159, 98);
+            tboxUserComCit.Name = "tboxUserComCit";
+            tboxUserComCit.Size = new Size(159, 63);
+            tboxUserComCit.TabIndex = 14;
+            tboxUserComCit.Text = "";
+            // 
             // tboxUserObserv
             // 
-            tboxUserObserv.Location = new Point(159, 108);
+            tboxUserObserv.Location = new Point(159, 64);
             tboxUserObserv.Margin = new Padding(3, 4, 3, 4);
             tboxUserObserv.Name = "tboxUserObserv";
             tboxUserObserv.Size = new Size(159, 27);
@@ -333,25 +352,17 @@
             // 
             // tboxUserAlerg
             // 
-            tboxUserAlerg.Location = new Point(159, 68);
+            tboxUserAlerg.Location = new Point(159, 29);
             tboxUserAlerg.Margin = new Padding(3, 4, 3, 4);
             tboxUserAlerg.Name = "tboxUserAlerg";
             tboxUserAlerg.Size = new Size(159, 27);
-            tboxUserAlerg.TabIndex = 12;
-            // 
-            // tboxUserDirecc
-            // 
-            tboxUserDirecc.Location = new Point(159, 29);
-            tboxUserDirecc.Margin = new Padding(3, 4, 3, 4);
-            tboxUserDirecc.Name = "tboxUserDirecc";
-            tboxUserDirecc.Size = new Size(159, 27);
-            tboxUserDirecc.TabIndex = 9;
+            tboxUserAlerg.TabIndex = 9;
             // 
             // labUserObser
             // 
             labUserObser.AutoSize = true;
             labUserObser.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUserObser.Location = new Point(0, 111);
+            labUserObser.Location = new Point(0, 67);
             labUserObser.Margin = new Padding(5, 0, 5, 0);
             labUserObser.Name = "labUserObser";
             labUserObser.Size = new Size(121, 20);
@@ -362,23 +373,12 @@
             // 
             labUserAlerg.AutoSize = true;
             labUserAlerg.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUserAlerg.Location = new Point(0, 71);
+            labUserAlerg.Location = new Point(0, 32);
             labUserAlerg.Margin = new Padding(5, 0, 5, 0);
             labUserAlerg.Name = "labUserAlerg";
             labUserAlerg.Size = new Size(84, 20);
             labUserAlerg.TabIndex = 10;
             labUserAlerg.Text = "Alergenos";
-            // 
-            // labUserDirrec
-            // 
-            labUserDirrec.AutoSize = true;
-            labUserDirrec.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labUserDirrec.Location = new Point(0, 29);
-            labUserDirrec.Margin = new Padding(5, 0, 5, 0);
-            labUserDirrec.Name = "labUserDirrec";
-            labUserDirrec.Size = new Size(81, 20);
-            labUserDirrec.TabIndex = 9;
-            labUserDirrec.Text = "Dirección";
             // 
             // checkBoxEstado
             // 
@@ -564,10 +564,9 @@
         private Panel panelCliente;
         private TextBox tboxUserObserv;
         private TextBox tboxUserAlerg;
-        private TextBox tboxUserDirecc;
         private Label labUserObser;
         private Label labUserAlerg;
-        private Label labUserDirrec;
+        private Label labUserComCitas;
         private Panel panelAdmin;
         private TextBox tboxUserEspec;
         private Label labUserEspecialidad;
@@ -584,6 +583,9 @@
         private Label labelTituoInfoUsuario;
         private Panel panelUsuario;
         private Button buttonModificar;
+        private RichTextBox richTextBox1;
+        private RichTextBox tboxUserComCit;
+        private Label labUserComCit;
 
         public Panel PanelAdmin
         {
@@ -699,15 +701,15 @@
             }
         }
 
-        public TextBox TboxUserDirecc
+        public RichTextBox TboxUserComCit
         {
             get
             {
-                return this.tboxUserDirecc;
+                return this.tboxUserComCit;
             }
             set
             {
-                this.tboxUserDirecc = value;
+                this.tboxUserComCit = value;
             }
         }
         public TextBox TboxUserAlerg

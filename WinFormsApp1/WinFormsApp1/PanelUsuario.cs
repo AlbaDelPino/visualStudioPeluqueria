@@ -195,7 +195,7 @@ namespace WinFormsApp1
             pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
             pantallaInfo.ComboTipoUsuario.Enabled = false;
             pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserDirecc.ReadOnly = true;
+            pantallaInfo.TboxUserComCit.ReadOnly = true;
             pantallaInfo.TboxUserAlerg.ReadOnly = true;
             pantallaInfo.TboxUserObserv.ReadOnly = true;
             pantallaInfo.TboxUserCurso.ReadOnly = true;
@@ -226,7 +226,7 @@ namespace WinFormsApp1
                 {
                     if (c.Id == usuario.Id)
                     {
-                        pantallaInfo.TboxUserDirecc.Text = c.Direccion ?? "";
+                        pantallaInfo.TboxUserComCit.Text = c.Comentario ?? "";
                         pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
                         pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
                     }
@@ -367,7 +367,7 @@ namespace WinFormsApp1
             pantallaAnyadir.TextBoxUsEmail.Text = "";
             pantallaAnyadir.TextBoxUsTel.Text = "";
             pantallaAnyadir.ComboTipoUsuario.SelectedItem = "";
-            pantallaAnyadir.TboxUserDirecc.Text = "";
+            pantallaAnyadir.TboxUserComCit.Text = "";
             pantallaAnyadir.TboxUserAlerg.Text = "";
             pantallaAnyadir.TboxUserObserv.Text = "";
             pantallaAnyadir.TboxUserCurso.Text = "";

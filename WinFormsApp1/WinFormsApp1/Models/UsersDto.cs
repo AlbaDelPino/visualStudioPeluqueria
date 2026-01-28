@@ -29,9 +29,6 @@ namespace UsersInfo.Models
 
         [JsonProperty("estado")]
         public string Estado { get; set; }
-
-        [JsonProperty("grupos")]
-        public GrupoDto? Grupo { get; set; }
     }
 
     public class AdminDto
@@ -48,8 +45,8 @@ namespace UsersInfo.Models
         [JsonProperty("alergenos")]
         public string Alergenos { get; set; }
 
-        [JsonProperty("direccion")]
-        public string Direccion { get; set; }
+        [JsonProperty("comentarioCitas")]
+        public string Comentario { get; set; }
 
         [JsonProperty("observacion")]
         public string Observacion { get; set; }

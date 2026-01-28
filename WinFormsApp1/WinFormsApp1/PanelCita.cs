@@ -161,25 +161,28 @@ namespace WinFormsApp1
         private void CompletarCita(CitaDto cita)
         {
 
-            if (cita.Estado.Equals("CONFIRMADO"))
+            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 0)
+            {
+                MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (cita.Estado.Equals("CONFIRMADO"))
             {
                 FichaCita ficha = new FichaCita(cita, _token);
 
                 if (ficha.ShowDialog() == DialogResult.OK)
                 {
+                    MessageBox.Show("Cita completada correctamente", "Éxito",MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RecargarCitas();
                     pasarPagina();
                 }
             }
             else if (cita.Estado.Equals("CANCELADO"))
             {
-                MessageBox.Show($"No se puede completar una cita cancelada", "Error",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"No se puede completar una cita cancelada", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (cita.Estado.Equals("COMPLETADO"))
             {
-                MessageBox.Show($"La cida ya ha sido completada", "Error",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"La cida ya ha sido completada", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
