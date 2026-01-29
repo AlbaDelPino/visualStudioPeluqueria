@@ -198,41 +198,36 @@ namespace WinFormsApp1
 
                 if (confirmResult == DialogResult.Yes)
                 {
-                    if (confirmResult == DialogResult.Yes)
+                    try
                     {
-                        try
+                        var url = $"http://localhost:8082/citas/{cita.Id}/estado?estado=CANCELADO";
+                        var request = (HttpWebRequest)WebRequest.Create(url);
+                        request.Method = "PUT";
+                        request.ContentType = "application/json";
+                        request.Accept = "application/json";
+                        request.Headers["Authorization"] = $"Bearer {_token}";
+
+                        using (var response = (HttpWebResponse)request.GetResponse())
                         {
-                            var url = $"http://localhost:8082/citas/{cita.Id}/estado/CANCELADO";
-                            var request = (HttpWebRequest)WebRequest.Create(url);
-                            request.Method = "PUT";
-                            request.ContentType = "application/json";
-                            request.Accept = "application/json";
-                            request.Headers["Authorization"] = $"Bearer {_token}";
-
-                            using (var response = (HttpWebResponse)request.GetResponse())
+                            if (response.StatusCode == HttpStatusCode.OK)
                             {
-                                if (response.StatusCode == HttpStatusCode.OK)
-                                {
-                                    MessageBox.Show("Cita cancelada correctamente", "Éxito",
-                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                    // Refrescar la tabla
-                                    RecargarCitas();
-                                    pasarPagina();
-                                }
-                                else
-                                {
-                                    MessageBox.Show($"Error al cancelar: {response.StatusCode}", "Error",
-                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
+                                MessageBox.Show("Cita cancelada correctamente", "Éxito",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                RecargarCitas();
+                                pasarPagina();
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Error al cancelar: {response.StatusCode}", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error en la cancelación: {ex.Message}", "Error",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error en la cancelación: {ex.Message}", "Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+
 
                 }
             }

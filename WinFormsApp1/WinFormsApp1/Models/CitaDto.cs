@@ -19,6 +19,9 @@ namespace CitasInfo.Models
         [JsonProperty("horario")]
         public HorarioSemanalDto Horario { get; set; }
 
+        [JsonProperty("horaInicio")]
+        public LocalTime HoraInicio { get; set; }
+
         [JsonProperty("cliente")] // En Java: private Cliente cliente;
         public UsersDto Cliente { get; set; }
     }

@@ -52,6 +52,10 @@
             pictureHoy = new PictureBox();
             panelMargenes = new Panel();
             dataGridViewCitas = new DataGridView();
+            panelPaginacion = new Panel();
+            buttonPaginacionDelante = new Button();
+            buttonPaginacionAtras = new Button();
+            panelEspaciado = new Panel();
             dataGridViewTextBoxColumnCliente = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumnServicio = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumnFecha = new DataGridViewTextBoxColumn();
@@ -60,10 +64,6 @@
             dataGridViewTextBoxColumnGrupo = new DataGridViewTextBoxColumn();
             dataGridViewImageColumnCitCompletar = new DataGridViewImageColumn();
             dataGridViewImageColumnCitCancelar = new DataGridViewImageColumn();
-            panelPaginacion = new Panel();
-            buttonPaginacionDelante = new Button();
-            buttonPaginacionAtras = new Button();
-            panelEspaciado = new Panel();
             panelVisualCitas.SuspendLayout();
             panelProximas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureProximas).BeginInit();
@@ -263,8 +263,8 @@
             dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
             dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle8.Padding = new Padding(2);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(255, 224, 192);
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.Desktop;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.ButtonHighlight;
             dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
             dataGridViewCitas.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewCitas.Dock = DockStyle.Fill;
@@ -294,6 +294,52 @@
             dataGridViewCitas.Size = new Size(1511, 657);
             dataGridViewCitas.TabIndex = 16;
             dataGridViewCitas.CellContentClick += dataGridViewCitas_CellContentClick;
+            // 
+            // panelPaginacion
+            // 
+            panelPaginacion.Controls.Add(buttonPaginacionDelante);
+            panelPaginacion.Controls.Add(buttonPaginacionAtras);
+            panelPaginacion.Dock = DockStyle.Bottom;
+            panelPaginacion.Location = new Point(30, 657);
+            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
+            panelPaginacion.Name = "panelPaginacion";
+            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
+            panelPaginacion.Size = new Size(1511, 43);
+            panelPaginacion.TabIndex = 18;
+            // 
+            // buttonPaginacionDelante
+            // 
+            buttonPaginacionDelante.Dock = DockStyle.Left;
+            buttonPaginacionDelante.Location = new Point(120, 0);
+            buttonPaginacionDelante.Margin = new Padding(3, 4, 3, 4);
+            buttonPaginacionDelante.Name = "buttonPaginacionDelante";
+            buttonPaginacionDelante.Size = new Size(86, 43);
+            buttonPaginacionDelante.TabIndex = 2;
+            buttonPaginacionDelante.Text = ">>";
+            buttonPaginacionDelante.UseVisualStyleBackColor = true;
+            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
+            // 
+            // buttonPaginacionAtras
+            // 
+            buttonPaginacionAtras.Dock = DockStyle.Left;
+            buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
+            buttonPaginacionAtras.Location = new Point(34, 0);
+            buttonPaginacionAtras.Margin = new Padding(3, 4, 3, 4);
+            buttonPaginacionAtras.Name = "buttonPaginacionAtras";
+            buttonPaginacionAtras.Size = new Size(86, 43);
+            buttonPaginacionAtras.TabIndex = 1;
+            buttonPaginacionAtras.Text = "<<";
+            buttonPaginacionAtras.UseVisualStyleBackColor = true;
+            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
+            // 
+            // panelEspaciado
+            // 
+            panelEspaciado.Dock = DockStyle.Bottom;
+            panelEspaciado.Location = new Point(30, 700);
+            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
+            panelEspaciado.Name = "panelEspaciado";
+            panelEspaciado.Size = new Size(1511, 68);
+            panelEspaciado.TabIndex = 17;
             // 
             // dataGridViewTextBoxColumnCliente
             // 
@@ -386,52 +432,6 @@
             dataGridViewImageColumnCitCancelar.Resizable = DataGridViewTriState.True;
             dataGridViewImageColumnCitCancelar.SortMode = DataGridViewColumnSortMode.Automatic;
             dataGridViewImageColumnCitCancelar.Width = 128;
-            // 
-            // panelPaginacion
-            // 
-            panelPaginacion.Controls.Add(buttonPaginacionDelante);
-            panelPaginacion.Controls.Add(buttonPaginacionAtras);
-            panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(30, 657);
-            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
-            panelPaginacion.Name = "panelPaginacion";
-            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
-            panelPaginacion.Size = new Size(1511, 43);
-            panelPaginacion.TabIndex = 18;
-            // 
-            // buttonPaginacionDelante
-            // 
-            buttonPaginacionDelante.Dock = DockStyle.Left;
-            buttonPaginacionDelante.Location = new Point(120, 0);
-            buttonPaginacionDelante.Margin = new Padding(3, 4, 3, 4);
-            buttonPaginacionDelante.Name = "buttonPaginacionDelante";
-            buttonPaginacionDelante.Size = new Size(86, 43);
-            buttonPaginacionDelante.TabIndex = 2;
-            buttonPaginacionDelante.Text = ">>";
-            buttonPaginacionDelante.UseVisualStyleBackColor = true;
-            buttonPaginacionDelante.Click += buttonPaginacionDelante_Click;
-            // 
-            // buttonPaginacionAtras
-            // 
-            buttonPaginacionAtras.Dock = DockStyle.Left;
-            buttonPaginacionAtras.ForeColor = SystemColors.ScrollBar;
-            buttonPaginacionAtras.Location = new Point(34, 0);
-            buttonPaginacionAtras.Margin = new Padding(3, 4, 3, 4);
-            buttonPaginacionAtras.Name = "buttonPaginacionAtras";
-            buttonPaginacionAtras.Size = new Size(86, 43);
-            buttonPaginacionAtras.TabIndex = 1;
-            buttonPaginacionAtras.Text = "<<";
-            buttonPaginacionAtras.UseVisualStyleBackColor = true;
-            buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
-            // 
-            // panelEspaciado
-            // 
-            panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(30, 700);
-            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
-            panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1511, 68);
-            panelEspaciado.TabIndex = 17;
             // 
             // PanelCita
             // 
