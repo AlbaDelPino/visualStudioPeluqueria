@@ -95,6 +95,8 @@
             picCancelar1 = new PictureBox();
             picModificar1 = new PictureBox();
             panelControl = new Panel();
+            pictureBox6 = new PictureBox();
+            labelGaleria = new Label();
             panelLado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -114,11 +116,14 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // panelLado
             // 
             panelLado.BackColor = Color.FromArgb(255, 128, 0);
+            panelLado.Controls.Add(labelGaleria);
+            panelLado.Controls.Add(pictureBox6);
             panelLado.Controls.Add(pictureBox5);
             panelLado.Controls.Add(labelHorario);
             panelLado.Controls.Add(pictureBox4);
@@ -133,19 +138,20 @@
             panelLado.Controls.Add(picLogo);
             panelLado.Dock = DockStyle.Left;
             panelLado.Location = new Point(0, 0);
-            panelLado.Margin = new Padding(4, 3, 4, 3);
+            panelLado.Margin = new Padding(5, 4, 5, 4);
             panelLado.Name = "panelLado";
             panelLado.RightToLeft = RightToLeft.No;
-            panelLado.Size = new Size(185, 704);
+            panelLado.Size = new Size(211, 939);
             panelLado.TabIndex = 0;
             // 
             // pictureBox5
             // 
             pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(50, 402);
+            pictureBox5.Location = new Point(57, 536);
+            pictureBox5.Margin = new Padding(3, 4, 3, 4);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(23, 28);
+            pictureBox5.Size = new Size(26, 37);
             pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox5.TabIndex = 21;
             pictureBox5.TabStop = false;
@@ -154,9 +160,9 @@
             // 
             labelHorario.AutoSize = true;
             labelHorario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelHorario.Location = new Point(82, 410);
+            labelHorario.Location = new Point(94, 547);
             labelHorario.Name = "labelHorario";
-            labelHorario.Size = new Size(85, 20);
+            labelHorario.Size = new Size(103, 25);
             labelHorario.TabIndex = 20;
             labelHorario.Text = "HORARIO";
             labelHorario.Click += labelHorario_Click;
@@ -167,9 +173,10 @@
             // 
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(50, 359);
+            pictureBox4.Location = new Point(57, 479);
+            pictureBox4.Margin = new Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(23, 28);
+            pictureBox4.Size = new Size(26, 37);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 19;
             pictureBox4.TabStop = false;
@@ -178,9 +185,10 @@
             // 
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(48, 219);
+            pictureBox3.Location = new Point(55, 292);
+            pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(23, 28);
+            pictureBox3.Size = new Size(26, 37);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 18;
             pictureBox3.TabStop = false;
@@ -189,9 +197,10 @@
             // 
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(48, 266);
+            pictureBox2.Location = new Point(55, 355);
+            pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(23, 28);
+            pictureBox2.Size = new Size(26, 37);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 17;
             pictureBox2.TabStop = false;
@@ -200,9 +209,10 @@
             // 
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Image = WinFormsApp1.Properties.Resources.Usuario;
-            pictureBox1.Location = new Point(48, 315);
+            pictureBox1.Location = new Point(55, 420);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(23, 28);
+            pictureBox1.Size = new Size(26, 37);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 16;
             pictureBox1.TabStop = false;
@@ -211,9 +221,9 @@
             // 
             labelCita.AutoSize = true;
             labelCita.Font = new Font("Microsoft Sans Serif", 12F);
-            labelCita.Location = new Point(108, 367);
+            labelCita.Location = new Point(123, 489);
             labelCita.Name = "labelCita";
-            labelCita.Size = new Size(56, 20);
+            labelCita.Size = new Size(73, 25);
             labelCita.TabIndex = 15;
             labelCita.Text = "CITAS";
             labelCita.Click += labelCita_Click;
@@ -224,9 +234,9 @@
             // 
             labelUsuario.AutoSize = true;
             labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelUsuario.Location = new Point(80, 323);
+            labelUsuario.Location = new Point(91, 431);
             labelUsuario.Name = "labelUsuario";
-            labelUsuario.Size = new Size(84, 20);
+            labelUsuario.Size = new Size(102, 25);
             labelUsuario.TabIndex = 14;
             labelUsuario.Text = "USUARIO";
             labelUsuario.Click += labelUsuario_Click;
@@ -237,9 +247,9 @@
             // 
             labelServicio.AutoSize = true;
             labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
-            labelServicio.Location = new Point(80, 274);
+            labelServicio.Location = new Point(91, 365);
             labelServicio.Name = "labelServicio";
-            labelServicio.Size = new Size(87, 20);
+            labelServicio.Size = new Size(107, 25);
             labelServicio.TabIndex = 13;
             labelServicio.Text = "SERVICIO";
             labelServicio.Click += labelServicio_Click;
@@ -253,10 +263,10 @@
             labelPrincipal.Font = new Font("Microsoft Sans Serif", 12F);
             labelPrincipal.Image = WinFormsApp1.Properties.Resources._7046041;
             labelPrincipal.ImageAlign = ContentAlignment.MiddleLeft;
-            labelPrincipal.Location = new Point(106, 227);
+            labelPrincipal.Location = new Point(121, 303);
             labelPrincipal.Name = "labelPrincipal";
             labelPrincipal.RightToLeft = RightToLeft.No;
-            labelPrincipal.Size = new Size(58, 20);
+            labelPrincipal.Size = new Size(72, 25);
             labelPrincipal.TabIndex = 3;
             labelPrincipal.Text = "INICIO";
             labelPrincipal.Click += labelPrincipal_Click;
@@ -267,19 +277,21 @@
             // 
             panelCerrar.Controls.Add(buttonCerrar);
             panelCerrar.Dock = DockStyle.Bottom;
-            panelCerrar.Location = new Point(0, 634);
+            panelCerrar.Location = new Point(0, 846);
+            panelCerrar.Margin = new Padding(3, 4, 3, 4);
             panelCerrar.Name = "panelCerrar";
-            panelCerrar.Padding = new Padding(10, 0, 10, 0);
-            panelCerrar.Size = new Size(185, 70);
+            panelCerrar.Padding = new Padding(11, 0, 11, 0);
+            panelCerrar.Size = new Size(211, 93);
             panelCerrar.TabIndex = 7;
             // 
             // buttonCerrar
             // 
             buttonCerrar.Dock = DockStyle.Top;
             buttonCerrar.FlatStyle = FlatStyle.Popup;
-            buttonCerrar.Location = new Point(10, 0);
+            buttonCerrar.Location = new Point(11, 0);
+            buttonCerrar.Margin = new Padding(3, 4, 3, 4);
             buttonCerrar.Name = "buttonCerrar";
-            buttonCerrar.Size = new Size(165, 23);
+            buttonCerrar.Size = new Size(189, 31);
             buttonCerrar.TabIndex = 3;
             buttonCerrar.Text = "Cerrar sesión";
             buttonCerrar.UseVisualStyleBackColor = false;
@@ -290,8 +302,9 @@
             picLogo.BackColor = Color.FromArgb(255, 128, 0);
             picLogo.Image = (Image)resources.GetObject("picLogo.Image");
             picLogo.Location = new Point(3, 0);
+            picLogo.Margin = new Padding(3, 4, 3, 4);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(190, 136);
+            picLogo.Size = new Size(217, 181);
             picLogo.SizeMode = PictureBoxSizeMode.Zoom;
             picLogo.TabIndex = 12;
             picLogo.TabStop = false;
@@ -302,10 +315,10 @@
             panelTitulo.Controls.Add(labSubTituto);
             panelTitulo.Controls.Add(labTituto);
             panelTitulo.Dock = DockStyle.Top;
-            panelTitulo.Location = new Point(185, 0);
-            panelTitulo.Margin = new Padding(4, 3, 4, 3);
+            panelTitulo.Location = new Point(211, 0);
+            panelTitulo.Margin = new Padding(5, 4, 5, 4);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(1046, 136);
+            panelTitulo.Size = new Size(1196, 181);
             panelTitulo.TabIndex = 1;
             // 
             // labSubTituto
@@ -313,10 +326,10 @@
             labSubTituto.AutoSize = true;
             labSubTituto.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labSubTituto.ForeColor = SystemColors.ControlDarkDark;
-            labSubTituto.Location = new Point(15, 91);
-            labSubTituto.Margin = new Padding(4, 0, 4, 0);
+            labSubTituto.Location = new Point(17, 121);
+            labSubTituto.Margin = new Padding(5, 0, 5, 0);
             labSubTituto.Name = "labSubTituto";
-            labSubTituto.Size = new Size(174, 16);
+            labSubTituto.Size = new Size(205, 20);
             labSubTituto.TabIndex = 2;
             labSubTituto.Text = "Administra la base de datos";
             // 
@@ -324,10 +337,10 @@
             // 
             labTituto.AutoSize = true;
             labTituto.Font = new Font("Microsoft Sans Serif", 25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labTituto.Location = new Point(15, 33);
-            labTituto.Margin = new Padding(4, 0, 4, 0);
+            labTituto.Location = new Point(17, 44);
+            labTituto.Margin = new Padding(5, 0, 5, 0);
             labTituto.Name = "labTituto";
-            labTituto.Size = new Size(292, 39);
+            labTituto.Size = new Size(354, 48);
             labTituto.TabIndex = 0;
             labTituto.Text = "Gestión general  ";
             labTituto.Click += labTituto_Click;
@@ -459,14 +472,14 @@
             // 
             comboBoxFiltrar1.Location = new Point(0, 0);
             comboBoxFiltrar1.Name = "comboBoxFiltrar1";
-            comboBoxFiltrar1.Size = new Size(121, 23);
+            comboBoxFiltrar1.Size = new Size(121, 28);
             comboBoxFiltrar1.TabIndex = 0;
             // 
             // BusCitas
             // 
             BusCitas.Location = new Point(0, 0);
             BusCitas.Name = "BusCitas";
-            BusCitas.Size = new Size(100, 23);
+            BusCitas.Size = new Size(100, 27);
             BusCitas.TabIndex = 0;
             // 
             // tablaCitas
@@ -851,21 +864,47 @@
             // panelControl
             // 
             panelControl.Dock = DockStyle.Fill;
-            panelControl.Location = new Point(185, 136);
+            panelControl.Location = new Point(211, 181);
+            panelControl.Margin = new Padding(3, 4, 3, 4);
             panelControl.Name = "panelControl";
-            panelControl.Size = new Size(1046, 568);
+            panelControl.Size = new Size(1196, 758);
             panelControl.TabIndex = 2;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(57, 592);
+            pictureBox6.Margin = new Padding(3, 4, 3, 4);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(26, 37);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 23;
+            pictureBox6.TabStop = false;
+            // 
+            // labelGaleria
+            // 
+            labelGaleria.AutoSize = true;
+            labelGaleria.Font = new Font("Microsoft Sans Serif", 12F);
+            labelGaleria.Location = new Point(96, 604);
+            labelGaleria.Name = "labelGaleria";
+            labelGaleria.Size = new Size(97, 25);
+            labelGaleria.TabIndex = 23;
+            labelGaleria.Text = "GALERIA";
+            labelGaleria.Click += this.labelGaleria_Click;
+            labelGaleria.MouseEnter += this.labelGaleria_MouseEnter;
+            labelGaleria.MouseLeave += this.labelGaleria_MouseLeave;
             // 
             // Principal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1231, 704);
+            ClientSize = new Size(1407, 939);
             Controls.Add(panelControl);
             Controls.Add(panelTitulo);
             Controls.Add(panelLado);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 3, 4, 3);
+            Margin = new Padding(5, 4, 5, 4);
             Name = "Principal";
             Text = "Gestión";
             WindowState = FormWindowState.Maximized;
@@ -891,6 +930,7 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
 
         }
@@ -963,6 +1003,8 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox5;
         private Label labelHorario;
+        private PictureBox pictureBox6;
+        private Label labelGaleria;
     }
 }
 
