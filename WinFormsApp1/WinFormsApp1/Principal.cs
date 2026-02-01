@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
         private static int contador = 1;
         private static List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
-        public Principal(UsersDto usuarioActual,string token)
+        public Principal(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
             _token = token;
@@ -113,7 +113,7 @@ namespace WindowsFormsApp1
 
         private void labelServicio_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelServicios(_usuarioActual,_token));
+            CargarNuevaPagina(new PanelServicios(_usuarioActual, _token));
         }
         // Cuando el mouse entra al área del Label
 
@@ -127,11 +127,16 @@ namespace WindowsFormsApp1
 
         private void labelCita_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelCita(_usuarioActual,_grupos,_token));
+            CargarNuevaPagina(new PanelCita(_usuarioActual, _grupos, _token));
         }
         private void labelHorario_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelHorario(_usuarioActual, _grupos, _token));
+        }
+
+        private void labelGaleria_Click(object sender, EventArgs e)
+        {
+            CargarNuevaPagina(new PanelGaleria(_usuarioActual, _token));
         }
 
 
@@ -199,6 +204,10 @@ namespace WindowsFormsApp1
         private void labelHorario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelHorario);
         private void labelHorario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelHorario);
 
+
+        private void labelGaleria_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelGaleria);
+        private void labelGaleria_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelGaleria);
+
         // Cuando el mouse sale del área del Label
 
         private void Principal_Load(object sender, EventArgs e)
@@ -220,7 +229,7 @@ namespace WindowsFormsApp1
 
         private void labTituto_Click(object sender, EventArgs e)
         {
-             
+
         }
 
         private List<UsersDto> ObtenerUsuarios()
@@ -252,6 +261,8 @@ namespace WindowsFormsApp1
             }
             return null;
         }
+
+        
     }
 }
 
