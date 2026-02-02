@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="NodaTime" Version="3.2.3" />
+    <PackageReference Include="NodaTime" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>

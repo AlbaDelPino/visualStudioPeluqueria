@@ -97,6 +97,8 @@
             picCancelar1 = new PictureBox();
             picModificar1 = new PictureBox();
             panelControl = new Panel();
+            pictureBox6 = new PictureBox();
+            labelGaleria = new Label();
             panelLado.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
@@ -117,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // panelLado
@@ -124,6 +127,8 @@
             panelLado.BackColor = Color.FromArgb(255, 128, 0);
             panelLado.Controls.Add(pictureBox6);
             panelLado.Controls.Add(labelBloqueo);
+            panelLado.Controls.Add(labelGaleria);
+            panelLado.Controls.Add(pictureBox6);
             panelLado.Controls.Add(pictureBox5);
             panelLado.Controls.Add(labelHorario);
             panelLado.Controls.Add(pictureBox4);
@@ -895,6 +900,31 @@
             panelControl.Size = new Size(1196, 758);
             panelControl.TabIndex = 2;
             // 
+            // pictureBox6
+            // 
+            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(57, 592);
+            pictureBox6.Margin = new Padding(3, 4, 3, 4);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(26, 37);
+            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 23;
+            pictureBox6.TabStop = false;
+            // 
+            // labelGaleria
+            // 
+            labelGaleria.AutoSize = true;
+            labelGaleria.Font = new Font("Microsoft Sans Serif", 12F);
+            labelGaleria.Location = new Point(96, 604);
+            labelGaleria.Name = "labelGaleria";
+            labelGaleria.Size = new Size(97, 25);
+            labelGaleria.TabIndex = 23;
+            labelGaleria.Text = "GALERIA";
+            labelGaleria.Click += this.labelGaleria_Click;
+            labelGaleria.MouseEnter += this.labelGaleria_MouseEnter;
+            labelGaleria.MouseLeave += this.labelGaleria_MouseLeave;
+            // 
             // Principal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -931,6 +961,7 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
 
         }
@@ -1005,6 +1036,7 @@
         private Label labelHorario;
         private PictureBox pictureBox6;
         private Label labelBloqueo;
+        private Label labelGaleria;
     }
 }
 
