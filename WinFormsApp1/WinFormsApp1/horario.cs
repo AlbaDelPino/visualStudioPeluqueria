@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CitasInfo.Models;
+using Newtonsoft.Json;
 using ServiciosInfo.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using UsersInfo.Models;
-using CitasInfo.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WinFormsApp1
 {
@@ -15,51 +16,42 @@ namespace WinFormsApp1
     {
         private readonly string _token;
 
-        // IDs para las relaciones con Servicio y Grupo
         private long? _idServicioSeleccionado = null;
         private long? _idGrupoSeleccionado = null;
 
-        // ID del registro actual (solo se usa en modo Edición)
         private long? _idHorarioExistente = null;
 
-        // CONSTRUCTOR 1: Para Crear nuevo horario
-        public Horario(HorarioSemanalDto horario, string token)
+        public Horario(string token)
         {
             InitializeComponent();
             _token = token;
             ConfigurarControlesHora();
 
-            // Configuración visual modo CREAR
             labelTituloCrearHorario.Visible = true;
             labelTituoModificarHorario.Visible = false;
-            buttonGuardar.Visible = true;      // Botón que hace el POST
-            buttonModificar.Visible = false;   // Botón que hace el PUT
+            buttonGuardar.Visible = true;
+            buttonModificar.Visible = false;
         }
 
-        // CONSTRUCTOR 2: Para Modificar horario existente
-        public Horario(string token, HorarioSemanalDto datos) : this(null, token)
+        public Horario(HorarioSemanalDto datos, string token) : this( token)
         {
+
             _idHorarioExistente = datos.Id;
 
-            // Configuración visual modo EDITAR
             labelTituloCrearHorario.Visible = false;
             labelTituoModificarHorario.Visible = true;
             buttonGuardar.Visible = false;
             buttonModificar.Visible = true;
 
-            // Rellenar los campos con los datos recibidos del DTO
             comboBoxDiaSemana.Text = datos.DiaSemana;
             numericPlazas.Value = datos.Plazas;
 
-            // Mostrar nombres en los TextBox de búsqueda
             textBoxHoServicio.Text = datos.Servicio?.Nombre;
             textBoxHoGrupo.Text = datos.Grupo?.Curso;
 
-            // Guardar los IDs de las relaciones
             _idServicioSeleccionado = datos.Servicio?.Id_Servicio;
             _idGrupoSeleccionado = datos.Grupo?.Id;
 
-            // CORRECCIÓN NodaTime: Convertir LocalTime a DateTime para el Picker
             DateTime hoy = DateTime.Today;
             dateTimePickerHoaraInicio.Value = new DateTime(hoy.Year, hoy.Month, hoy.Day,
                                                            datos.HoraInicio.Hour, datos.HoraInicio.Minute, 0);
@@ -69,16 +61,19 @@ namespace WinFormsApp1
 
         private void ConfigurarControlesHora()
         {
+            DateTime hoy = DateTime.Today;
+
             dateTimePickerHoaraInicio.Format = DateTimePickerFormat.Custom;
             dateTimePickerHoaraInicio.CustomFormat = "HH:mm";
             dateTimePickerHoaraInicio.ShowUpDown = true;
+            dateTimePickerHoaraInicio.Text = "00:00";
 
             dateTimePickerHoraFin.Format = DateTimePickerFormat.Custom;
             dateTimePickerHoraFin.CustomFormat = "HH:mm";
             dateTimePickerHoraFin.ShowUpDown = true;
+            dateTimePickerHoraFin.Text = "00:00";
         }
 
-        // --- LÓGICA DE BUSCADORES ---
 
         private void buttonHoServicio_Click(object sender, EventArgs e)
         {
@@ -111,9 +106,6 @@ namespace WinFormsApp1
             }
         }
 
-
-        // --- LÓGICA DE ENVÍO (BOTONES) ---
-
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
             EjecutarOperacion("POST");
@@ -134,8 +126,6 @@ namespace WinFormsApp1
 
             try
             {
-                // Construcción del objeto JSON dinámico
-                // Usamos HH:mm:ss para que Java LocalTime lo reciba correctamente
                 var datosHorario = new
                 {
                     diaSemana = comboBoxDiaSemana.Text.ToUpper(),
@@ -159,7 +149,6 @@ namespace WinFormsApp1
         {
             try
             {
-                // La URL se ajusta: para PUT debe ser /horarios/{id}
                 var url = "http://localhost:8082/horarios";
                 if (metodo == "PUT" && _idHorarioExistente.HasValue)
                 {
@@ -203,7 +192,6 @@ namespace WinFormsApp1
             }
         }
 
-        // --- MÉTODOS AUXILIARES DE CARGA ---
 
         private List<ServicioDto> ObtenerServicios()
         {
@@ -231,9 +219,5 @@ namespace WinFormsApp1
             catch { return new List<UsersDto>(); }
         }
 
-        private void Horario_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

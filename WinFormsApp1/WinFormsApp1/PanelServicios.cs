@@ -38,6 +38,9 @@ namespace WinFormsApp1
         public PanelServicios(UsersDto usuarioActual,string token)
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
+
             _token = token;
         }
 
@@ -83,17 +86,6 @@ namespace WinFormsApp1
         private void ActualizarRegiones()
         {
             anyadirServicio.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirServicio.Width, anyadirServicio.Height, anyadirServicio.Width, anyadirServicio.Height));
-        }
-
-        private void PanelUsuario_Resize(object sender, EventArgs e)
-        {
-            ActualizarRegiones();
-            panelVisualServicios.Invalidate(); 
-        }
-        private void PanelServicios_Resize(object sender, EventArgs e)
-        {
-            ActualizarRegiones();
-            panelVisualServicios.Invalidate(); 
         }
 
         private void panelVisualServicios_Paint(object sender, PaintEventArgs e)

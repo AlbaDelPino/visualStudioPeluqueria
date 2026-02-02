@@ -1,17 +1,10 @@
 ﻿using CitasInfo.Models;
 using Newtonsoft.Json;
 using UsersInfo.Models;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Globalization; // Necesario para CultureInfo
-using System.IO;
-using System.Linq;
+using System.Globalization; 
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
@@ -60,13 +53,21 @@ namespace WinFormsApp1
             comboBoxHorario.DataSource = _grupos;
             comboBoxHorario.DisplayMember = "Nombre";
             comboBoxHorario.ValueMember = "Id";
-            comboBoxHorario.SelectedValue = _usuarioActual;
+            comboBoxHorario.SelectedItem = null;
+            if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
+            {
+                var grupoSeleccionado = _grupos.FirstOrDefault(g => g.Id == _usuarioActual.Id);
+                if (grupoSeleccionado != null)
+                {
+                    comboBoxHorario.SelectedItem = grupoSeleccionado;
+                }
+                filtrarHorario();
+            }
         }
 
 
         private void ConfigurarUIEstiloImagen()
         {
-            // BOTÓN (+) CIRCULAR
             anyadirHorario.Text = "+";
             anyadirHorario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             anyadirHorario.FlatStyle = FlatStyle.Flat;
@@ -76,18 +77,14 @@ namespace WinFormsApp1
             anyadirHorario.Size = new Size(45, 45);
 
 
-            anyadirHorario.Left = panelVisualHorarios.Width - 60; // A la derecha
+            anyadirHorario.Left = panelVisualHorarios.Width - 60;
 
-            // BUSCADOR Y COMBO
             textBoxHorarioBuscar.Left = 50;
-            // AjCittamos el ancho para que sea dinámico pero deje espacio al combo
             textBoxHorarioBuscar.Width = panelVisualHorarios.Width - 350;
 
-            // COMBO (Alargado)
-            comboBoxHorario.Width = 180; // Más ancho
-            comboBoxHorario.Left = textBoxHorarioBuscar.Right + 30; // Se posiciona justo después del buscador
+            comboBoxHorario.Width = 180; 
+            comboBoxHorario.Left = textBoxHorarioBuscar.Right + 30;
 
-            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
             textBoxHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirHorario.Anchor = AnchorStyles.Right;
@@ -96,13 +93,12 @@ namespace WinFormsApp1
         }
         private void ActualizarRegiones()
         {
-            // Redondeo físico del botón naranja (Círculo perfecto)
             anyadirHorario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirHorario.Width, anyadirHorario.Height, anyadirHorario.Width, anyadirHorario.Height));
         }
         private void PanelHorario_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
-            panelVisualHorarios.Invalidate(); // Fuerza a redibujar el borde gris
+            panelVisualHorarios.Invalidate();
         }
 
         private void panelVisualHorarios_Paint(object sender, PaintEventArgs e)
@@ -113,8 +109,6 @@ namespace WinFormsApp1
             Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
             Brush fondoBlanco = Brushes.White;
 
-            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
-            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxHorarioBuscar.Left - 35,
                 textBoxHorarioBuscar.Top - 15,
@@ -124,11 +118,10 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxHorarioBuscar.Left - 25, textBoxHorarioBuscar.Top - 2);
 
-            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
             Rectangle rectFiltro = new Rectangle(
                 comboBoxHorario.Left - 10,
                 comboBoxHorario.Top - 10,
-                comboBoxHorario.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxHorario.Width + 25,
                 comboBoxHorario.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -208,7 +201,6 @@ namespace WinFormsApp1
                                 MessageBox.Show("Horario eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Refrescar la tabla
                                 RecargarHorario();
                                 pasarPagina();
                             }
@@ -277,7 +269,7 @@ namespace WinFormsApp1
         // --- LÓGICA ---
         private void anyadirHorario_Click(object sender, EventArgs e)
         {
-            Horario pantallaAnyadir = new Horario(null, _token);
+            Horario pantallaAnyadir = new Horario(_token);
             /*pantallaAnyadir.Form = "Añadir horario nuevo";
             pantallaAnyadir.LabelTituoCrearServicio = "AÑADIR HORARIO";
             pantallaAnyadir.buttonSerModificar = false;
@@ -304,7 +296,6 @@ namespace WinFormsApp1
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            // Aquí añadimos el token
             request.Headers["Authorization"] = $"Bearer {_token}";
 
             using (var response = (HttpWebResponse)request.GetResponse())
@@ -329,41 +320,36 @@ namespace WinFormsApp1
                 pagHo = (_horarios.Count / 15);
             }
 
-            //labelNumServicios.Text = $" {_horarios.Count}";
-            //labelNumTipoSer.Text = (comboBoxHorario.Items.Count - 1).ToString();
+            labelNumHorarios.Text = $" {_horarios.Count}";
         }
        
-        // --- LÓGICA DE FILTRADO ---
 
         private void filtrarHorario()
         {
-            // 1. Obtener los valores de los filtros
-            string filtroTexto = textBoxHorarioBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxHorario.SelectedItem?.ToString();
+            string texto = textBoxHorarioBuscar.Text.Trim().ToLower();
+            UsersDto? desplegable = (UsersDto)comboBoxHorario.SelectedItem;
 
             if (_horarios == null) return;
 
-            // 2. Aplicar filtros usando LINQ
             var listaFiltrada = _horarios.AsEnumerable();
 
-            // Filtrar por texto (Servicio o Curso)
-            if (!string.IsNullOrEmpty(filtroTexto))
+            if (!string.IsNullOrEmpty(texto))
             {
                 listaFiltrada = listaFiltrada.Where(h =>
-                    (h.Servicio?.Nombre?.ToLower().Contains(filtroTexto) ?? false) ||
-                    (h.Grupo?.Curso?.ToLower().Contains(filtroTexto) ?? false)
+                    h.Servicio?.Nombre?.ToLower().Contains(texto) == true ||
+                    h.Grupo?.Curso?.ToLower().Contains(texto) == true
                 );
             }
 
-            // Filtrar por día de la semana (ComboBox)
-            // Asumimos que el combo tiene opciones como "Lunes", "Martes", etc. 
-            // Si tiene una opción "Todos", la ignoramos.
-            if (filtroCombo != " " && filtroCombo != null)
+            if (desplegable != null && desplegable.Id != 0)
             {
-                listaFiltrada = listaFiltrada.Where(h => filtroCombo.Contains(h.Grupo.Curso, StringComparison.OrdinalIgnoreCase)).ToList();
+                listaFiltrada = listaFiltrada
+                    .Where(h => h!= null &&
+                               h.Grupo != null &&
+                               h.Grupo.Id == desplegable.Id)
+                    .ToList();
             }
 
-            // 3. Actualizar el DataGridView
             dataGridViewHorarios.Rows.Clear();
 
             foreach (var h in listaFiltrada)
@@ -385,15 +371,11 @@ namespace WinFormsApp1
             }
         }
 
-        // --- EVENTOS CONECTADOS ---
-
-        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
         private void textBoxSHorarioBuscar_TextChanged(object sender, EventArgs e)
         {
             filtrarHorario();
         }
 
-        // Asegúrate de que este evento esté vinculado en el Designer o en el Constructor
         private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtrarHorario();

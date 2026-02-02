@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
         private static int contador = 1;
         private static List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
-        public Principal(UsersDto usuarioActual,string token)
+        public Principal(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
             _token = token;
@@ -111,13 +111,16 @@ namespace WindowsFormsApp1
 
 
 
+
+        private void labelBloqueo_Click(object sender, EventArgs e)
+        {
+            CargarNuevaPagina(new PanelBloqueo(_usuarioActual, _token));
+        }
+
         private void labelServicio_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelServicios(_usuarioActual,_token));
+            CargarNuevaPagina(new PanelServicios(_usuarioActual, _token));
         }
-        // Cuando el mouse entra al área del Label
-
-
 
         private void labelUsuario_Click(object sender, EventArgs e)
         {
@@ -127,8 +130,9 @@ namespace WindowsFormsApp1
 
         private void labelCita_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelCita(_usuarioActual,_grupos,_token));
+            CargarNuevaPagina(new PanelCita(_usuarioActual, _grupos, _token));
         }
+
         private void labelHorario_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelHorario(_usuarioActual, _grupos, _token));
@@ -145,7 +149,6 @@ namespace WindowsFormsApp1
             Label lbl = (Label)sender;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            // Crear el rectángulo redondeado
             int radius = 10;
             GraphicsPath path = new GraphicsPath();
             path.AddArc(0, 0, radius, radius, 180, 90);
@@ -154,38 +157,36 @@ namespace WindowsFormsApp1
             path.AddArc(0, lbl.Height - radius - 1, radius, radius, 90, 90);
             path.CloseAllFigures();
 
-            // Pintar el fondo naranja
             using (SolidBrush brush = new SolidBrush(colorNaranjaHover))
             {
                 e.Graphics.FillPath(brush, path);
             }
 
-            // Escribir el texto encima del naranja
             TextRenderer.DrawText(e.Graphics, lbl.Text, lbl.Font, lbl.ClientRectangle,
                                  Color.White, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
         }
         private void AplicarEstiloHover(Label label)
         {
             label.Cursor = Cursors.Hand;
-            // Agregamos el evento de dibujo dinámicamente
             label.Paint += DibujarBotonNaranja;
-            label.Invalidate(); // Esto obliga al label a redibujarse con el nuevo estilo
+            label.Invalidate();
         }
 
         private void QuitarEstiloHover(Label label)
         {
             label.Cursor = Cursors.Default;
-            // Quitamos el evento de dibujo para que vuelva a ser un label normal
             label.Paint -= DibujarBotonNaranja;
-            label.Invalidate(); // Esto limpia el cuadro naranja
+            label.Invalidate();
         }
 
 
 
-        // --- APLICA ESTO A TUS EVENTOS EXISTENTES ---
 
         private void labelPrincipal_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelPrincipal);
         private void labelPrincipal_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelPrincipal);
+
+        private void labelBloqueo_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelBloqueo);
+        private void labelBloqueo_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelBloqueo);
 
         private void labelServicio_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelServicio);
         private void labelServicio_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelServicio);
@@ -199,7 +200,6 @@ namespace WindowsFormsApp1
         private void labelHorario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelHorario);
         private void labelHorario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelHorario);
 
-        // Cuando el mouse sale del área del Label
 
         private void Principal_Load(object sender, EventArgs e)
         {
@@ -220,7 +220,7 @@ namespace WindowsFormsApp1
 
         private void labTituto_Click(object sender, EventArgs e)
         {
-             
+
         }
 
         private List<UsersDto> ObtenerUsuarios()
@@ -233,7 +233,6 @@ namespace WindowsFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -252,6 +251,7 @@ namespace WindowsFormsApp1
             }
             return null;
         }
+
     }
 }
 

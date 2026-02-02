@@ -1,20 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using ServiciosInfo.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using UsersInfo.Models;
 using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace WinFormsApp1
 {
@@ -36,6 +26,7 @@ namespace WinFormsApp1
         private static int contador = 1;
         private static List<UsersDto> _usuarios;
         private readonly UsersDto _usuarioActual;
+
         public PanelUsuario(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
@@ -52,16 +43,16 @@ namespace WinFormsApp1
             dataGridViewUsuarios.AllowUserToAddRows = false;
             dataGridViewUsuarios.AllowUserToDeleteRows = false;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            
             _usuarios = new List<UsersDto>();
             RecargarUsuarios();
             pasarPagina();
 
-            // --- CONFIGURACIÓN ESTÉTICA INICIAL ---
             ConfigurarUIEstiloImagen();
         }
+
         private void ConfigurarUIEstiloImagen()
         {
-            // BOTÓN (+) CIRCULAR
             anyadirUsuario.Text = "+";
             anyadirUsuario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
@@ -70,20 +61,14 @@ namespace WinFormsApp1
             anyadirUsuario.ForeColor = Color.White;
             anyadirUsuario.Size = new Size(45, 45);
 
-            // POSICIÓN DEL BOTÓN: Para que esté más alto, bajamos el valor de 'Top'
-            //anyadirUsuario.Top = 15;
-            anyadirUsuario.Left = panelVisualUsuarios.Width - 60; // A la derecha
+            anyadirUsuario.Left = panelVisualUsuarios.Width - 60;
 
-            // BUSCADOR Y COMBO
             textBoxSUsBuscar.Left = 50;
-            // Ajustamos el ancho para que sea dinámico pero deje espacio al combo
             textBoxSUsBuscar.Width = panelVisualUsuarios.Width - 350;
 
-            // COMBO (Alargado)
-            comboBoxUsFiltrar.Width = 180; // Más ancho
-            comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30; // Se posiciona justo después del buscador
+            comboBoxUsFiltrar.Width = 180;
+            comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30;
 
-            // ANCLAJES CORRECTOS para que al estirar la ventana no se solapen
             textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             anyadirUsuario.Anchor =  AnchorStyles.Right;
@@ -91,18 +76,9 @@ namespace WinFormsApp1
             ActualizarRegiones();
         }
 
-        // Se llama al cargar y al cambiar el tamaño de la ventana
         private void ActualizarRegiones()
         {
-            // Redondeo físico del botón naranja (Círculo perfecto)
             anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
-        }
-
-        // Evento que ocurre cuando cambias el tamaño de la ventana
-        private void PanelUsuario_Resize(object sender, EventArgs e)
-        {
-            ActualizarRegiones();
-            panelVisualUsuarios.Invalidate(); // Fuerza a redibujar el borde gris
         }
 
         private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
@@ -113,8 +89,6 @@ namespace WinFormsApp1
             Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
             Brush fondoBlanco = Brushes.White;
 
-            // 1. ÁREA DEL BUSCADOR (Sigue al TextBox)
-            // Aumentamos el ancho (Width + 45) para que la cápsula cubra la lupa
             Rectangle rectBusqueda = new Rectangle(
                 textBoxSUsBuscar.Left - 35,
                 textBoxSUsBuscar.Top - 15,
@@ -124,11 +98,10 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSUsBuscar.Left - 25, textBoxSUsBuscar.Top - 2);
 
-            // 2. ÁREA DEL FILTRO (Sigue al ComboBox)
             Rectangle rectFiltro = new Rectangle(
                 comboBoxUsFiltrar.Left - 10,
                 comboBoxUsFiltrar.Top - 10,
-                comboBoxUsFiltrar.Width + 25, // Un poco más ancho para el desplegable
+                comboBoxUsFiltrar.Width + 25, 
                 comboBoxUsFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -145,6 +118,13 @@ namespace WinFormsApp1
             g.FillPath(b, path);
             g.DrawPath(p, path);
         }
+
+
+
+
+
+
+
 
 
 
@@ -420,7 +400,6 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -451,7 +430,6 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -481,7 +459,6 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
@@ -597,10 +574,8 @@ namespace WinFormsApp1
 
         private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Ignorar clics en encabezados
             if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
 
-            // Validar que la fila existe
             if (e.RowIndex >= dataGridViewUsuarios.Rows.Count) return;
             
             
@@ -626,20 +601,17 @@ namespace WinFormsApp1
             string filtro = textBoxSUsBuscar.Text.Trim().ToLower();
             string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
 
-            // Obtener todos los usuarios
             if (_usuarios == null) return;
 
             var listaFiltrada = _usuarios.AsEnumerable();
 
-            // Filtrar por nombre o username
             if (!string.IsNullOrEmpty(filtro))
             {
                 listaFiltrada = listaFiltrada
-                    .Where(u => u.Nombre.ToLower().Contains(filtro)
-                             || u.Username.ToLower().Contains(filtro)).ToList();
+                    .Where(u => u.Nombre?.ToLower().Contains(filtro) == true
+                             || u.Username?.ToLower().Contains(filtro) == true).ToList();
             }
 
-            // Filtro por categoria
             switch (filtroCombo)
             {
                 case "Activos":
@@ -668,10 +640,8 @@ namespace WinFormsApp1
                     break;
             }
 
-            // Limpiar la tabla
             dataGridViewUsuarios.Rows.Clear();
 
-            // Rellenar con los resultados filtrados
             foreach (var u in listaFiltrada)
             {
                 string rol = "";

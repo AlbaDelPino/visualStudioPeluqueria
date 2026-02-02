@@ -38,22 +38,22 @@ namespace WinFormsApp1
             pictureBoxCitasProximas = new PictureBox();
             monthCalendarFiltrar = new MyMonthCalendar();
             panelCitasContainer = new Panel();
+            panelGrande = new Panel();
+            panel1 = new Panel();
             panelCitasHoy = new Panel();
             labelNumCitasHoy = new Label();
             labelCitasHoy = new Label();
             pictureBoxCitasHoy = new PictureBox();
-            panelCitas = new Panel();
-            panelGrande = new Panel();
             comboBox1 = new ComboBox();
             button1 = new Button();
-            panel1 = new Panel();
+            panelCitas = new Panel();
             panelCitasProximas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).BeginInit();
+            panelGrande.SuspendLayout();
+            panel1.SuspendLayout();
             panelCitasHoy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).BeginInit();
             panelCitas.SuspendLayout();
-            panelGrande.SuspendLayout();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panelCitasProximas
@@ -115,6 +115,7 @@ namespace WinFormsApp1
             monthCalendarFiltrar.TabIndex = 0;
             monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
             monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            monthCalendarFiltrar.DateChanged += monthCalendarFiltrar_DateChanged;
             // 
             // panelCitasContainer
             // 
@@ -122,9 +123,31 @@ namespace WinFormsApp1
             panelCitasContainer.Dock = DockStyle.Fill;
             panelCitasContainer.Location = new Point(30, 30);
             panelCitasContainer.Name = "panelCitasContainer";
-            var ancho = panelGrande.Width / 3;
-            panelCitasContainer.Size = new Size(ancho, 964);
+            panelCitasContainer.Size = new Size(690, 964);
             panelCitasContainer.TabIndex = 19;
+            // 
+            // panelGrande
+            // 
+            panelGrande.Controls.Add(panel1);
+            panelGrande.Controls.Add(panelCitas);
+            panelGrande.Dock = DockStyle.Fill;
+            panelGrande.Location = new Point(0, 0);
+            panelGrande.Name = "panelGrande";
+            panelGrande.Size = new Size(1571, 1024);
+            panelGrande.TabIndex = 24;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(monthCalendarFiltrar);
+            panel1.Controls.Add(panelCitasHoy);
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(panelCitasProximas);
+            panel1.Controls.Add(button1);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(821, 1024);
+            panel1.TabIndex = 22;
             // 
             // panelCitasHoy
             // 
@@ -174,26 +197,6 @@ namespace WinFormsApp1
             pictureBoxCitasHoy.TabIndex = 1;
             pictureBoxCitasHoy.TabStop = false;
             // 
-            // panelCitas
-            // 
-            panelCitas.Controls.Add(panelCitasContainer);
-            panelCitas.Dock = DockStyle.Right;
-            panelCitas.Location = new Point(821, 0);
-            panelCitas.Name = "panelCitas";
-            panelCitas.Padding = new Padding(30);
-            panelCitas.Size = new Size(750, 1024);
-            panelCitas.TabIndex = 21;
-            // 
-            // panelGrande
-            // 
-            panelGrande.Controls.Add(panel1);
-            panelGrande.Controls.Add(panelCitas);
-            panelGrande.Dock = DockStyle.Fill;
-            panelGrande.Location = new Point(0, 0);
-            panelGrande.Name = "panelGrande";
-            panelGrande.Size = new Size(1571, 1024);
-            panelGrande.TabIndex = 24;
-            // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
@@ -211,18 +214,15 @@ namespace WinFormsApp1
             button1.Text = "Ver todas las citas";
             button1.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // panelCitas
             // 
-            panel1.Controls.Add(monthCalendarFiltrar);
-            panel1.Controls.Add(panelCitasHoy);
-            panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(panelCitasProximas);
-            panel1.Controls.Add(button1);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(821, 1024);
-            panel1.TabIndex = 22;
+            panelCitas.Controls.Add(panelCitasContainer);
+            panelCitas.Dock = DockStyle.Right;
+            panelCitas.Location = new Point(821, 0);
+            panelCitas.Name = "panelCitas";
+            panelCitas.Padding = new Padding(30);
+            panelCitas.Size = new Size(750, 1024);
+            panelCitas.TabIndex = 21;
             // 
             // PanelPrincipal
             // 
@@ -237,12 +237,12 @@ namespace WinFormsApp1
             panelCitasProximas.ResumeLayout(false);
             panelCitasProximas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).EndInit();
+            panelGrande.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             panelCitasHoy.ResumeLayout(false);
             panelCitasHoy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).EndInit();
             panelCitas.ResumeLayout(false);
-            panelGrande.ResumeLayout(false);
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 

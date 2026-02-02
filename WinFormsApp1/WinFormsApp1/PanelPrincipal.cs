@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WinFormsApp1
 {
@@ -51,8 +53,8 @@ namespace WinFormsApp1
 
         private void MostrarCitasEnPaneles(List<CitaDto> citas)
         {
-            List<CitaDto> citasHoy = citas;
-            Panel panelContenedor = panelCitasContainer; 
+            List<CitaDto> citasHoy = citas.OrderBy(c => c.Fecha).ThenBy(i => i.HoraInicio).ToList();
+            Panel panelContenedor = panelCitasContainer;
             panelContenedor.Controls.Clear();
 
             if (citasHoy == null || citasHoy.Count == 0)
@@ -70,10 +72,8 @@ namespace WinFormsApp1
                 return;
             }
 
-            citasHoy = citasHoy.OrderBy(c => c.HoraInicio).ToList();
-
-            int posicionY = 10; 
-            int anchoPanel = panelContenedor.Width - 25; 
+            int posicionY = 10;
+            int anchoPanel = panelContenedor.Width - 25;
 
             foreach (CitaDto cita in citasHoy)
             {
@@ -108,29 +108,26 @@ namespace WinFormsApp1
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
-            Label lblEstado = new Label
+            var fecha = $"{cita.Fecha.Day:00}/{cita.Fecha.Month:00}/{cita.Fecha.Year}";
+            Label lblFecha = new Label
             {
-                Text = $"📌 {cita.Estado}",
-                Font = new Font("Segoe UI", 9, FontStyle.Italic),
-                ForeColor = Color.DarkSlateGray,
-                Location = new Point(110, 15),
-                Size = new Size(150, 20),
+                Text = $"🗓️ {fecha}",
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                ForeColor = Color.DarkBlue,
+                Location = new Point(120, 15),
+                Size = new Size(150, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
-            if (_usuarioActual.Role.Equals("ROLE_ADMIN"))
+            Label lblEstado = new Label
             {
-                Label lblGrupo = new Label
-                {
-                    Text = $"⏱️ {cita.Horario.Grupo.Curso}",
-                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                    ForeColor = Color.Gray,
-                    Location = new Point(220, 15),
-                    Size = new Size(80, 20),
-                    TextAlign = ContentAlignment.MiddleLeft
-                };
-                panel.Controls.Add(lblGrupo);
-            }
+                Text = $"{cita.Estado}",
+                Font = new Font("Segoe UI", 9, FontStyle.Italic),
+                ForeColor = Color.DarkSlateGray,
+                Location = new Point(280, 15),
+                Size = new Size(150, 20),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
 
             Label lblCliente = new Label
             {
@@ -141,6 +138,19 @@ namespace WinFormsApp1
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
+            if (_usuarioActual.Role.Equals("ROLE_ADMIN"))
+            {
+                Label lblGrupo = new Label
+                {
+                    Text = $"👥 {cita.Horario.Grupo.Curso}",
+                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                    Location = new Point(170, 40),
+                    Size = new Size(80, 20),
+                    TextAlign = ContentAlignment.MiddleLeft
+                };
+                panel.Controls.Add(lblGrupo);
+            }
+
             Label lblServicio = new Label
             {
                 Text = $"📋 {cita.Horario?.Servicio?.Nombre ?? "Sin servicio"}",
@@ -149,13 +159,13 @@ namespace WinFormsApp1
                 Size = new Size(ancho - 220, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
-            
+
 
             if (cita.Horario?.Servicio?.Duracion > 0)
             {
                 Label lblDuracion = new Label
                 {
-                    Text = $"⏱️ {cita.Horario.Servicio.Duracion} min",
+                    Text = $"{cita.Horario.Servicio.Duracion} min",
                     Font = new Font("Segoe UI", 9, FontStyle.Regular),
                     ForeColor = Color.Gray,
                     Location = new Point(220, 70),
@@ -165,7 +175,7 @@ namespace WinFormsApp1
                 panel.Controls.Add(lblDuracion);
             }
 
-            
+
 
             Button btnAccion = new Button
             {
@@ -190,6 +200,7 @@ namespace WinFormsApp1
             btnCambiarEstado.Click += (s, e) => CompletarCita(cita);
 
             panel.Controls.Add(lblHora);
+            panel.Controls.Add(lblFecha);
             panel.Controls.Add(lblServicio);
             panel.Controls.Add(lblCliente);
             panel.Controls.Add(lblEstado);
@@ -208,19 +219,19 @@ namespace WinFormsApp1
                 panel.BorderStyle = BorderStyle.Fixed3D;
             };
 
- 
+
             foreach (Control h in panel.Controls)
             {
                 if (h != null)
-                h.MouseEnter += (s, e) =>
-                {
-                    Color c = panel.BackColor;
-                    panel.BackColor = Color.FromArgb(
-                        Math.Max(c.R - 10, 0),
-                        Math.Max(c.G - 10, 0),
-                        Math.Max(c.B - 10, 0));
-                    panel.BorderStyle = BorderStyle.Fixed3D;
-                };
+                    h.MouseEnter += (s, e) =>
+                    {
+                        Color c = panel.BackColor;
+                        panel.BackColor = Color.FromArgb(
+                            Math.Max(c.R - 10, 0),
+                            Math.Max(c.G - 10, 0),
+                            Math.Max(c.B - 10, 0));
+                        panel.BorderStyle = BorderStyle.Fixed3D;
+                    };
             }
 
             panel.MouseLeave += (s, e) =>
@@ -408,6 +419,33 @@ namespace WinFormsApp1
                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return null;
+        }
+
+        private void monthCalendarFiltrar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            var url = "";
+            if (monthCalendarFiltrar.SelectionStart.Date == monthCalendarFiltrar.SelectionEnd.Date)
+            {
+                url = "http://localhost:8082/citas/fecha?fecha=" + monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10);
+            } else
+            {
+                url = $"http://localhost:8082/citas/rango?fechaInicio={monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10)}&fechaFin={monthCalendarFiltrar.SelectionEnd.ToString().Substring(0, 10)}";
+            }
+
+                var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            request.Headers["Authorization"] = $"Bearer {_token}";
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                string json = reader.ReadToEnd();
+                var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
+                MostrarCitasEnPaneles(citas);
+            }
         }
     }
 }

@@ -82,7 +82,6 @@
             panelVisualServicios.Size = new Size(1571, 256);
             panelVisualServicios.TabIndex = 5;
             panelVisualServicios.Paint += panelVisualServicios_Paint;
-            panelVisualServicios.Resize += PanelUsuario_Resize;
             // 
             // comboBoxSerFiltrar
             // 

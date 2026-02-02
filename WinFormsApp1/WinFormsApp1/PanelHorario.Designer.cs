@@ -44,22 +44,10 @@
             textBoxHorarioBuscar = new TextBox();
             anyadirUsuario = new Button();
             label1 = new Label();
-            panelAdmin = new Panel();
-            pictureAdmin = new PictureBox();
-            labelNumAdmin = new Label();
-            labelAdmin = new Label();
-            panelUInactivos = new Panel();
-            labelNumUInactivos = new Label();
-            labelUInactivos = new Label();
-            pictureUInactivos = new PictureBox();
-            panelUActivos = new Panel();
-            labelNumUActivos = new Label();
-            labelUActivos = new Label();
-            pictureUActivos = new PictureBox();
-            panelUsuarios = new Panel();
-            labelNumUsuarios = new Label();
-            labelUsuarios = new Label();
-            pictureUsuarios = new PictureBox();
+            panelHorarios = new Panel();
+            labelNumHorarios = new Label();
+            labelHorarios = new Label();
+            pictureHorarios = new PictureBox();
             dataGridViewHorarios = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -75,14 +63,8 @@
             buttonPaginacionAtras = new Button();
             panel2 = new Panel();
             panelVisualHorarios.SuspendLayout();
-            panelAdmin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureAdmin).BeginInit();
-            panelUInactivos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUInactivos).BeginInit();
-            panelUActivos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUActivos).BeginInit();
-            panelUsuarios.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUsuarios).BeginInit();
+            panelHorarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHorarios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).BeginInit();
             panelMargenes.SuspendLayout();
             panel1.SuspendLayout();
@@ -95,10 +77,7 @@
             panelVisualHorarios.Controls.Add(textBoxHorarioBuscar);
             panelVisualHorarios.Controls.Add(anyadirUsuario);
             panelVisualHorarios.Controls.Add(label1);
-            panelVisualHorarios.Controls.Add(panelAdmin);
-            panelVisualHorarios.Controls.Add(panelUInactivos);
-            panelVisualHorarios.Controls.Add(panelUActivos);
-            panelVisualHorarios.Controls.Add(panelUsuarios);
+            panelVisualHorarios.Controls.Add(panelHorarios);
             panelVisualHorarios.Dock = DockStyle.Top;
             panelVisualHorarios.ForeColor = Color.FromArgb(255, 128, 0);
             panelVisualHorarios.Location = new Point(0, 0);
@@ -146,7 +125,7 @@
             textBoxHorarioBuscar.Location = new Point(34, 192);
             textBoxHorarioBuscar.Margin = new Padding(6, 5, 6, 5);
             textBoxHorarioBuscar.Name = "textBoxHorarioBuscar";
-            textBoxHorarioBuscar.PlaceholderText = "Buscar por cliente o servicio...";
+            textBoxHorarioBuscar.PlaceholderText = "Buscar por grupo o servicio...";
             textBoxHorarioBuscar.Size = new Size(947, 20);
             textBoxHorarioBuscar.TabIndex = 19;
             textBoxHorarioBuscar.TextChanged += textBoxSHorarioBuscar_TextChanged;
@@ -175,197 +154,53 @@
             label1.Size = new Size(0, 20);
             label1.TabIndex = 14;
             // 
-            // panelAdmin
+            // panelHorarios
             // 
-            panelAdmin.BackColor = SystemColors.Control;
-            panelAdmin.BorderStyle = BorderStyle.FixedSingle;
-            panelAdmin.Controls.Add(pictureAdmin);
-            panelAdmin.Controls.Add(labelNumAdmin);
-            panelAdmin.Controls.Add(labelAdmin);
-            panelAdmin.ForeColor = SystemColors.ControlDarkDark;
-            panelAdmin.Location = new Point(597, 19);
-            panelAdmin.Margin = new Padding(5, 4, 5, 4);
-            panelAdmin.Name = "panelAdmin";
-            panelAdmin.Size = new Size(196, 113);
-            panelAdmin.TabIndex = 5;
+            panelHorarios.BackColor = SystemColors.Control;
+            panelHorarios.BorderStyle = BorderStyle.FixedSingle;
+            panelHorarios.Controls.Add(labelNumHorarios);
+            panelHorarios.Controls.Add(labelHorarios);
+            panelHorarios.Controls.Add(pictureHorarios);
+            panelHorarios.ForeColor = SystemColors.ControlDarkDark;
+            panelHorarios.Location = new Point(34, 19);
+            panelHorarios.Margin = new Padding(5, 4, 5, 4);
+            panelHorarios.Name = "panelHorarios";
+            panelHorarios.Size = new Size(162, 113);
+            panelHorarios.TabIndex = 4;
             // 
-            // pictureAdmin
+            // labelNumHorarios
             // 
-            pictureAdmin.Image = Properties.Resources.Usuario;
-            pictureAdmin.Location = new Point(23, 44);
-            pictureAdmin.Margin = new Padding(5, 4, 5, 4);
-            pictureAdmin.Name = "pictureAdmin";
-            pictureAdmin.Size = new Size(43, 51);
-            pictureAdmin.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureAdmin.TabIndex = 3;
-            pictureAdmin.TabStop = false;
+            labelNumHorarios.AutoSize = true;
+            labelNumHorarios.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNumHorarios.ForeColor = SystemColors.ControlText;
+            labelNumHorarios.Location = new Point(66, 56);
+            labelNumHorarios.Margin = new Padding(5, 0, 5, 0);
+            labelNumHorarios.Name = "labelNumHorarios";
+            labelNumHorarios.Size = new Size(27, 29);
+            labelNumHorarios.TabIndex = 2;
+            labelNumHorarios.Text = "2";
             // 
-            // labelNumAdmin
+            // labelHorarios
             // 
-            labelNumAdmin.AutoSize = true;
-            labelNumAdmin.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumAdmin.ForeColor = SystemColors.ControlText;
-            labelNumAdmin.Location = new Point(66, 56);
-            labelNumAdmin.Margin = new Padding(5, 0, 5, 0);
-            labelNumAdmin.Name = "labelNumAdmin";
-            labelNumAdmin.Size = new Size(27, 29);
-            labelNumAdmin.TabIndex = 2;
-            labelNumAdmin.Text = "2";
+            labelHorarios.AutoSize = true;
+            labelHorarios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelHorarios.Location = new Point(18, 24);
+            labelHorarios.Margin = new Padding(5, 0, 5, 0);
+            labelHorarios.Name = "labelHorarios";
+            labelHorarios.Size = new Size(116, 20);
+            labelHorarios.TabIndex = 0;
+            labelHorarios.Text = "Total Horarios";
             // 
-            // labelAdmin
+            // pictureHorarios
             // 
-            labelAdmin.AutoSize = true;
-            labelAdmin.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelAdmin.Location = new Point(18, 24);
-            labelAdmin.Margin = new Padding(5, 0, 5, 0);
-            labelAdmin.Name = "labelAdmin";
-            labelAdmin.Size = new Size(128, 20);
-            labelAdmin.TabIndex = 0;
-            labelAdmin.Text = "Usuarios Admin";
-            // 
-            // panelUInactivos
-            // 
-            panelUInactivos.BackColor = SystemColors.Control;
-            panelUInactivos.BorderStyle = BorderStyle.FixedSingle;
-            panelUInactivos.Controls.Add(labelNumUInactivos);
-            panelUInactivos.Controls.Add(labelUInactivos);
-            panelUInactivos.Controls.Add(pictureUInactivos);
-            panelUInactivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUInactivos.Location = new Point(394, 19);
-            panelUInactivos.Margin = new Padding(5, 4, 5, 4);
-            panelUInactivos.Name = "panelUInactivos";
-            panelUInactivos.Size = new Size(193, 113);
-            panelUInactivos.TabIndex = 6;
-            // 
-            // labelNumUInactivos
-            // 
-            labelNumUInactivos.AutoSize = true;
-            labelNumUInactivos.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumUInactivos.ForeColor = SystemColors.ControlText;
-            labelNumUInactivos.Location = new Point(66, 56);
-            labelNumUInactivos.Margin = new Padding(5, 0, 5, 0);
-            labelNumUInactivos.Name = "labelNumUInactivos";
-            labelNumUInactivos.Size = new Size(27, 29);
-            labelNumUInactivos.TabIndex = 2;
-            labelNumUInactivos.Text = "2";
-            // 
-            // labelUInactivos
-            // 
-            labelUInactivos.AutoSize = true;
-            labelUInactivos.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUInactivos.Location = new Point(18, 24);
-            labelUInactivos.Margin = new Padding(5, 0, 5, 0);
-            labelUInactivos.Name = "labelUInactivos";
-            labelUInactivos.Size = new Size(147, 20);
-            labelUInactivos.TabIndex = 0;
-            labelUInactivos.Text = "Usuarios Inactivos";
-            // 
-            // pictureUInactivos
-            // 
-            pictureUInactivos.Image = Properties.Resources.usuarioInactivo;
-            pictureUInactivos.Location = new Point(29, 51);
-            pictureUInactivos.Margin = new Padding(5, 4, 5, 4);
-            pictureUInactivos.Name = "pictureUInactivos";
-            pictureUInactivos.Size = new Size(30, 40);
-            pictureUInactivos.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureUInactivos.TabIndex = 1;
-            pictureUInactivos.TabStop = false;
-            // 
-            // panelUActivos
-            // 
-            panelUActivos.BackColor = SystemColors.Control;
-            panelUActivos.BorderStyle = BorderStyle.FixedSingle;
-            panelUActivos.Controls.Add(labelNumUActivos);
-            panelUActivos.Controls.Add(labelUActivos);
-            panelUActivos.Controls.Add(pictureUActivos);
-            panelUActivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUActivos.Location = new Point(205, 19);
-            panelUActivos.Margin = new Padding(5, 4, 5, 4);
-            panelUActivos.Name = "panelUActivos";
-            panelUActivos.Size = new Size(179, 113);
-            panelUActivos.TabIndex = 7;
-            // 
-            // labelNumUActivos
-            // 
-            labelNumUActivos.AutoSize = true;
-            labelNumUActivos.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumUActivos.ForeColor = SystemColors.ControlText;
-            labelNumUActivos.Location = new Point(74, 56);
-            labelNumUActivos.Margin = new Padding(5, 0, 5, 0);
-            labelNumUActivos.Name = "labelNumUActivos";
-            labelNumUActivos.Size = new Size(27, 29);
-            labelNumUActivos.TabIndex = 2;
-            labelNumUActivos.Text = "5";
-            // 
-            // labelUActivos
-            // 
-            labelUActivos.AutoSize = true;
-            labelUActivos.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUActivos.Location = new Point(18, 24);
-            labelUActivos.Margin = new Padding(5, 0, 5, 0);
-            labelUActivos.Name = "labelUActivos";
-            labelUActivos.Size = new Size(136, 20);
-            labelUActivos.TabIndex = 0;
-            labelUActivos.Text = "Usuarios Activos";
-            // 
-            // pictureUActivos
-            // 
-            pictureUActivos.Image = Properties.Resources.UusarioActivo;
-            pictureUActivos.Location = new Point(30, 52);
-            pictureUActivos.Margin = new Padding(5, 4, 5, 4);
-            pictureUActivos.Name = "pictureUActivos";
-            pictureUActivos.Size = new Size(35, 39);
-            pictureUActivos.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureUActivos.TabIndex = 1;
-            pictureUActivos.TabStop = false;
-            // 
-            // panelUsuarios
-            // 
-            panelUsuarios.BackColor = SystemColors.Control;
-            panelUsuarios.BorderStyle = BorderStyle.FixedSingle;
-            panelUsuarios.Controls.Add(labelNumUsuarios);
-            panelUsuarios.Controls.Add(labelUsuarios);
-            panelUsuarios.Controls.Add(pictureUsuarios);
-            panelUsuarios.ForeColor = SystemColors.ControlDarkDark;
-            panelUsuarios.Location = new Point(34, 19);
-            panelUsuarios.Margin = new Padding(5, 4, 5, 4);
-            panelUsuarios.Name = "panelUsuarios";
-            panelUsuarios.Size = new Size(162, 113);
-            panelUsuarios.TabIndex = 4;
-            // 
-            // labelNumUsuarios
-            // 
-            labelNumUsuarios.AutoSize = true;
-            labelNumUsuarios.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumUsuarios.ForeColor = SystemColors.ControlText;
-            labelNumUsuarios.Location = new Point(66, 56);
-            labelNumUsuarios.Margin = new Padding(5, 0, 5, 0);
-            labelNumUsuarios.Name = "labelNumUsuarios";
-            labelNumUsuarios.Size = new Size(27, 29);
-            labelNumUsuarios.TabIndex = 2;
-            labelNumUsuarios.Text = "2";
-            // 
-            // labelUsuarios
-            // 
-            labelUsuarios.AutoSize = true;
-            labelUsuarios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUsuarios.Location = new Point(18, 24);
-            labelUsuarios.Margin = new Padding(5, 0, 5, 0);
-            labelUsuarios.Name = "labelUsuarios";
-            labelUsuarios.Size = new Size(118, 20);
-            labelUsuarios.TabIndex = 0;
-            labelUsuarios.Text = "Total Usuarios";
-            // 
-            // pictureUsuarios
-            // 
-            pictureUsuarios.Image = Properties.Resources.Usuario_gris;
-            pictureUsuarios.Location = new Point(23, 44);
-            pictureUsuarios.Margin = new Padding(5, 4, 5, 4);
-            pictureUsuarios.Name = "pictureUsuarios";
-            pictureUsuarios.Size = new Size(43, 51);
-            pictureUsuarios.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureUsuarios.TabIndex = 1;
-            pictureUsuarios.TabStop = false;
+            pictureHorarios.Image = Properties.Resources.Usuario_gris;
+            pictureHorarios.Location = new Point(23, 44);
+            pictureHorarios.Margin = new Padding(5, 4, 5, 4);
+            pictureHorarios.Name = "pictureHorarios";
+            pictureHorarios.Size = new Size(43, 51);
+            pictureHorarios.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureHorarios.TabIndex = 1;
+            pictureHorarios.TabStop = false;
             // 
             // dataGridViewHorarios
             // 
@@ -581,18 +416,9 @@
             Resize += PanelHorario_Resize;
             panelVisualHorarios.ResumeLayout(false);
             panelVisualHorarios.PerformLayout();
-            panelAdmin.ResumeLayout(false);
-            panelAdmin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureAdmin).EndInit();
-            panelUInactivos.ResumeLayout(false);
-            panelUInactivos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUInactivos).EndInit();
-            panelUActivos.ResumeLayout(false);
-            panelUActivos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUActivos).EndInit();
-            panelUsuarios.ResumeLayout(false);
-            panelUsuarios.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
+            panelHorarios.ResumeLayout(false);
+            panelHorarios.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHorarios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).EndInit();
             panelMargenes.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -603,23 +429,10 @@
         private Panel panelVisualHorarios;
         private Button anyadirUsuario;
         private Label label1;
-      
-        private Panel panelAdmin;
-        private PictureBox pictureAdmin;
-        private Label labelNumAdmin;
-        private Label labelAdmin;
-        private Panel panelUInactivos;
-        private Label labelNumUInactivos;
-        private Label labelUInactivos;
-        private PictureBox pictureUInactivos;
-        private Panel panelUActivos;
-        private Label labelNumUActivos;
-        private Label labelUActivos;
-        private PictureBox pictureUActivos;
-        private Panel panelUsuarios;
-        private Label labelNumUsuarios;
-        private Label labelUsuarios;
-        private PictureBox pictureUsuarios;
+        private Panel panelHorarios;
+        private Label labelNumHorarios;
+        private Label labelHorarios;
+        private PictureBox pictureHorarios;
         private DataGridView dataGridViewHorarios;
         private Button anyadirHorario;
         private ComboBox comboBoxHorario;
