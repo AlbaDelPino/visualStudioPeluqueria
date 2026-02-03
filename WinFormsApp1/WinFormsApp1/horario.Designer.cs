@@ -207,7 +207,7 @@
             // 
             // buttonModificar
             // 
-            buttonModificar.Location = new Point(145, 378);
+            buttonModificar.Location = new Point(214, 378);
             buttonModificar.Name = "buttonModificar";
             buttonModificar.Size = new Size(189, 38);
             buttonModificar.TabIndex = 93;
@@ -248,6 +248,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Horario";
             Text = "Crear un horario";
+            Load += Horario_Load;
             ((System.ComponentModel.ISupportInitialize)numericPlazas).EndInit();
             ResumeLayout(false);
             PerformLayout();

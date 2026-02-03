@@ -33,7 +33,7 @@ namespace WinFormsApp1
             buttonModificar.Visible = false;
         }
 
-        public Horario(HorarioSemanalDto datos, string token) : this( token)
+        public Horario(HorarioSemanalDto datos, string token) : this(token)
         {
 
             _idHorarioExistente = datos.Id;
@@ -219,5 +219,9 @@ namespace WinFormsApp1
             catch { return new List<UsersDto>(); }
         }
 
+        private void Horario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
