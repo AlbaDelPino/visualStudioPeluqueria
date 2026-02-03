@@ -111,34 +111,36 @@ namespace WindowsFormsApp1
 
 
 
-
-        private void labelBloqueo_Click(object sender, EventArgs e)
+        private void panelInicio_Click(object sender, EventArgs e)
+        {
+            CargarNuevaPagina(new PanelPrincipal(_usuarioActual, _token));
+        }
+        private void panelBloqueo_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelBloqueo(_usuarioActual, _token));
         }
 
-        private void labelServicio_Click(object sender, EventArgs e)
+        private void panelServicio_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelServicios(_usuarioActual, _token));
         }
 
-        private void labelUsuario_Click(object sender, EventArgs e)
+        private void panelUsuario_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelUsuario(_usuarioActual, _token));
         }
 
-
-        private void labelCita_Click(object sender, EventArgs e)
+        private void panelCita_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelCita(_usuarioActual, _grupos, _token));
         }
 
-        private void labelHorario_Click(object sender, EventArgs e)
+        private void panelHorario_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelHorario(_usuarioActual, _grupos, _token));
         }
 
-        private void labelGaleria_Click(object sender, EventArgs e)
+        private void panelGaleria_Click(object sender, EventArgs e)
         {
             CargarNuevaPagina(new PanelGaleria(_usuarioActual, _token));
         }
@@ -151,15 +153,15 @@ namespace WindowsFormsApp1
 
         private void DibujarBotonNaranja(object sender, PaintEventArgs e)
         {
-            Label lbl = (Label)sender;
+            Control ctrl = (Control)sender;
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             int radius = 10;
             GraphicsPath path = new GraphicsPath();
             path.AddArc(0, 0, radius, radius, 180, 90);
-            path.AddArc(lbl.Width - radius - 1, 0, radius, radius, 270, 90);
-            path.AddArc(lbl.Width - radius - 1, lbl.Height - radius - 1, radius, radius, 0, 90);
-            path.AddArc(0, lbl.Height - radius - 1, radius, radius, 90, 90);
+            path.AddArc(ctrl.Width - radius - 1, 0, radius, radius, 270, 90);
+            path.AddArc(ctrl.Width - radius - 1, ctrl.Height - radius - 1, radius, radius, 0, 90);
+            path.AddArc(0, ctrl.Height - radius - 1, radius, radius, 90, 90);
             path.CloseAllFigures();
 
             using (SolidBrush brush = new SolidBrush(colorNaranjaHover))
@@ -167,49 +169,66 @@ namespace WindowsFormsApp1
                 e.Graphics.FillPath(brush, path);
             }
 
-            TextRenderer.DrawText(e.Graphics, lbl.Text, lbl.Font, lbl.ClientRectangle,
-                                 Color.White, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
+            TextRenderer.DrawText(e.Graphics, ctrl.Text, ctrl.Font, ctrl.ClientRectangle,
+                Color.White, TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter);
         }
-        private void AplicarEstiloHover(Label label)
+        bool hoverActivo = false;
+        private void AplicarEstiloHover(Panel panel)
         {
-            label.Cursor = Cursors.Hand;
-            label.Paint += DibujarBotonNaranja;
-            label.Invalidate();
+            if (hoverActivo) return;
+            hoverActivo = true;
+
+            panel.Paint += DibujarBotonNaranja;
+            panel.Invalidate();
+
+            foreach (Control h in panel.Controls)
+            {
+                if (h is Label)
+                {
+                    h.Paint += DibujarBotonNaranja;
+                    h.Invalidate();
+                }
+            }
         }
 
-        private void QuitarEstiloHover(Label label)
+        private void QuitarEstiloHover(Panel panel)
         {
-            label.Cursor = Cursors.Default;
-            label.Paint -= DibujarBotonNaranja;
-            label.Invalidate();
+            if (!hoverActivo) return;
+            hoverActivo = false;
+
+            panel.Paint -= DibujarBotonNaranja;
+            panel.Invalidate();
+
+            foreach (Control h in panel.Controls)
+            {
+                if (h is Label)
+                {
+                    h.Paint -= DibujarBotonNaranja;
+                    h.Invalidate();
+                }
+            }
         }
 
+        private void panelInicio_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelInicio);
+        private void panelInicio_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelInicio);
 
+        private void panelServicio_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelServicio);
+        private void panelServicio_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelServicio);
 
+        private void panelUsuario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelUsuario);
+        private void panelUsuario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelUsuario);
 
-        private void labelPrincipal_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelPrincipal);
-        private void labelPrincipal_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelPrincipal);
+        private void panelCita_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelCita);
+        private void panelCita_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelCita);
 
-        private void labelBloqueo_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelBloqueo);
-        private void labelBloqueo_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelBloqueo);
+        private void panelHorario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelHorario);
+        private void panelHorario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelHorario);
 
-        private void labelServicio_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelServicio);
-        private void labelServicio_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelServicio);
+        private void panelGaleria_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelGaleria);
+        private void panelGaleria_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelGaleria);
 
-        private void labelUsuario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelUsuario);
-        private void labelUsuario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelUsuario);
-
-        private void labelCita_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelCita);
-        private void labelCita_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelCita);
-
-        private void labelHorario_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelHorario);
-        private void labelHorario_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelHorario);
-
-
-        private void labelGaleria_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(labelGaleria);
-        private void labelGaleria_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(labelGaleria);
-
-        // Cuando el mouse sale del área del Label
+        private void panelBloqueo_MouseEnter(object sender, EventArgs e) => AplicarEstiloHover(panelBloqueo);
+        private void panelBloqueo_MouseLeave(object sender, EventArgs e) => QuitarEstiloHover(panelBloqueo);
 
         private void Principal_Load(object sender, EventArgs e)
         {
@@ -261,7 +280,6 @@ namespace WindowsFormsApp1
             }
             return null;
         }
-
     }
 }
 

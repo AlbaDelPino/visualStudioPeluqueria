@@ -30,18 +30,27 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             panelLado = new Panel();
-            pictureBox6 = new PictureBox();
-            labelBloqueo = new Label();
-            pictureBox5 = new PictureBox();
-            labelHorario = new Label();
-            pictureBox4 = new PictureBox();
-            pictureBox3 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            pictureBox1 = new PictureBox();
-            labelCita = new Label();
+            panelGaleria = new Panel();
+            pictureBoxGaleria = new PictureBox();
+            labelGaleria = new Label();
+            panelUsuario = new Panel();
+            pictureBoxUsuario = new PictureBox();
             labelUsuario = new Label();
+            panelServicio = new Panel();
             labelServicio = new Label();
-            labelPrincipal = new Label();
+            pictureBoxServicio = new PictureBox();
+            panelHorario = new Panel();
+            pictureBoxHorario = new PictureBox();
+            labelHorario = new Label();
+            panelBloqueo = new Panel();
+            pictureBoxBloqueo = new PictureBox();
+            labelBloqueo = new Label();
+            panelCita = new Panel();
+            labelCita = new Label();
+            pictureBoxCita = new PictureBox();
+            panelInicio = new Panel();
+            labelInicio = new Label();
+            pictureBoxInicio = new PictureBox();
             panelCerrar = new Panel();
             buttonCerrar = new Button();
             picLogo = new PictureBox();
@@ -97,15 +106,21 @@
             picCancelar1 = new PictureBox();
             picModificar1 = new PictureBox();
             panelControl = new Panel();
-            pictureBox6 = new PictureBox();
-            labelGaleria = new Label();
             panelLado.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelGaleria.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGaleria).BeginInit();
+            panelUsuario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxUsuario).BeginInit();
+            panelServicio.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxServicio).BeginInit();
+            panelHorario.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHorario).BeginInit();
+            panelBloqueo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBloqueo).BeginInit();
+            panelCita.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCita).BeginInit();
+            panelInicio.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxInicio).BeginInit();
             panelCerrar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picLogo).BeginInit();
             panelTitulo.SuspendLayout();
@@ -119,26 +134,18 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             SuspendLayout();
             // 
             // panelLado
             // 
             panelLado.BackColor = Color.FromArgb(255, 128, 0);
-            panelLado.Controls.Add(pictureBox6);
-            panelLado.Controls.Add(labelBloqueo);
-            panelLado.Controls.Add(labelGaleria);
-            panelLado.Controls.Add(pictureBox6);
-            panelLado.Controls.Add(pictureBox5);
-            panelLado.Controls.Add(labelHorario);
-            panelLado.Controls.Add(pictureBox4);
-            panelLado.Controls.Add(pictureBox3);
-            panelLado.Controls.Add(pictureBox2);
-            panelLado.Controls.Add(pictureBox1);
-            panelLado.Controls.Add(labelCita);
-            panelLado.Controls.Add(labelUsuario);
-            panelLado.Controls.Add(labelServicio);
-            panelLado.Controls.Add(labelPrincipal);
+            panelLado.Controls.Add(panelGaleria);
+            panelLado.Controls.Add(panelUsuario);
+            panelLado.Controls.Add(panelServicio);
+            panelLado.Controls.Add(panelHorario);
+            panelLado.Controls.Add(panelBloqueo);
+            panelLado.Controls.Add(panelCita);
+            panelLado.Controls.Add(panelInicio);
             panelLado.Controls.Add(panelCerrar);
             panelLado.Controls.Add(picLogo);
             panelLado.Dock = DockStyle.Left;
@@ -149,159 +156,280 @@
             panelLado.Size = new Size(211, 939);
             panelLado.TabIndex = 0;
             // 
-            // pictureBox6
+            // panelGaleria
             // 
-            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(55, 412);
-            pictureBox6.Margin = new Padding(3, 4, 3, 4);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(26, 37);
-            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox6.TabIndex = 23;
-            pictureBox6.TabStop = false;
+            panelGaleria.Controls.Add(pictureBoxGaleria);
+            panelGaleria.Controls.Add(labelGaleria);
+            panelGaleria.Location = new Point(55, 600);
+            panelGaleria.Name = "panelGaleria";
+            panelGaleria.Size = new Size(140, 40);
+            panelGaleria.TabIndex = 27;
+            panelGaleria.Click += panelGaleria_Click;
+            panelGaleria.MouseEnter += panelGaleria_MouseEnter;
+            panelGaleria.MouseLeave += panelGaleria_MouseLeave;
             // 
-            // labelBloqueo
+            // pictureBoxGaleria
             // 
-            labelBloqueo.AutoSize = true;
-            labelBloqueo.Font = new Font("Microsoft Sans Serif", 12F);
-            labelBloqueo.Location = new Point(92, 423);
-            labelBloqueo.Name = "labelBloqueo";
-            labelBloqueo.Size = new Size(111, 25);
-            labelBloqueo.TabIndex = 22;
-            labelBloqueo.Text = "BLOQUEO";
-            labelBloqueo.Click += labelBloqueo_Click;
-            labelBloqueo.MouseEnter += labelBloqueo_MouseEnter;
-            labelBloqueo.MouseLeave += labelBloqueo_MouseLeave;
+            pictureBoxGaleria.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxGaleria.Image = WinFormsApp1.Properties.Resources.photo;
+            pictureBoxGaleria.Location = new Point(-2, 0);
+            pictureBoxGaleria.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxGaleria.Name = "pictureBoxGaleria";
+            pictureBoxGaleria.Size = new Size(34, 40);
+            pictureBoxGaleria.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxGaleria.TabIndex = 28;
+            pictureBoxGaleria.TabStop = false;
+            pictureBoxGaleria.Click += panelGaleria_Click;
+            pictureBoxGaleria.MouseEnter += panelGaleria_MouseEnter;
+            pictureBoxGaleria.MouseLeave += panelGaleria_MouseLeave;
             // 
-            // pictureBox5
+            // labelGaleria
             // 
-            pictureBox5.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(55, 469);
-            pictureBox5.Margin = new Padding(3, 4, 3, 4);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(26, 37);
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox5.TabIndex = 21;
-            pictureBox5.TabStop = false;
+            labelGaleria.AutoSize = true;
+            labelGaleria.Font = new Font("Microsoft Sans Serif", 12F);
+            labelGaleria.Location = new Point(42, 8);
+            labelGaleria.Name = "labelGaleria";
+            labelGaleria.Size = new Size(97, 25);
+            labelGaleria.TabIndex = 23;
+            labelGaleria.Text = "GALERIA";
+            labelGaleria.Click += panelGaleria_Click;
+            labelGaleria.MouseEnter += panelGaleria_MouseEnter;
+            labelGaleria.MouseLeave += panelGaleria_MouseLeave;
             // 
-            // labelHorario
+            // panelUsuario
             // 
-            labelHorario.AutoSize = true;
-            labelHorario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelHorario.Location = new Point(92, 480);
-            labelHorario.Name = "labelHorario";
-            labelHorario.Size = new Size(103, 25);
-            labelHorario.TabIndex = 20;
-            labelHorario.Text = "HORARIO";
-            labelHorario.Click += labelHorario_Click;
-            labelHorario.MouseEnter += labelHorario_MouseEnter;
-            labelHorario.MouseLeave += labelHorario_MouseLeave;
+            panelUsuario.Controls.Add(pictureBoxUsuario);
+            panelUsuario.Controls.Add(labelUsuario);
+            panelUsuario.Location = new Point(55, 550);
+            panelUsuario.Name = "panelUsuario";
+            panelUsuario.Size = new Size(140, 40);
+            panelUsuario.TabIndex = 26;
+            panelUsuario.Click += panelUsuario_Click;
+            panelUsuario.MouseEnter += panelUsuario_MouseEnter;
+            panelUsuario.MouseLeave += panelUsuario_MouseLeave;
             // 
-            // pictureBox4
+            // pictureBoxUsuario
             // 
-            pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(55, 357);
-            pictureBox4.Margin = new Padding(3, 4, 3, 4);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(26, 37);
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.TabIndex = 19;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(55, 292);
-            pictureBox3.Margin = new Padding(3, 4, 3, 4);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(26, 37);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 18;
-            pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(55, 538);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(26, 37);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 17;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox1.Image = WinFormsApp1.Properties.Resources.Usuario;
-            pictureBox1.Location = new Point(55, 603);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(26, 37);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 16;
-            pictureBox1.TabStop = false;
-            // 
-            // labelCita
-            // 
-            labelCita.AutoSize = true;
-            labelCita.Font = new Font("Microsoft Sans Serif", 12F);
-            labelCita.Location = new Point(121, 367);
-            labelCita.Name = "labelCita";
-            labelCita.Size = new Size(73, 25);
-            labelCita.TabIndex = 15;
-            labelCita.Text = "CITAS";
-            labelCita.Click += labelCita_Click;
-            labelCita.MouseEnter += labelCita_MouseEnter;
-            labelCita.MouseLeave += labelCita_MouseLeave;
+            pictureBoxUsuario.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxUsuario.Image = WinFormsApp1.Properties.Resources.Usuario;
+            pictureBoxUsuario.Location = new Point(-2, 0);
+            pictureBoxUsuario.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxUsuario.Name = "pictureBoxUsuario";
+            pictureBoxUsuario.Size = new Size(34, 40);
+            pictureBoxUsuario.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxUsuario.TabIndex = 16;
+            pictureBoxUsuario.TabStop = false;
+            pictureBoxUsuario.Click += panelServicio_Click;
             // 
             // labelUsuario
             // 
             labelUsuario.AutoSize = true;
             labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
-            labelUsuario.Location = new Point(91, 614);
+            labelUsuario.Location = new Point(38, 8);
             labelUsuario.Name = "labelUsuario";
             labelUsuario.Size = new Size(102, 25);
             labelUsuario.TabIndex = 14;
             labelUsuario.Text = "USUARIO";
-            labelUsuario.Click += labelUsuario_Click;
-            labelUsuario.MouseEnter += labelUsuario_MouseEnter;
-            labelUsuario.MouseLeave += labelUsuario_MouseLeave;
+            labelUsuario.Click += panelServicio_Click;
+            labelUsuario.MouseEnter += panelUsuario_MouseEnter;
+            labelUsuario.MouseLeave += panelUsuario_MouseLeave;
+            // 
+            // panelServicio
+            // 
+            panelServicio.Controls.Add(labelServicio);
+            panelServicio.Controls.Add(pictureBoxServicio);
+            panelServicio.Location = new Point(53, 500);
+            panelServicio.Name = "panelServicio";
+            panelServicio.Size = new Size(140, 40);
+            panelServicio.TabIndex = 25;
+            panelServicio.Click += panelServicio_Click;
+            panelServicio.MouseEnter += panelServicio_MouseEnter;
+            panelServicio.MouseLeave += panelServicio_MouseLeave;
             // 
             // labelServicio
             // 
             labelServicio.AutoSize = true;
             labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
-            labelServicio.Location = new Point(91, 548);
+            labelServicio.Location = new Point(35, 8);
             labelServicio.Name = "labelServicio";
             labelServicio.Size = new Size(107, 25);
             labelServicio.TabIndex = 13;
             labelServicio.Text = "SERVICIO";
-            labelServicio.Click += labelServicio_Click;
-            labelServicio.MouseEnter += labelServicio_MouseEnter;
-            labelServicio.MouseLeave += labelServicio_MouseLeave;
+            labelServicio.Click += panelServicio_Click;
+            labelServicio.MouseEnter += panelServicio_MouseEnter;
+            labelServicio.MouseLeave += panelServicio_MouseLeave;
             // 
-            // labelPrincipal
+            // pictureBoxServicio
             // 
-            labelPrincipal.AutoSize = true;
-            labelPrincipal.Cursor = Cursors.Hand;
-            labelPrincipal.Font = new Font("Microsoft Sans Serif", 12F);
-            labelPrincipal.Image = WinFormsApp1.Properties.Resources._7046041;
-            labelPrincipal.ImageAlign = ContentAlignment.MiddleLeft;
-            labelPrincipal.Location = new Point(121, 303);
-            labelPrincipal.Name = "labelPrincipal";
-            labelPrincipal.RightToLeft = RightToLeft.No;
-            labelPrincipal.Size = new Size(72, 25);
-            labelPrincipal.TabIndex = 3;
-            labelPrincipal.Text = "INICIO";
-            labelPrincipal.Click += labelPrincipal_Click;
-            labelPrincipal.MouseEnter += labelPrincipal_MouseEnter;
-            labelPrincipal.MouseLeave += labelPrincipal_MouseLeave;
+            pictureBoxServicio.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxServicio.Image = (Image)resources.GetObject("pictureBoxServicio.Image");
+            pictureBoxServicio.Location = new Point(2, 0);
+            pictureBoxServicio.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxServicio.Name = "pictureBoxServicio";
+            pictureBoxServicio.Size = new Size(26, 40);
+            pictureBoxServicio.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxServicio.TabIndex = 17;
+            pictureBoxServicio.TabStop = false;
+            pictureBoxServicio.Click += panelServicio_Click;
+            // 
+            // panelHorario
+            // 
+            panelHorario.Controls.Add(pictureBoxHorario);
+            panelHorario.Controls.Add(labelHorario);
+            panelHorario.Location = new Point(54, 450);
+            panelHorario.Name = "panelHorario";
+            panelHorario.Size = new Size(140, 40);
+            panelHorario.TabIndex = 21;
+            panelHorario.Click += panelHorario_Click;
+            panelHorario.MouseEnter += panelHorario_MouseEnter;
+            panelHorario.MouseLeave += panelHorario_MouseLeave;
+            // 
+            // pictureBoxHorario
+            // 
+            pictureBoxHorario.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxHorario.Image = (Image)resources.GetObject("pictureBoxHorario.Image");
+            pictureBoxHorario.Location = new Point(2, 4);
+            pictureBoxHorario.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxHorario.Name = "pictureBoxHorario";
+            pictureBoxHorario.Size = new Size(26, 32);
+            pictureBoxHorario.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxHorario.TabIndex = 21;
+            pictureBoxHorario.TabStop = false;
+            pictureBoxHorario.Click += panelHorario_Click;
+            // 
+            // labelHorario
+            // 
+            labelHorario.AutoSize = true;
+            labelHorario.Font = new Font("Microsoft Sans Serif", 12F);
+            labelHorario.Location = new Point(38, 8);
+            labelHorario.Name = "labelHorario";
+            labelHorario.Size = new Size(103, 25);
+            labelHorario.TabIndex = 20;
+            labelHorario.Text = "HORARIO";
+            labelHorario.Click += panelHorario_Click;
+            labelHorario.MouseEnter += panelHorario_MouseEnter;
+            labelHorario.MouseLeave += panelHorario_MouseLeave;
+            // 
+            // panelBloqueo
+            // 
+            panelBloqueo.Controls.Add(pictureBoxBloqueo);
+            panelBloqueo.Controls.Add(labelBloqueo);
+            panelBloqueo.Location = new Point(55, 400);
+            panelBloqueo.Name = "panelBloqueo";
+            panelBloqueo.Size = new Size(140, 40);
+            panelBloqueo.TabIndex = 24;
+            panelBloqueo.Click += panelBloqueo_Click;
+            panelBloqueo.MouseEnter += panelBloqueo_MouseEnter;
+            panelBloqueo.MouseLeave += panelBloqueo_MouseLeave;
+            // 
+            // pictureBoxBloqueo
+            // 
+            pictureBoxBloqueo.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxBloqueo.Image = WinFormsApp1.Properties.Resources.citaBloqueada;
+            pictureBoxBloqueo.Location = new Point(0, 0);
+            pictureBoxBloqueo.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxBloqueo.Name = "pictureBoxBloqueo";
+            pictureBoxBloqueo.Size = new Size(34, 40);
+            pictureBoxBloqueo.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxBloqueo.TabIndex = 23;
+            pictureBoxBloqueo.TabStop = false;
+            pictureBoxBloqueo.Click += panelBloqueo_Click;
+            // 
+            // labelBloqueo
+            // 
+            labelBloqueo.AutoSize = true;
+            labelBloqueo.Font = new Font("Microsoft Sans Serif", 12F);
+            labelBloqueo.Location = new Point(31, 8);
+            labelBloqueo.Name = "labelBloqueo";
+            labelBloqueo.RightToLeft = RightToLeft.Yes;
+            labelBloqueo.Size = new Size(111, 25);
+            labelBloqueo.TabIndex = 22;
+            labelBloqueo.Text = "BLOQUEO";
+            labelBloqueo.Click += panelBloqueo_Click;
+            labelBloqueo.MouseEnter += panelBloqueo_MouseEnter;
+            labelBloqueo.MouseLeave += panelBloqueo_MouseLeave;
+            // 
+            // panelCita
+            // 
+            panelCita.Controls.Add(labelCita);
+            panelCita.Controls.Add(pictureBoxCita);
+            panelCita.Location = new Point(55, 350);
+            panelCita.Name = "panelCita";
+            panelCita.Size = new Size(140, 40);
+            panelCita.TabIndex = 19;
+            panelCita.Click += panelCita_Click;
+            panelCita.MouseEnter += panelCita_MouseEnter;
+            panelCita.MouseLeave += panelCita_MouseLeave;
+            // 
+            // labelCita
+            // 
+            labelCita.AutoSize = true;
+            labelCita.Font = new Font("Microsoft Sans Serif", 12F);
+            labelCita.Location = new Point(67, 8);
+            labelCita.Name = "labelCita";
+            labelCita.RightToLeft = RightToLeft.Yes;
+            labelCita.Size = new Size(73, 25);
+            labelCita.TabIndex = 20;
+            labelCita.Text = "CITAS";
+            labelCita.TextAlign = ContentAlignment.MiddleRight;
+            labelCita.Click += panelCita_Click;
+            labelCita.MouseEnter += panelCita_MouseEnter;
+            labelCita.MouseLeave += panelCita_MouseLeave;
+            // 
+            // pictureBoxCita
+            // 
+            pictureBoxCita.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxCita.Image = (Image)resources.GetObject("pictureBoxCita.Image");
+            pictureBoxCita.Location = new Point(2, 0);
+            pictureBoxCita.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxCita.Name = "pictureBoxCita";
+            pictureBoxCita.Size = new Size(26, 40);
+            pictureBoxCita.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxCita.TabIndex = 19;
+            pictureBoxCita.TabStop = false;
+            pictureBoxCita.Click += panelCita_Click;
+            // 
+            // panelInicio
+            // 
+            panelInicio.Controls.Add(labelInicio);
+            panelInicio.Controls.Add(pictureBoxInicio);
+            panelInicio.Location = new Point(55, 300);
+            panelInicio.Name = "panelInicio";
+            panelInicio.Size = new Size(140, 40);
+            panelInicio.TabIndex = 0;
+            panelInicio.Click += panelInicio_Click;
+            panelInicio.MouseEnter += panelInicio_MouseEnter;
+            panelInicio.MouseLeave += panelInicio_MouseLeave;
+            // 
+            // labelInicio
+            // 
+            labelInicio.AutoSize = true;
+            labelInicio.Cursor = Cursors.Hand;
+            labelInicio.Font = new Font("Microsoft Sans Serif", 12F);
+            labelInicio.Image = WinFormsApp1.Properties.Resources._7046041;
+            labelInicio.ImageAlign = ContentAlignment.MiddleLeft;
+            labelInicio.Location = new Point(68, 8);
+            labelInicio.Name = "labelInicio";
+            labelInicio.RightToLeft = RightToLeft.Yes;
+            labelInicio.Size = new Size(72, 25);
+            labelInicio.TabIndex = 3;
+            labelInicio.Text = "INICIO";
+            labelInicio.Click += panelInicio_Click;
+            labelInicio.MouseEnter += panelInicio_MouseEnter;
+            labelInicio.MouseLeave += panelInicio_MouseLeave;
+            // 
+            // pictureBoxInicio
+            // 
+            pictureBoxInicio.BackgroundImageLayout = ImageLayout.Zoom;
+            pictureBoxInicio.Image = (Image)resources.GetObject("pictureBoxInicio.Image");
+            pictureBoxInicio.Location = new Point(2, 0);
+            pictureBoxInicio.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxInicio.Name = "pictureBoxInicio";
+            pictureBoxInicio.Size = new Size(26, 40);
+            pictureBoxInicio.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxInicio.TabIndex = 18;
+            pictureBoxInicio.TabStop = false;
+            pictureBoxInicio.Click += panelInicio_Click;
             // 
             // panelCerrar
             // 
@@ -900,31 +1028,6 @@
             panelControl.Size = new Size(1196, 758);
             panelControl.TabIndex = 2;
             // 
-            // pictureBox6
-            // 
-            pictureBox6.BackgroundImageLayout = ImageLayout.Zoom;
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(57, 592);
-            pictureBox6.Margin = new Padding(3, 4, 3, 4);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(26, 37);
-            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox6.TabIndex = 23;
-            pictureBox6.TabStop = false;
-            // 
-            // labelGaleria
-            // 
-            labelGaleria.AutoSize = true;
-            labelGaleria.Font = new Font("Microsoft Sans Serif", 12F);
-            labelGaleria.Location = new Point(96, 604);
-            labelGaleria.Name = "labelGaleria";
-            labelGaleria.Size = new Size(97, 25);
-            labelGaleria.TabIndex = 23;
-            labelGaleria.Text = "GALERIA";
-            labelGaleria.Click += this.labelGaleria_Click;
-            labelGaleria.MouseEnter += this.labelGaleria_MouseEnter;
-            labelGaleria.MouseLeave += this.labelGaleria_MouseLeave;
-            // 
             // Principal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -940,13 +1043,27 @@
             WindowState = FormWindowState.Maximized;
             Load += Principal_Load;
             panelLado.ResumeLayout(false);
-            panelLado.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelGaleria.ResumeLayout(false);
+            panelGaleria.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxGaleria).EndInit();
+            panelUsuario.ResumeLayout(false);
+            panelUsuario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxUsuario).EndInit();
+            panelServicio.ResumeLayout(false);
+            panelServicio.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxServicio).EndInit();
+            panelHorario.ResumeLayout(false);
+            panelHorario.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHorario).EndInit();
+            panelBloqueo.ResumeLayout(false);
+            panelBloqueo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBloqueo).EndInit();
+            panelCita.ResumeLayout(false);
+            panelCita.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCita).EndInit();
+            panelInicio.ResumeLayout(false);
+            panelInicio.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxInicio).EndInit();
             panelCerrar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picLogo).EndInit();
             panelTitulo.ResumeLayout(false);
@@ -961,7 +1078,6 @@
             ((System.ComponentModel.ISupportInitialize)picCancelar2).EndInit();
             ((System.ComponentModel.ISupportInitialize)picCancelar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picModificar1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ResumeLayout(false);
 
         }
@@ -1023,20 +1139,28 @@
         private PictureBox picCancelar2;
         private Button buttonCerrar;
         private Panel panelCerrar;
-        private Label labelCita;
         private Label labelUsuario;
         private Label labelServicio;
-        private Label labelPrincipal;
+        private Label labelInicio;
         private Panel panelControl;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox5;
+        private PictureBox pictureBoxUsuario;
+        private PictureBox pictureBoxServicio;
+        private PictureBox pictureBoxCita;
+        private PictureBox pictureBoxInicio;
+        private PictureBox pictureBoxHorario;
         private Label labelHorario;
-        private PictureBox pictureBox6;
+        private PictureBox pictureBoxBloqueo;
         private Label labelBloqueo;
         private Label labelGaleria;
+        private Panel panelCita;
+        private Label labelCita;
+        private Panel panelInicio;
+        private Panel panelBloqueo;
+        private Panel panelHorario;
+        private Panel panelServicio;
+        private Panel panelUsuario;
+        private Panel panelGaleria;
+        private PictureBox pictureBoxGaleria;
     }
 }
 

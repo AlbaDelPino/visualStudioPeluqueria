@@ -83,6 +83,16 @@ namespace WinFormsApp1.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap citaBloqueada {
+            get {
+                object obj = ResourceManager.GetObject("citaBloqueada", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap citas {
             get {
                 object obj = ResourceManager.GetObject("citas", resourceCulture);
@@ -96,6 +106,16 @@ namespace WinFormsApp1.Properties {
         internal static System.Drawing.Bitmap citas1 {
             get {
                 object obj = ResourceManager.GetObject("citas1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap clock {
+            get {
+                object obj = ResourceManager.GetObject("clock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +166,36 @@ namespace WinFormsApp1.Properties {
         internal static System.Drawing.Bitmap Ojo {
             get {
                 object obj = ResourceManager.GetObject("Ojo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap photo {
+            get {
+                object obj = ResourceManager.GetObject("photo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reloj {
+            get {
+                object obj = ResourceManager.GetObject("reloj", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap reloj1 {
+            get {
+                object obj = ResourceManager.GetObject("reloj1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

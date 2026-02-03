@@ -121,14 +121,23 @@
   <data name="cita-previa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cita-previa.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Ojo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ojo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="usuarioInactivo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\usuarioInactivo1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\info1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="x_icon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\x_icon4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="iconPeluqueria" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\iconPeluqueria.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reloj" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reloj.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="citas" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\citas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,8 +157,14 @@
   <data name="UusarioActivo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\UusarioActivo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="servicio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\servicio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reloj1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reloj.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="x_icon4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\x_icon4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="citaBloqueada" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\citaBloqueada.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="completada" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\completada.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,10 +175,10 @@
   <data name="citas1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\citas.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="iconPeluqueria" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\iconPeluqueria.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="servicio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\servicio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ojo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ojo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="photo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\photo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
