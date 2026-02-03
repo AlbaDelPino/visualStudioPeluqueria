@@ -1,10 +1,11 @@
 ﻿using CitasInfo.Models;
 using Newtonsoft.Json;
-using UsersInfo.Models;
 using System.Drawing.Drawing2D;
 using System.Globalization; 
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
+using UsersInfo.Models;
 
 namespace WinFormsApp1
 {
@@ -22,9 +23,11 @@ namespace WinFormsApp1
         );
 
         private readonly string _token;
-        private static int pagHo;
-        private static int contador = 1;
-        private static List<HorarioSemanalDto> _horarios;
+        private static int _paginaActual = 1;
+        private const int REGISTROS_POR_PAGINA = 15;
+        private List<HorarioSemanalDto> _horariosCompletos;
+        private List<HorarioSemanalDto> _horariosFiltrados;
+        private static HorarioSemanalDto _horarioSeleccionado;
         private readonly List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
 
@@ -44,11 +47,13 @@ namespace WinFormsApp1
             dataGridViewHorarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewHorarios.DataError += (s, ev) => { ev.ThrowException = false; };
 
-            _horarios = new List<HorarioSemanalDto>();
-            RecargarHorario();
-            pasarPagina();
+            _horariosCompletos = new List<HorarioSemanalDto>();
+            _horariosFiltrados = new List<HorarioSemanalDto>();
+            _horarioSeleccionado = new HorarioSemanalDto();
 
             ConfigurarUIEstiloImagen();
+            CargarTodosLosHorarios();
+            buttonPaginacionAtras_Click(sender, e);
 
             comboBoxHorario.DataSource = _grupos;
             comboBoxHorario.DisplayMember = "Nombre";
@@ -77,12 +82,12 @@ namespace WinFormsApp1
             anyadirHorario.Size = new Size(45, 45);
 
 
-            anyadirHorario.Left = panelVisualHorarios.Width - 60;
+            anyadirHorario.Left = panelVisualHorarios.Width - 550;
 
-            textBoxHorarioBuscar.Left = 50;
-            textBoxHorarioBuscar.Width = panelVisualHorarios.Width - 350;
+            textBoxHorarioBuscar.Left = 60;
+            textBoxHorarioBuscar.Width = panelVisualHorarios.Width - 850;
 
-            comboBoxHorario.Width = 180; 
+            comboBoxHorario.Width = 180;
             comboBoxHorario.Left = textBoxHorarioBuscar.Right + 30;
 
             textBoxHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -150,28 +155,17 @@ namespace WinFormsApp1
 
 
 
-        private void ModificarHorario(HorarioSemanalDto horario)
+        private void buttonModificar_Click(object sender, EventArgs e)
         {
-
-            Horario pantallaModificar = new Horario(horario, _token);
-            /*pantallaModificar.Form = "Modificar información";
-            pantallaModificar.LabelTituoCrearServicio = "MODIFICAR HORARIO";
-            pantallaModificar.buttonSerModificar = true;
-            pantallaModificar.buttonSerAnyadir = false;
-
-            pantallaModificar.TboxNombreServicio.Text = servicio.Nombre;
-            pantallaModificar.TxtBoxDescripcion.Text = servicio.Descripcion;
-            pantallaModificar.TextBoxPrecio.Text = servicio.Precio.ToString();
-            pantallaModificar.TextBoxDuracion.Text = servicio.Duracion.ToString();
-            pantallaModificar.ComboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
-            */
+            Horario pantallaModificar = new Horario(_horarioSeleccionado, _token);
             if (pantallaModificar.ShowDialog() == DialogResult.OK)
             {
-                RecargarHorario();
-                pasarPagina();
+                CargarTodosLosHorarios();
+                filtrarHorario();
             }
         }
-        private void EliminarHorario(HorarioSemanalDto horario)
+
+        private void buttonEliminar_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show(
                     $"¿Seguro que quieres eliminar el servicio ?",
@@ -187,7 +181,7 @@ namespace WinFormsApp1
                     try
                     {
 
-                        var url = $"http://localhost:8082/horarios/{horario.Id}";
+                        var url = $"http://localhost:8082/horarios/{_horarioSeleccionado.Id}";
                         var request = (HttpWebRequest)WebRequest.Create(url);
                         request.Method = "DELETE";
                         request.ContentType = "application/json";
@@ -201,8 +195,8 @@ namespace WinFormsApp1
                                 MessageBox.Show("Horario eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                RecargarHorario();
-                                pasarPagina();
+                                CargarTodosLosHorarios();
+                                filtrarHorario();
                             }
                             else
                             {
@@ -220,73 +214,135 @@ namespace WinFormsApp1
 
             }
         }
+
+        private void anyadirHorario_Click(object sender, EventArgs e)
+        {
+            Horario pantallaAnyadir = new Horario(_token);
+            if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+            {
+                CargarTodosLosHorarios();
+                filtrarHorario();
+            }
+        }
+
+        private void dataGridViewHorario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridViewHorarios.Rows.Count)
+            {
+                var fila = dataGridViewHorarios.Rows[e.RowIndex];
+                _horarioSeleccionado = fila.Tag as HorarioSemanalDto;
+            }
+        }
+
+        private void filtrarHorario()
+        {
+            string textoBusqueda = textBoxHorarioBuscar.Text.Trim().ToLower();
+            UsersDto grupoSeleccionado = comboBoxHorario.SelectedItem as UsersDto;
+
+            _horariosFiltrados = _horariosCompletos.Where(h =>
+            {
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                               (h.Servicio?.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
+                               (h.Grupo?.Curso?.ToLower().Contains(textoBusqueda) == true);
+
+                bool pasaGrupo = true;
+                if (grupoSeleccionado != null && grupoSeleccionado.Id !=0)
+                {
+                    if (h.Grupo == null || h.Grupo.Id == null )
+                    {
+                        pasaGrupo = false;
+                    }
+                    else 
+                    {
+                        pasaGrupo = h.Grupo.Id == grupoSeleccionado.Id;
+                    }
+                }
+
+                return pasaTexto && pasaGrupo;
+            }).ToList();
+
+            _paginaActual = 1;
+            pasarPagina();
+        }
+
+        private void textBoxSHorarioBuscar_TextChanged(object sender, EventArgs e)
+        {
+            filtrarHorario();
+        }
+
+        private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarHorario();
+        }
         private void pasarPagina()
         {
             dataGridViewHorarios.Rows.Clear();
 
+            int totalPaginas = (_horariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (totalPaginas == 0) totalPaginas = 1;
 
-            int registrosASaltar = (contador - 1) * 15;
-            var horarioPagina = _horarios.Skip(registrosASaltar).Take(15).ToList();
+            if (_paginaActual > totalPaginas)
+                _paginaActual = totalPaginas;
 
-            foreach (var h in horarioPagina)
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _horariosFiltrados.Count);
+
+            for (int i = inicio; i < fin; i++)
             {
-                string inicio = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
-                string fin = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
+                var h = _horariosFiltrados[i];
+                string inicioHora = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
+                string finHora = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
 
                 int index = dataGridViewHorarios.Rows.Add(
                     h.DiaSemana,
-                    inicio,
-                    fin,
+                    inicioHora,
+                    finHora,
                     h.Grupo?.Curso ?? "Sin Grupo",
                     h.Servicio?.Nombre ?? "Sin Servicio",
                     h.Plazas
                 );
                 dataGridViewHorarios.Rows[index].Tag = h;
             }
-        }
-        private void dataGridViewHorario_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 5) return;
-            if (e.RowIndex >= dataGridViewHorarios.Rows.Count) return;
-            var fila = dataGridViewHorarios.Rows[e.RowIndex];
-            var horario = fila.Tag as HorarioSemanalDto;
-            if (horario == null) return;
 
-            var columna = dataGridViewHorarios.Columns[e.ColumnIndex].Name;
+            buttonPaginacionAtras.Enabled = (_paginaActual > 1);
+            buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
 
-            if (columna == "dataGridViewImageColumnUsModificar")
-            {
-                ModificarHorario(horario);
-            }
-            else if (columna == "dataGridViewImageColumnUsEliminar")
-            {
-                EliminarHorario(horario);
-            }
+            labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
         }
 
-
-
-        // --- LÓGICA ---
-        private void anyadirHorario_Click(object sender, EventArgs e)
+        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
         {
-            Horario pantallaAnyadir = new Horario(_token);
-            /*pantallaAnyadir.Form = "Añadir horario nuevo";
-            pantallaAnyadir.LabelTituoCrearServicio = "AÑADIR HORARIO";
-            pantallaAnyadir.buttonSerModificar = false;
-            pantallaAnyadir.buttonSerAnyadir = true;
-
-            pantallaAnyadir.TboxNombreServicio.Text = "";
-            pantallaAnyadir.TxtBoxDescripcion.Text = "";
-            pantallaAnyadir.TextBoxPrecio.Text = "";
-            pantallaAnyadir.TextBoxDuracion.Text = "";
-            pantallaAnyadir.ComboTipoServicio.SelectedItem = "";*/
-
-            if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+            if (_paginaActual > 1)
             {
-                RecargarHorario();
+                int totalPaginas = (_horariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+                _paginaActual--;
                 pasarPagina();
+                if (_paginaActual != totalPaginas)
+                {
+                    buttonPaginacionDelante.ForeColor = Color.Black;
+                }
+                if (_paginaActual == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
             }
         }
+
+        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
+        {
+            int totalPaginas = (_horariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (_paginaActual < totalPaginas)
+            {
+                _paginaActual++;
+                pasarPagina();
+                if (_paginaActual != 1)
+                {
+                    buttonPaginacionAtras.ForeColor = Color.Black;
+                }
+            }
+            if (_paginaActual == totalPaginas)
+            {
+                buttonPaginacionDelante.ForeColor = Color.Silver;
+            }
+        }
+
         private List<HorarioSemanalDto> ObtenerHorarios()
         {
 
@@ -304,113 +360,39 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var horarios = JsonConvert.DeserializeObject<List<HorarioSemanalDto>>(json);
-                return horarios;
+                labelNumHorarios.Text = $" {horarios?.Count ?? 0}";
+                return horarios ?? new List<HorarioSemanalDto>();
             }
         }
-        private void RecargarHorario()
+        private void CargarTodosLosHorarios()
         {
-            _horarios = ObtenerHorarios();
+            _horariosCompletos = ObtenerHorarios().OrderBy(h => h.DiaSemana).ToList();
+            _horariosFiltrados = new List<HorarioSemanalDto>(_horariosCompletos);
+            _paginaActual = 1;
 
-            if (_horarios.Count % 15 != 0)
-            {
-                pagHo = (_horarios.Count / 15) + 1;
-            }
-            else
-            {
-                pagHo = (_horarios.Count / 15);
-            }
-
-            labelNumHorarios.Text = $" {_horarios.Count}";
+            pasarPagina();
         }
-       
 
-        private void filtrarHorario()
+        private void buttonTodos_Click(object sender, EventArgs e)
         {
-            string texto = textBoxHorarioBuscar.Text.Trim().ToLower();
-            UsersDto? desplegable = (UsersDto)comboBoxHorario.SelectedItem;
-
-            if (_horarios == null) return;
-
-            var listaFiltrada = _horarios.AsEnumerable();
-
-            if (!string.IsNullOrEmpty(texto))
-            {
-                listaFiltrada = listaFiltrada.Where(h =>
-                    h.Servicio?.Nombre?.ToLower().Contains(texto) == true ||
-                    h.Grupo?.Curso?.ToLower().Contains(texto) == true
-                );
-            }
-
-            if (desplegable != null && desplegable.Id != 0)
-            {
-                listaFiltrada = listaFiltrada
-                    .Where(h => h!= null &&
-                               h.Grupo != null &&
-                               h.Grupo.Id == desplegable.Id)
-                    .ToList();
-            }
-
-            dataGridViewHorarios.Rows.Clear();
-
-            foreach (var h in listaFiltrada)
-            {
-                string inicio = h.HoraInicio.ToString("HH:mm", CultureInfo.InvariantCulture);
-                string fin = h.HoraFin.ToString("HH:mm", CultureInfo.InvariantCulture);
-
-                int index = dataGridViewHorarios.Rows.Add(
-                    h.DiaSemana,
-                    inicio,
-                    fin,
-                    h.Grupo?.Curso ?? "Sin Grupo",
-                    h.Servicio?.Nombre ?? "Sin Servicio",
-                    h.Plazas,
-                    Properties.Resources.edit,
-                    Properties.Resources.trash
-                );
-                dataGridViewHorarios.Rows[index].Tag = h;
-            }
+            limpiarFiltros();
         }
-
-        private void textBoxSHorarioBuscar_TextChanged(object sender, EventArgs e)
+        private void limpiarFiltros()
         {
-            filtrarHorario();
+            comboBoxHorario.SelectedIndex = 0;
+            textBoxHorarioBuscar.Text = string.Empty;
+            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
+            monthCalendarFiltrar.SelectionStart = DateTime.Today;
+
+            _horariosCompletos = ObtenerHorarios();
+            _horariosFiltrados = ObtenerHorarios();
+            _paginaActual = 1;
+            pasarPagina();
         }
 
-        private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
+        private void monthCalendarFiltrar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            filtrarHorario();
+            
         }
-
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
-        {
-            if (contador > 1)
-            {
-                contador--;
-                pasarPagina();
-                if (contador != pagHo)
-                {
-                    buttonPaginacionDelante.ForeColor = Color.Black;
-                }
-                if (contador == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
-            }
-        }
-
-        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
-        {
-            if (contador < pagHo)
-            {
-                contador++;
-                pasarPagina();
-                if (contador != 1)
-                {
-                    buttonPaginacionAtras.ForeColor = Color.Black;
-                }
-            }
-            if (contador == pagHo)
-            {
-                buttonPaginacionDelante.ForeColor = Color.Silver;
-            }
-        }
-
     }
 }
