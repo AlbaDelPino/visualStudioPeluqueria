@@ -45,16 +45,17 @@
             // 
             // ButtonGaAnyadir
             // 
-            ButtonGaAnyadir.Location = new Point(563, 409);
+            ButtonGaAnyadir.Location = new Point(520, 423);
             ButtonGaAnyadir.Name = "ButtonGaAnyadir";
             ButtonGaAnyadir.Size = new Size(75, 23);
             ButtonGaAnyadir.TabIndex = 73;
             ButtonGaAnyadir.Text = "Añadir";
             ButtonGaAnyadir.UseVisualStyleBackColor = true;
+            ButtonGaAnyadir.Click += ButtonGaAnyadir_Click;
             // 
             // ButtonGaModificar
             // 
-            ButtonGaModificar.Location = new Point(535, 409);
+            ButtonGaModificar.Location = new Point(492, 423);
             ButtonGaModificar.Name = "ButtonGaModificar";
             ButtonGaModificar.Size = new Size(128, 23);
             ButtonGaModificar.TabIndex = 72;
@@ -64,7 +65,7 @@
             // 
             // buttonHoServicio
             // 
-            buttonHoServicio.Location = new Point(758, 77);
+            buttonHoServicio.Location = new Point(647, 65);
             buttonHoServicio.Name = "buttonHoServicio";
             buttonHoServicio.Size = new Size(75, 23);
             buttonHoServicio.TabIndex = 82;
@@ -74,17 +75,17 @@
             // 
             // textBoxHoServicio
             // 
-            textBoxHoServicio.Location = new Point(433, 77);
+            textBoxHoServicio.Location = new Point(399, 66);
             textBoxHoServicio.Name = "textBoxHoServicio";
             textBoxHoServicio.ReadOnly = true;
-            textBoxHoServicio.Size = new Size(291, 23);
+            textBoxHoServicio.Size = new Size(230, 23);
             textBoxHoServicio.TabIndex = 81;
             // 
             // labelHoServicio
             // 
             labelHoServicio.AutoSize = true;
             labelHoServicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHoServicio.Location = new Point(346, 77);
+            labelHoServicio.Location = new Point(312, 66);
             labelHoServicio.Margin = new Padding(5, 0, 5, 0);
             labelHoServicio.Name = "labelHoServicio";
             labelHoServicio.Size = new Size(58, 17);
@@ -93,7 +94,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(369, 147);
+            pictureBox1.Location = new Point(335, 136);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(248, 256);
             pictureBox1.TabIndex = 83;
@@ -101,7 +102,7 @@
             // 
             // buttonAnydirImagen
             // 
-            buttonAnydirImagen.Location = new Point(346, 118);
+            buttonAnydirImagen.Location = new Point(312, 107);
             buttonAnydirImagen.Name = "buttonAnydirImagen";
             buttonAnydirImagen.Size = new Size(119, 23);
             buttonAnydirImagen.TabIndex = 84;
@@ -134,7 +135,7 @@
             labelTituoCrearGaleria.AutoSize = true;
             labelTituoCrearGaleria.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             labelTituoCrearGaleria.ForeColor = Color.FromArgb(241, 123, 35);
-            labelTituoCrearGaleria.Location = new Point(464, 19);
+            labelTituoCrearGaleria.Location = new Point(430, 8);
             labelTituoCrearGaleria.Name = "labelTituoCrearGaleria";
             labelTituoCrearGaleria.Size = new Size(174, 25);
             labelTituoCrearGaleria.TabIndex = 63;
@@ -144,7 +145,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(851, 473);
+            ClientSize = new Size(753, 473);
             Controls.Add(panelIcon);
             Controls.Add(buttonAnydirImagen);
             Controls.Add(pictureBox1);

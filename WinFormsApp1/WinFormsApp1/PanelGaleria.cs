@@ -326,7 +326,7 @@ namespace WinFormsApp1
                     try
                     {
 
-                        var url = $"http://localhost:8082/servicio/{galeria.Servicio}";
+                        var url = $"http://localhost:8082/api/imagenes/{galeria.Id}";
                         var request = (HttpWebRequest)WebRequest.Create(url);
                         request.Method = "DELETE";
                         request.ContentType = "application/json";
@@ -339,10 +339,13 @@ namespace WinFormsApp1
                             {
                                 MessageBox.Show("Servicio eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                             
                                 // Refrescar la tabla
                                 RecargarGaleria();
+                                MostrarGaleriaEnPaneles(_galeria);
+
                                 pasarPagina();
+
                             }
                             else
                             {
@@ -376,8 +379,11 @@ namespace WinFormsApp1
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 RecargarGaleria();
+                MostrarGaleriaEnPaneles(_galeria);
                 pasarPagina();
             }
         }
+
+
     }
 }

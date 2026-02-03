@@ -11,11 +11,14 @@ namespace WinFormsApp1.Models
 {
     public class GaleriaDto
     {
-            [JsonProperty("servicio")]
-            public ServicioDto Servicio { get; set; }
+        [JsonProperty("id")]
+        public long Id { get; set; }
 
-            [JsonProperty("datos")] // "datos" es el nombre que viene del longtext en Java
-            public string ImagenBase64 { get; set; } // Tu campo longtext
+        [JsonProperty("servicio")]
+        public ServicioDto Servicio { get; set; }
+
+        [JsonProperty("datos")] // "datos" es el nombre que viene del longtext en Java
+        public string ImagenBase64 { get; set; } // Tu campo longtext
 
     }
 }

@@ -207,7 +207,7 @@
             // 
             // buttonModificar
             // 
-            buttonModificar.Location = new Point(145, 378);
+            buttonModificar.Location = new Point(214, 378);
             buttonModificar.Name = "buttonModificar";
             buttonModificar.Size = new Size(189, 38);
             buttonModificar.TabIndex = 93;
