@@ -150,10 +150,10 @@
             panelLado.Controls.Add(picLogo);
             panelLado.Dock = DockStyle.Left;
             panelLado.Location = new Point(0, 0);
-            panelLado.Margin = new Padding(4, 3, 4, 3);
+            panelLado.Margin = new Padding(5, 4, 5, 4);
             panelLado.Name = "panelLado";
             panelLado.RightToLeft = RightToLeft.No;
-            panelLado.Size = new Size(185, 704);
+            panelLado.Size = new Size(211, 939);
             panelLado.TabIndex = 0;
             // 
             // panelGaleria
@@ -161,8 +161,9 @@
             panelGaleria.Controls.Add(pictureBoxGaleria);
             panelGaleria.Controls.Add(labelGaleria);
             panelGaleria.Location = new Point(55, 600);
+            panelGaleria.Margin = new Padding(3, 4, 3, 4);
             panelGaleria.Name = "panelGaleria";
-            panelGaleria.Size = new Size(140, 40);
+            panelGaleria.Size = new Size(150, 40);
             panelGaleria.TabIndex = 27;
             panelGaleria.Click += panelGaleria_Click;
             panelGaleria.MouseEnter += panelGaleria_MouseEnter;
@@ -173,9 +174,9 @@
             pictureBoxGaleria.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxGaleria.Image = WinFormsApp1.Properties.Resources.photo;
             pictureBoxGaleria.Location = new Point(-2, 0);
-            pictureBoxGaleria.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxGaleria.Margin = new Padding(3, 5, 3, 5);
             pictureBoxGaleria.Name = "pictureBoxGaleria";
-            pictureBoxGaleria.Size = new Size(34, 40);
+            pictureBoxGaleria.Size = new Size(39, 40);
             pictureBoxGaleria.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxGaleria.TabIndex = 28;
             pictureBoxGaleria.TabStop = false;
@@ -187,7 +188,7 @@
             // 
             labelGaleria.AutoSize = true;
             labelGaleria.Font = new Font("Microsoft Sans Serif", 12F);
-            labelGaleria.Location = new Point(42, 8);
+            labelGaleria.Location = new Point(38, 8);
             labelGaleria.Name = "labelGaleria";
             labelGaleria.Size = new Size(97, 25);
             labelGaleria.TabIndex = 23;
@@ -201,8 +202,9 @@
             panelUsuario.Controls.Add(pictureBoxUsuario);
             panelUsuario.Controls.Add(labelUsuario);
             panelUsuario.Location = new Point(55, 550);
+            panelUsuario.Margin = new Padding(3, 4, 3, 4);
             panelUsuario.Name = "panelUsuario";
-            panelUsuario.Size = new Size(140, 40);
+            panelUsuario.Size = new Size(150, 40);
             panelUsuario.TabIndex = 26;
             panelUsuario.Click += panelUsuario_Click;
             panelUsuario.MouseEnter += panelUsuario_MouseEnter;
@@ -213,9 +215,9 @@
             pictureBoxUsuario.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxUsuario.Image = WinFormsApp1.Properties.Resources.Usuario;
             pictureBoxUsuario.Location = new Point(-2, 0);
-            pictureBoxUsuario.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxUsuario.Margin = new Padding(3, 5, 3, 5);
             pictureBoxUsuario.Name = "pictureBoxUsuario";
-            pictureBoxUsuario.Size = new Size(34, 40);
+            pictureBoxUsuario.Size = new Size(39, 40);
             pictureBoxUsuario.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxUsuario.TabIndex = 16;
             pictureBoxUsuario.TabStop = false;
@@ -227,7 +229,7 @@
             labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
             labelUsuario.Location = new Point(38, 8);
             labelUsuario.Name = "labelUsuario";
-            labelUsuario.Size = new Size(84, 20);
+            labelUsuario.Size = new Size(102, 25);
             labelUsuario.TabIndex = 14;
             labelUsuario.Text = "USUARIO";
             labelUsuario.Click += panelServicio_Click;
@@ -238,9 +240,10 @@
             // 
             panelServicio.Controls.Add(labelServicio);
             panelServicio.Controls.Add(pictureBoxServicio);
-            panelServicio.Location = new Point(53, 500);
+            panelServicio.Location = new Point(55, 500);
+            panelServicio.Margin = new Padding(3, 4, 3, 4);
             panelServicio.Name = "panelServicio";
-            panelServicio.Size = new Size(140, 40);
+            panelServicio.Size = new Size(150, 40);
             panelServicio.TabIndex = 25;
             panelServicio.Click += panelServicio_Click;
             panelServicio.MouseEnter += panelServicio_MouseEnter;
@@ -250,9 +253,9 @@
             // 
             labelServicio.AutoSize = true;
             labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
-            labelServicio.Location = new Point(35, 8);
+            labelServicio.Location = new Point(38, 8);
             labelServicio.Name = "labelServicio";
-            labelServicio.Size = new Size(87, 20);
+            labelServicio.Size = new Size(107, 25);
             labelServicio.TabIndex = 13;
             labelServicio.Text = "SERVICIO";
             labelServicio.Click += panelServicio_Click;
@@ -264,9 +267,9 @@
             pictureBoxServicio.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxServicio.Image = (Image)resources.GetObject("pictureBoxServicio.Image");
             pictureBoxServicio.Location = new Point(2, 0);
-            pictureBoxServicio.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxServicio.Margin = new Padding(3, 5, 3, 5);
             pictureBoxServicio.Name = "pictureBoxServicio";
-            pictureBoxServicio.Size = new Size(26, 40);
+            pictureBoxServicio.Size = new Size(30, 40);
             pictureBoxServicio.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxServicio.TabIndex = 17;
             pictureBoxServicio.TabStop = false;
@@ -276,9 +279,10 @@
             // 
             panelHorario.Controls.Add(pictureBoxHorario);
             panelHorario.Controls.Add(labelHorario);
-            panelHorario.Location = new Point(54, 450);
+            panelHorario.Location = new Point(55, 450);
+            panelHorario.Margin = new Padding(3, 4, 3, 4);
             panelHorario.Name = "panelHorario";
-            panelHorario.Size = new Size(140, 40);
+            panelHorario.Size = new Size(150, 40);
             panelHorario.TabIndex = 21;
             panelHorario.Click += panelHorario_Click;
             panelHorario.MouseEnter += panelHorario_MouseEnter;
@@ -288,10 +292,10 @@
             // 
             pictureBoxHorario.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxHorario.Image = (Image)resources.GetObject("pictureBoxHorario.Image");
-            pictureBoxHorario.Location = new Point(2, 4);
-            pictureBoxHorario.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxHorario.Location = new Point(2, 5);
+            pictureBoxHorario.Margin = new Padding(3, 5, 3, 5);
             pictureBoxHorario.Name = "pictureBoxHorario";
-            pictureBoxHorario.Size = new Size(26, 32);
+            pictureBoxHorario.Size = new Size(30, 40);
             pictureBoxHorario.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxHorario.TabIndex = 21;
             pictureBoxHorario.TabStop = false;
@@ -315,8 +319,9 @@
             panelBloqueo.Controls.Add(pictureBoxBloqueo);
             panelBloqueo.Controls.Add(labelBloqueo);
             panelBloqueo.Location = new Point(55, 400);
+            panelBloqueo.Margin = new Padding(3, 4, 3, 4);
             panelBloqueo.Name = "panelBloqueo";
-            panelBloqueo.Size = new Size(140, 40);
+            panelBloqueo.Size = new Size(150, 40);
             panelBloqueo.TabIndex = 24;
             panelBloqueo.Click += panelBloqueo_Click;
             panelBloqueo.MouseEnter += panelBloqueo_MouseEnter;
@@ -327,9 +332,9 @@
             pictureBoxBloqueo.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxBloqueo.Image = WinFormsApp1.Properties.Resources.citaBloqueada;
             pictureBoxBloqueo.Location = new Point(0, 0);
-            pictureBoxBloqueo.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxBloqueo.Margin = new Padding(3, 5, 3, 5);
             pictureBoxBloqueo.Name = "pictureBoxBloqueo";
-            pictureBoxBloqueo.Size = new Size(34, 40);
+            pictureBoxBloqueo.Size = new Size(39, 40);
             pictureBoxBloqueo.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxBloqueo.TabIndex = 23;
             pictureBoxBloqueo.TabStop = false;
@@ -339,7 +344,7 @@
             // 
             labelBloqueo.AutoSize = true;
             labelBloqueo.Font = new Font("Microsoft Sans Serif", 12F);
-            labelBloqueo.Location = new Point(31, 8);
+            labelBloqueo.Location = new Point(38, 8);
             labelBloqueo.Name = "labelBloqueo";
             labelBloqueo.RightToLeft = RightToLeft.Yes;
             labelBloqueo.Size = new Size(111, 25);
@@ -354,8 +359,9 @@
             panelCita.Controls.Add(labelCita);
             panelCita.Controls.Add(pictureBoxCita);
             panelCita.Location = new Point(55, 350);
+            panelCita.Margin = new Padding(3, 4, 3, 4);
             panelCita.Name = "panelCita";
-            panelCita.Size = new Size(140, 40);
+            panelCita.Size = new Size(150, 40);
             panelCita.TabIndex = 19;
             panelCita.Click += panelCita_Click;
             panelCita.MouseEnter += panelCita_MouseEnter;
@@ -365,7 +371,7 @@
             // 
             labelCita.AutoSize = true;
             labelCita.Font = new Font("Microsoft Sans Serif", 12F);
-            labelCita.Location = new Point(67, 8);
+            labelCita.Location = new Point(38, 8);
             labelCita.Name = "labelCita";
             labelCita.RightToLeft = RightToLeft.Yes;
             labelCita.Size = new Size(73, 25);
@@ -381,9 +387,9 @@
             pictureBoxCita.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxCita.Image = (Image)resources.GetObject("pictureBoxCita.Image");
             pictureBoxCita.Location = new Point(2, 0);
-            pictureBoxCita.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxCita.Margin = new Padding(3, 5, 3, 5);
             pictureBoxCita.Name = "pictureBoxCita";
-            pictureBoxCita.Size = new Size(26, 40);
+            pictureBoxCita.Size = new Size(30, 40);
             pictureBoxCita.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCita.TabIndex = 19;
             pictureBoxCita.TabStop = false;
@@ -394,8 +400,9 @@
             panelInicio.Controls.Add(labelInicio);
             panelInicio.Controls.Add(pictureBoxInicio);
             panelInicio.Location = new Point(55, 300);
+            panelInicio.Margin = new Padding(3, 4, 3, 4);
             panelInicio.Name = "panelInicio";
-            panelInicio.Size = new Size(140, 40);
+            panelInicio.Size = new Size(150, 40);
             panelInicio.TabIndex = 0;
             panelInicio.Click += panelInicio_Click;
             panelInicio.MouseEnter += panelInicio_MouseEnter;
@@ -408,7 +415,7 @@
             labelInicio.Font = new Font("Microsoft Sans Serif", 12F);
             labelInicio.Image = WinFormsApp1.Properties.Resources._7046041;
             labelInicio.ImageAlign = ContentAlignment.MiddleLeft;
-            labelInicio.Location = new Point(68, 8);
+            labelInicio.Location = new Point(38, 8);
             labelInicio.Name = "labelInicio";
             labelInicio.RightToLeft = RightToLeft.Yes;
             labelInicio.Size = new Size(72, 25);
@@ -423,9 +430,9 @@
             pictureBoxInicio.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxInicio.Image = (Image)resources.GetObject("pictureBoxInicio.Image");
             pictureBoxInicio.Location = new Point(2, 0);
-            pictureBoxInicio.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxInicio.Margin = new Padding(3, 5, 3, 5);
             pictureBoxInicio.Name = "pictureBoxInicio";
-            pictureBoxInicio.Size = new Size(26, 40);
+            pictureBoxInicio.Size = new Size(30, 40);
             pictureBoxInicio.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxInicio.TabIndex = 18;
             pictureBoxInicio.TabStop = false;
@@ -435,19 +442,21 @@
             // 
             panelCerrar.Controls.Add(buttonCerrar);
             panelCerrar.Dock = DockStyle.Bottom;
-            panelCerrar.Location = new Point(0, 634);
+            panelCerrar.Location = new Point(0, 846);
+            panelCerrar.Margin = new Padding(3, 4, 3, 4);
             panelCerrar.Name = "panelCerrar";
-            panelCerrar.Padding = new Padding(10, 0, 10, 0);
-            panelCerrar.Size = new Size(185, 70);
+            panelCerrar.Padding = new Padding(11, 0, 11, 0);
+            panelCerrar.Size = new Size(211, 93);
             panelCerrar.TabIndex = 7;
             // 
             // buttonCerrar
             // 
             buttonCerrar.Dock = DockStyle.Top;
             buttonCerrar.FlatStyle = FlatStyle.Popup;
-            buttonCerrar.Location = new Point(10, 0);
+            buttonCerrar.Location = new Point(11, 0);
+            buttonCerrar.Margin = new Padding(3, 4, 3, 4);
             buttonCerrar.Name = "buttonCerrar";
-            buttonCerrar.Size = new Size(165, 23);
+            buttonCerrar.Size = new Size(189, 31);
             buttonCerrar.TabIndex = 3;
             buttonCerrar.Text = "Cerrar sesión";
             buttonCerrar.UseVisualStyleBackColor = false;
@@ -458,8 +467,9 @@
             picLogo.BackColor = Color.FromArgb(255, 128, 0);
             picLogo.Image = (Image)resources.GetObject("picLogo.Image");
             picLogo.Location = new Point(3, 0);
+            picLogo.Margin = new Padding(3, 4, 3, 4);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(190, 136);
+            picLogo.Size = new Size(217, 181);
             picLogo.SizeMode = PictureBoxSizeMode.Zoom;
             picLogo.TabIndex = 12;
             picLogo.TabStop = false;
@@ -470,10 +480,10 @@
             panelTitulo.Controls.Add(labSubTituto);
             panelTitulo.Controls.Add(labTituto);
             panelTitulo.Dock = DockStyle.Top;
-            panelTitulo.Location = new Point(185, 0);
-            panelTitulo.Margin = new Padding(4, 3, 4, 3);
+            panelTitulo.Location = new Point(211, 0);
+            panelTitulo.Margin = new Padding(5, 4, 5, 4);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(1046, 136);
+            panelTitulo.Size = new Size(1196, 181);
             panelTitulo.TabIndex = 1;
             // 
             // labSubTituto
@@ -481,10 +491,10 @@
             labSubTituto.AutoSize = true;
             labSubTituto.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labSubTituto.ForeColor = SystemColors.ControlDarkDark;
-            labSubTituto.Location = new Point(15, 91);
-            labSubTituto.Margin = new Padding(4, 0, 4, 0);
+            labSubTituto.Location = new Point(17, 121);
+            labSubTituto.Margin = new Padding(5, 0, 5, 0);
             labSubTituto.Name = "labSubTituto";
-            labSubTituto.Size = new Size(174, 16);
+            labSubTituto.Size = new Size(205, 20);
             labSubTituto.TabIndex = 2;
             labSubTituto.Text = "Administra la base de datos";
             // 
@@ -492,10 +502,10 @@
             // 
             labTituto.AutoSize = true;
             labTituto.Font = new Font("Microsoft Sans Serif", 25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labTituto.Location = new Point(15, 33);
-            labTituto.Margin = new Padding(4, 0, 4, 0);
+            labTituto.Location = new Point(17, 44);
+            labTituto.Margin = new Padding(5, 0, 5, 0);
             labTituto.Name = "labTituto";
-            labTituto.Size = new Size(292, 39);
+            labTituto.Size = new Size(354, 48);
             labTituto.TabIndex = 0;
             labTituto.Text = "Gestión general  ";
             labTituto.Click += labTituto_Click;
@@ -627,14 +637,14 @@
             // 
             comboBoxFiltrar1.Location = new Point(0, 0);
             comboBoxFiltrar1.Name = "comboBoxFiltrar1";
-            comboBoxFiltrar1.Size = new Size(121, 23);
+            comboBoxFiltrar1.Size = new Size(121, 28);
             comboBoxFiltrar1.TabIndex = 0;
             // 
             // BusCitas
             // 
             BusCitas.Location = new Point(0, 0);
             BusCitas.Name = "BusCitas";
-            BusCitas.Size = new Size(100, 23);
+            BusCitas.Size = new Size(100, 27);
             BusCitas.TabIndex = 0;
             // 
             // tablaCitas
@@ -1019,21 +1029,22 @@
             // panelControl
             // 
             panelControl.Dock = DockStyle.Fill;
-            panelControl.Location = new Point(185, 136);
+            panelControl.Location = new Point(211, 181);
+            panelControl.Margin = new Padding(3, 4, 3, 4);
             panelControl.Name = "panelControl";
-            panelControl.Size = new Size(1046, 568);
+            panelControl.Size = new Size(1196, 758);
             panelControl.TabIndex = 2;
             // 
             // Principal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1231, 704);
+            ClientSize = new Size(1407, 939);
             Controls.Add(panelControl);
             Controls.Add(panelTitulo);
             Controls.Add(panelLado);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 3, 4, 3);
+            Margin = new Padding(5, 4, 5, 4);
             Name = "Principal";
             Text = "Gestión";
             WindowState = FormWindowState.Maximized;
