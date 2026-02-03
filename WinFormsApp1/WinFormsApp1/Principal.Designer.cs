@@ -150,10 +150,10 @@
             panelLado.Controls.Add(picLogo);
             panelLado.Dock = DockStyle.Left;
             panelLado.Location = new Point(0, 0);
-            panelLado.Margin = new Padding(5, 4, 5, 4);
+            panelLado.Margin = new Padding(4, 3, 4, 3);
             panelLado.Name = "panelLado";
             panelLado.RightToLeft = RightToLeft.No;
-            panelLado.Size = new Size(211, 939);
+            panelLado.Size = new Size(185, 704);
             panelLado.TabIndex = 0;
             // 
             // panelGaleria
@@ -227,7 +227,7 @@
             labelUsuario.Font = new Font("Microsoft Sans Serif", 12F);
             labelUsuario.Location = new Point(38, 8);
             labelUsuario.Name = "labelUsuario";
-            labelUsuario.Size = new Size(102, 25);
+            labelUsuario.Size = new Size(84, 20);
             labelUsuario.TabIndex = 14;
             labelUsuario.Text = "USUARIO";
             labelUsuario.Click += panelServicio_Click;
@@ -252,7 +252,7 @@
             labelServicio.Font = new Font("Microsoft Sans Serif", 12F);
             labelServicio.Location = new Point(35, 8);
             labelServicio.Name = "labelServicio";
-            labelServicio.Size = new Size(107, 25);
+            labelServicio.Size = new Size(87, 20);
             labelServicio.TabIndex = 13;
             labelServicio.Text = "SERVICIO";
             labelServicio.Click += panelServicio_Click;
@@ -435,21 +435,19 @@
             // 
             panelCerrar.Controls.Add(buttonCerrar);
             panelCerrar.Dock = DockStyle.Bottom;
-            panelCerrar.Location = new Point(0, 846);
-            panelCerrar.Margin = new Padding(3, 4, 3, 4);
+            panelCerrar.Location = new Point(0, 634);
             panelCerrar.Name = "panelCerrar";
-            panelCerrar.Padding = new Padding(11, 0, 11, 0);
-            panelCerrar.Size = new Size(211, 93);
+            panelCerrar.Padding = new Padding(10, 0, 10, 0);
+            panelCerrar.Size = new Size(185, 70);
             panelCerrar.TabIndex = 7;
             // 
             // buttonCerrar
             // 
             buttonCerrar.Dock = DockStyle.Top;
             buttonCerrar.FlatStyle = FlatStyle.Popup;
-            buttonCerrar.Location = new Point(11, 0);
-            buttonCerrar.Margin = new Padding(3, 4, 3, 4);
+            buttonCerrar.Location = new Point(10, 0);
             buttonCerrar.Name = "buttonCerrar";
-            buttonCerrar.Size = new Size(189, 31);
+            buttonCerrar.Size = new Size(165, 23);
             buttonCerrar.TabIndex = 3;
             buttonCerrar.Text = "Cerrar sesión";
             buttonCerrar.UseVisualStyleBackColor = false;
@@ -460,9 +458,8 @@
             picLogo.BackColor = Color.FromArgb(255, 128, 0);
             picLogo.Image = (Image)resources.GetObject("picLogo.Image");
             picLogo.Location = new Point(3, 0);
-            picLogo.Margin = new Padding(3, 4, 3, 4);
             picLogo.Name = "picLogo";
-            picLogo.Size = new Size(217, 181);
+            picLogo.Size = new Size(190, 136);
             picLogo.SizeMode = PictureBoxSizeMode.Zoom;
             picLogo.TabIndex = 12;
             picLogo.TabStop = false;
@@ -473,10 +470,10 @@
             panelTitulo.Controls.Add(labSubTituto);
             panelTitulo.Controls.Add(labTituto);
             panelTitulo.Dock = DockStyle.Top;
-            panelTitulo.Location = new Point(211, 0);
-            panelTitulo.Margin = new Padding(5, 4, 5, 4);
+            panelTitulo.Location = new Point(185, 0);
+            panelTitulo.Margin = new Padding(4, 3, 4, 3);
             panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(1196, 181);
+            panelTitulo.Size = new Size(1046, 136);
             panelTitulo.TabIndex = 1;
             // 
             // labSubTituto
@@ -484,10 +481,10 @@
             labSubTituto.AutoSize = true;
             labSubTituto.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labSubTituto.ForeColor = SystemColors.ControlDarkDark;
-            labSubTituto.Location = new Point(17, 121);
-            labSubTituto.Margin = new Padding(5, 0, 5, 0);
+            labSubTituto.Location = new Point(15, 91);
+            labSubTituto.Margin = new Padding(4, 0, 4, 0);
             labSubTituto.Name = "labSubTituto";
-            labSubTituto.Size = new Size(205, 20);
+            labSubTituto.Size = new Size(174, 16);
             labSubTituto.TabIndex = 2;
             labSubTituto.Text = "Administra la base de datos";
             // 
@@ -495,10 +492,10 @@
             // 
             labTituto.AutoSize = true;
             labTituto.Font = new Font("Microsoft Sans Serif", 25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labTituto.Location = new Point(17, 44);
-            labTituto.Margin = new Padding(5, 0, 5, 0);
+            labTituto.Location = new Point(15, 33);
+            labTituto.Margin = new Padding(4, 0, 4, 0);
             labTituto.Name = "labTituto";
-            labTituto.Size = new Size(354, 48);
+            labTituto.Size = new Size(292, 39);
             labTituto.TabIndex = 0;
             labTituto.Text = "Gestión general  ";
             labTituto.Click += labTituto_Click;
@@ -630,14 +627,14 @@
             // 
             comboBoxFiltrar1.Location = new Point(0, 0);
             comboBoxFiltrar1.Name = "comboBoxFiltrar1";
-            comboBoxFiltrar1.Size = new Size(121, 28);
+            comboBoxFiltrar1.Size = new Size(121, 23);
             comboBoxFiltrar1.TabIndex = 0;
             // 
             // BusCitas
             // 
             BusCitas.Location = new Point(0, 0);
             BusCitas.Name = "BusCitas";
-            BusCitas.Size = new Size(100, 27);
+            BusCitas.Size = new Size(100, 23);
             BusCitas.TabIndex = 0;
             // 
             // tablaCitas
@@ -1022,22 +1019,21 @@
             // panelControl
             // 
             panelControl.Dock = DockStyle.Fill;
-            panelControl.Location = new Point(211, 181);
-            panelControl.Margin = new Padding(3, 4, 3, 4);
+            panelControl.Location = new Point(185, 136);
             panelControl.Name = "panelControl";
-            panelControl.Size = new Size(1196, 758);
+            panelControl.Size = new Size(1046, 568);
             panelControl.TabIndex = 2;
             // 
             // Principal
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1407, 939);
+            ClientSize = new Size(1231, 704);
             Controls.Add(panelControl);
             Controls.Add(panelTitulo);
             Controls.Add(panelLado);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(5, 4, 5, 4);
+            Margin = new Padding(4, 3, 4, 3);
             Name = "Principal";
             Text = "Gestión";
             WindowState = FormWindowState.Maximized;
