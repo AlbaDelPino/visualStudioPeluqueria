@@ -54,10 +54,11 @@
             Grupo = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             panelMargenes = new Panel();
-            buttonTodos = new Button();
+            panel3 = new Panel();
+            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
             buttonModificar = new Button();
             buttonEliminar = new Button();
-            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
+            buttonTodos = new Button();
             panel1 = new Panel();
             labelPaginaActual = new Label();
             buttonPaginacionDelante = new Button();
@@ -68,6 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureHorarios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).BeginInit();
             panelMargenes.SuspendLayout();
+            panel3.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -315,10 +317,7 @@
             // 
             // panelMargenes
             // 
-            panelMargenes.Controls.Add(buttonTodos);
-            panelMargenes.Controls.Add(buttonModificar);
-            panelMargenes.Controls.Add(buttonEliminar);
-            panelMargenes.Controls.Add(monthCalendarFiltrar);
+            panelMargenes.Controls.Add(panel3);
             panelMargenes.Controls.Add(dataGridViewHorarios);
             panelMargenes.Dock = DockStyle.Fill;
             panelMargenes.Location = new Point(0, 256);
@@ -327,21 +326,36 @@
             panelMargenes.Size = new Size(1571, 657);
             panelMargenes.TabIndex = 18;
             // 
-            // buttonTodos
+            // panel3
             // 
-            buttonTodos.Location = new Point(1165, 402);
-            buttonTodos.Name = "buttonTodos";
-            buttonTodos.Size = new Size(346, 29);
-            buttonTodos.TabIndex = 4;
-            buttonTodos.Text = "Ver todos los horarios";
-            buttonTodos.UseVisualStyleBackColor = true;
-            buttonTodos.Click += buttonTodos_Click;
+            panel3.Controls.Add(monthCalendarFiltrar);
+            panel3.Controls.Add(buttonModificar);
+            panel3.Controls.Add(buttonEliminar);
+            panel3.Controls.Add(buttonTodos);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(1030, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(511, 657);
+            panel3.TabIndex = 22;
+            // 
+            // monthCalendarFiltrar
+            // 
+            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            monthCalendarFiltrar.Location = new Point(100, 0);
+            monthCalendarFiltrar.MaxSelectionCount = 31;
+            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
+            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
+            monthCalendarFiltrar.ShowToday = false;
+            monthCalendarFiltrar.TabIndex = 19;
+            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
+            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            monthCalendarFiltrar.DateChanged += monthCalendarFiltrar_DateChanged;
             // 
             // buttonModificar
             // 
             buttonModificar.BackgroundImage = Properties.Resources.edit;
             buttonModificar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonModificar.Location = new Point(1059, 80);
+            buttonModificar.Location = new Point(17, 98);
             buttonModificar.Name = "buttonModificar";
             buttonModificar.Size = new Size(55, 55);
             buttonModificar.TabIndex = 21;
@@ -352,25 +366,22 @@
             // 
             buttonEliminar.BackgroundImage = Properties.Resources.trash;
             buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonEliminar.Location = new Point(1059, 7);
+            buttonEliminar.Location = new Point(17, 25);
             buttonEliminar.Name = "buttonEliminar";
             buttonEliminar.Size = new Size(55, 55);
             buttonEliminar.TabIndex = 20;
             buttonEliminar.UseVisualStyleBackColor = true;
             buttonEliminar.Click += buttonEliminar_Click;
             // 
-            // monthCalendarFiltrar
+            // buttonTodos
             // 
-            monthCalendarFiltrar.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendarFiltrar.Location = new Point(1165, 13);
-            monthCalendarFiltrar.MaxSelectionCount = 31;
-            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
-            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
-            monthCalendarFiltrar.ShowToday = false;
-            monthCalendarFiltrar.TabIndex = 19;
-            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
-            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
-            monthCalendarFiltrar.DateChanged += monthCalendarFiltrar_DateChanged;
+            buttonTodos.Location = new Point(100, 365);
+            buttonTodos.Name = "buttonTodos";
+            buttonTodos.Size = new Size(282, 29);
+            buttonTodos.TabIndex = 4;
+            buttonTodos.Text = "Ver todos los horarios";
+            buttonTodos.UseVisualStyleBackColor = true;
+            buttonTodos.Click += buttonTodos_Click;
             // 
             // panel1
             // 
@@ -449,6 +460,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureHorarios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).EndInit();
             panelMargenes.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -482,5 +494,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private Label labelPaginaActual;
         private Button buttonTodos;
+        private Panel panel3;
     }
 }
