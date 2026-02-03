@@ -248,6 +248,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Horario";
             Text = "Crear un horario";
+            Load += Horario_Load;
             ((System.ComponentModel.ISupportInitialize)numericPlazas).EndInit();
             ResumeLayout(false);
             PerformLayout();

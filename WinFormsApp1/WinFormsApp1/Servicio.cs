@@ -185,5 +185,10 @@ namespace WinFormsApp1
             this.Close();
             this.DialogResult = DialogResult.OK;
         }
+
+        private void panelServicio_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
