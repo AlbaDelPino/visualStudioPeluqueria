@@ -68,6 +68,7 @@
             comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";
             comboBoxSerFiltrar.Size = new Size(134, 23);
             comboBoxSerFiltrar.TabIndex = 12;
+            comboBoxSerFiltrar.SelectedIndexChanged += comboBoxSerFiltrar_SelectedIndexChanged;
             // 
             // textBoxSerBuscar
             // 
@@ -80,6 +81,7 @@
             textBoxSerBuscar.PlaceholderText = "Buscar por nombre o descripción...";
             textBoxSerBuscar.Size = new Size(829, 16);
             textBoxSerBuscar.TabIndex = 11;
+            textBoxSerBuscar.TextChanged += textBoxSerBuscar_TextChanged;
             // 
             // anyadirGaleria
             // 
