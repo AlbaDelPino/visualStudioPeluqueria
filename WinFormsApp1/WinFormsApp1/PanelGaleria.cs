@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CitasInfo.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ServiciosInfo.Models;
 using System;
@@ -38,6 +39,7 @@ namespace WinFormsApp1
         private static int contador = 1;
         private static List<GaleriaDto> _galeria;
         private readonly UsersDto _usuarioActual;
+        private static List<ServicioDto> _servicios;
         public PanelGaleria(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
@@ -48,13 +50,14 @@ namespace WinFormsApp1
         private void PanelGaleria_Load(object sender, EventArgs e)
         {
 
-            _galeria = new List<GaleriaDto>();
 
             DataGridViewImageColumn colImagen = new DataGridViewImageColumn();
 
             colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom; // Para que no se deforme
             colImagen.Width = 120;
 
+
+            _galeria = new List<GaleriaDto>();
             RecargarGaleria();
             pasarPagina();
             ConfigurarUIEstiloImagen();
@@ -166,16 +169,19 @@ namespace WinFormsApp1
         {
             _galeria = ObtenerGaleria();
 
-            if (_galeria.Count % 15 != 0)
+            if (_galeria != null)
             {
-                pagSer = (_galeria.Count / 15) + 1;
-            }
-            else
-            {
-                pagSer = (_galeria.Count / 15);
-            }
 
+                if (_galeria.Count % 15 != 0)
+                {
+                    pagSer = (_galeria.Count / 15) + 1;
+                }
+                else
+                {
+                    pagSer = (_galeria.Count / 15);
+                }
 
+            }
         }
 
         private void pasarPagina()
@@ -183,20 +189,26 @@ namespace WinFormsApp1
             // dataGridViewGaleria.Rows.Clear();
 
             int registrosASaltar = (contador - 1) * 15;
-            var galeriaPagina = _galeria.Skip(registrosASaltar).Take(15).ToList();
+            var galeriaPagina = _galeria?.Skip(registrosASaltar).Take(15).ToList();
 
-            foreach (var g in galeriaPagina)
+            if (galeriaPagina != null)
             {
-                Image foto = ConvertirBase64AImagen(g.ImagenBase64);
 
-                //int index = dataGridViewGaleria.Rows.Add(
-                //    g.Servicio?.Nombre ?? "Sin Servicio",
-                //    foto
 
-                //);
 
-                //dataGridViewGaleria.Rows[index].Height = 100;
-                //dataGridViewGaleria.Rows[index].Tag = g;
+                foreach (var g in galeriaPagina)
+                {
+                    Image foto = ConvertirBase64AImagen(g.ImagenBase64);
+
+                    //int index = dataGridViewGaleria.Rows.Add(
+                    //    g.Servicio?.Nombre ?? "Sin Servicio",
+                    //    foto
+
+                    //);
+
+                    //dataGridViewGaleria.Rows[index].Height = 100;
+                    //dataGridViewGaleria.Rows[index].Tag = g;
+                }
             }
 
         }
@@ -225,54 +237,64 @@ namespace WinFormsApp1
 
         private Panel CrearPanelImagen(GaleriaDto item, int ancho)
         {
-            // 1. Crear el panel contenedor (la "tarjeta")
+            // 1. Ajustamos el alto del panel (280) para que quepa el botón de 50px de alto
             Panel panel = new Panel
             {
-                Size = new Size(200, 220), // Tamaño fijo para que parezca una galería
+                Size = new Size(200, 280), // Aumentado de 220 a 280
                 BackColor = Color.White,
                 Padding = new Padding(10),
-                Margin = new Padding(10), // Espacio entre tarjetas
+                Margin = new Padding(10),
                 BorderStyle = BorderStyle.None,
                 Cursor = Cursors.Hand
             };
 
-            // 2. Crear el PictureBox para la imagen
+            // 2. Imagen
             PictureBox pb = new PictureBox
             {
-                Size = new Size(180, 150),
+                Size = new Size(180, 140),
                 Location = new Point(10, 10),
                 SizeMode = PictureBoxSizeMode.Zoom,
-                Image = ConvertirBase64AImagen(item.ImagenBase64), // Usamos tu función anterior
+                Image = ConvertirBase64AImagen(item.ImagenBase64),
                 BackColor = Color.FromArgb(245, 245, 245)
             };
 
-            // 3. Crear el Label para el nombre del servicio
+            // 3. Texto del Servicio
             Label lblServicio = new Label
             {
-                Text = item.Servicio.Nombre ?? "Sin Servicio",
-                Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                Location = new Point(10, 165),
-                Size = new Size(180, 20),
+                Text = item.Servicio?.Nombre ?? "Sin Servicio",
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Location = new Point(10, 160),
+                Size = new Size(180, 40), // Más alto por si el nombre es largo
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            // 4. Botón de Eliminar (opcional, como el de "Ver Usuario")
+            // 4. Botón de Eliminar (Centrado y con mejor fuente)
             Button btnEliminar = new Button
             {
-                Text = "🗑️",
-                Size = new Size(30, 30),
-                Location = new Point(160, 185),
+                Text = "BORRAR 🗑️", // Añadimos texto para aprovechar el ancho de 100
+                Size = new Size(120, 45), // Un poco más ancho para que se vea imponente
+                                          // Centrado horizontal: (AnchoPanel 200 - AnchoBoton 120) / 2 = 40
+                Location = new Point(40, 215),
                 FlatStyle = FlatStyle.Flat,
-                ForeColor = Color.Red
+                BackColor = Color.FromArgb(255, 230, 230), // Fondo suave rojizo
+                ForeColor = Color.Red,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                Cursor = Cursors.Hand
             };
-            btnEliminar.FlatAppearance.BorderSize = 0;
-            btnEliminar.Click += (s, e) => EliminarImagen(item); // Tu lógica de borrar
+            btnEliminar.FlatAppearance.BorderSize = 1; // Un pequeño borde para definirlo
+            btnEliminar.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnEliminar.FlatAppearance.MouseDownBackColor = Color.DarkRed;
 
-            // Efecto Hover (como el que tienes en citas)
-            panel.MouseEnter += (s, e) => { panel.BackColor = Color.FromArgb(240, 240, 240); };
+            // Cambio de color de letra al pasar el ratón
+            btnEliminar.MouseEnter += (s, e) => btnEliminar.ForeColor = Color.White;
+            btnEliminar.MouseLeave += (s, e) => btnEliminar.ForeColor = Color.Red;
+
+            btnEliminar.Click += (s, e) => EliminarImagen(item);
+
+            // Efectos Hover del Panel
+            panel.MouseEnter += (s, e) => { panel.BackColor = Color.FromArgb(248, 248, 248); };
             panel.MouseLeave += (s, e) => { panel.BackColor = Color.White; };
 
-            // Agregar controles al panel
             panel.Controls.Add(pb);
             panel.Controls.Add(lblServicio);
             panel.Controls.Add(btnEliminar);
@@ -339,7 +361,7 @@ namespace WinFormsApp1
                             {
                                 MessageBox.Show("Servicio eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                             
+
                                 // Refrescar la tabla
                                 RecargarGaleria();
                                 MostrarGaleriaEnPaneles(_galeria);
@@ -364,7 +386,7 @@ namespace WinFormsApp1
             }
         }
 
-       
+
 
         private void anyadirGaleria_Click(object sender, EventArgs e)
         {
@@ -374,7 +396,7 @@ namespace WinFormsApp1
             pantallaAnyadir.ButtonGaModificar.Visible = false;
             pantallaAnyadir.ButtonGaAnyadir.Visible = true;
 
-            
+
 
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
@@ -384,6 +406,87 @@ namespace WinFormsApp1
             }
         }
 
+        private void textBoxSerBuscar_TextChanged(object sender, EventArgs e)
+        {
+            filtrarGaleria();
+        }
 
+        private void filtrarGaleria()
+        {
+
+            string texto = textBoxSerBuscar.Text.Trim().ToLower();
+
+
+            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString() ?? "";
+
+
+            if (_galeria == null) return;
+
+            var listaFiltrada = _galeria.AsEnumerable();
+
+
+            if (!string.IsNullOrEmpty(texto))
+            {
+                listaFiltrada = listaFiltrada.Where(g =>
+                    g.Servicio != null &&
+                    g.Servicio.Nombre != null &&
+                    g.Servicio.Nombre.ToLower().Contains(texto)
+                );
+            }
+
+
+            if (!string.IsNullOrEmpty(categoria) && categoria != "Todas")
+            {
+                listaFiltrada = listaFiltrada.Where(g =>
+                    g.Servicio?.TipoServicio != null &&
+                    g.Servicio.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+
+            MostrarGaleriaEnPaneles(listaFiltrada.ToList());
+        }
+
+        private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarGaleriaPorServicio();
+        }
+
+        private void filtrarGaleriaPorServicio()
+        {
+            // 1. Obtener criterios de búsqueda
+            string texto = textBoxSerBuscar.Text.Trim().ToLower();
+            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString() ?? "";
+
+            // 2. IMPORTANTE: Filtramos la lista de la GALERÍA (_galeria)
+            if (_galeria == null) return;
+
+            var listaFiltrada = _galeria.AsEnumerable();
+
+            // 3. Filtrar por nombre del servicio o descripción (dentro del objeto Servicio)
+            if (!string.IsNullOrEmpty(texto))
+            {
+                listaFiltrada = listaFiltrada.Where(g =>
+                    g.Servicio != null && (
+                        (g.Servicio.Nombre != null && g.Servicio.Nombre.ToLower().Contains(texto)) ||
+                        (g.Servicio.Descripcion != null && g.Servicio.Descripcion.ToLower().Contains(texto))
+                    )
+                );
+            }
+
+            // 4. Filtrar por Tipo de Servicio (dentro del objeto Servicio)
+            if (!string.IsNullOrEmpty(categoria) && categoria != "Todas")
+            {
+                listaFiltrada = listaFiltrada.Where(g =>
+                    g.Servicio?.TipoServicio != null &&
+                    g.Servicio.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
+                );
+            }
+
+            // 5. Mostrar los paneles con las fotos resultantes
+            // Esto llamará a tu método CrearPanelImagen para cada resultado
+            MostrarGaleriaEnPaneles(listaFiltrada.ToList());
+        }
     }
+        
 }
