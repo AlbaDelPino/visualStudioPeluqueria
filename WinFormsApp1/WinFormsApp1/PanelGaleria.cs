@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CitasInfo.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ServiciosInfo.Models;
 using System;
@@ -49,13 +50,14 @@ namespace WinFormsApp1
         private void PanelGaleria_Load(object sender, EventArgs e)
         {
 
-            _galeria = new List<GaleriaDto>();
 
             DataGridViewImageColumn colImagen = new DataGridViewImageColumn();
 
             colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom; // Para que no se deforme
             colImagen.Width = 120;
 
+
+            _galeria = new List<GaleriaDto>();
             RecargarGaleria();
             pasarPagina();
             ConfigurarUIEstiloImagen();
@@ -167,16 +169,19 @@ namespace WinFormsApp1
         {
             _galeria = ObtenerGaleria();
 
-            if (_galeria.Count % 15 != 0)
+            if (_galeria != null)
             {
-                pagSer = (_galeria.Count / 15) + 1;
-            }
-            else
-            {
-                pagSer = (_galeria.Count / 15);
-            }
 
+                if (_galeria.Count % 15 != 0)
+                {
+                    pagSer = (_galeria.Count / 15) + 1;
+                }
+                else
+                {
+                    pagSer = (_galeria.Count / 15);
+                }
 
+            }
         }
 
         private void pasarPagina()
@@ -184,20 +189,26 @@ namespace WinFormsApp1
             // dataGridViewGaleria.Rows.Clear();
 
             int registrosASaltar = (contador - 1) * 15;
-            var galeriaPagina = _galeria.Skip(registrosASaltar).Take(15).ToList();
+            var galeriaPagina = _galeria?.Skip(registrosASaltar).Take(15).ToList();
 
-            foreach (var g in galeriaPagina)
+            if (galeriaPagina != null)
             {
-                Image foto = ConvertirBase64AImagen(g.ImagenBase64);
 
-                //int index = dataGridViewGaleria.Rows.Add(
-                //    g.Servicio?.Nombre ?? "Sin Servicio",
-                //    foto
 
-                //);
 
-                //dataGridViewGaleria.Rows[index].Height = 100;
-                //dataGridViewGaleria.Rows[index].Tag = g;
+                foreach (var g in galeriaPagina)
+                {
+                    Image foto = ConvertirBase64AImagen(g.ImagenBase64);
+
+                    //int index = dataGridViewGaleria.Rows.Add(
+                    //    g.Servicio?.Nombre ?? "Sin Servicio",
+                    //    foto
+
+                    //);
+
+                    //dataGridViewGaleria.Rows[index].Height = 100;
+                    //dataGridViewGaleria.Rows[index].Tag = g;
+                }
             }
 
         }
