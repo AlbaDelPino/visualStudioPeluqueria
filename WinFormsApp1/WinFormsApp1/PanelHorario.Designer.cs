@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
             panelVisualHorarios = new Panel();
             anyadirHorario = new Button();
             comboBoxHorario = new ComboBox();
@@ -54,23 +54,29 @@
             Grupo = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             panelMargenes = new Panel();
-            panel3 = new Panel();
-            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
+            panelUtiles = new Panel();
+            panelBotones = new Panel();
             buttonModificar = new Button();
             buttonEliminar = new Button();
+            panelFiltros = new Panel();
+            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
             buttonTodos = new Button();
-            panel1 = new Panel();
+            panelPaginacion = new Panel();
             labelPaginaActual = new Label();
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
-            panel2 = new Panel();
+            panelEspaciado = new Panel();
+            panelCalendario = new Panel();
             panelVisualHorarios.SuspendLayout();
             panelHorarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureHorarios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).BeginInit();
             panelMargenes.SuspendLayout();
-            panel3.SuspendLayout();
-            panel1.SuspendLayout();
+            panelUtiles.SuspendLayout();
+            panelBotones.SuspendLayout();
+            panelFiltros.SuspendLayout();
+            panelPaginacion.SuspendLayout();
+            panelCalendario.SuspendLayout();
             SuspendLayout();
             // 
             // panelVisualHorarios
@@ -212,26 +218,26 @@
             dataGridViewHorarios.BackgroundColor = Color.White;
             dataGridViewHorarios.BorderStyle = BorderStyle.None;
             dataGridViewHorarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(7);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.Padding = new Padding(7);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridViewHorarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewHorarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4 });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.Padding = new Padding(2);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridViewHorarios.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle14.BackColor = SystemColors.Window;
+            dataGridViewCellStyle14.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle14.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle14.Padding = new Padding(2);
+            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle14.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
+            dataGridViewHorarios.DefaultCellStyle = dataGridViewCellStyle14;
             dataGridViewHorarios.Dock = DockStyle.Left;
             dataGridViewHorarios.EnableHeadersVisualStyles = false;
             dataGridViewHorarios.GridColor = Color.Black;
@@ -241,19 +247,19 @@
             dataGridViewHorarios.MultiSelect = false;
             dataGridViewHorarios.Name = "dataGridViewHorarios";
             dataGridViewHorarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle15.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle15.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             dataGridViewHorarios.RowHeadersVisible = false;
             dataGridViewHorarios.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.BackColor = Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = Color.White;
-            dataGridViewHorarios.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.BackColor = Color.White;
+            dataGridViewCellStyle16.SelectionForeColor = Color.White;
+            dataGridViewHorarios.RowsDefaultCellStyle = dataGridViewCellStyle16;
             dataGridViewHorarios.RowTemplate.Height = 35;
             dataGridViewHorarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewHorarios.Size = new Size(1000, 657);
@@ -263,8 +269,8 @@
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle10;
             dataGridViewTextBoxColumn2.HeaderText = "Dia de la semana";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -273,9 +279,9 @@
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewTextBoxColumn1.HeaderText = "Incio";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -284,8 +290,8 @@
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle12;
             dataGridViewTextBoxColumn3.HeaderText = "Fin";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -307,8 +313,8 @@
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle13.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle13;
             dataGridViewTextBoxColumn4.HeaderText = "Plazas";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -317,7 +323,7 @@
             // 
             // panelMargenes
             // 
-            panelMargenes.Controls.Add(panel3);
+            panelMargenes.Controls.Add(panelUtiles);
             panelMargenes.Controls.Add(dataGridViewHorarios);
             panelMargenes.Dock = DockStyle.Fill;
             panelMargenes.Location = new Point(0, 256);
@@ -326,38 +332,37 @@
             panelMargenes.Size = new Size(1571, 657);
             panelMargenes.TabIndex = 18;
             // 
-            // panel3
+            // panelUtiles
             // 
-            panel3.Controls.Add(monthCalendarFiltrar);
-            panel3.Controls.Add(buttonModificar);
-            panel3.Controls.Add(buttonEliminar);
-            panel3.Controls.Add(buttonTodos);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(1030, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(511, 657);
-            panel3.TabIndex = 22;
+            panelUtiles.Controls.Add(panelBotones);
+            panelUtiles.Controls.Add(panelFiltros);
+            panelUtiles.Dock = DockStyle.Fill;
+            panelUtiles.Location = new Point(1030, 0);
+            panelUtiles.Name = "panelUtiles";
+            panelUtiles.Size = new Size(511, 657);
+            panelUtiles.TabIndex = 22;
             // 
-            // monthCalendarFiltrar
+            // panelBotones
             // 
-            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendarFiltrar.Location = new Point(100, 0);
-            monthCalendarFiltrar.MaxSelectionCount = 31;
-            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
-            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
-            monthCalendarFiltrar.ShowToday = false;
-            monthCalendarFiltrar.TabIndex = 19;
-            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
-            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
-            monthCalendarFiltrar.DateChanged += monthCalendarFiltrar_DateChanged;
+            panelBotones.Controls.Add(buttonModificar);
+            panelBotones.Controls.Add(buttonEliminar);
+            panelBotones.Dock = DockStyle.Left;
+            panelBotones.Location = new Point(0, 0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Padding = new Padding(4);
+            panelBotones.Size = new Size(60, 657);
+            panelBotones.TabIndex = 22;
             // 
             // buttonModificar
             // 
             buttonModificar.BackgroundImage = Properties.Resources.edit;
             buttonModificar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonModificar.Location = new Point(17, 98);
+            buttonModificar.Dock = DockStyle.Top;
+            buttonModificar.Location = new Point(4, 59);
+            buttonModificar.Margin = new Padding(0);
             buttonModificar.Name = "buttonModificar";
-            buttonModificar.Size = new Size(55, 55);
+            buttonModificar.Padding = new Padding(0, 8, 0, 0);
+            buttonModificar.Size = new Size(52, 55);
             buttonModificar.TabIndex = 21;
             buttonModificar.UseVisualStyleBackColor = true;
             buttonModificar.Click += buttonModificar_Click;
@@ -366,12 +371,38 @@
             // 
             buttonEliminar.BackgroundImage = Properties.Resources.trash;
             buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonEliminar.Location = new Point(17, 25);
+            buttonEliminar.Dock = DockStyle.Top;
+            buttonEliminar.Location = new Point(4, 4);
+            buttonEliminar.Margin = new Padding(0);
             buttonEliminar.Name = "buttonEliminar";
-            buttonEliminar.Size = new Size(55, 55);
+            buttonEliminar.Padding = new Padding(0, 0, 0, 8);
+            buttonEliminar.Size = new Size(52, 55);
             buttonEliminar.TabIndex = 20;
             buttonEliminar.UseVisualStyleBackColor = true;
             buttonEliminar.Click += buttonEliminar_Click;
+            // 
+            // panelFiltros
+            // 
+            panelFiltros.Controls.Add(panelCalendario);
+            panelFiltros.Controls.Add(buttonTodos);
+            panelFiltros.Dock = DockStyle.Fill;
+            panelFiltros.Location = new Point(0, 0);
+            panelFiltros.Name = "panelFiltros";
+            panelFiltros.Size = new Size(511, 657);
+            panelFiltros.TabIndex = 20;
+            // 
+            // monthCalendarFiltrar
+            // 
+            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            monthCalendarFiltrar.Location = new Point(20, 9);
+            monthCalendarFiltrar.MaxSelectionCount = 31;
+            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
+            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
+            monthCalendarFiltrar.ShowToday = false;
+            monthCalendarFiltrar.TabIndex = 19;
+            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
+            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            monthCalendarFiltrar.DateChanged += monthCalendarFiltrar_DateChanged;
             // 
             // buttonTodos
             // 
@@ -383,18 +414,18 @@
             buttonTodos.UseVisualStyleBackColor = true;
             buttonTodos.Click += buttonTodos_Click;
             // 
-            // panel1
+            // panelPaginacion
             // 
-            panel1.Controls.Add(labelPaginaActual);
-            panel1.Controls.Add(buttonPaginacionDelante);
-            panel1.Controls.Add(buttonPaginacionAtras);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 913);
-            panel1.Margin = new Padding(3, 4, 3, 4);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(34, 0, 0, 0);
-            panel1.Size = new Size(1571, 43);
-            panel1.TabIndex = 18;
+            panelPaginacion.Controls.Add(labelPaginaActual);
+            panelPaginacion.Controls.Add(buttonPaginacionDelante);
+            panelPaginacion.Controls.Add(buttonPaginacionAtras);
+            panelPaginacion.Dock = DockStyle.Bottom;
+            panelPaginacion.Location = new Point(0, 913);
+            panelPaginacion.Margin = new Padding(3, 4, 3, 4);
+            panelPaginacion.Name = "panelPaginacion";
+            panelPaginacion.Padding = new Padding(34, 0, 0, 0);
+            panelPaginacion.Size = new Size(1571, 43);
+            panelPaginacion.TabIndex = 18;
             // 
             // labelPaginaActual
             // 
@@ -430,14 +461,22 @@
             buttonPaginacionAtras.UseVisualStyleBackColor = true;
             buttonPaginacionAtras.Click += buttonPaginacionAtras_Click;
             // 
-            // panel2
+            // panelEspaciado
             // 
-            panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 956);
-            panel2.Margin = new Padding(3, 4, 3, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1571, 68);
-            panel2.TabIndex = 17;
+            panelEspaciado.Dock = DockStyle.Bottom;
+            panelEspaciado.Location = new Point(0, 956);
+            panelEspaciado.Margin = new Padding(3, 4, 3, 4);
+            panelEspaciado.Name = "panelEspaciado";
+            panelEspaciado.Size = new Size(1571, 68);
+            panelEspaciado.TabIndex = 17;
+            // 
+            // panelCalendario
+            // 
+            panelCalendario.Controls.Add(monthCalendarFiltrar);
+            panelCalendario.Location = new Point(107, 69);
+            panelCalendario.Name = "panelCalendario";
+            panelCalendario.Size = new Size(401, 366);
+            panelCalendario.TabIndex = 20;
             // 
             // PanelHorario
             // 
@@ -445,8 +484,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
-            Controls.Add(panel1);
-            Controls.Add(panel2);
+            Controls.Add(panelPaginacion);
+            Controls.Add(panelEspaciado);
             Controls.Add(panelVisualHorarios);
             Margin = new Padding(3, 4, 3, 4);
             Name = "PanelHorario";
@@ -460,9 +499,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureHorarios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewHorarios).EndInit();
             panelMargenes.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            panelUtiles.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
+            panelFiltros.ResumeLayout(false);
+            panelPaginacion.ResumeLayout(false);
+            panelPaginacion.PerformLayout();
+            panelCalendario.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -479,10 +521,10 @@
         private ComboBox comboBoxHorario;
         private TextBox textBoxHorarioBuscar;
         private Panel panelMargenes;
-        private Panel panel1;
+        private Panel panelPaginacion;
         private Button buttonPaginacionDelante;
         private Button buttonPaginacionAtras;
-        private Panel panel2;
+        private Panel panelEspaciado;
         private Button buttonModificar;
         private Button buttonEliminar;
         private PanelPrincipal.MyMonthCalendar monthCalendarFiltrar;
@@ -494,6 +536,9 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private Label labelPaginaActual;
         private Button buttonTodos;
-        private Panel panel3;
+        private Panel panelUtiles;
+        private Panel panelBotones;
+        private Panel panelFiltros;
+        private Panel panelCalendario;
     }
 }

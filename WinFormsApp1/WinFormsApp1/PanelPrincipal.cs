@@ -188,16 +188,20 @@ namespace WinFormsApp1
             };
             btnAccion.Click += (s, e) => VerUsuario(cita.Cliente);
 
-            Button btnCambiarEstado = new Button
+            if (cita.Estado.Equals("CONFIRMADO"))
             {
-                Text = "Completar",
-                Size = new Size(100, 30),
-                Location = new Point(ancho - 120, 50),
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                Tag = cita.Id,
-                Cursor = Cursors.Hand,
-            };
-            btnCambiarEstado.Click += (s, e) => CompletarCita(cita);
+                Button btnCambiarEstado = new Button
+                {
+                    Text = "Completar",
+                    Size = new Size(100, 30),
+                    Location = new Point(ancho - 120, 50),
+                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                    Tag = cita.Id,
+                    Cursor = Cursors.Hand,
+                };
+                btnCambiarEstado.Click += (s, e) => CompletarCita(cita);
+                panel.Controls.Add(btnCambiarEstado);
+            }
 
             panel.Controls.Add(lblHora);
             panel.Controls.Add(lblFecha);
@@ -205,7 +209,7 @@ namespace WinFormsApp1
             panel.Controls.Add(lblCliente);
             panel.Controls.Add(lblEstado);
             panel.Controls.Add(btnAccion);
-            panel.Controls.Add(btnCambiarEstado);
+            
 
             panel.Cursor = Cursors.Hand;
 

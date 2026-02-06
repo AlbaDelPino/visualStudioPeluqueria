@@ -1,4 +1,8 @@
-﻿namespace WinFormsApp1
+﻿using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Runtime.InteropServices;
+
+namespace WinFormsApp1
 {
     partial class Cita
     {
@@ -32,6 +36,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Cita));
             panelCita = new Panel();
+            panelIcon = new Panel();
+            pictureBoxICon = new PictureBox();
             textBoxCitGrupo = new TextBox();
             textBoxCitFecha = new TextBox();
             comboBoxCitHora = new ComboBox();
@@ -44,14 +50,17 @@
             textBoxCitServicio = new TextBox();
             ButtonCitAnyadir = new Button();
             labelCitServicio = new Label();
-            CalendarCitas = new MonthCalendar();
+            CalendarCitas = new MyMonthCalendar();
             labelTituoCrearCita = new Label();
             labelCitFecha = new Label();
             panelCita.SuspendLayout();
+            panelIcon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
             // 
             // panelCita
             // 
+            panelCita.Controls.Add(panelIcon);
             panelCita.Controls.Add(textBoxCitGrupo);
             panelCita.Controls.Add(textBoxCitFecha);
             panelCita.Controls.Add(comboBoxCitHora);
@@ -70,13 +79,35 @@
             panelCita.Dock = DockStyle.Fill;
             panelCita.Location = new Point(0, 0);
             panelCita.Name = "panelCita";
-            panelCita.Size = new Size(391, 658);
+            panelCita.Size = new Size(933, 471);
             panelCita.TabIndex = 56;
-            panelCita.Paint += panelCita_Paint;
+            // 
+            // panelIcon
+            // 
+            panelIcon.BackColor = Color.FromArgb(241, 123, 35);
+            panelIcon.Controls.Add(pictureBoxICon);
+            panelIcon.Dock = DockStyle.Left;
+            panelIcon.Location = new Point(0, 0);
+            panelIcon.Margin = new Padding(3, 4, 3, 4);
+            panelIcon.Name = "panelIcon";
+            panelIcon.Size = new Size(208, 471);
+            panelIcon.TabIndex = 93;
+            // 
+            // pictureBoxICon
+            // 
+            pictureBoxICon.Dock = DockStyle.Fill;
+            pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
+            pictureBoxICon.Location = new Point(0, 0);
+            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxICon.Name = "pictureBoxICon";
+            pictureBoxICon.Size = new Size(208, 471);
+            pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxICon.TabIndex = 0;
+            pictureBoxICon.TabStop = false;
             // 
             // textBoxCitGrupo
             // 
-            textBoxCitGrupo.Location = new Point(124, 466);
+            textBoxCitGrupo.Location = new Point(365, 228);
             textBoxCitGrupo.Margin = new Padding(3, 4, 3, 4);
             textBoxCitGrupo.Name = "textBoxCitGrupo";
             textBoxCitGrupo.ReadOnly = true;
@@ -85,7 +116,7 @@
             // 
             // textBoxCitFecha
             // 
-            textBoxCitFecha.Location = new Point(158, 89);
+            textBoxCitFecha.Location = new Point(726, 109);
             textBoxCitFecha.Name = "textBoxCitFecha";
             textBoxCitFecha.ReadOnly = true;
             textBoxCitFecha.Size = new Size(145, 27);
@@ -94,7 +125,7 @@
             // comboBoxCitHora
             // 
             comboBoxCitHora.FormattingEnabled = true;
-            comboBoxCitHora.Location = new Point(124, 408);
+            comboBoxCitHora.Location = new Point(365, 170);
             comboBoxCitHora.Name = "comboBoxCitHora";
             comboBoxCitHora.Size = new Size(241, 28);
             comboBoxCitHora.TabIndex = 89;
@@ -102,7 +133,7 @@
             // 
             // buttonCitCliente
             // 
-            buttonCitCliente.Location = new Point(279, 525);
+            buttonCitCliente.Location = new Point(520, 287);
             buttonCitCliente.Margin = new Padding(3, 4, 3, 4);
             buttonCitCliente.Name = "buttonCitCliente";
             buttonCitCliente.Size = new Size(86, 31);
@@ -113,7 +144,7 @@
             // 
             // textBoxCitCliente
             // 
-            textBoxCitCliente.Location = new Point(124, 524);
+            textBoxCitCliente.Location = new Point(365, 286);
             textBoxCitCliente.Margin = new Padding(3, 4, 3, 4);
             textBoxCitCliente.Name = "textBoxCitCliente";
             textBoxCitCliente.ReadOnly = true;
@@ -124,7 +155,7 @@
             // 
             labelCitCliente.AutoSize = true;
             labelCitCliente.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitCliente.Location = new Point(47, 527);
+            labelCitCliente.Location = new Point(288, 289);
             labelCitCliente.Margin = new Padding(5, 0, 5, 0);
             labelCitCliente.Name = "labelCitCliente";
             labelCitCliente.Size = new Size(61, 20);
@@ -135,7 +166,7 @@
             // 
             labelCitGrupo.AutoSize = true;
             labelCitGrupo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitGrupo.Location = new Point(47, 469);
+            labelCitGrupo.Location = new Point(288, 231);
             labelCitGrupo.Margin = new Padding(5, 0, 5, 0);
             labelCitGrupo.Name = "labelCitGrupo";
             labelCitGrupo.Size = new Size(55, 20);
@@ -144,7 +175,7 @@
             // 
             // buttonCitServicio
             // 
-            buttonCitServicio.Location = new Point(279, 354);
+            buttonCitServicio.Location = new Point(520, 114);
             buttonCitServicio.Margin = new Padding(3, 4, 3, 4);
             buttonCitServicio.Name = "buttonCitServicio";
             buttonCitServicio.Size = new Size(86, 31);
@@ -157,7 +188,7 @@
             // 
             labelCitHora.AutoSize = true;
             labelCitHora.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitHora.Location = new Point(47, 411);
+            labelCitHora.Location = new Point(288, 173);
             labelCitHora.Margin = new Padding(5, 0, 5, 0);
             labelCitHora.Name = "labelCitHora";
             labelCitHora.Size = new Size(46, 20);
@@ -166,7 +197,7 @@
             // 
             // textBoxCitServicio
             // 
-            textBoxCitServicio.Location = new Point(124, 353);
+            textBoxCitServicio.Location = new Point(365, 113);
             textBoxCitServicio.Margin = new Padding(3, 4, 3, 4);
             textBoxCitServicio.Name = "textBoxCitServicio";
             textBoxCitServicio.ReadOnly = true;
@@ -175,7 +206,7 @@
             // 
             // ButtonCitAnyadir
             // 
-            ButtonCitAnyadir.Location = new Point(262, 573);
+            ButtonCitAnyadir.Location = new Point(792, 413);
             ButtonCitAnyadir.Margin = new Padding(3, 4, 3, 4);
             ButtonCitAnyadir.Name = "ButtonCitAnyadir";
             ButtonCitAnyadir.Size = new Size(86, 31);
@@ -188,7 +219,7 @@
             // 
             labelCitServicio.AutoSize = true;
             labelCitServicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitServicio.Location = new Point(47, 356);
+            labelCitServicio.Location = new Point(288, 116);
             labelCitServicio.Margin = new Padding(5, 0, 5, 0);
             labelCitServicio.Name = "labelCitServicio";
             labelCitServicio.Size = new Size(69, 20);
@@ -197,29 +228,33 @@
             // 
             // CalendarCitas
             // 
-            CalendarCitas.BackColor = Color.FromArgb(255, 128, 0);
             CalendarCitas.FirstDayOfWeek = Day.Monday;
-            CalendarCitas.Location = new Point(83, 121);
-            CalendarCitas.MinDate = new DateTime(2026, 1, 28, 0, 0, 0, 0);
+            CalendarCitas.Location = new Point(651, 141);
+            CalendarCitas.MaxSelectionCount = 1;
+            CalendarCitas.MinDate = new DateTime(2026, 2, 4, 0, 0, 0, 0);
             CalendarCitas.Name = "CalendarCitas";
+            CalendarCitas.ShowToday = false;
             CalendarCitas.TabIndex = 55;
+            CalendarCitas.TitleBackColor = Color.DarkOrange;
+            CalendarCitas.TrailingForeColor = SystemColors.ButtonShadow;
             CalendarCitas.DateSelected += CalendarCitas_SelectedChanged;
             // 
             // labelTituoCrearCita
             // 
             labelTituoCrearCita.AutoSize = true;
-            labelTituoCrearCita.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoCrearCita.Location = new Point(118, 30);
+            labelTituoCrearCita.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
+            labelTituoCrearCita.ForeColor = Color.DarkOrange;
+            labelTituoCrearCita.Location = new Point(272, 27);
             labelTituoCrearCita.Name = "labelTituoCrearCita";
-            labelTituoCrearCita.Size = new Size(150, 32);
+            labelTituoCrearCita.Size = new Size(188, 50);
             labelTituoCrearCita.TabIndex = 53;
-            labelTituoCrearCita.Text = "CREAR CITA";
+            labelTituoCrearCita.Text = "Crear cita";
             // 
             // labelCitFecha
             // 
             labelCitFecha.AutoSize = true;
             labelCitFecha.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitFecha.Location = new Point(83, 92);
+            labelCitFecha.Location = new Point(651, 112);
             labelCitFecha.Margin = new Padding(5, 0, 5, 0);
             labelCitFecha.Name = "labelCitFecha";
             labelCitFecha.Size = new Size(55, 20);
@@ -230,14 +265,15 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(391, 658);
+            ClientSize = new Size(933, 471);
             Controls.Add(panelCita);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Cita";
             Text = "Cita";
-            Load += Cita_Load;
             panelCita.ResumeLayout(false);
             panelCita.PerformLayout();
+            panelIcon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
             ResumeLayout(false);
         }
 
@@ -247,7 +283,7 @@
         private ComboBox comboClienteCita;
         private Button ButtonCitAnyadir;
         private Label labelCitServicio;
-        private MonthCalendar CalendarCitas;
+        private MyMonthCalendar CalendarCitas;
         private Label labelTituoCrearCita;
         private Label labelCitFecha;
         private Label label1;
@@ -261,6 +297,23 @@
         private ComboBox comboBoxCitHora;
         private TextBox textBoxCitFecha;
         private TextBox textBoxCitGrupo;
+        private Panel panelIcon;
+        private PictureBox pictureBoxICon;
+        private FlowLayoutPanel flowLayoutPanel1;
+        public class MyMonthCalendar : MonthCalendar
+        {
+            [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+            static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+            protected override void OnHandleCreated(EventArgs e)
+            {
+                SetWindowTheme(Handle, string.Empty, string.Empty);
+                base.OnHandleCreated(e);
+            }
+
+            
+        }
+
+
 
         public string Form
         {

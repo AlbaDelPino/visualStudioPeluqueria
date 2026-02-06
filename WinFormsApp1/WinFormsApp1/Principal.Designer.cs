@@ -292,7 +292,7 @@
             // 
             pictureBoxHorario.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxHorario.Image = (Image)resources.GetObject("pictureBoxHorario.Image");
-            pictureBoxHorario.Location = new Point(2, 5);
+            pictureBoxHorario.Location = new Point(2, 0);
             pictureBoxHorario.Margin = new Padding(3, 5, 3, 5);
             pictureBoxHorario.Name = "pictureBoxHorario";
             pictureBoxHorario.Size = new Size(30, 40);
@@ -331,7 +331,7 @@
             // 
             pictureBoxBloqueo.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBoxBloqueo.Image = WinFormsApp1.Properties.Resources.citaBloqueada;
-            pictureBoxBloqueo.Location = new Point(0, 0);
+            pictureBoxBloqueo.Location = new Point(-2, 0);
             pictureBoxBloqueo.Margin = new Padding(3, 5, 3, 5);
             pictureBoxBloqueo.Name = "pictureBoxBloqueo";
             pictureBoxBloqueo.Size = new Size(39, 40);

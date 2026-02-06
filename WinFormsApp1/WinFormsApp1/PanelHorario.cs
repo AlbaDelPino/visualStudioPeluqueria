@@ -246,13 +246,13 @@ namespace WinFormsApp1
                                (h.Grupo?.Curso?.ToLower().Contains(textoBusqueda) == true);
 
                 bool pasaGrupo = true;
-                if (grupoSeleccionado != null && grupoSeleccionado.Id !=0)
+                if (grupoSeleccionado != null && grupoSeleccionado.Id != 0)
                 {
-                    if (h.Grupo == null || h.Grupo.Id == null )
+                    if (h.Grupo == null || h.Grupo.Id == null)
                     {
                         pasaGrupo = false;
                     }
-                    else 
+                    else
                     {
                         pasaGrupo = h.Grupo.Id == grupoSeleccionado.Id;
                     }
@@ -392,7 +392,7 @@ namespace WinFormsApp1
 
         private void monthCalendarFiltrar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            
+
         }
     }
 }

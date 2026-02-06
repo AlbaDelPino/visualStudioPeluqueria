@@ -10,14 +10,15 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Text.Json;
 
 namespace WinFormsApp1
 {
@@ -25,9 +26,11 @@ namespace WinFormsApp1
     {
         private readonly string _token;
         private readonly CitaDto _cita;
-
+        private List<BloqueDto> _bloques;
+        private List<HorarioSemanalDto> _horarios;
         private long? _idHorarioSeleccionado = null;
         private long? _idClienteSeleccionado = null;
+        private long? _idServicioSeleccionado = null;
         private string _HoraSeleccionada = null;
 
         public Cita(CitaDto cita, string token)
@@ -47,11 +50,13 @@ namespace WinFormsApp1
                 if (buscador.ShowDialog() == DialogResult.OK)
                 {
                     var serv = (ServicioDto)buscador.ItemSeleccionado;
+                    _idServicioSeleccionado = serv.Id_Servicio;
                     textBoxCitServicio.Text = serv.Nombre;
+                    _horarios = ObtenerHorarios();
+                    pintarDiasDisponibles();
                     if (textBoxCitFecha.Text != "")
                     {
-                        comboBoxCitHora.Enabled = true;
-                        Cita_Load(sender, e);
+                        cargarHoras();
                     }
                 }
             }
@@ -105,81 +110,68 @@ namespace WinFormsApp1
 
         private List<HorarioSemanalDto> ObtenerHorarios()
         {
+            string fecha = textBoxCitFecha.Text;
+            var fechaFormato = DateTime.Now;
+            var diaSemana = "";
+            var url = "";
+            if (fecha != "")
+            {
+                fechaFormato = DateTime.ParseExact(fecha, "dd/MM/yyyy", new CultureInfo("es-ES"));
+                switch (fechaFormato.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        diaSemana = "Lunes";
+                        break;
+                    case DayOfWeek.Tuesday:
+                        diaSemana = "Martes";
+                        break;
+                    case DayOfWeek.Wednesday:
+                        diaSemana = "Miércoles";
+                        break;
+                    case DayOfWeek.Thursday:
+                        diaSemana = "Jueves";
+                        break;
+                    case DayOfWeek.Friday:
+                        diaSemana = "Viernes";
+                        break;
+                }
 
-            var url = "http://localhost:8082/horarios";
+                url = $"http://localhost:8082/horarios/buscar?diaSemana={diaSemana}&idServicio={_idServicioSeleccionado}";
+            } else
+            {
+                url = $"http://localhost:8082/horarios/servicio/{_idServicioSeleccionado}";
+            }
+            var horarios = new List<HorarioSemanalDto>();
+
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "application/json";
             request.Accept = "application/json";
 
-            // Aquí añadimos el token
             request.Headers["Authorization"] = $"Bearer {_token}";
-
             using (var response = (HttpWebResponse)request.GetResponse())
             using (var stream = response.GetResponseStream())
             using (var reader = new StreamReader(stream))
             {
                 string json = reader.ReadToEnd();
-                var horarios = JsonConvert.DeserializeObject<List<HorarioSemanalDto>>(json);
-                return horarios;
+                horarios = JsonConvert.DeserializeObject<List<HorarioSemanalDto>>(json);
             }
+            return horarios;
         }
-
-        private List<BloqueDto> ComprobarHorarios()
+            
+        private List<BloqueDto> bloquesDisponibles()
         {
             string fecha = textBoxCitFecha.Text;
-            var fechaFormato = DateTime.Now;
             string fechaConsulta = "";
-            if (fecha != null)
+            if (fecha != "")
             {
-                fechaFormato = DateTime.ParseExact(fecha, "dd/MM/yyyy", new CultureInfo("es-ES"));
                 fechaConsulta = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
             }
-            var horariosExistentes = ObtenerHorarios();
-            var dia = "";
 
-            var horariosFecha = new List<HorarioSemanalDto>();
-            foreach (HorarioSemanalDto h in horariosExistentes)
-            {
-                switch (h.DiaSemana)
-                {
-                    case "Lunes":
-                        if (DayOfWeek.Monday == fechaFormato.DayOfWeek)
-                        {
-                            horariosFecha.Add(h);
-                        }
-                        break;
-                    case "Martes":
-                        if (DayOfWeek.Tuesday == fechaFormato.DayOfWeek)
-                        {
-                            horariosFecha.Add(h);
-                        }
-                        break;
-                    case "Miércoles":
-                        if (DayOfWeek.Wednesday == fechaFormato.DayOfWeek)
-                        {
-                            horariosFecha.Add(h);
-                        }
-                        break;
-                    case "Jueves":
-                        if (DayOfWeek.Thursday == fechaFormato.DayOfWeek)
-                        {
-                            horariosFecha.Add(h);
-                        }
-                        break;
-                    case "Viernes":
-                        if (DayOfWeek.Friday == fechaFormato.DayOfWeek)
-                        {
-                            horariosFecha.Add(h);
-                        }
-                        break;
-
-                }
-            }
             var disponibles = new List<BloqueDto>();
-            foreach (HorarioSemanalDto h in horariosFecha)
+            foreach (HorarioSemanalDto h in _horarios)
             {
-                var url = "http://localhost:8082/citas/disponible?fecha=" + fechaConsulta + "&horarioId=" + h.Id;
+                var url = $"http://localhost:8082/citas/disponible?fecha={fechaConsulta}&horarioId={h.Id}";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.ContentType = "application/json";
@@ -210,19 +202,35 @@ namespace WinFormsApp1
             return disponibles;
         }
 
-        private void panelCita_Paint(object sender, PaintEventArgs e)
+        
+        private void pintarDiasDisponibles()
         {
+            var diasConPlazas = _horarios.Where(b => b.Plazas >= 1).Select(b => b.DiaSemana).Where(dia => !string.IsNullOrEmpty(dia)).Distinct().ToList();
 
-        }
+            var mapDias = new Dictionary<string, DayOfWeek>
+ {
+     {"Lunes", DayOfWeek.Monday},
+     {"Martes", DayOfWeek.Tuesday},
+     {"Miércoles", DayOfWeek.Wednesday},
+     {"Jueves", DayOfWeek.Thursday},
+     {"Viernes", DayOfWeek.Friday},
+     {"Sábado", DayOfWeek.Saturday},
+     {"Domingo", DayOfWeek.Sunday}
+ };
 
-        private void Cita_Load(object sender, EventArgs e)
-        {
-            if (textBoxCitFecha.Text != "" && textBoxCitServicio.Text != "")
+            var primerDiaMes = new DateTime(CalendarCitas.SelectionStart.Year, CalendarCitas.SelectionStart.Month, 1);
+            var ultimoDiaMes = primerDiaMes.AddMonths(1).AddDays(-1);
+
+            for (DateTime fecha = primerDiaMes; fecha <= ultimoDiaMes; fecha = fecha.AddDays(1))
             {
-                comboBoxCitHora.DataSource = ComprobarHorarios().OrderBy(b => b.Hora).ToList();
-                comboBoxCitHora.DisplayMember = "Hora";
-                comboBoxCitHora.ValueMember = "Horario";
-                comboBoxCitHora.SelectedIndex = -1;
+                string nombreDia = fecha.ToString("dddd", new CultureInfo("es-ES"));
+                nombreDia = char.ToUpper(nombreDia[0]) + nombreDia.Substring(1);
+
+                if (diasConPlazas.Contains(nombreDia))
+                {
+                    CalendarCitas.AddBoldedDate(fecha);
+                    CalendarCitas.UpdateBoldedDates();
+                }
             }
         }
 
@@ -243,11 +251,35 @@ namespace WinFormsApp1
 
         private void CalendarCitas_SelectedChanged(object sender, DateRangeEventArgs e)
         {
-            textBoxCitFecha.Text = CalendarCitas.SelectionEnd.ToString().Substring(0, 10);
             if (textBoxCitServicio.Text != "")
             {
+                textBoxCitFecha.Text = CalendarCitas.SelectionEnd.ToString().Substring(0, 10);
+                _horarios = ObtenerHorarios();
+                _bloques = bloquesDisponibles();
+                if (textBoxCitFecha.Text != "" && textBoxCitServicio.Text != "")
+                {
+                    cargarHoras();
+                }
+            }
+        }
+        private void cargarHoras()
+        {
+            comboBoxCitHora.DataSource = _bloques.Where(b =>
+            {
+                if (TimeSpan.TryParse(b.Hora, out TimeSpan hora))
+                    return hora > DateTime.Now.TimeOfDay;
+                return false;
+            }).OrderBy(b => b.Hora).ToList();
+
+            if (comboBoxCitHora.DataSource != null)
+            {
                 comboBoxCitHora.Enabled = true;
-                Cita_Load(sender, e);
+                comboBoxCitHora.DisplayMember = "Hora";
+                comboBoxCitHora.ValueMember = "Horario";
+                comboBoxCitHora.SelectedIndex = -1;
+            }else
+            {
+                comboBoxCitHora.Text = "Estas horas están llenas o son pasadas";
             }
         }
 
@@ -267,7 +299,6 @@ namespace WinFormsApp1
 
                 var url = $"http://localhost:8082/citas/reservar";
                 string data = "{\r\n  \"fecha\": \"" + fechaFormato + "\",\r\n  \"horaInicio\":\"" + horaInicio + "\",\r\n  \"horario\": {\r\n \"id\": " + idHorario + "\r\n },\r\n  \"cliente\": {\r\n  \"id\": " + idCliente + " \r\n  }\r\n}";
-                //string json = $"{{\"data\":\"{data}\"}}";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 string json = data;
                 request.Method = "POST";
