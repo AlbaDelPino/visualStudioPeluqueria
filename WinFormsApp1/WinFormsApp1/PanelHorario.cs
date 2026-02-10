@@ -24,7 +24,7 @@ namespace WinFormsApp1
 
         private readonly string _token;
         private static int _paginaActual = 1;
-        private const int REGISTROS_POR_PAGINA = 15;
+        private const int REGISTROS_POR_PAGINA = 19;
         private List<HorarioSemanalDto> _horariosCompletos;
         private List<HorarioSemanalDto> _horariosFiltrados;
         private static HorarioSemanalDto _horarioSeleccionado;
@@ -51,53 +51,33 @@ namespace WinFormsApp1
             _horariosFiltrados = new List<HorarioSemanalDto>();
             _horarioSeleccionado = new HorarioSemanalDto();
 
-            ConfigurarUIEstiloImagen();
+            ActualizarRegiones();
             CargarTodosLosHorarios();
-            buttonPaginacionAtras_Click(sender, e);
 
-            comboBoxHorario.DataSource = _grupos;
-            comboBoxHorario.DisplayMember = "Nombre";
-            comboBoxHorario.ValueMember = "Id";
-            comboBoxHorario.SelectedItem = null;
+            comboBoxGrupos.DataSource = _grupos;
+            comboBoxGrupos.DisplayMember = "Nombre";
+            comboBoxGrupos.ValueMember = "Id";
+            limpiarFiltros();
             if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
             {
                 var grupoSeleccionado = _grupos.FirstOrDefault(g => g.Id == _usuarioActual.Id);
                 if (grupoSeleccionado != null)
                 {
-                    comboBoxHorario.SelectedItem = grupoSeleccionado;
+                    comboBoxGrupos.SelectedItem = grupoSeleccionado;
                 }
                 filtrarHorario();
             }
         }
 
-
-        private void ConfigurarUIEstiloImagen()
-        {
-            anyadirHorario.Text = "+";
-            anyadirHorario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirHorario.FlatStyle = FlatStyle.Flat;
-            anyadirHorario.FlatAppearance.BorderSize = 0;
-            anyadirHorario.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirHorario.ForeColor = Color.White;
-            anyadirHorario.Size = new Size(45, 45);
-
-
-            anyadirHorario.Left = panelVisualHorarios.Width - 550;
-
-            textBoxHorarioBuscar.Left = 60;
-            textBoxHorarioBuscar.Width = panelVisualHorarios.Width - 850;
-
-            comboBoxHorario.Width = 180;
-            comboBoxHorario.Left = textBoxHorarioBuscar.Right + 30;
-
-            textBoxHorarioBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxHorario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirHorario.Anchor = AnchorStyles.Right;
-
-            ActualizarRegiones();
-        }
         private void ActualizarRegiones()
         {
+            dataGridViewHorarios.Width = panelVisualHorarios.Width / 4 * 3;
+            textBoxHorarioBuscar.Left = panelFiltros.Width + 80;
+            textBoxHorarioBuscar.Width = dataGridViewHorarios.Width - 45;
+            panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
+            panelHorarios.Top = panelFiltros.Height - panelHorarios.Height;
+
             anyadirHorario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirHorario.Width, anyadirHorario.Height, anyadirHorario.Width, anyadirHorario.Height));
         }
         private void PanelHorario_Resize(object sender, EventArgs e)
@@ -110,27 +90,16 @@ namespace WinFormsApp1
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
-            Brush fondoBlanco = Brushes.White;
-
             Rectangle rectBusqueda = new Rectangle(
                 textBoxHorarioBuscar.Left - 35,
                 textBoxHorarioBuscar.Top - 15,
                 textBoxHorarioBuscar.Width + 45,
                 textBoxHorarioBuscar.Height + 27
             );
-            DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
+            DibujarCapsula(g, rectBusqueda, new Pen(Color.FromArgb(220, 220, 220), 1), Brushes.White);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxHorarioBuscar.Left - 25, textBoxHorarioBuscar.Top - 2);
-
-            Rectangle rectFiltro = new Rectangle(
-                comboBoxHorario.Left - 10,
-                comboBoxHorario.Top - 10,
-                comboBoxHorario.Width + 25,
-                comboBoxHorario.Height + 20
-            );
-            DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
+
 
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {
@@ -168,7 +137,7 @@ namespace WinFormsApp1
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
             var confirmResult = MessageBox.Show(
-                    $"¿Seguro que quieres eliminar el servicio ?",
+                    $"¿Seguro que quieres eliminar el horario?",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
@@ -222,12 +191,13 @@ namespace WinFormsApp1
             {
                 CargarTodosLosHorarios();
                 filtrarHorario();
+                MessageBox.Show("Horario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        private void dataGridViewHorario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewHorario_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < dataGridViewHorarios.Rows.Count)
+            if (e.RowIndex < dataGridViewHorarios.Rows.Count)
             {
                 var fila = dataGridViewHorarios.Rows[e.RowIndex];
                 _horarioSeleccionado = fila.Tag as HorarioSemanalDto;
@@ -237,13 +207,14 @@ namespace WinFormsApp1
         private void filtrarHorario()
         {
             string textoBusqueda = textBoxHorarioBuscar.Text.Trim().ToLower();
-            UsersDto grupoSeleccionado = comboBoxHorario.SelectedItem as UsersDto;
+            UsersDto grupoSeleccionado = comboBoxGrupos.SelectedItem as UsersDto;
+            string diaSeleccionado = comboBoxDia.Text.ToLower();
 
             _horariosFiltrados = _horariosCompletos.Where(h =>
             {
                 bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
-                               (h.Servicio?.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
-                               (h.Grupo?.Curso?.ToLower().Contains(textoBusqueda) == true);
+                                (h.Servicio?.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
+                                (h.Grupo?.Curso?.ToLower().Contains(textoBusqueda) == true);
 
                 bool pasaGrupo = true;
                 if (grupoSeleccionado != null && grupoSeleccionado.Id != 0)
@@ -256,9 +227,16 @@ namespace WinFormsApp1
                     {
                         pasaGrupo = h.Grupo.Id == grupoSeleccionado.Id;
                     }
+                } else
+                {
+                    pasaGrupo = grupoSeleccionado.Nombre.Equals("todos los grupos");
                 }
 
-                return pasaTexto && pasaGrupo;
+                    bool pasaDia = string.IsNullOrEmpty(diaSeleccionado) ||
+                                    diaSeleccionado.Equals("todos los dias de la semana") ||
+                                    (h.DiaSemana?.ToLower().Contains(diaSeleccionado) == true);
+
+                return pasaTexto && pasaGrupo && pasaDia;
             }).ToList();
 
             _paginaActual = 1;
@@ -269,11 +247,32 @@ namespace WinFormsApp1
         {
             filtrarHorario();
         }
-
-        private void comboBoxHorario_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxGrupos_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtrarHorario();
         }
+        private void comboBoxDia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarHorario();
+        }
+        private void buttonTodos_Click(object sender, EventArgs e)
+        {
+            limpiarFiltros();
+        }
+        private void limpiarFiltros()
+        {
+            comboBoxGrupos.SelectedIndex = 0;
+            comboBoxDia.SelectedIndex = 0;
+            textBoxHorarioBuscar.Text = string.Empty;
+            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
+            monthCalendarFiltrar.SelectionStart = DateTime.Today;
+
+            _horariosCompletos = ObtenerHorarios();
+            _horariosFiltrados = ObtenerHorarios();
+            _paginaActual = 1;
+            pasarPagina();
+        }
+
         private void pasarPagina()
         {
             dataGridViewHorarios.Rows.Clear();
@@ -366,33 +365,11 @@ namespace WinFormsApp1
         }
         private void CargarTodosLosHorarios()
         {
-            _horariosCompletos = ObtenerHorarios().OrderBy(h => h.DiaSemana).ToList();
+            _horariosCompletos = ObtenerHorarios().ToList();
             _horariosFiltrados = new List<HorarioSemanalDto>(_horariosCompletos);
             _paginaActual = 1;
 
             pasarPagina();
-        }
-
-        private void buttonTodos_Click(object sender, EventArgs e)
-        {
-            limpiarFiltros();
-        }
-        private void limpiarFiltros()
-        {
-            comboBoxHorario.SelectedIndex = 0;
-            textBoxHorarioBuscar.Text = string.Empty;
-            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
-            monthCalendarFiltrar.SelectionStart = DateTime.Today;
-
-            _horariosCompletos = ObtenerHorarios();
-            _horariosFiltrados = ObtenerHorarios();
-            _paginaActual = 1;
-            pasarPagina();
-        }
-
-        private void monthCalendarFiltrar_DateChanged(object sender, DateRangeEventArgs e)
-        {
-
         }
     }
 }

@@ -239,7 +239,7 @@ namespace WindowsFormsApp1
                 new UsersDto
                 {
                     Id = 0,
-                    Nombre = ""
+                    Nombre = "Todos los grupos"
                 }
             };
             gruposConVacio.AddRange(_grupos);

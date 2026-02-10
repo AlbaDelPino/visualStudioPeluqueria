@@ -22,13 +22,13 @@ namespace CitasInfo.Models
         [JsonProperty("horaInicio")]
         public LocalTime HoraInicio { get; set; }
 
-        [JsonProperty("cliente")] // En Java: private Cliente cliente;
+        [JsonProperty("cliente")]
         public UsersDto Cliente { get; set; }
     }
 
     public class HorarioSemanalDto
     {
-        [JsonProperty("id")] // El error indica que Java busca 'id' o 'id_horario'
+        [JsonProperty("id")]
         public long Id { get; set; }
 
         [JsonProperty("diaSemana")]
@@ -46,8 +46,11 @@ namespace CitasInfo.Models
         [JsonProperty("servicio")]
         public ServicioDto Servicio { get; set; }
 
-        [JsonProperty("grupo")] // Asegúrate que en Java el campo se llame 'grupo'
+        [JsonProperty("grupo")]
         public GrupoDto Grupo { get; set; }
+
+        [JsonProperty("bloqueoHorario")]
+        public BloqueoHorarioDto Bloqueo { get; set; }
     }
 
     public class BloqueDto
@@ -57,5 +60,18 @@ namespace CitasInfo.Models
         public HorarioSemanalDto Horario { get; set; } // El objeto que contiene el ID
     }
 
+
+    public class BloqueoHorarioDto
+    {
+        [JsonProperty("id")]
+        public long Id { get; set; }
+
+        [JsonProperty("fecha")]
+        public LocalDate Fecha { get; set; }
+
+        [JsonProperty("recurrente")]
+        public bool Recurrente { get; set; }
+
+    }
 
 }

@@ -13,6 +13,7 @@ using System.Net;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
@@ -25,7 +26,6 @@ namespace WinFormsApp1
     public partial class Cita : Form
     {
         private readonly string _token;
-        private readonly CitaDto _cita;
         private List<BloqueDto> _bloques;
         private List<HorarioSemanalDto> _horarios;
         private long? _idHorarioSeleccionado = null;
@@ -36,8 +36,8 @@ namespace WinFormsApp1
         public Cita(CitaDto cita, string token)
         {
             InitializeComponent();
-            _cita = cita;
             _token = token;
+            CalendarCitas.MinDate = DateTime.Today;
         }
 
         private void buttonCitServicio_Click(object sender, EventArgs e)
@@ -186,9 +186,10 @@ namespace WinFormsApp1
                     string json = reader.ReadToEnd();
                     var data = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
 
-                    BloqueDto bl = new BloqueDto();
+                    
                     foreach (var entrada in data)
                     {
+                        BloqueDto bl = new BloqueDto();
                         bl.Plazas = entrada.Value;
                         if (bl.Plazas > 0)
                         {
@@ -205,18 +206,18 @@ namespace WinFormsApp1
         
         private void pintarDiasDisponibles()
         {
-            var diasConPlazas = _horarios.Where(b => b.Plazas >= 1).Select(b => b.DiaSemana).Where(dia => !string.IsNullOrEmpty(dia)).Distinct().ToList();
+            var diasConPlazas = _horarios.Select(h => h.DiaSemana).Where(h => !string.IsNullOrEmpty(h)).Distinct().ToList();
 
             var mapDias = new Dictionary<string, DayOfWeek>
- {
-     {"Lunes", DayOfWeek.Monday},
-     {"Martes", DayOfWeek.Tuesday},
-     {"Miércoles", DayOfWeek.Wednesday},
-     {"Jueves", DayOfWeek.Thursday},
-     {"Viernes", DayOfWeek.Friday},
-     {"Sábado", DayOfWeek.Saturday},
-     {"Domingo", DayOfWeek.Sunday}
- };
+             {
+                 {"Lunes", DayOfWeek.Monday},
+                 {"Martes", DayOfWeek.Tuesday},
+                 {"Miércoles", DayOfWeek.Wednesday},
+                 {"Jueves", DayOfWeek.Thursday},
+                 {"Viernes", DayOfWeek.Friday},
+                 {"Sábado", DayOfWeek.Saturday},
+                 {"Domingo", DayOfWeek.Sunday}
+             };
 
             var primerDiaMes = new DateTime(CalendarCitas.SelectionStart.Year, CalendarCitas.SelectionStart.Month, 1);
             var ultimoDiaMes = primerDiaMes.AddMonths(1).AddDays(-1);
@@ -242,9 +243,12 @@ namespace WinFormsApp1
             {
                 _idHorarioSeleccionado = bloque.Horario.Id;
                 _HoraSeleccionada = bloque.Hora;
-                if (comboBoxCitHora.Text != null)
+                if (comboBoxCitHora.Text != "")
                 {
                     textBoxCitGrupo.Text = bloque.Horario.Grupo.Curso;
+                } else
+                {
+                    textBoxCitGrupo.Text = "";
                 }
             }
         }
@@ -266,7 +270,10 @@ namespace WinFormsApp1
         {
             comboBoxCitHora.DataSource = _bloques.Where(b =>
             {
-                if (TimeSpan.TryParse(b.Hora, out TimeSpan hora))
+                if (DateTime.ParseExact(textBoxCitFecha.Text, "dd/MM/yyyy", new CultureInfo("es-ES")) > DateTime.Today){
+                    return true;
+                }
+                else if (TimeSpan.TryParse(b.Hora, out TimeSpan hora))
                     return hora > DateTime.Now.TimeOfDay;
                 return false;
             }).OrderBy(b => b.Hora).ToList();

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using NodaTime;
 using System.Data;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Net;
 using System.Runtime.InteropServices;
 using UsersInfo.Models;
@@ -23,9 +24,11 @@ namespace WinFormsApp1
         );
 
         private readonly string _token;
-        private static int pagCit;
-        private static int contador = 1;
-        private static List<CitaDto> _citas;
+        private static int _paginaActual = 1;
+        private const int REGISTROS_POR_PAGINA = 19;
+        private static List<CitaDto> _citasCompletas;
+        private static List<CitaDto> _citasFiltradas;
+        private static CitaDto _citaSeleccionada;
         private readonly List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
 
@@ -47,16 +50,17 @@ namespace WinFormsApp1
             dataGridViewCitas.AllowUserToDeleteRows = false;
             dataGridViewCitas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            _citas = new List<CitaDto>();
-            RecargarCitas();
-            pasarPagina();
+            _citasCompletas = new List<CitaDto>();
+            _citasFiltradas = new List<CitaDto>();
+            _citaSeleccionada = new CitaDto();
 
-            ConfigurarUIEstiloImagen();
+            ActualizarRegiones();
+            CargarTodasLasCitas();
 
-            comboBoxCitFiltrar.DataSource = _grupos;
-            comboBoxCitFiltrar.DisplayMember = "Nombre";
-            comboBoxCitFiltrar.ValueMember = "Id";
-            comboBoxCitFiltrar.SelectedItem = null;
+            comboBoxGrupos.DataSource = _grupos;
+            comboBoxGrupos.DisplayMember = "Nombre";
+            comboBoxGrupos.ValueMember = "Id";
+            limpiarFiltros();
             if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
             {
                 var grupoSeleccionado = _grupos.FirstOrDefault(g => g.Id == _usuarioActual.Id);
@@ -66,63 +70,34 @@ namespace WinFormsApp1
                 }
                 filtrarCitas();
             }
-
         }
 
-        private void ConfigurarUIEstiloImagen()
-        {
-            anyadirCita.Text = "+";
-            anyadirCita.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirCita.FlatStyle = FlatStyle.Flat;
-            anyadirCita.FlatAppearance.BorderSize = 0;
-            anyadirCita.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirCita.ForeColor = Color.White;
-            anyadirCita.Size = new Size(45, 45);
-
-            anyadirCita.Left = panelVisualCitas.Width - 60;
-
-            textBoxCitBuscar.Left = 50;
-            textBoxCitBuscar.Width = panelVisualCitas.Width - 350;
-
-            comboBoxCitFiltrar.Width = 180;
-            comboBoxCitFiltrar.Left = textBoxCitBuscar.Right + 30;
-
-            textBoxCitBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxCitFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirCita.Anchor = AnchorStyles.Right;
-
-            ActualizarRegiones();
-        }
 
         private void ActualizarRegiones()
         {
-            anyadirCita.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirCita.Width, anyadirCita.Height, anyadirCita.Width, anyadirCita.Height));
+            dataGridViewCitas.Width = (panelMargenes.Width / 4) * 3;
+            textBoxCitBuscar.Left = panelFiltros.Width + 80;
+            textBoxCitBuscar.Width = dataGridViewCitas.Width - 45;
+            panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
+            panelProximas.Top = panelFiltros.Height - panelProximas.Height;
+            panelHoy.Top = panelProximas.Top + panelHoy.Height + 20;
+
+            anyadirCitas.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirCitas.Width, anyadirCitas.Height, anyadirCitas.Width, anyadirCitas.Height));
         }
 
         private void panelVisualCitas_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
-            Brush fondoBlanco = Brushes.White;
-
             Rectangle rectBusqueda = new Rectangle(
                 textBoxCitBuscar.Left - 35,
                 textBoxCitBuscar.Top - 15,
                 textBoxCitBuscar.Width + 45,
                 textBoxCitBuscar.Height + 27
             );
-            DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
+            DibujarCapsula(g, rectBusqueda, new Pen(Color.FromArgb(220, 220, 220), 1), Brushes.White);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxCitBuscar.Left - 25, textBoxCitBuscar.Top - 2);
-
-            Rectangle rectFiltro = new Rectangle(
-                comboBoxCitFiltrar.Left - 10,
-                comboBoxCitFiltrar.Top - 10,
-                comboBoxCitFiltrar.Width + 25,
-                comboBoxCitFiltrar.Height + 20
-            );
-            DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {
@@ -146,38 +121,35 @@ namespace WinFormsApp1
 
 
 
-
-        private void CompletarCita(CitaDto cita)
+        private void buttonCompletar_Click(object sender, EventArgs e)
         {
-
-            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
+            if (_citaSeleccionada.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
             {
                 MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (cita.Estado.Equals("CONFIRMADO"))
+            else if (_citaSeleccionada.Estado.Equals("CONFIRMADO"))
             {
-                FichaCita ficha = new FichaCita(cita, _token);
+                FichaCita ficha = new FichaCita(_citaSeleccionada, _token);
 
                 if (ficha.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RecargarCitas();
-                    pasarPagina();
+                    CargarTodasLasCitas();
+                    filtrarCitas();
                 }
             }
-            else if (cita.Estado.Equals("CANCELADO"))
+            else if (_citaSeleccionada.Estado.Equals("CANCELADO"))
             {
                 MessageBox.Show($"No se puede completar una cita cancelada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (cita.Estado.Equals("COMPLETADO"))
+            else if (_citaSeleccionada.Estado.Equals("COMPLETADO"))
             {
                 MessageBox.Show($"La cida ya ha sido completada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void CancelarCita(CitaDto cita)
+        private void buttonCancelar_Click(object sender, EventArgs e)
         {
-            if (cita.Estado.Equals("CONFIRMADO"))
+            if (_citaSeleccionada.Estado.Equals("CONFIRMADO"))
             {
                 var confirmResult = MessageBox.Show(
                         $"¿Seguro que quieres cancelar la cita?",
@@ -190,7 +162,7 @@ namespace WinFormsApp1
                 {
                     try
                     {
-                        var url = $"http://localhost:8082/citas/{cita.Id}/estado?estado=CANCELADO";
+                        var url = $"http://localhost:8082/citas/{_citaSeleccionada.Id}/estado?estado=CANCELADO";
                         var request = (HttpWebRequest)WebRequest.Create(url);
                         request.Method = "PUT";
                         request.ContentType = "application/json";
@@ -202,7 +174,7 @@ namespace WinFormsApp1
                             if (response.StatusCode == HttpStatusCode.OK)
                             {
                                 MessageBox.Show("Cita cancelada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                RecargarCitas();
+                                CargarTodasLasCitas();
                                 pasarPagina();
                             }
                             else
@@ -221,28 +193,201 @@ namespace WinFormsApp1
 
                 }
             }
-            else if (cita.Estado.Equals("CANCELADO"))
+            else if (_citaSeleccionada.Estado.Equals("CANCELADO"))
             {
                 MessageBox.Show($"La cita ya está cancelada", "Error",
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (cita.Estado.Equals("COMPLETADO"))
+            else if (_citaSeleccionada.Estado.Equals("COMPLETADO"))
             {
                 MessageBox.Show($"No se puede cancelar una cita completada", "Error",
                                             MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void anyadirCita_Click(object sender, EventArgs e)
+        private void anyadirCitas_Click(object sender, EventArgs e)
         {
             Cita pantallaAnyadir = new Cita(null, _token);
             pantallaAnyadir.ComboBoxCitHora.Enabled = false;
 
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
-                RecargarCitas();
-                pasarPagina();
+                CargarTodasLasCitas();
+                filtrarCitas();
                 MessageBox.Show("Cita creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void dataGridViewCitas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < dataGridViewCitas.Rows.Count)
+            {
+                var fila = dataGridViewCitas.Rows[e.RowIndex];
+                _citaSeleccionada = fila.Tag as CitaDto;
+            }
+        }
+
+        private void filtrarCitas()
+        {
+            string textoBusqueda = textBoxCitBuscar.Text.Trim().ToLower();
+            UsersDto grupoSeleccionado = comboBoxGrupos.SelectedItem as UsersDto;
+            string estadoSeleccionado = comboBoxEstado.Text.ToLower();
+            DateTime inicio = monthCalendarFiltrar.SelectionStart.Date;
+            DateTime fin = monthCalendarFiltrar.SelectionEnd.Date;
+            _citasFiltradas = _citasCompletas.Where(c =>
+            {
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                                   (c.Cliente?.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
+                                   (c.Cliente?.Username?.ToLower().Contains(textoBusqueda) == true) ||
+                                   (c.Horario?.Servicio?.Nombre?.ToLower().Contains(textoBusqueda) == true);
+
+                bool pasaGrupo = true;
+                if (grupoSeleccionado != null && grupoSeleccionado.Id != 0)
+                {
+                    if (c.Horario.Grupo == null || c.Horario.Grupo.Id == null)
+                    {
+                        pasaGrupo = false;
+                    }
+                    else
+                    {
+                        pasaGrupo = c.Horario.Grupo.Id == grupoSeleccionado.Id;
+                    }
+                }
+                else
+                {
+                    pasaGrupo = grupoSeleccionado.Nombre.Equals("todos los grupos");
+                }
+
+                bool pasaEstado = string.IsNullOrEmpty(estadoSeleccionado) ||
+                                    estadoSeleccionado.Equals("todos los estados") ||
+                                    (c.Estado?.ToLower().Contains(estadoSeleccionado?.Substring(0, (estadoSeleccionado.Length) - 1) + "o") == true);
+
+                bool pasaFecha = true;
+                if (inicio == fin)
+                {
+                    pasaFecha = (c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) == 0) == true;
+                }
+                else
+                {
+                    pasaFecha = ((c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) >= 0) == true) &&
+                                ((c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(fin).ToDateOnly()) <= 0) == true);
+                }
+
+                return pasaTexto && pasaGrupo && pasaEstado && pasaFecha;
+            }).ToList();
+
+            _paginaActual = 1;
+            pasarPagina();
+        }
+
+        private void textBoxCitBuscar_TextChanged(object sender, EventArgs e)
+        {
+            filtrarCitas();
+        }
+        private void comboBoxGrupos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCitas();
+        }
+        private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCitas();
+        }
+        private void monthCalendarFiltrar_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            filtrarCitas();
+        }
+
+        private void buttonTodos_Click(object sender, EventArgs e)
+        {
+            limpiarFiltros();
+        }
+        private void limpiarFiltros()
+        {
+            comboBoxGrupos.SelectedIndex = 0;
+            comboBoxEstado.SelectedIndex = 0;
+            textBoxCitBuscar.Text = string.Empty;
+            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
+            monthCalendarFiltrar.SelectionStart = DateTime.Today;
+
+            _citasCompletas = ObtenerCitas();
+            _citasFiltradas = ObtenerCitas();
+            _paginaActual = 1;
+            pasarPagina();
+        }
+
+        private void pasarPagina()
+        {
+            dataGridViewCitas.Rows.Clear();
+
+            int totalPaginas = (_citasFiltradas.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (totalPaginas == 0) totalPaginas = 1;
+
+            if (_paginaActual > totalPaginas)
+                _paginaActual = totalPaginas;
+
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _citasFiltradas.Count);
+
+            for (int i = inicio; i < fin; i++)
+            {
+                var c = _citasFiltradas[i];
+                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
+
+                string estado = c.Estado switch
+                {
+                    "CONFIRMADO" => "Confirmada",
+                    "CANCELADO" => "Cancelada",
+                    "COMPLETADO" => "Completada",
+                    _ => c.Estado ?? "Desconocido"
+                };
+
+                int index = dataGridViewCitas.Rows.Add(
+                    c.Cliente?.Nombre ?? "Sin Nombre",
+                    c.Horario.Servicio?.Nombre ?? "Sin Servicio",
+                    c.Fecha.ToString(),
+                    hora,
+                    estado,
+                    c.Horario.Grupo.Curso ?? "Sin Grupo"
+                );
+                dataGridViewCitas.Rows[index].Tag = c;
+            }
+
+            buttonPaginacionAtras.Enabled = (_paginaActual > 1);
+            buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
+
+            labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
+        }
+
+        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
+        {
+            if (_paginaActual > 1)
+            {
+                int totalPaginas = (_citasFiltradas.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+                _paginaActual--;
+                pasarPagina();
+                if (_paginaActual != totalPaginas)
+                {
+                    buttonPaginacionDelante.ForeColor = Color.Black;
+                }
+                if (_paginaActual == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
+            }
+        }
+
+        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
+        {
+            int totalPaginas = (_citasFiltradas.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (_paginaActual < totalPaginas)
+            {
+                _paginaActual++;
+                pasarPagina();
+                if (_paginaActual != 1)
+                {
+                    buttonPaginacionAtras.ForeColor = Color.Black;
+                }
+            }
+            if (_paginaActual == totalPaginas)
+            {
+                buttonPaginacionDelante.ForeColor = Color.Silver;
             }
         }
 
@@ -261,190 +406,20 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
+                labelNumHoy.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) == 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
+                labelNumProximas.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) > 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
                 return citas;
             }
 
         }
 
-        private void RecargarCitas()
+        private void CargarTodasLasCitas()
         {
-            _citas = ObtenerCitas();
+            _citasCompletas = ObtenerCitas().ToList();
+            _citasFiltradas = new List<CitaDto>(_citasCompletas);
+            _paginaActual = 1;
 
-            if (_citas.Count % 15 != 0)
-            {
-                pagCit = (_citas.Count / 15) + 1;
-            }
-            else
-            {
-                pagCit = (_citas.Count / 15);
-            }
-
-            int hoy = 0;
-            int proximas = 0;
-
-            foreach (var c in _citas)
-            {
-
-                if (c.Estado.Equals("CONFIRMADO") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) == 0)
-                {
-                    hoy++;
-                }
-                else if (c.Estado.Equals("CONFIRMADO") && c.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now.Date)) < 1)
-                {
-                    proximas++;
-                }
-            }
-
-            labelNumHoy.Text = $"{hoy}";
-            labelNumProximas.Text = $"{proximas}";
-        }
-
-        private void pasarPagina()
-        {
-            dataGridViewCitas.Rows.Clear();
-
-            int registrosASaltar = (contador - 1) * 15;
-            var citasPagina = _citas.Skip(registrosASaltar).Take(15).ToList();
-
-            foreach (var c in citasPagina)
-            {
-                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
-
-                string estado = c.Estado switch
-                {
-                    "CONFIRMADO" => "Confirmada",
-                    "CANCELADO" => "Cancelada",
-                    "COMPLETADO" => "Completada",
-                    _ => c.Estado ?? "Desconocido"
-                };
-
-                int index = dataGridViewCitas.Rows.Add(
-                    c.Cliente?.Nombre ?? "Sin Nombre",
-                    c.Horario.Servicio?.Nombre ?? "Sin Servicio",
-                    c.Fecha.ToString(),
-                    hora,
-                    estado,
-                    c.Horario.Grupo.Curso ?? "Sin Grupo"
-                );
-
-                dataGridViewCitas.Rows[index].Tag = c;
-            }
-        }
-        private void dataGridViewCitas_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 5) return;
-
-            if (e.RowIndex >= dataGridViewCitas.Rows.Count) return;
-
-            var fila = dataGridViewCitas.Rows[e.RowIndex];
-            var cita = fila.Tag as CitaDto;
-            if (cita == null) return;
-
-            var columna = dataGridViewCitas.Columns[e.ColumnIndex].Name;
-
-            if (columna == "dataGridViewImageColumnCitCompletar")
-            {
-                CompletarCita(cita);
-            }
-            else if (columna == "dataGridViewImageColumnCitCancelar")
-            {
-                CancelarCita(cita);
-            }
-        }
-
-        private void filtrarCitas()
-        {
-            string texto = textBoxCitBuscar.Text.Trim().ToLower();
-            UsersDto? desplegable = (UsersDto)comboBoxCitFiltrar.SelectedItem;
-
-            if (_citas == null) return;
-
-            var listaFiltrada = _citas.AsEnumerable();
-
-            if (!string.IsNullOrEmpty(texto))
-            {
-                listaFiltrada = listaFiltrada
-                    .Where(c => c.Cliente?.Nombre?.ToLower().Contains(texto) == true
-                     || c.Cliente?.Username?.ToLower().Contains(texto) == true
-                     || c.Horario?.Servicio?.Nombre?.ToLower().Contains(texto) == true).ToList();
-            }
-            
-            if (desplegable != null && desplegable.Id != 0)
-            {
-                listaFiltrada = listaFiltrada
-                    .Where(c => c.Horario != null &&
-                               c.Horario.Grupo != null &&
-                               c.Horario.Grupo.Id == desplegable.Id)
-                    .ToList();
-            }
-
-
-            dataGridViewCitas.Rows.Clear();
-
-            foreach (var c in listaFiltrada)
-            {
-                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
-
-                string estado = c.Estado switch
-                {
-                    "CONFIRMADO" => "Confirmada",
-                    "CANCELADO" => "Cancelada",
-                    "COMPLETADO" => "Completada",
-                    _ => c.Estado ?? "Desconocido"
-                };
-
-                int index = dataGridViewCitas.Rows.Add(
-                    c.Cliente?.Nombre ?? "Sin Nombre",
-                    c.Horario.Servicio?.Nombre ?? "Sin Servicio",
-                    c.Fecha.ToString(),
-                    hora,
-                    estado,
-                    c.Horario.Grupo.Curso ?? "Sin Grupo"
-                );
-
-                dataGridViewCitas.Rows[index].Tag = c;
-            }
-        }
-
-        private void textBoxCitBuscar_TextChanged(object sender, EventArgs e)
-        {
-            filtrarCitas();
-        }
-
-        private void comboBoxCitFiltrar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtrarCitas();
-        }
-
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
-        {
-            if (contador > 1)
-            {
-                contador--;
-                pasarPagina();
-                if (contador != pagCit)
-                {
-                    buttonPaginacionDelante.ForeColor = Color.Black;
-                }
-                if (contador == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
-            }
-        }
-
-        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
-        {
-            if (contador < pagCit)
-            {
-                contador++;
-                pasarPagina();
-                if (contador != 1)
-                {
-                    buttonPaginacionAtras.ForeColor = Color.Black;
-                }
-            }
-            if (contador == pagCit)
-            {
-                buttonPaginacionDelante.ForeColor = Color.Silver;
-            }
+            pasarPagina();
         }
 
         

@@ -33,21 +33,12 @@ namespace WinFormsApp1
 
         private void PanelPrincipal_Load(object sender, EventArgs e)
         {
-            List<CitaDto> citasHoy = ObtenerCitasHoy();
+            _citas = ObtenerCitasHoy();
             if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
             {
-                List<CitaDto> citasFiltradas = new List<CitaDto>();
-                foreach (CitaDto c in citasHoy)
-                {
-                    if (_usuarioActual.Id == c.Horario.Grupo.Id)
-                    {
-                        citasFiltradas.Add(c);
-                    }
-                }
-                citasHoy.Clear();
-                citasHoy = citasFiltradas;
+                _citas = _citas.Where(c => _usuarioActual.Id == c.Horario.Grupo.Id).ToList();
             }
-            _citas = citasHoy;
+
             MostrarCitasEnPaneles(_citas);
         }
 
@@ -265,27 +256,11 @@ namespace WinFormsApp1
 
         private void CompletarCita(CitaDto cita)
         {
-            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
+            FichaCita ficha = new FichaCita(cita, _token);
+            if (ficha.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (cita.Estado.Equals("CONFIRMADO"))
-            {
-                FichaCita ficha = new FichaCita(cita, _token);
-
-                if (ficha.ShowDialog() == DialogResult.OK)
-                {
-                    MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MostrarCitasEnPaneles(_citas);
-                }
-            }
-            else if (cita.Estado.Equals("CANCELADO"))
-            {
-                MessageBox.Show($"No se puede completar una cita cancelada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (cita.Estado.Equals("COMPLETADO"))
-            {
-                MessageBox.Show($"La cida ya ha sido completada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MostrarCitasEnPaneles(_citas);
             }
         }
 
@@ -405,7 +380,6 @@ namespace WinFormsApp1
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
 
-                // Aquí añadimos el token
                 request.Headers["Authorization"] = $"Bearer {_token}";
                 using (var response = (HttpWebResponse)request.GetResponse())
                 using (var stream = response.GetResponseStream())
