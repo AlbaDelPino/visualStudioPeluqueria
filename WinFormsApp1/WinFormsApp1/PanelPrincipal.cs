@@ -256,11 +256,18 @@ namespace WinFormsApp1
 
         private void CompletarCita(CitaDto cita)
         {
-            FichaCita ficha = new FichaCita(cita, _token);
-            if (ficha.ShowDialog() == DialogResult.OK)
+            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
             {
-                MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                MostrarCitasEnPaneles(_citas);
+                MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                FichaCita ficha = new FichaCita(cita, _token);
+                if (ficha.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MostrarCitasEnPaneles(_citas);
+                }
             }
         }
 

@@ -103,11 +103,11 @@ namespace WinFormsApp1
             textBoxBloqueoBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxBloqueoBuscar.BorderStyle = BorderStyle.None;
             textBoxBloqueoBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxBloqueoBuscar.Location = new Point(458, 49);
+            textBoxBloqueoBuscar.Location = new Point(441, 49);
             textBoxBloqueoBuscar.Margin = new Padding(6, 5, 6, 5);
             textBoxBloqueoBuscar.Name = "textBoxBloqueoBuscar";
             textBoxBloqueoBuscar.PlaceholderText = "Buscar por dia de la semana o servicio...";
-            textBoxBloqueoBuscar.Size = new Size(2301, 20);
+            textBoxBloqueoBuscar.Size = new Size(947, 20);
             textBoxBloqueoBuscar.TabIndex = 19;
             textBoxBloqueoBuscar.TextChanged += textBoxBloqueoBuscar_TextChanged;
             // 
@@ -371,6 +371,7 @@ namespace WinFormsApp1
             monthCalendarFiltrar.TabIndex = 19;
             monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
             monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            monthCalendarFiltrar.DateSelected += monthCalendarFiltrar_DateSelected;
             // 
             // buttonTodos
             // 
@@ -394,6 +395,7 @@ namespace WinFormsApp1
             comboBoxRecurrente.Name = "comboBoxRecurrente";
             comboBoxRecurrente.Size = new Size(282, 28);
             comboBoxRecurrente.TabIndex = 20;
+            comboBoxRecurrente.SelectedIndexChanged += comboBoxRecurrente_SelectedIndexChanged;
             // 
             // dataGridViewBloqueos
             // 

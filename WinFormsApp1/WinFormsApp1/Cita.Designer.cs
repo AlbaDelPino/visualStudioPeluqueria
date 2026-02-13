@@ -79,7 +79,7 @@ namespace WinFormsApp1
             panelCita.Dock = DockStyle.Fill;
             panelCita.Location = new Point(0, 0);
             panelCita.Name = "panelCita";
-            panelCita.Size = new Size(933, 471);
+            panelCita.Size = new Size(879, 433);
             panelCita.TabIndex = 56;
             // 
             // panelIcon
@@ -90,7 +90,7 @@ namespace WinFormsApp1
             panelIcon.Location = new Point(0, 0);
             panelIcon.Margin = new Padding(3, 4, 3, 4);
             panelIcon.Name = "panelIcon";
-            panelIcon.Size = new Size(208, 471);
+            panelIcon.Size = new Size(208, 433);
             panelIcon.TabIndex = 93;
             // 
             // pictureBoxICon
@@ -100,14 +100,14 @@ namespace WinFormsApp1
             pictureBoxICon.Location = new Point(0, 0);
             pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
             pictureBoxICon.Name = "pictureBoxICon";
-            pictureBoxICon.Size = new Size(208, 471);
+            pictureBoxICon.Size = new Size(208, 433);
             pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxICon.TabIndex = 0;
             pictureBoxICon.TabStop = false;
             // 
             // textBoxCitGrupo
             // 
-            textBoxCitGrupo.Location = new Point(365, 228);
+            textBoxCitGrupo.Location = new Point(357, 228);
             textBoxCitGrupo.Margin = new Padding(3, 4, 3, 4);
             textBoxCitGrupo.Name = "textBoxCitGrupo";
             textBoxCitGrupo.ReadOnly = true;
@@ -116,7 +116,7 @@ namespace WinFormsApp1
             // 
             // textBoxCitFecha
             // 
-            textBoxCitFecha.Location = new Point(726, 109);
+            textBoxCitFecha.Location = new Point(664, 81);
             textBoxCitFecha.Name = "textBoxCitFecha";
             textBoxCitFecha.ReadOnly = true;
             textBoxCitFecha.Size = new Size(145, 27);
@@ -125,26 +125,26 @@ namespace WinFormsApp1
             // comboBoxCitHora
             // 
             comboBoxCitHora.FormattingEnabled = true;
-            comboBoxCitHora.Location = new Point(365, 170);
+            comboBoxCitHora.Location = new Point(357, 170);
             comboBoxCitHora.Name = "comboBoxCitHora";
-            comboBoxCitHora.Size = new Size(241, 28);
+            comboBoxCitHora.Size = new Size(175, 28);
             comboBoxCitHora.TabIndex = 89;
             comboBoxCitHora.SelectedIndexChanged += comboBoxCitHora_SelectedIndexChanged;
             // 
             // buttonCitCliente
             // 
-            buttonCitCliente.Location = new Point(520, 287);
+            buttonCitCliente.Location = new Point(482, 286);
             buttonCitCliente.Margin = new Padding(3, 4, 3, 4);
             buttonCitCliente.Name = "buttonCitCliente";
-            buttonCitCliente.Size = new Size(86, 31);
+            buttonCitCliente.Size = new Size(50, 30);
             buttonCitCliente.TabIndex = 87;
-            buttonCitCliente.Text = "...";
             buttonCitCliente.UseVisualStyleBackColor = true;
             buttonCitCliente.Click += buttonCitCliente_Click;
+            buttonCitCliente.Paint += buttonCitCliente_Paint;
             // 
             // textBoxCitCliente
             // 
-            textBoxCitCliente.Location = new Point(365, 286);
+            textBoxCitCliente.Location = new Point(357, 286);
             textBoxCitCliente.Margin = new Padding(3, 4, 3, 4);
             textBoxCitCliente.Name = "textBoxCitCliente";
             textBoxCitCliente.ReadOnly = true;
@@ -155,7 +155,7 @@ namespace WinFormsApp1
             // 
             labelCitCliente.AutoSize = true;
             labelCitCliente.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitCliente.Location = new Point(288, 289);
+            labelCitCliente.Location = new Point(280, 289);
             labelCitCliente.Margin = new Padding(5, 0, 5, 0);
             labelCitCliente.Name = "labelCitCliente";
             labelCitCliente.Size = new Size(61, 20);
@@ -166,7 +166,7 @@ namespace WinFormsApp1
             // 
             labelCitGrupo.AutoSize = true;
             labelCitGrupo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitGrupo.Location = new Point(288, 231);
+            labelCitGrupo.Location = new Point(280, 231);
             labelCitGrupo.Margin = new Padding(5, 0, 5, 0);
             labelCitGrupo.Name = "labelCitGrupo";
             labelCitGrupo.Size = new Size(55, 20);
@@ -175,20 +175,20 @@ namespace WinFormsApp1
             // 
             // buttonCitServicio
             // 
-            buttonCitServicio.Location = new Point(520, 114);
+            buttonCitServicio.Location = new Point(482, 113);
             buttonCitServicio.Margin = new Padding(3, 4, 3, 4);
             buttonCitServicio.Name = "buttonCitServicio";
-            buttonCitServicio.Size = new Size(86, 31);
+            buttonCitServicio.Size = new Size(50, 30);
             buttonCitServicio.TabIndex = 81;
-            buttonCitServicio.Text = "...";
             buttonCitServicio.UseVisualStyleBackColor = true;
             buttonCitServicio.Click += buttonCitServicio_Click;
+            buttonCitServicio.Paint += buttonCitServicio_Paint;
             // 
             // labelCitHora
             // 
             labelCitHora.AutoSize = true;
             labelCitHora.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitHora.Location = new Point(288, 173);
+            labelCitHora.Location = new Point(280, 173);
             labelCitHora.Margin = new Padding(5, 0, 5, 0);
             labelCitHora.Name = "labelCitHora";
             labelCitHora.Size = new Size(46, 20);
@@ -197,7 +197,7 @@ namespace WinFormsApp1
             // 
             // textBoxCitServicio
             // 
-            textBoxCitServicio.Location = new Point(365, 113);
+            textBoxCitServicio.Location = new Point(357, 113);
             textBoxCitServicio.Margin = new Padding(3, 4, 3, 4);
             textBoxCitServicio.Name = "textBoxCitServicio";
             textBoxCitServicio.ReadOnly = true;
@@ -206,20 +206,23 @@ namespace WinFormsApp1
             // 
             // ButtonCitAnyadir
             // 
-            ButtonCitAnyadir.Location = new Point(792, 413);
+            ButtonCitAnyadir.BackColor = Color.DarkOrange;
+            ButtonCitAnyadir.FlatStyle = FlatStyle.Flat;
+            ButtonCitAnyadir.ForeColor = SystemColors.ControlLightLight;
+            ButtonCitAnyadir.Location = new Point(714, 364);
             ButtonCitAnyadir.Margin = new Padding(3, 4, 3, 4);
             ButtonCitAnyadir.Name = "ButtonCitAnyadir";
-            ButtonCitAnyadir.Size = new Size(86, 31);
+            ButtonCitAnyadir.Size = new Size(95, 37);
             ButtonCitAnyadir.TabIndex = 66;
             ButtonCitAnyadir.Text = "Añadir";
-            ButtonCitAnyadir.UseVisualStyleBackColor = true;
+            ButtonCitAnyadir.UseVisualStyleBackColor = false;
             ButtonCitAnyadir.Click += ButtonCitAnyadir_Click;
             // 
             // labelCitServicio
             // 
             labelCitServicio.AutoSize = true;
             labelCitServicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitServicio.Location = new Point(288, 116);
+            labelCitServicio.Location = new Point(280, 116);
             labelCitServicio.Margin = new Padding(5, 0, 5, 0);
             labelCitServicio.Name = "labelCitServicio";
             labelCitServicio.Size = new Size(69, 20);
@@ -229,7 +232,7 @@ namespace WinFormsApp1
             // CalendarCitas
             // 
             CalendarCitas.FirstDayOfWeek = Day.Monday;
-            CalendarCitas.Location = new Point(651, 141);
+            CalendarCitas.Location = new Point(589, 113);
             CalendarCitas.MaxSelectionCount = 1;
             CalendarCitas.MinDate = new DateTime(2026, 2, 4, 0, 0, 0, 0);
             CalendarCitas.Name = "CalendarCitas";
@@ -243,7 +246,7 @@ namespace WinFormsApp1
             // 
             labelTituoCrearCita.AutoSize = true;
             labelTituoCrearCita.Font = new Font("Segoe UI", 22F, FontStyle.Bold);
-            labelTituoCrearCita.ForeColor = Color.DarkOrange;
+            labelTituoCrearCita.ForeColor = SystemColors.ControlDarkDark;
             labelTituoCrearCita.Location = new Point(272, 27);
             labelTituoCrearCita.Name = "labelTituoCrearCita";
             labelTituoCrearCita.Size = new Size(188, 50);
@@ -254,7 +257,7 @@ namespace WinFormsApp1
             // 
             labelCitFecha.AutoSize = true;
             labelCitFecha.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitFecha.Location = new Point(651, 112);
+            labelCitFecha.Location = new Point(589, 84);
             labelCitFecha.Margin = new Padding(5, 0, 5, 0);
             labelCitFecha.Name = "labelCitFecha";
             labelCitFecha.Size = new Size(55, 20);
@@ -265,7 +268,7 @@ namespace WinFormsApp1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(933, 471);
+            ClientSize = new Size(879, 433);
             Controls.Add(panelCita);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Cita";

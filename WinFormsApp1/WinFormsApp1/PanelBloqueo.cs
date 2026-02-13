@@ -34,6 +34,7 @@ namespace WinFormsApp1
         private List<BloqueoHorarioDto> _bloqueosFiltrados;
         private static BloqueoHorarioDto _bloqueoSeleccionado;
         private readonly UsersDto _usuarioActual;
+        private static bool _fechaSeleccionada = false;
 
         public PanelBloqueo(UsersDto usuarioActual, string token)
         {
@@ -68,7 +69,7 @@ namespace WinFormsApp1
             textBoxBloqueoBuscar.Width = dataGridViewBloqueos.Width - 45;
             panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
             labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
-            panelAnuales.Top = panelFiltros.Height - panelAnuales.Height;
+            panelAnuales.Top = panelMargenes.Height - panelAnuales.Height;
             panelPuntuales.Top = panelAnuales.Top + panelPuntuales.Height + 20;
 
 
@@ -103,61 +104,67 @@ namespace WinFormsApp1
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show(
+            if (_bloqueoSeleccionado.Id != null)
+            {
+                var confirmResult = MessageBox.Show(
                     $"¿Seguro que quieres eliminar el bloqueo horario?",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
 
-            if (confirmResult == DialogResult.Yes)
-            {
                 if (confirmResult == DialogResult.Yes)
                 {
-                    try
+                    if (confirmResult == DialogResult.Yes)
                     {
-
-                        var url = $"http://localhost:8082/bloqueos/{_bloqueoSeleccionado.Id}";
-                        var request = (HttpWebRequest)WebRequest.Create(url);
-                        request.Method = "DELETE";
-                        request.ContentType = "application/json";
-                        request.Accept = "application/json";
-                        request.Headers["Authorization"] = $"Bearer {_token}";
-
-                        using (var response = (HttpWebResponse)request.GetResponse())
+                        try
                         {
-                            if (response.StatusCode == HttpStatusCode.OK)
-                            {
-                                MessageBox.Show("Bloqueo eliminado correctamente", "Éxito",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                CargarTodosLosBloqueos();
-                                filtrarBloqueos();
-                            }
-                            else
+                            var url = $"http://localhost:8082/bloqueos/{_bloqueoSeleccionado.Id}";
+                            var request = (HttpWebRequest)WebRequest.Create(url);
+                            request.Method = "DELETE";
+                            request.ContentType = "application/json";
+                            request.Accept = "application/json";
+                            request.Headers["Authorization"] = $"Bearer {_token}";
+
+                            using (var response = (HttpWebResponse)request.GetResponse())
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                if (response.StatusCode == HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show("Bloqueo eliminado correctamente", "Éxito",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    CargarTodosLosBloqueos();
+                                    filtrarBloqueos();
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
 
+                }
             }
         }
 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
-            Bloqueo pantallaModificar = new Bloqueo(_bloqueoSeleccionado, _token);
-            if (pantallaModificar.ShowDialog() == DialogResult.OK)
+            if (_bloqueoSeleccionado.Id != null)
             {
-                CargarTodosLosBloqueos();
-                filtrarBloqueos();
+                Bloqueo pantallaModificar = new Bloqueo(_bloqueoSeleccionado, _token);
+                if (pantallaModificar.ShowDialog() == DialogResult.OK)
+                {
+                    CargarTodosLosBloqueos();
+                    filtrarBloqueos();
+                }
             }
         }
 
@@ -184,35 +191,37 @@ namespace WinFormsApp1
         private void filtrarBloqueos()
         {
             string textoBusqueda = textBoxBloqueoBuscar.Text.Trim().ToLower();
-            string recurrente = comboBoxRecurrente.Text.ToLower();
+            string recurrente = comboBoxRecurrente.SelectedItem.ToString().ToLower();
             DateTime inicio = monthCalendarFiltrar.SelectionStart.Date;
             DateTime fin = monthCalendarFiltrar.SelectionEnd.Date;
 
             _bloqueosFiltrados = _bloqueosCompletos.Where(b =>
             {
-                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) /*|| //obtener horarios
-                                (b.Horarios?.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
-                                (h.Grupo?.Curso?.ToLower().Contains(textoBusqueda) == true)*/;
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                                (b.Horarios.Any(h => (h.Servicio?.Nombre?.ToLower().Contains(textoBusqueda) ?? false) || (h.DiaSemana?.ToLower().Contains(textoBusqueda) ?? false)));
 
 
 
                 bool pasaDia = string.IsNullOrEmpty(recurrente) ||
                                 recurrente.Equals("todos los bloqueos") ||
-                                (recurrente.Equals("anual") && b.Recurrente) ||
-                                (recurrente.Equals("puntual") && !b.Recurrente);
+                                (recurrente.Equals("anuales") && b.Recurrente) ||
+                                (recurrente.Equals("puntuales") && !b.Recurrente);
 
-
+            
                 bool pasaFecha = true;
-                if (inicio == fin)
+                if (_fechaSeleccionada)
                 {
-                    pasaFecha = (b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) == 0) == true;
+                    if (inicio == fin)
+                    {
+                        pasaFecha = (b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) == 0) == true;
+                    }
+                    else
+                    {
+                        pasaFecha = ((b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) >= 0) == true) &&
+                                    ((b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(fin).ToDateOnly()) <= 0) == true);
+                    }
                 }
-                else
-                {
-                    pasaFecha = ((b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(inicio).ToDateOnly()) >= 0) == true) &&
-                                ((b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(fin).ToDateOnly()) <= 0) == true);
-                }
-                return pasaTexto && pasaFecha;
+                return pasaTexto && pasaDia  && pasaFecha;
             }).ToList();
 
             _paginaActual = 1;
@@ -223,11 +232,21 @@ namespace WinFormsApp1
         {
             filtrarBloqueos();
         }
+        private void monthCalendarFiltrar_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            _fechaSeleccionada = true;
+            filtrarBloqueos();
 
+        }
+        private void comboBoxRecurrente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarBloqueos();
+        }
         private void buttonTodos_Click(object sender, EventArgs e)
         {
             limpiarFiltros();
         }
+
 
         private void limpiarFiltros()
         {
@@ -235,6 +254,7 @@ namespace WinFormsApp1
             textBoxBloqueoBuscar.Text = string.Empty;
             monthCalendarFiltrar.SelectionEnd = DateTime.Today;
             monthCalendarFiltrar.SelectionStart = DateTime.Today;
+            _fechaSeleccionada = false;
 
             _bloqueosCompletos = ObtenerBloqueos();
             _bloqueosFiltrados = ObtenerBloqueos();
@@ -258,10 +278,16 @@ namespace WinFormsApp1
             for (int i = inicio; i < fin; i++)
             {
                 var b = _bloqueosFiltrados[i];
-                var horarios = /*obtener horario*/"";
+                var horarios = _bloqueosFiltrados[i].Horarios;
+                string idHorarios = "";
+                if (horarios != null) {
+                    foreach (var horario in horarios) {
+                        idHorarios = idHorarios + horario.Id.ToString() + ", ";
+                    }
+                }
                 int index = dataGridViewBloqueos.Rows.Add(
                     b.Fecha.ToString() ?? "Sin Fecha",
-                    horarios ?? "Sin Horarios",
+                    idHorarios ?? "Sin Horarios",
                     b.Recurrente
                 );
                 dataGridViewBloqueos.Rows[index].Tag = b;
@@ -336,5 +362,7 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
+
+        
     }
 }

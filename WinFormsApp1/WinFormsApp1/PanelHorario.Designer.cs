@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle25 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle30 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle31 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle32 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle26 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle27 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle28 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle29 = new DataGridViewCellStyle();
             panelVisualHorarios = new Panel();
             textBoxHorarioBuscar = new TextBox();
             anyadirUsuario = new Button();
@@ -50,8 +50,8 @@
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            Servicio = new DataGridViewTextBoxColumn();
             Grupo = new DataGridViewTextBoxColumn();
+            Servicio = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
             panelMargenes = new Panel();
             panelFiltros = new Panel();
@@ -214,26 +214,26 @@
             dataGridViewHorarios.BackgroundColor = Color.White;
             dataGridViewHorarios.BorderStyle = BorderStyle.None;
             dataGridViewHorarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(7);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle25.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle25.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle25.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle25.Padding = new Padding(7);
+            dataGridViewCellStyle25.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle25.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle25.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle25;
             dataGridViewHorarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewHorarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Servicio, Grupo, dataGridViewTextBoxColumn4 });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.Padding = new Padding(2);
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridViewHorarios.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewHorarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, Grupo, Servicio, dataGridViewTextBoxColumn4 });
+            dataGridViewCellStyle30.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle30.BackColor = SystemColors.Window;
+            dataGridViewCellStyle30.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle30.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle30.Padding = new Padding(2);
+            dataGridViewCellStyle30.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle30.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle30.WrapMode = DataGridViewTriState.False;
+            dataGridViewHorarios.DefaultCellStyle = dataGridViewCellStyle30;
             dataGridViewHorarios.Dock = DockStyle.Right;
             dataGridViewHorarios.EnableHeadersVisualStyles = false;
             dataGridViewHorarios.GridColor = Color.Black;
@@ -243,19 +243,19 @@
             dataGridViewHorarios.MultiSelect = false;
             dataGridViewHorarios.Name = "dataGridViewHorarios";
             dataGridViewHorarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridViewHorarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle31.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle31.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle31.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle31.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle31.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle31.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle31.WrapMode = DataGridViewTriState.True;
+            dataGridViewHorarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle31;
             dataGridViewHorarios.RowHeadersVisible = false;
             dataGridViewHorarios.RowHeadersWidth = 51;
-            dataGridViewCellStyle8.BackColor = Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = Color.White;
-            dataGridViewHorarios.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle32.BackColor = Color.White;
+            dataGridViewCellStyle32.SelectionForeColor = Color.White;
+            dataGridViewHorarios.RowsDefaultCellStyle = dataGridViewCellStyle32;
             dataGridViewHorarios.RowTemplate.Height = 35;
             dataGridViewHorarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewHorarios.Size = new Size(1100, 801);
@@ -265,8 +265,8 @@
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle26;
             dataGridViewTextBoxColumn2.HeaderText = "Dia de la semana";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -274,25 +274,34 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle27.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle27.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle27;
             dataGridViewTextBoxColumn1.HeaderText = "Incio";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             dataGridViewTextBoxColumn1.ReadOnly = true;
+            dataGridViewTextBoxColumn1.Width = 95;
             // 
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle28;
             dataGridViewTextBoxColumn3.HeaderText = "Fin";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             dataGridViewTextBoxColumn3.ReadOnly = true;
             dataGridViewTextBoxColumn3.Width = 79;
+            // 
+            // Grupo
+            // 
+            Grupo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Grupo.HeaderText = "Servicio";
+            Grupo.MinimumWidth = 6;
+            Grupo.Name = "Grupo";
+            Grupo.ReadOnly = true;
             // 
             // Servicio
             // 
@@ -303,20 +312,11 @@
             Servicio.ReadOnly = true;
             Servicio.Width = 107;
             // 
-            // Grupo
-            // 
-            Grupo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Grupo.HeaderText = "Servicio";
-            Grupo.MinimumWidth = 6;
-            Grupo.Name = "Grupo";
-            Grupo.ReadOnly = true;
-            Grupo.Width = 120;
-            // 
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle29.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle29;
             dataGridViewTextBoxColumn4.HeaderText = "Plazas";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -524,8 +524,8 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn Servicio;
         private DataGridViewTextBoxColumn Grupo;
+        private DataGridViewTextBoxColumn Servicio;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
     }
 }

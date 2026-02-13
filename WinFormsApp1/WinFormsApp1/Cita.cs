@@ -38,6 +38,7 @@ namespace WinFormsApp1
             InitializeComponent();
             _token = token;
             CalendarCitas.MinDate = DateTime.Today;
+
         }
 
         private void buttonCitServicio_Click(object sender, EventArgs e)
@@ -137,7 +138,8 @@ namespace WinFormsApp1
                 }
 
                 url = $"http://localhost:8082/horarios/buscar?diaSemana={diaSemana}&idServicio={_idServicioSeleccionado}";
-            } else
+            }
+            else
             {
                 url = $"http://localhost:8082/horarios/servicio/{_idServicioSeleccionado}";
             }
@@ -158,20 +160,15 @@ namespace WinFormsApp1
             }
             return horarios;
         }
-            
+
         private List<BloqueDto> bloquesDisponibles()
         {
             string fecha = textBoxCitFecha.Text;
-            string fechaConsulta = "";
-            if (fecha != "")
-            {
-                fechaConsulta = fecha.Substring(6, 4) + "-" + fecha.Substring(3, 2) + "-" + fecha.Substring(0, 2);
-            }
 
             var disponibles = new List<BloqueDto>();
             foreach (HorarioSemanalDto h in _horarios)
             {
-                var url = $"http://localhost:8082/citas/disponible?fecha={fechaConsulta}&horarioId={h.Id}";
+                var url = $"http://localhost:8082/citas/disponible?fecha={fecha}&horarioId={h.Id}";
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
                 request.ContentType = "application/json";
@@ -186,7 +183,7 @@ namespace WinFormsApp1
                     string json = reader.ReadToEnd();
                     var data = JsonConvert.DeserializeObject<Dictionary<string, int>>(json);
 
-                    
+
                     foreach (var entrada in data)
                     {
                         BloqueDto bl = new BloqueDto();
@@ -203,7 +200,7 @@ namespace WinFormsApp1
             return disponibles;
         }
 
-        
+
         private void pintarDiasDisponibles()
         {
             var diasConPlazas = _horarios.Select(h => h.DiaSemana).Where(h => !string.IsNullOrEmpty(h)).Distinct().ToList();
@@ -246,7 +243,8 @@ namespace WinFormsApp1
                 if (comboBoxCitHora.Text != "")
                 {
                     textBoxCitGrupo.Text = bloque.Horario.Grupo.Curso;
-                } else
+                }
+                else
                 {
                     textBoxCitGrupo.Text = "";
                 }
@@ -270,7 +268,8 @@ namespace WinFormsApp1
         {
             comboBoxCitHora.DataSource = _bloques.Where(b =>
             {
-                if (DateTime.ParseExact(textBoxCitFecha.Text, "dd/MM/yyyy", new CultureInfo("es-ES")) > DateTime.Today){
+                if (DateTime.ParseExact(textBoxCitFecha.Text, "dd/MM/yyyy", new CultureInfo("es-ES")) > DateTime.Today)
+                {
                     return true;
                 }
                 else if (TimeSpan.TryParse(b.Hora, out TimeSpan hora))
@@ -284,7 +283,8 @@ namespace WinFormsApp1
                 comboBoxCitHora.DisplayMember = "Hora";
                 comboBoxCitHora.ValueMember = "Horario";
                 comboBoxCitHora.SelectedIndex = -1;
-            }else
+            }
+            else
             {
                 comboBoxCitHora.Text = "Estas horas están llenas o son pasadas";
             }
@@ -346,6 +346,17 @@ namespace WinFormsApp1
             {
                 MessageBox.Show("Error al añadir la cita", "Error al añadir la cita", MessageBoxButtons.OK);
             }
+        }
+        private void buttonCitServicio_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, 13, 2);
+        }
+
+        private void buttonCitCliente_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, 13, 2);
         }
     }
 }

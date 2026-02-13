@@ -72,6 +72,8 @@ namespace CitasInfo.Models
         [JsonProperty("recurrente")]
         public bool Recurrente { get; set; }
 
-    }
+        [JsonProperty("horarios")]
+        public List<HorarioSemanalDto> Horarios { get; set; }
 
+    }
 }

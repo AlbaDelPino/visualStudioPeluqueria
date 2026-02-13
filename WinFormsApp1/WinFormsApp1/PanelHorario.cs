@@ -126,61 +126,67 @@ namespace WinFormsApp1
 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
-            Horario pantallaModificar = new Horario(_horarioSeleccionado, _token);
-            if (pantallaModificar.ShowDialog() == DialogResult.OK)
+            if (_horarioSeleccionado.Id != null)
             {
-                CargarTodosLosHorarios();
-                filtrarHorario();
+                Horario pantallaModificar = new Horario(_horarioSeleccionado, _token);
+                if (pantallaModificar.ShowDialog() == DialogResult.OK)
+                {
+                    CargarTodosLosHorarios();
+                    filtrarHorario();
+                }
             }
         }
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show(
+            if (_horarioSeleccionado.Id != null)
+            {
+                var confirmResult = MessageBox.Show(
                     $"¿Seguro que quieres eliminar el horario?",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
 
-            if (confirmResult == DialogResult.Yes)
-            {
                 if (confirmResult == DialogResult.Yes)
                 {
-                    try
+                    if (confirmResult == DialogResult.Yes)
                     {
-
-                        var url = $"http://localhost:8082/horarios/{_horarioSeleccionado.Id}";
-                        var request = (HttpWebRequest)WebRequest.Create(url);
-                        request.Method = "DELETE";
-                        request.ContentType = "application/json";
-                        request.Accept = "application/json";
-                        request.Headers["Authorization"] = $"Bearer {_token}";
-
-                        using (var response = (HttpWebResponse)request.GetResponse())
+                        try
                         {
-                            if (response.StatusCode == HttpStatusCode.OK)
-                            {
-                                MessageBox.Show("Horario eliminado correctamente", "Éxito",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                CargarTodosLosHorarios();
-                                filtrarHorario();
-                            }
-                            else
+                            var url = $"http://localhost:8082/horarios/{_horarioSeleccionado.Id}";
+                            var request = (HttpWebRequest)WebRequest.Create(url);
+                            request.Method = "DELETE";
+                            request.ContentType = "application/json";
+                            request.Accept = "application/json";
+                            request.Headers["Authorization"] = $"Bearer {_token}";
+
+                            using (var response = (HttpWebResponse)request.GetResponse())
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                if (response.StatusCode == HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show("Horario eliminado correctamente", "Éxito",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    CargarTodosLosHorarios();
+                                    filtrarHorario();
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
 
+                }
             }
         }
 
@@ -227,14 +233,15 @@ namespace WinFormsApp1
                     {
                         pasaGrupo = h.Grupo.Id == grupoSeleccionado.Id;
                     }
-                } else
+                }
+                else
                 {
-                    pasaGrupo = grupoSeleccionado.Nombre.Equals("todos los grupos");
+                    pasaGrupo = grupoSeleccionado.Nombre.ToLower().Equals("todos los grupos");
                 }
 
-                    bool pasaDia = string.IsNullOrEmpty(diaSeleccionado) ||
-                                    diaSeleccionado.Equals("todos los dias de la semana") ||
-                                    (h.DiaSemana?.ToLower().Contains(diaSeleccionado) == true);
+                bool pasaDia = string.IsNullOrEmpty(diaSeleccionado) ||
+                                diaSeleccionado.Equals("todos los dias de la semana") ||
+                                (h.DiaSemana?.ToLower().Contains(diaSeleccionado) == true);
 
                 return pasaTexto && pasaGrupo && pasaDia;
             }).ToList();
@@ -296,8 +303,8 @@ namespace WinFormsApp1
                     h.DiaSemana,
                     inicioHora,
                     finHora,
+                     h.Servicio?.Nombre ?? "Sin Servicio",
                     h.Grupo?.Curso ?? "Sin Grupo",
-                    h.Servicio?.Nombre ?? "Sin Servicio",
                     h.Plazas
                 );
                 dataGridViewHorarios.Rows[index].Tag = h;
