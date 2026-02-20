@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NodaTime;
 using ServiciosInfo.Models;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Net;
@@ -260,7 +261,16 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var servicios = JsonConvert.DeserializeObject<List<TipoServicioDto>>(json);
-                return servicios.OrderBy(s => s.Nombre).ToList(); ;
+                var tipoServicios = new List<TipoServicioDto>
+                {
+                    new TipoServicioDto
+                    {
+                        Id = 0,
+                        Nombre = " "
+                    }
+                };
+                tipoServicios.AddRange(servicios);
+                return tipoServicios.OrderBy(s => s.Nombre).ToList(); ;
             }
         }
         private void pasarPagina()
@@ -328,18 +338,28 @@ namespace WinFormsApp1
         private void filtrarServicios()
         {
             string textoBusqueda = textBoxSerBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxSerFiltrar.SelectedItem.ToString().ToLower();
+            TipoServicioDto tipoSeleccionado = comboBoxSerFiltrar.SelectedItem as TipoServicioDto;
 
-            _serviciosFiltrados = _serviciosFiltrados.Where(s =>
+            _serviciosFiltrados = _serviciosCompletos.Where(s =>
             {
                 bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
                                 (s.Nombre != null && s.Nombre.ToLower().Contains(textoBusqueda) == true) ||
                                 (s.Descripcion != null && s.Descripcion.ToLower().Contains(textoBusqueda) == true);
 
-                bool pasaTipo = string.IsNullOrEmpty(filtroCombo) &&
-                                (s.TipoServicio.Nombre != null && s.TipoServicio.Nombre.Equals(filtroCombo, StringComparison.OrdinalIgnoreCase));
+                bool pasaTipo = true;
+                if (tipoSeleccionado != null && tipoSeleccionado.Id != 0)
+                {
+                    if (s.TipoServicio == null || s.TipoServicio.Id == null)
+                    {
+                        pasaTipo = false;
+                    }
+                    else
+                    {
+                        pasaTipo = s.TipoServicio.Id == tipoSeleccionado.Id;
+                    }
+                }
 
-                return pasaTexto && pasaTipo;
+                    return pasaTexto && pasaTipo;
             }).ToList();
 
             _paginaActual = 1;

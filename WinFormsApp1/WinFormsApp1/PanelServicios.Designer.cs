@@ -248,7 +248,7 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dataGridViewServicios.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewServicios.Dock = DockStyle.Fill;
+            dataGridViewServicios.Dock = DockStyle.Right;
             dataGridViewServicios.EnableHeadersVisualStyles = false;
             dataGridViewServicios.GridColor = SystemColors.InactiveCaptionText;
             dataGridViewServicios.Location = new Point(34, 0);
