@@ -1,27 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using ServiciosInfo.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using UsersInfo.Models;
 using WinFormsApp1;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.DataFormats;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using static WinFormsApp1.Login;
-using static WinFormsApp1.PanelPrincipal;
 
 namespace WindowsFormsApp1
 {
@@ -41,9 +23,8 @@ namespace WindowsFormsApp1
             ConfigurarPanelContenedor();
         }
 
-        private void CargarNuevaPagina(Form formHijo)
+        public void CargarNuevaPagina(Form formHijo)
         {
-            // Asegúrate de que 'pnlContenedor' es el nombre correcto de tu Panel
             panelControl.Controls.Clear();
             panelControl.Dock = DockStyle.Fill;
             formHijo.TopLevel = false;
@@ -63,7 +44,7 @@ namespace WindowsFormsApp1
 
         private void MostrarContenidoInicio()
         {
-            PanelPrincipal pantallaIntro = new PanelPrincipal(_usuarioActual, _token);
+            PanelPrincipal pantallaIntro = new PanelPrincipal(this,_usuarioActual,_grupos, _token);
             panelControl.Controls.Clear();
             panelControl.Dock = DockStyle.Fill;
             pantallaIntro.TopLevel = false;
@@ -113,7 +94,7 @@ namespace WindowsFormsApp1
 
         private void panelInicio_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelPrincipal(_usuarioActual, _token));
+            CargarNuevaPagina(new PanelPrincipal(this,_usuarioActual,_grupos, _token));
         }
         private void panelBloqueo_Click(object sender, EventArgs e)
         {
@@ -233,7 +214,7 @@ namespace WindowsFormsApp1
         private void Principal_Load(object sender, EventArgs e)
         {
             var grupos = ObtenerUsuarios();
-            _grupos = grupos.Where(u => u.Role.Equals("ROLE_GRUPO", StringComparison.OrdinalIgnoreCase)).ToList();
+            _grupos = grupos.Where(u => u.Role.Equals("ROLE_GRUPO", StringComparison.OrdinalIgnoreCase)).OrderBy(u => u.Nombre).ToList();
             var gruposConVacio = new List<UsersDto>
             {
                 new UsersDto

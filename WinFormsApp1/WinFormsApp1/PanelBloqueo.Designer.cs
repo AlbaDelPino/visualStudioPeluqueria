@@ -71,6 +71,7 @@ namespace WinFormsApp1
             dataGridViewBloqueos = new DataGridView();
             dataGridViewTextBoxFecha = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxHorarios = new DataGridViewTextBoxColumn();
+            Motivo = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxRecurrente = new DataGridViewCheckBoxColumn();
             panelVisualBloqueos.SuspendLayout();
             panelPaginacion.SuspendLayout();
@@ -414,7 +415,7 @@ namespace WinFormsApp1
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridViewBloqueos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewBloqueos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewBloqueos.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxFecha, dataGridViewTextBoxHorarios, dataGridViewTextBoxRecurrente });
+            dataGridViewBloqueos.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxFecha, dataGridViewTextBoxHorarios, Motivo, dataGridViewTextBoxRecurrente });
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = SystemColors.Window;
             dataGridViewCellStyle5.Font = new Font("Segoe UI", 10F);
@@ -472,6 +473,15 @@ namespace WinFormsApp1
             dataGridViewTextBoxHorarios.Name = "dataGridViewTextBoxHorarios";
             dataGridViewTextBoxHorarios.ReadOnly = true;
             dataGridViewTextBoxHorarios.Resizable = DataGridViewTriState.True;
+            // 
+            // Motivo
+            // 
+            Motivo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Motivo.HeaderText = "Motivo";
+            Motivo.MinimumWidth = 6;
+            Motivo.Name = "Motivo";
+            Motivo.ReadOnly = true;
+            Motivo.Width = 113;
             // 
             // dataGridViewTextBoxRecurrente
             // 
@@ -546,6 +556,7 @@ namespace WinFormsApp1
         private PictureBox pictureBoxPuntuales;
         private DataGridViewTextBoxColumn dataGridViewTextBoxFecha;
         private DataGridViewTextBoxColumn dataGridViewTextBoxHorarios;
+        private DataGridViewTextBoxColumn Motivo;
         private DataGridViewCheckBoxColumn dataGridViewTextBoxRecurrente;
     }
 }

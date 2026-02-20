@@ -44,9 +44,10 @@ namespace WinFormsApp1
             labelNumCitasHoy = new Label();
             labelCitasHoy = new Label();
             pictureBoxCitasHoy = new PictureBox();
-            comboBox1 = new ComboBox();
-            button1 = new Button();
+            comboBoxGrupos = new ComboBox();
+            buttonCitas = new Button();
             panelCitas = new Panel();
+            buttonFiltros = new Button();
             panelCitasProximas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).BeginInit();
             panelGrande.SuspendLayout();
@@ -138,11 +139,12 @@ namespace WinFormsApp1
             // 
             // panel1
             // 
+            panel1.Controls.Add(buttonFiltros);
             panel1.Controls.Add(monthCalendarFiltrar);
             panel1.Controls.Add(panelCitasHoy);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(comboBoxGrupos);
             panel1.Controls.Add(panelCitasProximas);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(buttonCitas);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -197,22 +199,24 @@ namespace WinFormsApp1
             pictureBoxCitasHoy.TabIndex = 1;
             pictureBoxCitasHoy.TabStop = false;
             // 
-            // comboBox1
+            // comboBoxGrupos
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(58, 780);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(258, 28);
-            comboBox1.TabIndex = 24;
+            comboBoxGrupos.FormattingEnabled = true;
+            comboBoxGrupos.Location = new Point(58, 730);
+            comboBoxGrupos.Name = "comboBoxGrupos";
+            comboBoxGrupos.Size = new Size(258, 28);
+            comboBoxGrupos.TabIndex = 24;
+            comboBoxGrupos.SelectedIndexChanged += comboBoxGrupos_SelectedIndexChanged;
             // 
-            // button1
+            // buttonCitas
             // 
-            button1.Location = new Point(58, 733);
-            button1.Name = "button1";
-            button1.Size = new Size(258, 29);
-            button1.TabIndex = 23;
-            button1.Text = "Ver todas las citas";
-            button1.UseVisualStyleBackColor = true;
+            buttonCitas.Location = new Point(58, 830);
+            buttonCitas.Name = "buttonCitas";
+            buttonCitas.Size = new Size(258, 29);
+            buttonCitas.TabIndex = 23;
+            buttonCitas.Text = "Ir al panel de citas";
+            buttonCitas.UseVisualStyleBackColor = true;
+            buttonCitas.Click += buttonCitas_Click;
             // 
             // panelCitas
             // 
@@ -223,6 +227,16 @@ namespace WinFormsApp1
             panelCitas.Padding = new Padding(30);
             panelCitas.Size = new Size(750, 1024);
             panelCitas.TabIndex = 21;
+            // 
+            // buttonFiltros
+            // 
+            buttonFiltros.Location = new Point(58, 780);
+            buttonFiltros.Name = "buttonFiltros";
+            buttonFiltros.Size = new Size(258, 29);
+            buttonFiltros.TabIndex = 25;
+            buttonFiltros.Text = "Ver todas las citas de hoy";
+            buttonFiltros.UseVisualStyleBackColor = true;
+            buttonFiltros.Click += buttonFiltros_Click;
             // 
             // PanelPrincipal
             // 
@@ -268,9 +282,10 @@ namespace WinFormsApp1
         private Label labelCitasHoy;
         private PictureBox pictureBoxCitasHoy;
         private Panel panelCitas;
-        private Button button1;
-        private ComboBox comboBox1;
+        private Button buttonCitas;
+        private ComboBox comboBoxGrupos;
         private Panel panelGrande;
         private Panel panel1;
+        private Button buttonFiltros;
     }
 }

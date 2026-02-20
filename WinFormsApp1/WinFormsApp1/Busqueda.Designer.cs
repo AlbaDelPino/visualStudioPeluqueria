@@ -32,6 +32,8 @@
             Tabla = new DataGridView();
             textBoxHoBuscar = new TextBox();
             labelTituoIBuscar = new Label();
+            buttonSeleccionar = new Button();
+            buttonTodoDia = new Button();
             ((System.ComponentModel.ISupportInitialize)Tabla).BeginInit();
             SuspendLayout();
             // 
@@ -44,6 +46,7 @@
             Tabla.RowHeadersWidth = 51;
             Tabla.Size = new Size(702, 345);
             Tabla.TabIndex = 0;
+            Tabla.CellContentClick += Tabla_CellContentClick;
             Tabla.CellContentDoubleClick += Tabla_CellDoubleClick;
             // 
             // textBoxHoBuscar
@@ -64,11 +67,41 @@
             labelTituoIBuscar.TabIndex = 50;
             labelTituoIBuscar.Text = "Selecione Uno";
             // 
+            // buttonSeleccionar
+            // 
+            buttonSeleccionar.BackColor = Color.DarkOrange;
+            buttonSeleccionar.FlatStyle = FlatStyle.Flat;
+            buttonSeleccionar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonSeleccionar.ForeColor = SystemColors.ControlLightLight;
+            buttonSeleccionar.Location = new Point(677, 549);
+            buttonSeleccionar.Name = "buttonSeleccionar";
+            buttonSeleccionar.Size = new Size(132, 39);
+            buttonSeleccionar.TabIndex = 51;
+            buttonSeleccionar.Text = "Seleccionar";
+            buttonSeleccionar.UseVisualStyleBackColor = false;
+            buttonSeleccionar.Click += buttonSeleccionar_Click;
+            // 
+            // buttonTodoDia
+            // 
+            buttonTodoDia.BackColor = Color.DarkOrange;
+            buttonTodoDia.FlatStyle = FlatStyle.Flat;
+            buttonTodoDia.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonTodoDia.ForeColor = SystemColors.ControlLightLight;
+            buttonTodoDia.Location = new Point(454, 549);
+            buttonTodoDia.Name = "buttonTodoDia";
+            buttonTodoDia.Size = new Size(217, 39);
+            buttonTodoDia.TabIndex = 52;
+            buttonTodoDia.Text = "Seleccionar todo el dia";
+            buttonTodoDia.UseVisualStyleBackColor = false;
+            buttonTodoDia.Click += buttonTodoDia_Click;
+            // 
             // Busqueda
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(914, 605);
+            Controls.Add(buttonTodoDia);
+            Controls.Add(buttonSeleccionar);
             Controls.Add(labelTituoIBuscar);
             Controls.Add(textBoxHoBuscar);
             Controls.Add(Tabla);
@@ -86,5 +119,7 @@
         private DataGridView Tabla;
         private TextBox textBoxHoBuscar;
         private Label labelTituoIBuscar;
+        private Button buttonSeleccionar;
+        private Button buttonTodoDia;
     }
 }

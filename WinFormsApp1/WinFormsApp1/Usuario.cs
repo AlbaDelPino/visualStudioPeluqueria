@@ -59,8 +59,6 @@ namespace WinFormsApp1
             string primernombre = txtBoxUsNombre.Text;
             string apellidos = textBoxUsApellidos.Text;
             string nombre = primernombre + " " + apellidos;
-            string email = textBoxUsEmail.Text;
-            string tel = textBoxUsTel.Text;
             string contrasenya = textBoxUsContrasenya.Text;
             string validarContrasenya = textBoxUsConfigContrasenya.Text;
             bool estado = checkBoxEstado.Checked;
@@ -69,24 +67,25 @@ namespace WinFormsApp1
 
             if (comboTipoUsuario.SelectedIndex == 0)
             {
-                string comentario = tboxUserComCit.Text;
                 string alergenos = tboxUserAlerg.Text;
                 string observciones = tboxUserObserv.Text;
+                string email = textBoxUsEmail.Text;
+                string tel = textBoxUsTel.Text;
                 url = $"http://localhost:8082/api/auth/signup/cliente";
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 1)
             {
                 string curso = tboxUserCurso.Text;
                 string turno = tboxUserTurno.Text;
                 url = $"http://localhost:8082/api/auth/signup/grupo";
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"curso\": \"" + curso + "\",\r\n  \"turno\": \"" + turno + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"curso\": \"" + curso + "\",\r\n  \"turno\": \"" + turno + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 2)
             {
                 string especialidad = tboxUserEspec.Text;
                 url = $"http://localhost:8082/api/auth/signup/admin";
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"especialidad\": \"" + especialidad + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"especialidad\": \"" + especialidad + "\"\r\n}\r\n";
             }
 
             if (contrasenya == validarContrasenya)
@@ -94,7 +93,6 @@ namespace WinFormsApp1
                 try
                 {
                     var request = (HttpWebRequest)WebRequest.Create(url);
-                    //string json = $"{{\"data\":\"{data}\"}}";
                     string json = data;
                     request.Method = "POST";
                     request.ContentType = "application/json";
@@ -155,8 +153,6 @@ namespace WinFormsApp1
             string primernombre = txtBoxUsNombre.Text;
             string apellidos = textBoxUsApellidos.Text;
             string nombre = primernombre + " " + apellidos;
-            string email = textBoxUsEmail.Text;
-            string tel = textBoxUsTel.Text;
             string validarContrasenya = textBoxUsConfigContrasenya.Text;
             string estado = "";
             if (checkBoxEstado.Checked)
@@ -173,12 +169,13 @@ namespace WinFormsApp1
 
             if (comboTipoUsuario.SelectedIndex == 0)
             {
-                string comentario = tboxUserComCit.Text;
                 string alergenos = tboxUserAlerg.Text;
                 string observciones = tboxUserObserv.Text;
+                string email = textBoxUsEmail.Text;
+                string tel = textBoxUsTel.Text;
                 contrasenya = _usuario.Contrasenya;
                 url = $"http://localhost:8082/clientes/" + id;
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"observacion\": \"" + observciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 1)
             {
@@ -186,19 +183,18 @@ namespace WinFormsApp1
                 string turno = tboxUserTurno.Text;
                 contrasenya = textBoxUsContrasenya.Text;
                 url = $"http://localhost:8082/grupos/" + id;
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"curso\": \"" + curso + "\",\r\n  \"turno\": \"" + turno + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"curso\": \"" + curso + "\",\r\n  \"turno\": \"" + turno + "\"\r\n}\r\n";
             }
             else if (comboTipoUsuario.SelectedIndex == 2)
             {
                 string especialidad = tboxUserEspec.Text;
                 contrasenya = _usuario.Contrasenya;
                 url = $"http://localhost:8082/admins/" + id;
-                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"email\": \"" + email + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"telefono\": \"" + tel + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"especialidad\": \"" + especialidad + "\"\r\n}\r\n";
+                data = "{\r\n  \"username\": \"" + username + "\",\r\n  \"contrasenya\": \"" + contrasenya + "\",\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"estado\": \"" + estado + "\",\r\n  \"especialidad\": \"" + especialidad + "\"\r\n}\r\n";
             }
             if (contrasenya == validarContrasenya || validarContrasenya.Equals(""))
             {
                 var request = (HttpWebRequest)WebRequest.Create(url);
-                //string json = $"{{\"data\":\"{data}\"}}";
                 string json = data;
                 request.Method = "PUT";
                 request.ContentType = "application/json";
@@ -284,7 +280,6 @@ namespace WinFormsApp1
             TextBoxUsTel.ReadOnly = false;
             ComboTipoUsuario.Enabled = true;
             CheckBoxEstado.Enabled = true;
-            TboxUserComCit.ReadOnly = false;
             TboxUserAlerg.ReadOnly = false;
             TboxUserObserv.ReadOnly = false;
             TboxUserCurso.ReadOnly = false;

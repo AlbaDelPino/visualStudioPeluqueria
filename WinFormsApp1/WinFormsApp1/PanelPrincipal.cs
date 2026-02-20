@@ -1,21 +1,11 @@
 ﻿using CitasInfo.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NodaTime;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using UsersInfo.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using WindowsFormsApp1;
+using WinFormsApp1;
 
 namespace WinFormsApp1
 {
@@ -23,12 +13,17 @@ namespace WinFormsApp1
     {
         private readonly string _token;
         private readonly UsersDto _usuarioActual;
+        private readonly Principal _principal;
         private static List<CitaDto> _citas;
-        public PanelPrincipal(UsersDto usuarioActual, string token)
+        private static List<UsersDto> _grupos;
+        private static bool _fechaSeleccionada = false;
+        public PanelPrincipal(Principal principal, UsersDto usuarioActual, List<UsersDto> grupos, string token)
         {
             InitializeComponent();
             _token = token;
             _usuarioActual = usuarioActual;
+            _grupos = grupos;
+            _principal = principal;
         }
 
         private void PanelPrincipal_Load(object sender, EventArgs e)
@@ -37,6 +32,14 @@ namespace WinFormsApp1
             if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
             {
                 _citas = _citas.Where(c => _usuarioActual.Id == c.Horario.Grupo.Id).ToList();
+                comboBoxGrupos.Visible = false;
+            }
+            else
+            {
+                comboBoxGrupos.DataSource = _grupos;
+                comboBoxGrupos.DisplayMember = "Nombre";
+                comboBoxGrupos.ValueMember = "Id";
+                comboBoxGrupos.Visible = true;
             }
 
             MostrarCitasEnPaneles(_citas);
@@ -200,7 +203,7 @@ namespace WinFormsApp1
             panel.Controls.Add(lblCliente);
             panel.Controls.Add(lblEstado);
             panel.Controls.Add(btnAccion);
-            
+
 
             panel.Cursor = Cursors.Hand;
 
@@ -266,6 +269,7 @@ namespace WinFormsApp1
                 if (ficha.ShowDialog() == DialogResult.OK)
                 {
                     MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _citas = ObtenerCitasHoy();
                     MostrarCitasEnPaneles(_citas);
                 }
             }
@@ -277,10 +281,10 @@ namespace WinFormsApp1
             var nombre = "";
             var apellidos = "";
 
-            if (nombreYapellidos.Length == 4)
+            if (nombreYapellidos.Length >= 4)
             {
                 nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[3];
+                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length];
             }
             else if (nombreYapellidos.Length == 3)
             {
@@ -317,7 +321,6 @@ namespace WinFormsApp1
             pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
             pantallaInfo.ComboTipoUsuario.Enabled = false;
             pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserComCit.ReadOnly = true;
             pantallaInfo.TboxUserAlerg.ReadOnly = true;
             pantallaInfo.TboxUserObserv.ReadOnly = true;
 
@@ -325,8 +328,6 @@ namespace WinFormsApp1
             pantallaInfo.TboxNombreUsuario.Text = usuario.Username;
             pantallaInfo.TxtBoxUsNombre.Text = nombre;
             pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-            pantallaInfo.TextBoxUsEmail.Text = usuario.Email;
-            pantallaInfo.TextBoxUsTel.Text = usuario.Telefono.ToString();
 
             if (usuario.Estado.Equals("true"))
             {
@@ -344,9 +345,10 @@ namespace WinFormsApp1
                 {
                     if (c.Id == usuario.Id)
                     {
-                        pantallaInfo.TboxUserComCit.Text = c.Comentario ?? "";
                         pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
                         pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
+                        pantallaInfo.TextBoxUsEmail.Text = c.Email ?? "";
+                        pantallaInfo.TextBoxUsTel.Text = c.Telefono.ToString() ?? "";
                     }
                 }
                 pantallaInfo.PanelAdmin.Visible = false;
@@ -372,9 +374,37 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
-                return citas;
+                return citas.OrderBy(c => c.Fecha).ToList();
             }
 
+        }
+
+        private List<CitaDto> ObtenerCitasFiltro()
+        {
+            var url = "";
+            if (monthCalendarFiltrar.SelectionStart.Date == monthCalendarFiltrar.SelectionEnd.Date)
+            {
+                url = "http://localhost:8082/citas/fecha?fecha=" + monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10);
+            }
+            else
+            {
+                url = $"http://localhost:8082/citas/rango?fechaInicio={monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10)}&fechaFin={monthCalendarFiltrar.SelectionEnd.ToString().Substring(0, 10)}";
+            }
+
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+
+            request.Headers["Authorization"] = $"Bearer {_token}";
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                string json = reader.ReadToEnd();
+                var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
+                return citas.OrderBy(c => c.Fecha).ToList();
+            }
         }
 
         private List<ClienteDto> ObtenerClientes()
@@ -408,29 +438,69 @@ namespace WinFormsApp1
 
         private void monthCalendarFiltrar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            var url = "";
-            if (monthCalendarFiltrar.SelectionStart.Date == monthCalendarFiltrar.SelectionEnd.Date)
-            {
-                url = "http://localhost:8082/citas/fecha?fecha=" + monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10);
-            } else
-            {
-                url = $"http://localhost:8082/citas/rango?fechaInicio={monthCalendarFiltrar.SelectionStart.ToString().Substring(0, 10)}&fechaFin={monthCalendarFiltrar.SelectionEnd.ToString().Substring(0, 10)}";
-            }
+            _fechaSeleccionada = true;
+            filtrarCitas();
 
-                var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
+        }
+        private void comboBoxGrupos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCitas();
 
-            request.Headers["Authorization"] = $"Bearer {_token}";
-            using (var response = (HttpWebResponse)request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
+        }
+
+        private void buttonCitas_Click(object sender, EventArgs e)
+        {
+            _principal.CargarNuevaPagina(new PanelCita(_usuarioActual, _grupos, _token));
+        }
+
+
+
+        private void filtrarCitas()
+        {
+            if (_fechaSeleccionada)
             {
-                string json = reader.ReadToEnd();
-                var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
-                MostrarCitasEnPaneles(citas);
+                _citas = ObtenerCitasFiltro();
             }
+            UsersDto grupo = comboBoxGrupos.SelectedItem as UsersDto;
+            _citas = _citas.Where(c =>
+            {
+                bool pasaGrupo = true;
+                if (grupo != null && grupo.Id != 0)
+                {
+                    if (c.Horario.Grupo == null || c.Horario.Grupo.Id == null)
+                    {
+                        pasaGrupo = false;
+                    }
+                    else
+                    {
+                        pasaGrupo = c.Horario.Grupo.Id == grupo.Id;
+                    }
+                }
+                else
+                {
+                    pasaGrupo = grupo.Nombre.ToLower().Equals("todos los grupos");
+                }
+
+                return pasaGrupo;
+            }).ToList();
+           
+            MostrarCitasEnPaneles(_citas);
+
+        }
+        private void limpiarFiltros()
+        {
+            comboBoxGrupos.SelectedIndex = 0;
+            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
+            monthCalendarFiltrar.SelectionStart = DateTime.Today;
+            _fechaSeleccionada = false;
+
+            _citas = ObtenerCitasHoy();
+            MostrarCitasEnPaneles(_citas);
+        }
+
+        private void buttonFiltros_Click(object sender, EventArgs e)
+        {
+            limpiarFiltros();
         }
     }
 }

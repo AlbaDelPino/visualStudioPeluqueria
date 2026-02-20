@@ -21,12 +21,6 @@ namespace UsersInfo.Models
         [JsonProperty("username")]
         public string Username { get; set; }
 
-        [JsonProperty("email")]
-        public string Email { get; set; }
-
-        [JsonProperty("telefono")]
-        public long Telefono { get; set; }
-
         [JsonProperty("estado")]
         public string Estado { get; set; }
     }
@@ -56,6 +50,12 @@ namespace UsersInfo.Models
 
         [JsonProperty("imagen")]
         public byte[] Imagen { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("telefono")]
+        public long Telefono { get; set; }
     }
 
     public class GrupoDto

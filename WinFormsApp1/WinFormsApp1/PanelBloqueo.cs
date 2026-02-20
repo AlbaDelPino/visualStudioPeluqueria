@@ -60,6 +60,7 @@ namespace WinFormsApp1
             ActualizarRegiones();
             CargarTodosLosBloqueos();
             limpiarFiltros();
+            marcarBloqueados();
         }
 
         private void ActualizarRegiones()
@@ -101,6 +102,11 @@ namespace WinFormsApp1
             g.FillPath(b, path);
             g.DrawPath(p, path);
         }
+
+
+
+
+
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
@@ -159,11 +165,17 @@ namespace WinFormsApp1
         {
             if (_bloqueoSeleccionado.Id != null)
             {
-                Bloqueo pantallaModificar = new Bloqueo(_bloqueoSeleccionado, _token);
-                if (pantallaModificar.ShowDialog() == DialogResult.OK)
+                if (_bloqueoSeleccionado.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) >= 0)
                 {
-                    CargarTodosLosBloqueos();
-                    filtrarBloqueos();
+                    Bloqueo pantallaModificar = new Bloqueo(_bloqueoSeleccionado, _token);
+                    if (pantallaModificar.ShowDialog() == DialogResult.OK)
+                    {
+                        CargarTodosLosBloqueos();
+                        filtrarBloqueos();
+                    }
+                } else
+                {
+                    MessageBox.Show("No se puede editar un bloqueo pasado", "Bloqueo pasado", MessageBoxButtons.OK);
                 }
             }
         }
@@ -228,6 +240,22 @@ namespace WinFormsApp1
             pasarPagina();
         }
 
+        private void marcarBloqueados()
+        {
+            monthCalendarFiltrar.RemoveAllBoldedDates();
+            foreach (BloqueoHorarioDto b in _bloqueosFiltrados) {
+                if (!b.Recurrente)
+                {
+                    monthCalendarFiltrar.AddBoldedDate(b.Fecha.ToDateTimeUnspecified());
+                }
+                else
+                {
+                    monthCalendarFiltrar.AddAnnuallyBoldedDate(b.Fecha.ToDateTimeUnspecified());
+                }
+                monthCalendarFiltrar.UpdateBoldedDates();
+            }
+        }
+
         private void textBoxBloqueoBuscar_TextChanged(object sender, EventArgs e)
         {
             filtrarBloqueos();
@@ -288,6 +316,7 @@ namespace WinFormsApp1
                 int index = dataGridViewBloqueos.Rows.Add(
                     b.Fecha.ToString() ?? "Sin Fecha",
                     idHorarios ?? "Sin Horarios",
+                    b.Motivo ?? " ",
                     b.Recurrente
                 );
                 dataGridViewBloqueos.Rows[index].Tag = b;
@@ -349,7 +378,7 @@ namespace WinFormsApp1
                 var bloqueos = JsonConvert.DeserializeObject<List<BloqueoHorarioDto>>(json);
                 labelNumPuntuales.Text = $" {bloqueos?.Where(b => b.Recurrente).ToList().Count ?? 0}";
                 labelNumPuntuales.Text = $" {bloqueos?.Where(b => !b.Recurrente).ToList().Count ?? 0}";
-                return bloqueos;
+                return bloqueos.OrderBy(b => b.Fecha).ToList();
             }
 
         }

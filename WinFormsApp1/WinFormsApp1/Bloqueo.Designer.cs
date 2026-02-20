@@ -41,13 +41,16 @@ namespace WinFormsApp1
             textBoxCitFecha = new TextBox();
             buttonHorarios = new Button();
             textBoxHorarios = new TextBox();
-            ButtonAnyadir = new Button();
+            buttonAnyadir = new Button();
             labelHorarios = new Label();
             CalendarCitas = new WinFormsApp1.Cita.MyMonthCalendar();
             labelTituo = new Label();
             labelCitFecha = new Label();
             radioButtonAnual = new RadioButton();
-            radioButton1 = new RadioButton();
+            radioButtonPuntual = new RadioButton();
+            textBoxMotivo = new TextBox();
+            labelMotivo = new Label();
+            buttonModificar = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
             // 
@@ -59,14 +62,14 @@ namespace WinFormsApp1
             pictureBoxICon.Location = new Point(0, 0);
             pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
             pictureBoxICon.Name = "pictureBoxICon";
-            pictureBoxICon.Size = new Size(208, 403);
+            pictureBoxICon.Size = new Size(208, 433);
             pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxICon.TabIndex = 1;
             pictureBoxICon.TabStop = false;
             // 
             // textBoxCitFecha
             // 
-            textBoxCitFecha.Location = new Point(616, 109);
+            textBoxCitFecha.Location = new Point(585, 110);
             textBoxCitFecha.Name = "textBoxCitFecha";
             textBoxCitFecha.ReadOnly = true;
             textBoxCitFecha.Size = new Size(145, 27);
@@ -74,42 +77,44 @@ namespace WinFormsApp1
             // 
             // buttonHorarios
             // 
-            buttonHorarios.Location = new Point(616, 165);
+            buttonHorarios.Location = new Point(585, 158);
             buttonHorarios.Margin = new Padding(3, 4, 3, 4);
             buttonHorarios.Name = "buttonHorarios";
             buttonHorarios.Size = new Size(50, 30);
             buttonHorarios.TabIndex = 99;
             buttonHorarios.UseVisualStyleBackColor = true;
+            buttonHorarios.Click += buttonHorarios_Click;
             buttonHorarios.Paint += buttonHorarios_Paint;
             // 
             // textBoxHorarios
             // 
-            textBoxHorarios.Location = new Point(539, 203);
+            textBoxHorarios.Location = new Point(508, 196);
             textBoxHorarios.Margin = new Padding(3, 4, 3, 4);
             textBoxHorarios.Name = "textBoxHorarios";
             textBoxHorarios.ReadOnly = true;
             textBoxHorarios.Size = new Size(222, 27);
             textBoxHorarios.TabIndex = 98;
             // 
-            // ButtonAnyadir
+            // buttonAnyadir
             // 
-            ButtonAnyadir.BackColor = Color.DarkOrange;
-            ButtonAnyadir.FlatStyle = FlatStyle.Flat;
-            ButtonAnyadir.ForeColor = SystemColors.ControlLightLight;
-            ButtonAnyadir.Location = new Point(666, 322);
-            ButtonAnyadir.Margin = new Padding(3, 4, 3, 4);
-            ButtonAnyadir.Name = "ButtonAnyadir";
-            ButtonAnyadir.Size = new Size(95, 37);
-            ButtonAnyadir.TabIndex = 97;
-            ButtonAnyadir.Text = "Añadir";
-            ButtonAnyadir.UseVisualStyleBackColor = false;
-            ButtonAnyadir.Click += ButtonAnyadir_Click;
+            buttonAnyadir.BackColor = Color.DarkOrange;
+            buttonAnyadir.FlatStyle = FlatStyle.Flat;
+            buttonAnyadir.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            buttonAnyadir.ForeColor = SystemColors.ControlLightLight;
+            buttonAnyadir.Location = new Point(635, 368);
+            buttonAnyadir.Margin = new Padding(3, 4, 3, 4);
+            buttonAnyadir.Name = "buttonAnyadir";
+            buttonAnyadir.Size = new Size(95, 37);
+            buttonAnyadir.TabIndex = 97;
+            buttonAnyadir.Text = "Añadir";
+            buttonAnyadir.UseVisualStyleBackColor = false;
+            buttonAnyadir.Click += ButtonAnyadir_Click;
             // 
             // labelHorarios
             // 
             labelHorarios.AutoSize = true;
             labelHorarios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHorarios.Location = new Point(539, 170);
+            labelHorarios.Location = new Point(508, 163);
             labelHorarios.Margin = new Padding(5, 0, 5, 0);
             labelHorarios.Name = "labelHorarios";
             labelHorarios.Size = new Size(74, 20);
@@ -128,6 +133,7 @@ namespace WinFormsApp1
             CalendarCitas.TabIndex = 95;
             CalendarCitas.TitleBackColor = Color.DarkOrange;
             CalendarCitas.TrailingForeColor = SystemColors.ButtonShadow;
+            CalendarCitas.DateSelected += CalendarCitas_DateSelected;
             // 
             // labelTituo
             // 
@@ -144,7 +150,7 @@ namespace WinFormsApp1
             // 
             labelCitFecha.AutoSize = true;
             labelCitFecha.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitFecha.Location = new Point(539, 112);
+            labelCitFecha.Location = new Point(508, 113);
             labelCitFecha.Margin = new Padding(5, 0, 5, 0);
             labelCitFecha.Name = "labelCitFecha";
             labelCitFecha.Size = new Size(55, 20);
@@ -155,7 +161,7 @@ namespace WinFormsApp1
             // 
             radioButtonAnual.AutoSize = true;
             radioButtonAnual.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButtonAnual.Location = new Point(539, 291);
+            radioButtonAnual.Location = new Point(271, 368);
             radioButtonAnual.Name = "radioButtonAnual";
             radioButtonAnual.RightToLeft = RightToLeft.No;
             radioButtonAnual.Size = new Size(72, 24);
@@ -163,35 +169,73 @@ namespace WinFormsApp1
             radioButtonAnual.Text = "Anual";
             radioButtonAnual.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioButtonPuntual
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Checked = true;
-            radioButton1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton1.Location = new Point(539, 261);
-            radioButton1.Name = "radioButton1";
-            radioButton1.RightToLeft = RightToLeft.No;
-            radioButton1.Size = new Size(86, 24);
-            radioButton1.TabIndex = 110;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Puntual";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioButtonPuntual.AutoSize = true;
+            radioButtonPuntual.Checked = true;
+            radioButtonPuntual.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            radioButtonPuntual.Location = new Point(271, 338);
+            radioButtonPuntual.Name = "radioButtonPuntual";
+            radioButtonPuntual.RightToLeft = RightToLeft.No;
+            radioButtonPuntual.Size = new Size(86, 24);
+            radioButtonPuntual.TabIndex = 110;
+            radioButtonPuntual.TabStop = true;
+            radioButtonPuntual.Text = "Puntual";
+            radioButtonPuntual.UseVisualStyleBackColor = true;
+            // 
+            // textBoxMotivo
+            // 
+            textBoxMotivo.Location = new Point(508, 283);
+            textBoxMotivo.Margin = new Padding(3, 4, 3, 4);
+            textBoxMotivo.Name = "textBoxMotivo";
+            textBoxMotivo.Size = new Size(222, 27);
+            textBoxMotivo.TabIndex = 112;
+            // 
+            // labelMotivo
+            // 
+            labelMotivo.AutoSize = true;
+            labelMotivo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelMotivo.Location = new Point(508, 249);
+            labelMotivo.Margin = new Padding(5, 0, 5, 0);
+            labelMotivo.Name = "labelMotivo";
+            labelMotivo.Size = new Size(58, 20);
+            labelMotivo.TabIndex = 111;
+            labelMotivo.Text = "Motivo";
+            // 
+            // buttonModificar
+            // 
+            buttonModificar.BackColor = Color.DarkOrange;
+            buttonModificar.FlatStyle = FlatStyle.Flat;
+            buttonModificar.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            buttonModificar.ForeColor = SystemColors.ControlLightLight;
+            buttonModificar.Location = new Point(606, 368);
+            buttonModificar.Margin = new Padding(3, 4, 3, 4);
+            buttonModificar.Name = "buttonModificar";
+            buttonModificar.Size = new Size(124, 37);
+            buttonModificar.TabIndex = 113;
+            buttonModificar.Text = "Modificar";
+            buttonModificar.UseVisualStyleBackColor = false;
+            buttonModificar.Click += buttonModificar_Click;
             // 
             // Bloqueo
             // 
-            ClientSize = new Size(818, 403);
-            Controls.Add(radioButton1);
+            ClientSize = new Size(779, 433);
+            Controls.Add(buttonModificar);
+            Controls.Add(textBoxMotivo);
+            Controls.Add(labelMotivo);
+            Controls.Add(radioButtonPuntual);
             Controls.Add(radioButtonAnual);
             Controls.Add(textBoxCitFecha);
             Controls.Add(buttonHorarios);
             Controls.Add(textBoxHorarios);
-            Controls.Add(ButtonAnyadir);
+            Controls.Add(buttonAnyadir);
             Controls.Add(labelHorarios);
             Controls.Add(CalendarCitas);
             Controls.Add(labelTituo);
             Controls.Add(labelCitFecha);
             Controls.Add(pictureBoxICon);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(797, 480);
             Name = "Bloqueo";
             Text = "Bloqueo Horario";
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
@@ -205,12 +249,15 @@ namespace WinFormsApp1
         private TextBox textBoxCitFecha;
         private Button buttonHorarios;
         private TextBox textBoxHorarios;
-        private Button ButtonAnyadir;
+        private Button buttonAnyadir;
         private Label labelHorarios;
         private Cita.MyMonthCalendar CalendarCitas;
         private Label labelTituo;
         private Label labelCitFecha;
         private RadioButton radioButtonAnual;
-        private RadioButton radioButton1;
+        private RadioButton radioButtonPuntual;
+        private TextBox textBoxMotivo;
+        private Label labelMotivo;
+        private Button buttonModificar;
     }
 }

@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle65 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle70 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle71 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle72 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle66 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle67 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle68 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle69 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panelVisualCitas = new Panel();
             textBoxCitBuscar = new TextBox();
             panelProximas = new Panel();
@@ -48,6 +48,7 @@
             pictureHoy = new PictureBox();
             panelMargenes = new Panel();
             panelFiltros = new Panel();
+            buttonProximas = new Button();
             panelBotones = new Panel();
             anyadirCitas = new Button();
             buttonCompletar = new Button();
@@ -214,6 +215,7 @@
             // 
             // panelFiltros
             // 
+            panelFiltros.Controls.Add(buttonProximas);
             panelFiltros.Controls.Add(panelBotones);
             panelFiltros.Controls.Add(comboBoxEstado);
             panelFiltros.Controls.Add(monthCalendarFiltrar);
@@ -226,6 +228,17 @@
             panelFiltros.Name = "panelFiltros";
             panelFiltros.Size = new Size(411, 801);
             panelFiltros.TabIndex = 21;
+            // 
+            // buttonProximas
+            // 
+            buttonProximas.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonProximas.Location = new Point(40, 390);
+            buttonProximas.Name = "buttonProximas";
+            buttonProximas.Size = new Size(282, 32);
+            buttonProximas.TabIndex = 24;
+            buttonProximas.Text = "Ver solo las póximas citas";
+            buttonProximas.UseVisualStyleBackColor = true;
+            buttonProximas.Click += buttonProximas_Click;
             // 
             // panelBotones
             // 
@@ -314,11 +327,11 @@
             // buttonTodos
             // 
             buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            buttonTodos.Location = new Point(40, 490);
+            buttonTodos.Location = new Point(40, 540);
             buttonTodos.Name = "buttonTodos";
             buttonTodos.Size = new Size(282, 32);
             buttonTodos.TabIndex = 4;
-            buttonTodos.Text = "Ver todos los horarios";
+            buttonTodos.Text = "Ver todas las citas";
             buttonTodos.UseVisualStyleBackColor = true;
             buttonTodos.Click += buttonTodos_Click;
             // 
@@ -327,7 +340,7 @@
             comboBoxGrupos.DisplayMember = "1";
             comboBoxGrupos.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxGrupos.FlatStyle = FlatStyle.Flat;
-            comboBoxGrupos.Location = new Point(40, 390);
+            comboBoxGrupos.Location = new Point(40, 490);
             comboBoxGrupos.Margin = new Padding(6, 5, 6, 5);
             comboBoxGrupos.Name = "comboBoxGrupos";
             comboBoxGrupos.Size = new Size(282, 28);
@@ -341,26 +354,26 @@
             dataGridViewCitas.BackgroundColor = Color.White;
             dataGridViewCitas.BorderStyle = BorderStyle.None;
             dataGridViewCitas.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle65.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle65.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle65.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle65.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle65.Padding = new Padding(7);
-            dataGridViewCellStyle65.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle65.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle65.WrapMode = DataGridViewTriState.True;
-            dataGridViewCitas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle65;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(7);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewCitas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCitas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCitas.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnCliente, dataGridViewTextBoxColumnServicio, dataGridViewTextBoxColumnFecha, dataGridViewTextBoxColumnHora, DataGridViewTextBoxColumnEstado, dataGridViewTextBoxColumnGrupo });
-            dataGridViewCellStyle70.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle70.BackColor = SystemColors.Window;
-            dataGridViewCellStyle70.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle70.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle70.Padding = new Padding(2);
-            dataGridViewCellStyle70.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle70.SelectionForeColor = SystemColors.ButtonHighlight;
-            dataGridViewCellStyle70.WrapMode = DataGridViewTriState.False;
-            dataGridViewCitas.DefaultCellStyle = dataGridViewCellStyle70;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.Padding = new Padding(2);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.ButtonHighlight;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridViewCitas.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewCitas.Dock = DockStyle.Right;
             dataGridViewCitas.EnableHeadersVisualStyles = false;
             dataGridViewCitas.GridColor = Color.Black;
@@ -370,19 +383,19 @@
             dataGridViewCitas.MultiSelect = false;
             dataGridViewCitas.Name = "dataGridViewCitas";
             dataGridViewCitas.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle71.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle71.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle71.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle71.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle71.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle71.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle71.WrapMode = DataGridViewTriState.True;
-            dataGridViewCitas.RowHeadersDefaultCellStyle = dataGridViewCellStyle71;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridViewCitas.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewCitas.RowHeadersVisible = false;
             dataGridViewCitas.RowHeadersWidth = 51;
-            dataGridViewCellStyle72.BackColor = Color.White;
-            dataGridViewCellStyle72.SelectionForeColor = Color.White;
-            dataGridViewCitas.RowsDefaultCellStyle = dataGridViewCellStyle72;
+            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = Color.White;
+            dataGridViewCitas.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewCitas.RowTemplate.Height = 35;
             dataGridViewCitas.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewCitas.Size = new Size(1100, 801);
@@ -392,8 +405,8 @@
             // dataGridViewTextBoxColumnCliente
             // 
             dataGridViewTextBoxColumnCliente.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle66.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumnCliente.DefaultCellStyle = dataGridViewCellStyle66;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnCliente.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewTextBoxColumnCliente.HeaderText = "Cliente";
             dataGridViewTextBoxColumnCliente.MinimumWidth = 6;
             dataGridViewTextBoxColumnCliente.Name = "dataGridViewTextBoxColumnCliente";
@@ -402,9 +415,9 @@
             // dataGridViewTextBoxColumnServicio
             // 
             dataGridViewTextBoxColumnServicio.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle67.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle67.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumnServicio.DefaultCellStyle = dataGridViewCellStyle67;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnServicio.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewTextBoxColumnServicio.HeaderText = "Servicio";
             dataGridViewTextBoxColumnServicio.MinimumWidth = 6;
             dataGridViewTextBoxColumnServicio.Name = "dataGridViewTextBoxColumnServicio";
@@ -413,8 +426,8 @@
             // dataGridViewTextBoxColumnFecha
             // 
             dataGridViewTextBoxColumnFecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle68.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumnFecha.DefaultCellStyle = dataGridViewCellStyle68;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnFecha.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewTextBoxColumnFecha.HeaderText = "Fecha";
             dataGridViewTextBoxColumnFecha.MinimumWidth = 6;
             dataGridViewTextBoxColumnFecha.Name = "dataGridViewTextBoxColumnFecha";
@@ -424,8 +437,8 @@
             // dataGridViewTextBoxColumnHora
             // 
             dataGridViewTextBoxColumnHora.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle69.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumnHora.DefaultCellStyle = dataGridViewCellStyle69;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumnHora.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewTextBoxColumnHora.HeaderText = "Hora";
             dataGridViewTextBoxColumnHora.MinimumWidth = 6;
             dataGridViewTextBoxColumnHora.Name = "dataGridViewTextBoxColumnHora";
@@ -573,5 +586,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnHora;
         private DataGridViewTextBoxColumn DataGridViewTextBoxColumnEstado;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumnGrupo;
+        private Button buttonProximas;
     }
 }

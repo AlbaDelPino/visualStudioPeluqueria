@@ -1,9 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using CitasInfo.Models;
+using Newtonsoft.Json;
+using System;
 using System.Data;
 using System.Drawing.Drawing2D;
+using System.Globalization;
+using System.Linq;
 using System.Net;
-using UsersInfo.Models;
 using System.Runtime.InteropServices;
+using UsersInfo.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace WinFormsApp1
@@ -22,9 +27,10 @@ namespace WinFormsApp1
         );
 
         private readonly string _token;
-        private static int pagUs;
-        private static int contador = 1;
-        private static List<UsersDto> _usuarios;
+        private static int _paginaActual = 1;
+        private const int REGISTROS_POR_PAGINA = 19;
+        private List<UsersDto> _usuariosCompletos;
+        private List<UsersDto> _usuariosFiltrados;
         private readonly UsersDto _usuarioActual;
 
         public PanelUsuario(UsersDto usuarioActual, string token)
@@ -43,24 +49,19 @@ namespace WinFormsApp1
             dataGridViewUsuarios.AllowUserToAddRows = false;
             dataGridViewUsuarios.AllowUserToDeleteRows = false;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
-            _usuarios = new List<UsersDto>();
-            RecargarUsuarios();
-            pasarPagina();
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
 
-            ConfigurarUIEstiloImagen();
+            _usuariosCompletos = new List<UsersDto>();
+            _usuariosFiltrados = new List<UsersDto>();
+
+            ActualizarRegiones();
+            CargarTodosLosUsuarios();
+
+            ActualizarRegiones();
         }
 
-        private void ConfigurarUIEstiloImagen()
+        private void ActualizarRegiones()
         {
-            anyadirUsuario.Text = "+";
-            anyadirUsuario.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.FlatAppearance.BorderSize = 0;
-            anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Size = new Size(45, 45);
-
             anyadirUsuario.Left = panelVisualUsuarios.Width - 60;
 
             textBoxSUsBuscar.Left = 50;
@@ -68,17 +69,12 @@ namespace WinFormsApp1
 
             comboBoxUsFiltrar.Width = 180;
             comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30;
-
-            textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirUsuario.Anchor =  AnchorStyles.Right;
-
-            ActualizarRegiones();
-        }
-
-        private void ActualizarRegiones()
-        {
             anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
+        }
+        private void PanelUsuario_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualUsuarios.Invalidate();
         }
 
         private void panelVisualUsuarios_Paint(object sender, PaintEventArgs e)
@@ -101,7 +97,7 @@ namespace WinFormsApp1
             Rectangle rectFiltro = new Rectangle(
                 comboBoxUsFiltrar.Left - 10,
                 comboBoxUsFiltrar.Top - 10,
-                comboBoxUsFiltrar.Width + 25, 
+                comboBoxUsFiltrar.Width + 25,
                 comboBoxUsFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -131,30 +127,8 @@ namespace WinFormsApp1
 
         private void InfoUsuario(UsersDto usuario)
         {
-            var nombreYapellidos = usuario.Nombre.Split(' ');
-            var nombre = "";
-            var apellidos = "";
-
-            if (nombreYapellidos.Length == 4)
-            {
-                nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[3];
-            }
-            else if (nombreYapellidos.Length == 3)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
-            }
-            else if (nombreYapellidos.Length == 2)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1];
-            }
-            else if (nombreYapellidos.Length == 1)
-            {
-                nombre = nombreYapellidos[0];
-            }
-
+            var nombre = usuario.Nombre;
+            var apellidos = " ";
             Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
             pantallaInfo.Form = "Información de " + usuario.Nombre;
             pantallaInfo.LabelTituoCrearUsuario.Visible = false;
@@ -175,7 +149,6 @@ namespace WinFormsApp1
             pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
             pantallaInfo.ComboTipoUsuario.Enabled = false;
             pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserComCit.ReadOnly = true;
             pantallaInfo.TboxUserAlerg.ReadOnly = true;
             pantallaInfo.TboxUserObserv.ReadOnly = true;
             pantallaInfo.TboxUserCurso.ReadOnly = true;
@@ -186,8 +159,6 @@ namespace WinFormsApp1
             pantallaInfo.TboxNombreUsuario.Text = usuario.Username;
             pantallaInfo.TxtBoxUsNombre.Text = nombre;
             pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-            pantallaInfo.TextBoxUsEmail.Text = usuario.Email;
-            pantallaInfo.TextBoxUsTel.Text = usuario.Telefono.ToString();
 
             if (usuario.Estado.Equals("true"))
             {
@@ -206,14 +177,38 @@ namespace WinFormsApp1
                 {
                     if (c.Id == usuario.Id)
                     {
-                        pantallaInfo.TboxUserComCit.Text = c.Comentario ?? "";
                         pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
                         pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
+                        pantallaInfo.TextBoxUsEmail.Text = c.Email ?? "";
+                        pantallaInfo.TextBoxUsTel.Text = c.Telefono.ToString() ?? "";
                     }
                 }
                 pantallaInfo.PanelAdmin.Visible = false;
                 pantallaInfo.PanelUsGrupo.Visible = false;
                 pantallaInfo.PanelCliente.Visible = true;
+
+                var nombreYapellidos = usuario.Nombre.Split(' ');
+                if (nombreYapellidos.Length >= 4)
+                {
+                    nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
+                    apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length - 1];
+                }
+                else if (nombreYapellidos.Length == 3)
+                {
+                    nombre = nombreYapellidos[0];
+                    apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
+                }
+                else if (nombreYapellidos.Length == 2)
+                {
+                    nombre = nombreYapellidos[0];
+                    apellidos = nombreYapellidos[1];
+                }
+                else if (nombreYapellidos.Length == 1)
+                {
+                    nombre = nombreYapellidos[0];
+                }
+                pantallaInfo.TxtBoxUsNombre.Text = nombre;
+                pantallaInfo.TextBoxUsApellidos.Text = apellidos;
 
                 indexRol = 0;
             }
@@ -255,9 +250,9 @@ namespace WinFormsApp1
 
             if (pantallaInfo.ShowDialog() == DialogResult.OK)
             {
-                RecargarUsuarios();
-                pasarPagina();
                 MessageBox.Show("Usuario modificado correctamente", "Éxito", MessageBoxButtons.OK);
+                CargarTodosLosUsuarios();
+                filtrarUsuarios();
             }
 
         }
@@ -305,9 +300,8 @@ namespace WinFormsApp1
                                 MessageBox.Show("Usuario eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Refrescar la tabla
-                                RecargarUsuarios();
-                                pasarPagina();
+                                CargarTodosLosUsuarios();
+                                filtrarUsuarios();
                             }
                             else
                             {
@@ -329,7 +323,6 @@ namespace WinFormsApp1
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
-
             Usuario pantallaAnyadir = new Usuario(null, _token, null);
             pantallaAnyadir.Form = "Añadir usuario nuevo";
             pantallaAnyadir.LabelTituoCrearUsuario.Visible = true;
@@ -347,7 +340,6 @@ namespace WinFormsApp1
             pantallaAnyadir.TextBoxUsEmail.Text = "";
             pantallaAnyadir.TextBoxUsTel.Text = "";
             pantallaAnyadir.ComboTipoUsuario.SelectedItem = "";
-            pantallaAnyadir.TboxUserComCit.Text = "";
             pantallaAnyadir.TboxUserAlerg.Text = "";
             pantallaAnyadir.TboxUserObserv.Text = "";
             pantallaAnyadir.TboxUserCurso.Text = "";
@@ -356,11 +348,183 @@ namespace WinFormsApp1
 
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
-                RecargarUsuarios();
-                pasarPagina();
                 MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarTodosLosUsuarios();
+                filtrarUsuarios();
             }
         }
+
+        private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
+
+            if (e.RowIndex >= dataGridViewUsuarios.Rows.Count) return;
+
+
+            var fila = dataGridViewUsuarios.Rows[e.RowIndex];
+            var usuario = fila.Tag as UsersDto;
+            if (usuario == null) return;
+
+            var columna = dataGridViewUsuarios.Columns[e.ColumnIndex].Name;
+
+            if (columna == "dataGridViewImageColumnUsEliminar")
+            {
+                EliminarUsuario(usuario);
+            }
+            else if (columna == "dataGridViewImageColumnUsInfo")
+            {
+                InfoUsuario(usuario);
+            }
+            //Mirar columnas
+
+        }
+        private void filtrarUsuarios()
+        {
+            string textoBusqueda = textBoxSUsBuscar.Text.Trim().ToLower();
+            string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString().ToLower();
+
+            _usuariosFiltrados = _usuariosCompletos.Where(u =>
+            {
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                                (u.Nombre?.ToLower().Contains(textoBusqueda) == true) ||
+                                (u.Username?.ToLower().Contains(textoBusqueda) == true);
+
+                bool pasaEstado = true;
+                switch (filtroCombo)
+                {
+                    case "activos":
+                        pasaEstado = u.Estado.Equals("true");
+                        break;
+
+                    case "inactivos":
+                        pasaEstado = u.Estado.Equals("false");
+                        break;
+                }
+
+                bool pasaRol = true;
+                switch (filtroCombo)
+                {
+                    case "Administradores":
+                        pasaRol = u.Role.Equals("ROLE_ADMIN");
+                        break;
+
+                    case "Clientes":
+                        pasaRol = u.Role.Equals("ROLE_CLIENTE");
+                        break;
+
+                    case "Grupos":
+                        pasaRol = u.Role.Equals("ROLE_GRUPO");
+                        break;
+                }
+
+                return pasaTexto && pasaEstado && pasaRol;
+            }).ToList();
+
+            _paginaActual = 1;
+            pasarPagina();
+        }
+        private void textBoxSUsBuscar_TextChanged(object sender, EventArgs e)
+        {
+            filtrarUsuarios();
+        }
+        private void comboBoxUsFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarUsuarios();
+        }
+
+        private void limpiarFiltros()
+        {
+            comboBoxUsFiltrar.SelectedIndex = 0;
+            textBoxSUsBuscar.Text = string.Empty;
+
+            _usuariosCompletos = ObtenerUsuarios();
+            _usuariosFiltrados = ObtenerUsuarios();
+            _paginaActual = 1;
+            pasarPagina();
+        }
+
+        private void pasarPagina()
+        {
+            dataGridViewUsuarios.Rows.Clear();
+
+            int totalPaginas = (_usuariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (totalPaginas == 0) totalPaginas = 1;
+
+            if (_paginaActual > totalPaginas)
+                _paginaActual = totalPaginas;
+
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _usuariosFiltrados.Count);
+
+
+            for (int i = inicio; i < fin; i++)
+            {
+                var u = _usuariosFiltrados[i];
+
+                string rol = "Cliente";
+                if (u.Role.Equals("ROLE_GRUPO"))
+                {
+                    rol = "Grupo";
+                }
+                else if (u.Role.Equals("ROLE_ADMIN"))
+                {
+                    rol = "Admin";
+                }
+
+                var estado = "Activo";
+                if (u.Estado.Equals("false"))
+                {
+                    estado = "Inactivo";
+                }
+
+                int index = dataGridViewUsuarios.Rows.Add(
+                    u.Nombre,
+                    u.Username,
+                    rol,
+                    estado
+                );
+                dataGridViewUsuarios.Rows[index].Tag = u;
+            }
+
+            buttonPaginacionAtras.Enabled = (_paginaActual > 1);
+            buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
+
+            labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
+        }
+
+        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
+        {
+            if (_paginaActual > 1)
+            {
+                int totalPaginas = (_usuariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+                _paginaActual--;
+                pasarPagina();
+                if (_paginaActual != totalPaginas)
+                {
+                    buttonPaginacionDelante.ForeColor = Color.Black;
+                }
+                if (_paginaActual == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
+            }
+        }
+
+        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
+        {
+            int totalPaginas = (_usuariosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (_paginaActual < totalPaginas)
+            {
+                _paginaActual++;
+                pasarPagina();
+                if (_paginaActual != 1)
+                {
+                    buttonPaginacionAtras.ForeColor = Color.Black;
+                }
+            }
+            if (_paginaActual == totalPaginas)
+            {
+                buttonPaginacionDelante.ForeColor = Color.Silver;
+            }
+        }
+
         private List<UsersDto> ObtenerUsuarios()
         {
             try
@@ -378,7 +542,11 @@ namespace WinFormsApp1
                 {
                     string json = reader.ReadToEnd();
                     var usuarios = JsonConvert.DeserializeObject<List<UsersDto>>(json);
-                    return usuarios;
+                    labelNumUsuarios.Text = $"{usuarios.Count}";
+                    labelNumUActivos.Text = $"{usuarios?.Where(u => u.Estado.Equals("true")).ToList().Count ?? 0}";
+                    labelNumUInactivos.Text = $"{usuarios?.Where(u => u.Estado.Equals("false")).ToList().Count ?? 0}";
+                    labelNumAdmin.Text = $"{usuarios?.Where(u => u.Role.Equals("ROLE_ADMIN")).ToList().Count ?? 0}";
+                    return usuarios.OrderBy(u => u.Nombre).ToList();
                 }
 
             }
@@ -478,249 +646,17 @@ namespace WinFormsApp1
             return null;
         }
 
-
-        private void RecargarUsuarios()
+        private void CargarTodosLosUsuarios()
         {
-            _usuarios = ObtenerUsuarios();
+            _usuariosCompletos = ObtenerUsuarios();
+            _usuariosFiltrados = new List<UsersDto>(_usuariosCompletos);
+            _paginaActual = 1;
 
-            if (_usuarios.Count % 15 != 0)
-            {
-                pagUs = (_usuarios.Count / 15) + 1;
-            }
-            else
-            {
-                pagUs = (_usuarios.Count / 15);
-            }
+            pasarPagina();
 
-            int activos = 0;
-            int inactivos = 0;
-            int grupos = 0;
-            int clientes = 0;
-            int admins = 0;
-
-            foreach (var u in _usuarios)
-            {
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    clientes++;
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    grupos++;
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    admins++;
-                }
-
-                if (u.Estado.Equals("true"))
-                {
-                    activos++;
-                }
-                else if (u.Estado.Equals("false"))
-                {
-                    inactivos++;
-                }
-            }
-
-            labelNumUsuarios.Text = $"{_usuarios.Count}";
-            labelNumUActivos.Text = $"{activos}";
-            labelNumUInactivos.Text = $"{inactivos}";
-            labelNumAdmin.Text = $"{admins}";
-        }
-        private void pasarPagina()
-        {
-            dataGridViewUsuarios.Rows.Clear();
-            int registrosASaltar = (contador - 1) * 15;
-            var usuariosPagina = _usuarios.Skip(registrosASaltar).Take(15).ToList();
-
-            foreach (var u in usuariosPagina)
-            {
-                string rol = "";
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    rol = "Cliente";
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    rol = "Grupo";
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    rol = "Admin";
-                }
-
-                string estado = "";
-                if (u.Estado.Equals("true"))
-                {
-                    estado = "Activo";
-                }
-                else if (u.Estado.Equals("false"))
-                {
-                    estado = "Inactivo";
-                }
-
-                int index = dataGridViewUsuarios.Rows.Add(
-                    u.Nombre,
-                    u.Username,
-                    rol,
-                    estado
-                );
-
-                dataGridViewUsuarios.Rows[index].Tag = u;
-            }
-        }
-
-
-        private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
-
-            if (e.RowIndex >= dataGridViewUsuarios.Rows.Count) return;
-            
-            
-            var fila = dataGridViewUsuarios.Rows[e.RowIndex];
-            var usuario = fila.Tag as UsersDto;
-            if (usuario == null) return;
-
-            var columna = dataGridViewUsuarios.Columns[e.ColumnIndex].Name;
-
-            if (columna == "dataGridViewImageColumnUsEliminar")
-            {
-                EliminarUsuario(usuario);
-            }
-            else if (columna == "dataGridViewImageColumnUsInfo")
-            {
-                InfoUsuario(usuario);
-            }
 
         }
-
-        private void filtrarUsuarios()
-        {
-            string filtro = textBoxSUsBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString();
-
-            if (_usuarios == null) return;
-
-            var listaFiltrada = _usuarios.AsEnumerable();
-
-            if (!string.IsNullOrEmpty(filtro))
-            {
-                listaFiltrada = listaFiltrada
-                    .Where(u => u.Nombre?.ToLower().Contains(filtro) == true
-                             || u.Username?.ToLower().Contains(filtro) == true).ToList();
-            }
-
-            switch (filtroCombo)
-            {
-                case "Activos":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Estado.Equals("true", StringComparison.OrdinalIgnoreCase));
-                    break;
-
-                case "Inactivos":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Estado.Equals("false", StringComparison.OrdinalIgnoreCase));
-                    break;
-
-                case "Administradores":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_ADMIN", StringComparison.OrdinalIgnoreCase));
-                    break;
-
-                case "Clientes":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_CLIENTE", StringComparison.OrdinalIgnoreCase));
-                    break;
-
-                case "Grupos":
-                    listaFiltrada = listaFiltrada
-                        .Where(u => u.Role.Equals("ROLE_GRUPO", StringComparison.OrdinalIgnoreCase));
-                    break;
-            }
-
-            dataGridViewUsuarios.Rows.Clear();
-
-            foreach (var u in listaFiltrada)
-            {
-                string rol = "";
-                if (u.Role.Equals("ROLE_CLIENTE"))
-                {
-                    rol = "Cliente";
-                }
-                else if (u.Role.Equals("ROLE_GRUPO"))
-                {
-                    rol = "Grupo";
-                }
-                else if (u.Role.Equals("ROLE_ADMIN"))
-                {
-                    rol = "Admin";
-                }
-
-                string estado = "";
-                if (u.Estado.Equals("true"))
-                {
-                    estado = "Activo";
-                }
-                else if (u.Estado.Equals("false"))
-                {
-                    estado = "Inactivo";
-                }
-
-                int index = dataGridViewUsuarios.Rows.Add(
-                    u.Nombre,
-                    u.Username,
-                    rol,
-                    estado
-                );
-
-                dataGridViewUsuarios.Rows[index].Tag = u;
-            }
-        }
-
-
-        private void textBoxSUsBuscar_TextChanged(object sender, EventArgs e)
-        {
-            filtrarUsuarios();
-        }
-
-
-        private void comboBoxUsFiltrar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtrarUsuarios();
-        }
-
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
-        {
-            if (contador > 1)
-            {
-                contador--;
-                pasarPagina();
-                if (contador != pagUs)
-                {
-                    buttonPaginacionDelante.ForeColor = Color.Black;
-                }
-                if (contador == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
-            }
-        }
-
-        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
-        {
-            if (contador < pagUs)
-            {
-                contador++;
-                pasarPagina();
-                if (contador != 1)
-                {
-                    buttonPaginacionAtras.ForeColor = Color.Black;
-                }
-            }
-            if (contador == pagUs)
-            {
-                buttonPaginacionDelante.ForeColor = Color.Silver;
-            }
-        }
+ 
     }
 
 }

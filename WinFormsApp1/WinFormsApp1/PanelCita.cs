@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Net;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using UsersInfo.Models;
 
@@ -32,6 +33,7 @@ namespace WinFormsApp1
         private readonly List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
         private static bool _fechaSeleccionada = false;
+        private static bool _proximas = false;
 
         public PanelCita(UsersDto usuarioActual, List<UsersDto> grupos, string token)
         {
@@ -76,7 +78,7 @@ namespace WinFormsApp1
 
         private void ActualizarRegiones()
         {
-            dataGridViewCitas.Width = (panelMargenes.Width / 4) * 3;
+            dataGridViewCitas.Width = panelVisualCitas.Width / 4 * 3;
             textBoxCitBuscar.Left = panelFiltros.Width + 80;
             textBoxCitBuscar.Width = dataGridViewCitas.Width - 45;
             panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
@@ -282,8 +284,13 @@ namespace WinFormsApp1
                                     ((c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(fin).ToDateOnly()) <= 0) == true);
                     }
                 }
+                bool pasaProxima = true;
+                if (_proximas)
+                {
+                    pasaProxima = (c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) >= 0);
+                }
 
-                return pasaTexto && pasaGrupo && pasaEstado && pasaFecha;
+                return pasaTexto && pasaGrupo && pasaEstado && pasaFecha && pasaProxima;
             }).ToList();
 
             _paginaActual = 1;
@@ -307,10 +314,23 @@ namespace WinFormsApp1
             _fechaSeleccionada = true;
             filtrarCitas();
         }
+        private void buttonProximas_Click(object sender, EventArgs e)
+        {
+            _proximas = !_proximas;
+            if (_proximas)
+            {
+                buttonProximas.Text = "Quitar la vista de póximas citas";
+            } else
+            {
+                buttonProximas.Text = "Ver solo las póximas citas";
+            }
+                filtrarCitas(); 
+        }
 
         private void buttonTodos_Click(object sender, EventArgs e)
         {
             limpiarFiltros();
+            filtrarCitas();
         }
         private void limpiarFiltros()
         {
@@ -320,6 +340,8 @@ namespace WinFormsApp1
             monthCalendarFiltrar.SelectionEnd = DateTime.Today;
             monthCalendarFiltrar.SelectionStart = DateTime.Today;
             _fechaSeleccionada = false;
+            _proximas = false;
+            buttonProximas.Text = "Ver solo las póximas citas";
 
             _citasCompletas = ObtenerCitas();
             _citasFiltradas = ObtenerCitas();
