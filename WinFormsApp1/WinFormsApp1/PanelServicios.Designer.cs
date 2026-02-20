@@ -55,6 +55,7 @@
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
             panelPaginacion = new Panel();
+            labelPaginaActual = new Label();
             panelEspaciado = new Panel();
             panelMargenes = new Panel();
             panelVisualServicios.SuspendLayout();
@@ -162,12 +163,14 @@
             // 
             anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
             anyadirServicio.FlatStyle = FlatStyle.Flat;
+            anyadirServicio.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
+            anyadirServicio.ForeColor = SystemColors.ControlLightLight;
             anyadirServicio.Location = new Point(1446, 175);
             anyadirServicio.Margin = new Padding(3, 4, 3, 4);
             anyadirServicio.Name = "anyadirServicio";
-            anyadirServicio.Size = new Size(67, 31);
+            anyadirServicio.Size = new Size(52, 55);
             anyadirServicio.TabIndex = 10;
-            anyadirServicio.Text = ".";
+            anyadirServicio.Text = "+";
             anyadirServicio.UseVisualStyleBackColor = false;
             anyadirServicio.Click += anyadirServicio_Click;
             // 
@@ -362,6 +365,7 @@
             // 
             // panelPaginacion
             // 
+            panelPaginacion.Controls.Add(labelPaginaActual);
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
@@ -371,6 +375,15 @@
             panelPaginacion.Padding = new Padding(34, 0, 0, 0);
             panelPaginacion.Size = new Size(1571, 40);
             panelPaginacion.TabIndex = 12;
+            // 
+            // labelPaginaActual
+            // 
+            labelPaginaActual.AutoSize = true;
+            labelPaginaActual.Location = new Point(777, 10);
+            labelPaginaActual.Name = "labelPaginaActual";
+            labelPaginaActual.Size = new Size(17, 20);
+            labelPaginaActual.TabIndex = 5;
+            labelPaginaActual.Text = "1";
             // 
             // panelEspaciado
             // 
@@ -405,6 +418,7 @@
             Name = "PanelServicios";
             Text = "PanelServicios";
             Load += PanelServicios_Load;
+            Resize += PanelServicios_Resize;
             panelVisualServicios.ResumeLayout(false);
             panelVisualServicios.PerformLayout();
             panelTipoSer.ResumeLayout(false);
@@ -415,6 +429,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureServicios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewServicios).EndInit();
             panelPaginacion.ResumeLayout(false);
+            panelPaginacion.PerformLayout();
             panelMargenes.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -446,5 +461,6 @@
         private Panel panelPaginacion;
         private Panel panelEspaciado;
         private Panel panelMargenes;
+        private Label labelPaginaActual;
     }
 }

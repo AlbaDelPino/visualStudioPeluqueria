@@ -1,21 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using ServiciosInfo.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using UsersInfo.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
@@ -32,16 +21,19 @@ namespace WinFormsApp1
            int nHeightEllipse
        );
         private readonly string _token;
-        private static int pagSer;
-        private static int contador = 1;
-        private static List<ServicioDto> _servicios;
-        public PanelServicios(UsersDto usuarioActual,string token)
+        private static int _paginaActual = 1;
+        private const int REGISTROS_POR_PAGINA = 19;
+        private List<ServicioDto> _serviciosCompletos;
+        private List<ServicioDto> _serviciosFiltrados;
+        private readonly UsersDto _usuarioActual;
+        public PanelServicios(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
             this.DoubleBuffered = true;
             this.ResizeRedraw = true;
 
             _token = token;
+            _usuarioActual = usuarioActual;
         }
 
         private void PanelServicios_Load(object sender, EventArgs e)
@@ -50,42 +42,32 @@ namespace WinFormsApp1
             dataGridViewServicios.AllowUserToAddRows = false;
             dataGridViewServicios.AllowUserToDeleteRows = false;
             dataGridViewServicios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            _servicios = new List<ServicioDto>();
-            RecargarServicios();
-            pasarPagina();
 
-            ConfigurarUIEstiloImagen();
+            _serviciosCompletos = new List<ServicioDto>();
+            _serviciosFiltrados = new List<ServicioDto>();
 
-        }
-
-        private void ConfigurarUIEstiloImagen()
-        {
-            anyadirServicio.Text = "+";
-            anyadirServicio.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirServicio.FlatStyle = FlatStyle.Flat;
-            anyadirServicio.FlatAppearance.BorderSize = 0;
-            anyadirServicio.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirServicio.ForeColor = Color.White;
-            anyadirServicio.Size = new Size(45, 45);
-
-            anyadirServicio.Left = panelVisualServicios.Width - 60; 
-
-            textBoxSerBuscar.Left = 50;
-            textBoxSerBuscar.Width = panelVisualServicios.Width - 350;
-
-            comboBoxSerFiltrar.Width = 180;
-            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30; 
-
-            textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirServicio.Anchor = AnchorStyles.Right;
+            ActualizarRegiones();
+            CargarTodosLosServicios();
 
             ActualizarRegiones();
         }
 
         private void ActualizarRegiones()
         {
+            anyadirServicio.Left = panelVisualServicios.Width - 60;
+
+            textBoxSerBuscar.Left = 50;
+            textBoxSerBuscar.Width = panelVisualServicios.Width - 350;
+
+            comboBoxSerFiltrar.Width = 180;
+            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30;
+
             anyadirServicio.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirServicio.Width, anyadirServicio.Height, anyadirServicio.Width, anyadirServicio.Height));
+        }
+        private void PanelServicios_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualUsuarios.Invalidate();
         }
 
         private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
@@ -108,7 +90,7 @@ namespace WinFormsApp1
             Rectangle rectFiltro = new Rectangle(
                 comboBoxSerFiltrar.Left - 10,
                 comboBoxSerFiltrar.Top - 10,
-                comboBoxSerFiltrar.Width + 25, 
+                comboBoxSerFiltrar.Width + 25,
                 comboBoxSerFiltrar.Height + 20
             );
             DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
@@ -156,8 +138,9 @@ namespace WinFormsApp1
 
             if (pantallaModificar.ShowDialog() == DialogResult.OK)
             {
-                RecargarServicios();
-                pasarPagina();
+                MessageBox.Show("Servicio modificado correctamente", "Éxito", MessageBoxButtons.OK);
+                CargarTodosLosServicios();
+                filtrarServicios();
             }
         }
 
@@ -276,7 +259,7 @@ namespace WinFormsApp1
         private void pasarPagina()
         {
             dataGridViewServicios.Rows.Clear();
-       
+
             int registrosASaltar = (contador - 1) * 15;
             var servicioPagina = _servicios.Skip(registrosASaltar).Take(15).ToList();
 
@@ -406,5 +389,7 @@ namespace WinFormsApp1
                 buttonPaginacionDelante.ForeColor = Color.Silver;
             }
         }
+
+        
     }
 }

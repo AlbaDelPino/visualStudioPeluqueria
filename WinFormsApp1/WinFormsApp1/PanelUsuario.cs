@@ -1,14 +1,9 @@
-﻿using CitasInfo.Models;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Data;
 using System.Drawing.Drawing2D;
-using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using UsersInfo.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace WinFormsApp1

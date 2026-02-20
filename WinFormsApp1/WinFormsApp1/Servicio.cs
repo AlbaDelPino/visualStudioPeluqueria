@@ -106,7 +106,6 @@ namespace WinFormsApp1
                             string responseBody = objReader.ReadToEnd();
                             // Do something with responseBody
                             Console.WriteLine(responseBody);
-                            MessageBox.Show("Servicio añadido correctamente", "Servicio añadido correctamente", MessageBoxButtons.OK);
                         }
                     }
                 }
