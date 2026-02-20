@@ -29,14 +29,71 @@ namespace WinFormsApp1
             _cita = cita;
             _token = token;
         }
-        private void CargarComentario()
-        {
-            string tratamientos = richTextBoxTratamientos.Text ?? "";
-            string observaciones = richTextBoxObservaciones.Text ?? "";
-            var productos = richTextBoxProductos.Text ?? "";
 
-            var url = $"http://localhost:8082/citas/{_cita.Id}/ficha";
-            var data = "{\r\n  \"tratamientos\": \"" + tratamientos + "\",\r\n  \"productos\": \"" + productos + "\",\r\n  \"observaciones\": \"" + observaciones + "\"\r\n}\r\n";
+        private List<ClienteDto> ObtenerClientes()
+        {
+            try
+            {
+                var url = "http://localhost:8082/clientes";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+
+                // Aquí añadimos el token
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var clientes = JsonConvert.DeserializeObject<List<ClienteDto>>(json);
+                    return clientes;
+                }
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        private bool CargarComentario()
+        {
+            string comentario = "";
+            string alergenos = "";
+            var observaciones = "";
+            var clientes = ObtenerClientes();
+            foreach (ClienteDto c in clientes)
+            {
+                if (c.Id == _cita.Cliente.Id)
+                {
+                    comentario = c.Comentario ?? "";
+                    comentario = comentario.Replace("\n", "\\n");
+                    alergenos = c.Alergenos ?? "";
+                    observaciones = c.Observacion ?? "";
+                }
+            }
+
+            comentario += "Fecha: " + _cita.Fecha.ToString() + "\\nServicio: " + _cita.Horario.Servicio.Nombre;
+            if (!string.IsNullOrEmpty(richTextBoxTratamientos.Text))
+            {
+                comentario += "\\nTratamientos: " + richTextBoxTratamientos.Text;
+            }
+            if (!string.IsNullOrEmpty(richTextBoxProductos.Text))
+            {
+                comentario += "\\nProductos: " + richTextBoxProductos.Text;
+            }
+            if (!string.IsNullOrEmpty(richTextBoxObservaciones.Text))
+            {
+                comentario += "\\nObservaciones: " + richTextBoxObservaciones.Text;
+            }
+            comentario += "\\n\\n";
+
+            var url = $"http://localhost:8082/clientes/" + _cita.Cliente.Id;
+            var data = "{\r\n  \"username\": \"" + _cita.Cliente.Username + "\",\r\n  \"contrasenya\": \"" + _cita.Cliente.Contrasenya + "\",\r\n  \"email\": \"" + _cita.Cliente.Email + "\",\r\n  \"nombre\": \"" + _cita.Cliente.Nombre + "\",\r\n  \"telefono\": \"" + _cita.Cliente.Telefono + "\",\r\n  \"estado\": \"" + _cita.Cliente.Estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observaciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
 
             var request = (HttpWebRequest)WebRequest.Create(url);
             string json = data;
@@ -58,11 +115,11 @@ namespace WinFormsApp1
                 {
                     using (Stream strReader = response.GetResponseStream())
                     {
+                        if (strReader == null) return false;
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            this.DialogResult = DialogResult.OK;
-                            this.Close();
+                            return true;
                         }
                     }
                 }
@@ -74,11 +131,12 @@ namespace WinFormsApp1
                 {
                     mensaje = reader.ReadToEnd();
                 }
-                MessageBox.Show("Error al modificar la ficha de la cita", "Error al modificar la ficha de la cita", MessageBoxButtons.OK);
+                MessageBox.Show("Error al modificar usuario", "Error al modificar usuario", MessageBoxButtons.OK);
             }
+            return false;
         }
 
-        private bool CambiarEstado()
+        private void CambiarEstado()
         {
             try
             {
@@ -93,7 +151,8 @@ namespace WinFormsApp1
                 {
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        return true;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
                     }
                     else
                     {
@@ -107,15 +166,19 @@ namespace WinFormsApp1
                 MessageBox.Show($"Error al completar la cita: {ex.Message}", "Error",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            return false;
         }
 
         private void buttonCompletar_Click(object sender, EventArgs e)
         {
-            if (CambiarEstado())
+            if (CargarComentario())
             {
-                CargarComentario();
+                CambiarEstado();
             }
+        }
+
+        private void labelProductos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

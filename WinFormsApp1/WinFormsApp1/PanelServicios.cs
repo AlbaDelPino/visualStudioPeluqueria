@@ -280,7 +280,7 @@ namespace WinFormsApp1
             }
         }
 
-
+        
         private void dataGridViewServicios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
