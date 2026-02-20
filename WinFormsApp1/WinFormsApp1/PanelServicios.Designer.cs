@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PanelServicios));
             panelVisualServicios = new Panel();
             comboBoxSerFiltrar = new ComboBox();
@@ -58,6 +58,18 @@
             labelPaginaActual = new Label();
             panelEspaciado = new Panel();
             panelMargenes = new Panel();
+            panelFiltros = new Panel();
+            panelBotones = new Panel();
+            anyadirHorario = new Button();
+            buttonModificar = new Button();
+            buttonEliminar = new Button();
+            comboBoxDia = new ComboBox();
+            buttonTodos = new Button();
+            panelHorarios = new Panel();
+            labelNumHorarios = new Label();
+            labelHorarios = new Label();
+            pictureHorarios = new PictureBox();
+            comboBoxGrupos = new ComboBox();
             panelVisualServicios.SuspendLayout();
             panelTipoSer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureTipoSer).BeginInit();
@@ -66,6 +78,10 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewServicios).BeginInit();
             panelPaginacion.SuspendLayout();
             panelMargenes.SuspendLayout();
+            panelFiltros.SuspendLayout();
+            panelBotones.SuspendLayout();
+            panelHorarios.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHorarios).BeginInit();
             SuspendLayout();
             // 
             // panelVisualServicios
@@ -122,7 +138,7 @@
             labelNumTipoSer.Name = "labelNumTipoSer";
             labelNumTipoSer.Size = new Size(27, 29);
             labelNumTipoSer.TabIndex = 2;
-            labelNumTipoSer.Text = "3";
+            labelNumTipoSer.Text = "0";
             // 
             // labelTipoSer
             // 
@@ -198,7 +214,7 @@
             labelNumServicios.Name = "labelNumServicios";
             labelNumServicios.Size = new Size(27, 29);
             labelNumServicios.TabIndex = 2;
-            labelNumServicios.Text = "3";
+            labelNumServicios.Text = "0";
             // 
             // labelServicios
             // 
@@ -228,44 +244,44 @@
             dataGridViewServicios.BackgroundColor = SystemColors.ControlLightLight;
             dataGridViewServicios.BorderStyle = BorderStyle.None;
             dataGridViewServicios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(7);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewServicios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.Padding = new Padding(7);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridViewServicios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewServicios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewServicios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumnSerNombre, dataGridViewTextBoxColumnSerDescripcion, dataGridViewTextBoxColumnSerDuracion, dataGridViewTextBoxColumnSerPrecio, Tipo, dataGridViewImageColumnModificar, dataGridViewImageColumnEliminar });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewServicios.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.Padding = new Padding(2);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridViewServicios.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewServicios.Dock = DockStyle.Right;
             dataGridViewServicios.EnableHeadersVisualStyles = false;
             dataGridViewServicios.GridColor = SystemColors.InactiveCaptionText;
-            dataGridViewServicios.Location = new Point(34, 0);
+            dataGridViewServicios.Location = new Point(437, 0);
             dataGridViewServicios.Margin = new Padding(3, 4, 3, 4);
             dataGridViewServicios.Name = "dataGridViewServicios";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridViewServicios.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridViewServicios.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewServicios.RowHeadersVisible = false;
             dataGridViewServicios.RowHeadersWidth = 51;
             dataGridViewServicios.RowTemplate.Height = 35;
-            dataGridViewServicios.Size = new Size(1503, 660);
+            dataGridViewServicios.Size = new Size(1100, 648);
             dataGridViewServicios.TabIndex = 11;
             dataGridViewServicios.CellContentClick += dataGridViewServicios_CellContentClick;
             // 
@@ -369,7 +385,7 @@
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 916);
+            panelPaginacion.Location = new Point(0, 904);
             panelPaginacion.Margin = new Padding(3, 4, 3, 4);
             panelPaginacion.Name = "panelPaginacion";
             panelPaginacion.Padding = new Padding(34, 0, 0, 0);
@@ -388,22 +404,172 @@
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 956);
+            panelEspaciado.Location = new Point(0, 944);
             panelEspaciado.Margin = new Padding(3, 4, 3, 4);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1571, 68);
+            panelEspaciado.Size = new Size(1571, 80);
             panelEspaciado.TabIndex = 13;
             // 
             // panelMargenes
             // 
+            panelMargenes.Controls.Add(panelFiltros);
             panelMargenes.Controls.Add(dataGridViewServicios);
             panelMargenes.Dock = DockStyle.Fill;
             panelMargenes.Location = new Point(0, 256);
             panelMargenes.Margin = new Padding(3, 4, 3, 4);
             panelMargenes.Name = "panelMargenes";
             panelMargenes.Padding = new Padding(34, 0, 34, 0);
-            panelMargenes.Size = new Size(1571, 660);
+            panelMargenes.Size = new Size(1571, 648);
             panelMargenes.TabIndex = 14;
+            // 
+            // panelFiltros
+            // 
+            panelFiltros.Controls.Add(panelBotones);
+            panelFiltros.Controls.Add(comboBoxDia);
+            panelFiltros.Controls.Add(buttonTodos);
+            panelFiltros.Controls.Add(panelHorarios);
+            panelFiltros.Controls.Add(comboBoxGrupos);
+            panelFiltros.Dock = DockStyle.Right;
+            panelFiltros.Location = new Point(26, 0);
+            panelFiltros.Name = "panelFiltros";
+            panelFiltros.Size = new Size(411, 648);
+            panelFiltros.TabIndex = 21;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(anyadirHorario);
+            panelBotones.Controls.Add(buttonModificar);
+            panelBotones.Controls.Add(buttonEliminar);
+            panelBotones.Dock = DockStyle.Right;
+            panelBotones.Location = new Point(351, 0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Padding = new Padding(4);
+            panelBotones.Size = new Size(60, 648);
+            panelBotones.TabIndex = 22;
+            // 
+            // anyadirHorario
+            // 
+            anyadirHorario.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirHorario.Dock = DockStyle.Top;
+            anyadirHorario.FlatAppearance.BorderSize = 0;
+            anyadirHorario.FlatStyle = FlatStyle.Flat;
+            anyadirHorario.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            anyadirHorario.ForeColor = Color.White;
+            anyadirHorario.Location = new Point(4, 114);
+            anyadirHorario.Margin = new Padding(0, 5, 0, 0);
+            anyadirHorario.Name = "anyadirHorario";
+            anyadirHorario.Size = new Size(52, 55);
+            anyadirHorario.TabIndex = 21;
+            anyadirHorario.Text = "+";
+            anyadirHorario.TextAlign = ContentAlignment.TopRight;
+            anyadirHorario.UseVisualStyleBackColor = false;
+            // 
+            // buttonModificar
+            // 
+            buttonModificar.BackgroundImage = Properties.Resources.edit;
+            buttonModificar.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonModificar.Dock = DockStyle.Top;
+            buttonModificar.Location = new Point(4, 59);
+            buttonModificar.Margin = new Padding(0);
+            buttonModificar.Name = "buttonModificar";
+            buttonModificar.Padding = new Padding(0, 8, 0, 0);
+            buttonModificar.Size = new Size(52, 55);
+            buttonModificar.TabIndex = 21;
+            buttonModificar.UseVisualStyleBackColor = true;
+            // 
+            // buttonEliminar
+            // 
+            buttonEliminar.BackgroundImage = Properties.Resources.trash;
+            buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonEliminar.Dock = DockStyle.Top;
+            buttonEliminar.Location = new Point(4, 4);
+            buttonEliminar.Margin = new Padding(0);
+            buttonEliminar.Name = "buttonEliminar";
+            buttonEliminar.Padding = new Padding(0, 0, 0, 8);
+            buttonEliminar.Size = new Size(52, 55);
+            buttonEliminar.TabIndex = 20;
+            buttonEliminar.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxDia
+            // 
+            comboBoxDia.DisplayMember = "1";
+            comboBoxDia.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxDia.FlatStyle = FlatStyle.Flat;
+            comboBoxDia.Items.AddRange(new object[] { "Todos los dias de la semana", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" });
+            comboBoxDia.Location = new Point(40, 440);
+            comboBoxDia.Margin = new Padding(6, 5, 6, 5);
+            comboBoxDia.Name = "comboBoxDia";
+            comboBoxDia.Size = new Size(282, 28);
+            comboBoxDia.TabIndex = 21;
+            // 
+            // buttonTodos
+            // 
+            buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonTodos.Location = new Point(40, 490);
+            buttonTodos.Name = "buttonTodos";
+            buttonTodos.Size = new Size(282, 32);
+            buttonTodos.TabIndex = 4;
+            buttonTodos.Text = "Ver todos los horarios";
+            buttonTodos.UseVisualStyleBackColor = true;
+            // 
+            // panelHorarios
+            // 
+            panelHorarios.BackColor = SystemColors.Control;
+            panelHorarios.BorderStyle = BorderStyle.FixedSingle;
+            panelHorarios.Controls.Add(labelNumHorarios);
+            panelHorarios.Controls.Add(labelHorarios);
+            panelHorarios.Controls.Add(pictureHorarios);
+            panelHorarios.ForeColor = SystemColors.ControlDarkDark;
+            panelHorarios.Location = new Point(98, 600);
+            panelHorarios.Margin = new Padding(5, 4, 5, 4);
+            panelHorarios.Name = "panelHorarios";
+            panelHorarios.Size = new Size(162, 110);
+            panelHorarios.TabIndex = 4;
+            // 
+            // labelNumHorarios
+            // 
+            labelNumHorarios.AutoSize = true;
+            labelNumHorarios.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNumHorarios.ForeColor = SystemColors.ControlText;
+            labelNumHorarios.Location = new Point(66, 56);
+            labelNumHorarios.Margin = new Padding(5, 0, 5, 0);
+            labelNumHorarios.Name = "labelNumHorarios";
+            labelNumHorarios.Size = new Size(27, 29);
+            labelNumHorarios.TabIndex = 2;
+            labelNumHorarios.Text = "2";
+            // 
+            // labelHorarios
+            // 
+            labelHorarios.AutoSize = true;
+            labelHorarios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelHorarios.Location = new Point(18, 24);
+            labelHorarios.Margin = new Padding(5, 0, 5, 0);
+            labelHorarios.Name = "labelHorarios";
+            labelHorarios.Size = new Size(116, 20);
+            labelHorarios.TabIndex = 0;
+            labelHorarios.Text = "Total Horarios";
+            // 
+            // pictureHorarios
+            // 
+            pictureHorarios.Image = Properties.Resources.Usuario_gris;
+            pictureHorarios.Location = new Point(23, 44);
+            pictureHorarios.Margin = new Padding(5, 4, 5, 4);
+            pictureHorarios.Name = "pictureHorarios";
+            pictureHorarios.Size = new Size(43, 51);
+            pictureHorarios.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureHorarios.TabIndex = 1;
+            pictureHorarios.TabStop = false;
+            // 
+            // comboBoxGrupos
+            // 
+            comboBoxGrupos.DisplayMember = "1";
+            comboBoxGrupos.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxGrupos.FlatStyle = FlatStyle.Flat;
+            comboBoxGrupos.Location = new Point(40, 390);
+            comboBoxGrupos.Margin = new Padding(6, 5, 6, 5);
+            comboBoxGrupos.Name = "comboBoxGrupos";
+            comboBoxGrupos.Size = new Size(282, 28);
+            comboBoxGrupos.TabIndex = 20;
             // 
             // PanelServicios
             // 
@@ -431,6 +597,11 @@
             panelPaginacion.ResumeLayout(false);
             panelPaginacion.PerformLayout();
             panelMargenes.ResumeLayout(false);
+            panelFiltros.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
+            panelHorarios.ResumeLayout(false);
+            panelHorarios.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureHorarios).EndInit();
             ResumeLayout(false);
         }
 
@@ -462,5 +633,17 @@
         private Panel panelEspaciado;
         private Panel panelMargenes;
         private Label labelPaginaActual;
+        private Panel panelFiltros;
+        private Panel panelBotones;
+        private Button anyadirHorario;
+        private Button buttonModificar;
+        private Button buttonEliminar;
+        private ComboBox comboBoxDia;
+        private Button buttonTodos;
+        private Panel panelHorarios;
+        private Label labelNumHorarios;
+        private Label labelHorarios;
+        private PictureBox pictureHorarios;
+        private ComboBox comboBoxGrupos;
     }
 }

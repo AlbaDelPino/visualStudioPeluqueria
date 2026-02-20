@@ -70,11 +70,16 @@ namespace WinFormsApp1
             textBoxBloqueoBuscar.Width = dataGridViewBloqueos.Width - 45;
             panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
             labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
-            panelAnuales.Top = panelMargenes.Height - panelAnuales.Height;
+            panelAnuales.Top = panelFiltros.Height - panelAnuales.Height;
             panelPuntuales.Top = panelAnuales.Top + panelPuntuales.Height + 20;
 
-
             anyadirBloqueo.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirBloqueo.Width, anyadirBloqueo.Height, anyadirBloqueo.Width, anyadirBloqueo.Height));
+        }
+
+        private void PanelBloqueo_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualBloqueos.Invalidate();
         }
 
         private void panelVisualBloqueos_Paint(object sender, PaintEventArgs e)
@@ -173,7 +178,8 @@ namespace WinFormsApp1
                         CargarTodosLosBloqueos();
                         filtrarBloqueos();
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show("No se puede editar un bloqueo pasado", "Bloqueo pasado", MessageBoxButtons.OK);
                 }
@@ -193,7 +199,7 @@ namespace WinFormsApp1
 
         private void dataGridViewBloqueos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < dataGridViewBloqueos.Rows.Count && e.RowIndex  <= 0)
+            if (e.RowIndex < dataGridViewBloqueos.Rows.Count && e.RowIndex <= 0)
             {
                 var fila = dataGridViewBloqueos.Rows[e.RowIndex];
                 _bloqueoSeleccionado = fila.Tag as BloqueoHorarioDto;
@@ -219,7 +225,7 @@ namespace WinFormsApp1
                                 (recurrente.Equals("anuales") && b.Recurrente) ||
                                 (recurrente.Equals("puntuales") && !b.Recurrente);
 
-            
+
                 bool pasaFecha = true;
                 if (_fechaSeleccionada)
                 {
@@ -233,7 +239,7 @@ namespace WinFormsApp1
                                     ((b.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(fin).ToDateOnly()) <= 0) == true);
                     }
                 }
-                return pasaTexto && pasaDia  && pasaFecha;
+                return pasaTexto && pasaDia && pasaFecha;
             }).ToList();
 
             _paginaActual = 1;
@@ -243,7 +249,8 @@ namespace WinFormsApp1
         private void marcarBloqueados()
         {
             monthCalendarFiltrar.RemoveAllBoldedDates();
-            foreach (BloqueoHorarioDto b in _bloqueosFiltrados) {
+            foreach (BloqueoHorarioDto b in _bloqueosFiltrados)
+            {
                 if (!b.Recurrente)
                 {
                     monthCalendarFiltrar.AddBoldedDate(b.Fecha.ToDateTimeUnspecified());
@@ -308,8 +315,10 @@ namespace WinFormsApp1
                 var b = _bloqueosFiltrados[i];
                 var horarios = _bloqueosFiltrados[i].Horarios;
                 string idHorarios = "";
-                if (horarios != null) {
-                    foreach (var horario in horarios) {
+                if (horarios != null)
+                {
+                    foreach (var horario in horarios)
+                    {
                         idHorarios = idHorarios + horario.Id.ToString() + ", ";
                     }
                 }
@@ -391,7 +400,5 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
-
-        
     }
 }

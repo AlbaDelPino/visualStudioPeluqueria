@@ -53,6 +53,13 @@ namespace WinFormsApp1
             buttonPaginacionAtras = new Button();
             panelMargenes = new Panel();
             panelFiltros = new Panel();
+            panelBotones = new Panel();
+            anyadirBloqueo = new Button();
+            buttonModificar = new Button();
+            buttonEliminar = new Button();
+            comboBoxRecurrente = new ComboBox();
+            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
+            buttonTodos = new Button();
             panelPuntuales = new Panel();
             labelNumPuntuales = new Label();
             labelPuntuales = new Label();
@@ -61,13 +68,6 @@ namespace WinFormsApp1
             labelNumAnuales = new Label();
             labelAnuales = new Label();
             pictureBoxAnuales = new PictureBox();
-            panelBotones = new Panel();
-            anyadirBloqueo = new Button();
-            buttonModificar = new Button();
-            buttonEliminar = new Button();
-            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
-            buttonTodos = new Button();
-            comboBoxRecurrente = new ComboBox();
             dataGridViewBloqueos = new DataGridView();
             dataGridViewTextBoxFecha = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxHorarios = new DataGridViewTextBoxColumn();
@@ -77,11 +77,11 @@ namespace WinFormsApp1
             panelPaginacion.SuspendLayout();
             panelMargenes.SuspendLayout();
             panelFiltros.SuspendLayout();
+            panelBotones.SuspendLayout();
             panelPuntuales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxPuntuales).BeginInit();
             panelAnuales.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxAnuales).BeginInit();
-            panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBloqueos).BeginInit();
             SuspendLayout();
             // 
@@ -191,21 +191,116 @@ namespace WinFormsApp1
             panelMargenes.Name = "panelMargenes";
             panelMargenes.Padding = new Padding(30, 0, 30, 0);
             panelMargenes.Size = new Size(1571, 801);
-            panelMargenes.TabIndex = 21;
+            panelMargenes.TabIndex = 18;
             // 
             // panelFiltros
             // 
-            panelFiltros.Controls.Add(panelPuntuales);
-            panelFiltros.Controls.Add(panelAnuales);
             panelFiltros.Controls.Add(panelBotones);
+            panelFiltros.Controls.Add(comboBoxRecurrente);
             panelFiltros.Controls.Add(monthCalendarFiltrar);
             panelFiltros.Controls.Add(buttonTodos);
-            panelFiltros.Controls.Add(comboBoxRecurrente);
+            panelFiltros.Controls.Add(panelPuntuales);
+            panelFiltros.Controls.Add(panelAnuales);
             panelFiltros.Dock = DockStyle.Right;
-            panelFiltros.Location = new Point(30, 0);
+            panelFiltros.Location = new Point(26, 0);
             panelFiltros.Name = "panelFiltros";
             panelFiltros.Size = new Size(411, 801);
             panelFiltros.TabIndex = 20;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(anyadirBloqueo);
+            panelBotones.Controls.Add(buttonModificar);
+            panelBotones.Controls.Add(buttonEliminar);
+            panelBotones.Dock = DockStyle.Right;
+            panelBotones.Location = new Point(351, 0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Padding = new Padding(4);
+            panelBotones.Size = new Size(60, 801);
+            panelBotones.TabIndex = 22;
+            // 
+            // anyadirBloqueo
+            // 
+            anyadirBloqueo.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirBloqueo.Dock = DockStyle.Top;
+            anyadirBloqueo.FlatAppearance.BorderSize = 0;
+            anyadirBloqueo.FlatStyle = FlatStyle.Flat;
+            anyadirBloqueo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            anyadirBloqueo.ForeColor = Color.White;
+            anyadirBloqueo.Location = new Point(4, 114);
+            anyadirBloqueo.Margin = new Padding(0, 5, 0, 0);
+            anyadirBloqueo.Name = "anyadirBloqueo";
+            anyadirBloqueo.Size = new Size(52, 55);
+            anyadirBloqueo.TabIndex = 21;
+            anyadirBloqueo.Text = "+";
+            anyadirBloqueo.TextAlign = ContentAlignment.TopRight;
+            anyadirBloqueo.UseVisualStyleBackColor = false;
+            anyadirBloqueo.Click += anyadirBloqueo_Click;
+            // 
+            // buttonModificar
+            // 
+            buttonModificar.BackgroundImage = Properties.Resources.edit;
+            buttonModificar.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonModificar.Dock = DockStyle.Top;
+            buttonModificar.Location = new Point(4, 59);
+            buttonModificar.Margin = new Padding(0);
+            buttonModificar.Name = "buttonModificar";
+            buttonModificar.Padding = new Padding(0, 8, 0, 0);
+            buttonModificar.Size = new Size(52, 55);
+            buttonModificar.TabIndex = 21;
+            buttonModificar.UseVisualStyleBackColor = true;
+            buttonModificar.Click += buttonModificar_Click;
+            // 
+            // buttonEliminar
+            // 
+            buttonEliminar.BackgroundImage = Properties.Resources.trash;
+            buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonEliminar.Dock = DockStyle.Top;
+            buttonEliminar.Location = new Point(4, 4);
+            buttonEliminar.Margin = new Padding(0);
+            buttonEliminar.Name = "buttonEliminar";
+            buttonEliminar.Padding = new Padding(0, 0, 0, 8);
+            buttonEliminar.Size = new Size(52, 55);
+            buttonEliminar.TabIndex = 20;
+            buttonEliminar.UseVisualStyleBackColor = true;
+            buttonEliminar.Click += buttonEliminar_Click;
+            // 
+            // comboBoxRecurrente
+            // 
+            comboBoxRecurrente.DisplayMember = "1";
+            comboBoxRecurrente.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxRecurrente.FlatStyle = FlatStyle.Flat;
+            comboBoxRecurrente.Items.AddRange(new object[] { "Todos los bloqueos", "Anuales", "Puntuales" });
+            comboBoxRecurrente.Location = new Point(40, 390);
+            comboBoxRecurrente.Margin = new Padding(6, 5, 6, 5);
+            comboBoxRecurrente.Name = "comboBoxRecurrente";
+            comboBoxRecurrente.Size = new Size(282, 28);
+            comboBoxRecurrente.TabIndex = 20;
+            comboBoxRecurrente.SelectedIndexChanged += comboBoxRecurrente_SelectedIndexChanged;
+            // 
+            // monthCalendarFiltrar
+            // 
+            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            monthCalendarFiltrar.Location = new Point(40, 9);
+            monthCalendarFiltrar.MaxSelectionCount = 31;
+            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
+            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
+            monthCalendarFiltrar.ShowToday = false;
+            monthCalendarFiltrar.TabIndex = 19;
+            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
+            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
+            monthCalendarFiltrar.DateSelected += monthCalendarFiltrar_DateSelected;
+            // 
+            // buttonTodos
+            // 
+            buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonTodos.Location = new Point(40, 440);
+            buttonTodos.Name = "buttonTodos";
+            buttonTodos.Size = new Size(282, 32);
+            buttonTodos.TabIndex = 4;
+            buttonTodos.Text = "Ver todos los horarios";
+            buttonTodos.UseVisualStyleBackColor = true;
+            buttonTodos.Click += buttonTodos_Click;
             // 
             // panelPuntuales
             // 
@@ -303,101 +398,6 @@ namespace WinFormsApp1
             pictureBoxAnuales.TabIndex = 1;
             pictureBoxAnuales.TabStop = false;
             // 
-            // panelBotones
-            // 
-            panelBotones.Controls.Add(anyadirBloqueo);
-            panelBotones.Controls.Add(buttonModificar);
-            panelBotones.Controls.Add(buttonEliminar);
-            panelBotones.Dock = DockStyle.Right;
-            panelBotones.Location = new Point(351, 0);
-            panelBotones.Name = "panelBotones";
-            panelBotones.Padding = new Padding(4);
-            panelBotones.Size = new Size(60, 801);
-            panelBotones.TabIndex = 22;
-            // 
-            // anyadirBloqueo
-            // 
-            anyadirBloqueo.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirBloqueo.Dock = DockStyle.Top;
-            anyadirBloqueo.FlatAppearance.BorderSize = 0;
-            anyadirBloqueo.FlatStyle = FlatStyle.Flat;
-            anyadirBloqueo.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            anyadirBloqueo.ForeColor = Color.White;
-            anyadirBloqueo.Location = new Point(4, 114);
-            anyadirBloqueo.Margin = new Padding(0, 5, 0, 0);
-            anyadirBloqueo.Name = "anyadirBloqueo";
-            anyadirBloqueo.Size = new Size(52, 55);
-            anyadirBloqueo.TabIndex = 21;
-            anyadirBloqueo.Text = "+";
-            anyadirBloqueo.TextAlign = ContentAlignment.TopRight;
-            anyadirBloqueo.UseVisualStyleBackColor = false;
-            anyadirBloqueo.Click += anyadirBloqueo_Click;
-            // 
-            // buttonModificar
-            // 
-            buttonModificar.BackgroundImage = Properties.Resources.edit;
-            buttonModificar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonModificar.Dock = DockStyle.Top;
-            buttonModificar.Location = new Point(4, 59);
-            buttonModificar.Margin = new Padding(0);
-            buttonModificar.Name = "buttonModificar";
-            buttonModificar.Padding = new Padding(0, 8, 0, 0);
-            buttonModificar.Size = new Size(52, 55);
-            buttonModificar.TabIndex = 21;
-            buttonModificar.UseVisualStyleBackColor = true;
-            buttonModificar.Click += buttonModificar_Click;
-            // 
-            // buttonEliminar
-            // 
-            buttonEliminar.BackgroundImage = Properties.Resources.trash;
-            buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
-            buttonEliminar.Dock = DockStyle.Top;
-            buttonEliminar.Location = new Point(4, 4);
-            buttonEliminar.Margin = new Padding(0);
-            buttonEliminar.Name = "buttonEliminar";
-            buttonEliminar.Padding = new Padding(0, 0, 0, 8);
-            buttonEliminar.Size = new Size(52, 55);
-            buttonEliminar.TabIndex = 20;
-            buttonEliminar.UseVisualStyleBackColor = true;
-            buttonEliminar.Click += buttonEliminar_Click;
-            // 
-            // monthCalendarFiltrar
-            // 
-            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendarFiltrar.Location = new Point(40, 9);
-            monthCalendarFiltrar.MaxSelectionCount = 31;
-            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
-            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
-            monthCalendarFiltrar.ShowToday = false;
-            monthCalendarFiltrar.TabIndex = 19;
-            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
-            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
-            monthCalendarFiltrar.DateSelected += monthCalendarFiltrar_DateSelected;
-            // 
-            // buttonTodos
-            // 
-            buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            buttonTodos.Location = new Point(40, 440);
-            buttonTodos.Name = "buttonTodos";
-            buttonTodos.Size = new Size(282, 32);
-            buttonTodos.TabIndex = 4;
-            buttonTodos.Text = "Ver todos los horarios";
-            buttonTodos.UseVisualStyleBackColor = true;
-            buttonTodos.Click += buttonTodos_Click;
-            // 
-            // comboBoxRecurrente
-            // 
-            comboBoxRecurrente.DisplayMember = "1";
-            comboBoxRecurrente.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxRecurrente.FlatStyle = FlatStyle.Flat;
-            comboBoxRecurrente.Items.AddRange(new object[] { "Todos los bloqueos", "Anuales", "Puntuales" });
-            comboBoxRecurrente.Location = new Point(40, 390);
-            comboBoxRecurrente.Margin = new Padding(6, 5, 6, 5);
-            comboBoxRecurrente.Name = "comboBoxRecurrente";
-            comboBoxRecurrente.Size = new Size(282, 28);
-            comboBoxRecurrente.TabIndex = 20;
-            comboBoxRecurrente.SelectedIndexChanged += comboBoxRecurrente_SelectedIndexChanged;
-            // 
             // dataGridViewBloqueos
             // 
             dataGridViewBloqueos.AllowUserToOrderColumns = true;
@@ -429,7 +429,7 @@ namespace WinFormsApp1
             dataGridViewBloqueos.EnableHeadersVisualStyles = false;
             dataGridViewBloqueos.GridColor = Color.Black;
             dataGridViewBloqueos.ImeMode = ImeMode.NoControl;
-            dataGridViewBloqueos.Location = new Point(441, 0);
+            dataGridViewBloqueos.Location = new Point(437, 0);
             dataGridViewBloqueos.Margin = new Padding(3, 4, 3, 4);
             dataGridViewBloqueos.MultiSelect = false;
             dataGridViewBloqueos.Name = "dataGridViewBloqueos";
@@ -501,28 +501,32 @@ namespace WinFormsApp1
             // 
             // PanelBloqueo
             // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1571, 1024);
             Controls.Add(panelMargenes);
             Controls.Add(panelPaginacion);
             Controls.Add(panelEspaciado);
             Controls.Add(panelVisualBloqueos);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "PanelBloqueo";
             Text = "PanelBloqueo";
             Load += PanelBloqueo_Load;
+            Resize += PanelBloqueo_Resize;
             panelVisualBloqueos.ResumeLayout(false);
             panelVisualBloqueos.PerformLayout();
-            panelPaginacion.ResumeLayout(false);
-            panelPaginacion.PerformLayout();
-            panelMargenes.ResumeLayout(false);
-            panelFiltros.ResumeLayout(false);
-            panelPuntuales.ResumeLayout(false);
-            panelPuntuales.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxPuntuales).EndInit();
             panelAnuales.ResumeLayout(false);
             panelAnuales.PerformLayout();
+            panelPuntuales.ResumeLayout(false);
+            panelPuntuales.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxAnuales).EndInit();
-            panelBotones.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPuntuales).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewBloqueos).EndInit();
+            panelMargenes.ResumeLayout(false);
+            panelFiltros.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
+            panelPaginacion.ResumeLayout(false);
+            panelPaginacion.PerformLayout();
             ResumeLayout(false);
 
         }

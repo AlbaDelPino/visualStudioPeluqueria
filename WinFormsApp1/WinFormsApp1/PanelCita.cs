@@ -89,6 +89,11 @@ namespace WinFormsApp1
 
             anyadirCitas.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirCitas.Width, anyadirCitas.Height, anyadirCitas.Width, anyadirCitas.Height));
         }
+        private void PanelCita_Resize(object sender, EventArgs e)
+        {
+            ActualizarRegiones();
+            panelVisualCitas.Invalidate();
+        }
 
         private void panelVisualCitas_Paint(object sender, PaintEventArgs e)
         {
@@ -492,11 +497,6 @@ namespace WinFormsApp1
             _paginaActual = 1;
 
             pasarPagina();
-        }
-
-        private void panelMargenes_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
