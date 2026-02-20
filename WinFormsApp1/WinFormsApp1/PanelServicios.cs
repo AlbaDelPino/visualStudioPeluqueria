@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NodaTime;
 using ServiciosInfo.Models;
 using System.Data;
 using System.Drawing.Drawing2D;
@@ -42,9 +43,14 @@ namespace WinFormsApp1
             dataGridViewServicios.AllowUserToAddRows = false;
             dataGridViewServicios.AllowUserToDeleteRows = false;
             dataGridViewServicios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
 
             _serviciosCompletos = new List<ServicioDto>();
             _serviciosFiltrados = new List<ServicioDto>();
+
+            comboBoxSerFiltrar.DataSource = ObtenerTiposServicio();
+            comboBoxSerFiltrar.DisplayMember = "Nombre";
+            comboBoxSerFiltrar.ValueMember = "Id";
 
             ActualizarRegiones();
             CargarTodosLosServicios();
@@ -67,7 +73,7 @@ namespace WinFormsApp1
         private void PanelServicios_Resize(object sender, EventArgs e)
         {
             ActualizarRegiones();
-            panelVisualUsuarios.Invalidate();
+            panelVisualServicios.Invalidate();
         }
 
         private void panelVisualServicios_Paint(object sender, PaintEventArgs e)
@@ -175,20 +181,19 @@ namespace WinFormsApp1
                                 MessageBox.Show("Servicio eliminado correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Refrescar la tabla
-                                RecargarServicios();
-                                pasarPagina();
+                                CargarTodosLosServicios();
+                                filtrarServicios();
                             }
                             else
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
+                                MessageBox.Show($"Error al eliminar el servicio", "Error",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
+                        MessageBox.Show($"Error en la eliminación del servicio", "Error",
                                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -213,8 +218,9 @@ namespace WinFormsApp1
 
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
-                RecargarServicios();
-                pasarPagina();
+                MessageBox.Show("Servicio añadido correctamente", "Servicio añadido correctamente", MessageBoxButtons.OK);
+                CargarTodosLosServicios();
+                filtrarServicios();
             }
         }
 
@@ -235,52 +241,67 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var servicios = JsonConvert.DeserializeObject<List<ServicioDto>>(json);
-                return servicios;
+                return servicios.OrderBy(s => s.Nombre).ToList(); ;
             }
         }
-
-
-        private void RecargarServicios()
+        private List<TipoServicioDto> ObtenerTiposServicio()
         {
-            _servicios = ObtenerServicios();
 
-            if (_servicios.Count % 15 != 0)
-            {
-                pagSer = (_servicios.Count / 15) + 1;
-            }
-            else
-            {
-                pagSer = (_servicios.Count / 15);
-            }
+            var url = "http://localhost:8082/tiposervicio";
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
 
-            labelNumServicios.Text = $" {_servicios.Count}";
-            labelNumTipoSer.Text = (comboBoxSerFiltrar.Items.Count - 1).ToString();
+            request.Headers["Authorization"] = $"Bearer {_token}";
+            using (var response = (HttpWebResponse)request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream))
+            {
+                string json = reader.ReadToEnd();
+                var servicios = JsonConvert.DeserializeObject<List<TipoServicioDto>>(json);
+                return servicios.OrderBy(s => s.Nombre).ToList(); ;
+            }
         }
         private void pasarPagina()
         {
             dataGridViewServicios.Rows.Clear();
 
-            int registrosASaltar = (contador - 1) * 15;
-            var servicioPagina = _servicios.Skip(registrosASaltar).Take(15).ToList();
+            int totalPaginas = (_serviciosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (totalPaginas == 0) totalPaginas = 1;
 
-            foreach (var u in servicioPagina)
+            if (_paginaActual > totalPaginas)
+                _paginaActual = totalPaginas;
+
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _serviciosFiltrados.Count);
+
+
+            for (int i = inicio; i < fin; i++)
             {
-                var precio = u.Precio.ToString() + " €";
-                var duracion = u.Duracion.ToString() + " minutos";
+                var s = _serviciosFiltrados[i];
+
+                var precio = s.Precio.ToString() + " €";
+                var duracion = s.Duracion.ToString() + " minutos";
+
+
                 int index = dataGridViewServicios.Rows.Add(
-                    u.Nombre,
-                   u.Descripcion,
+                    s.Nombre,
+                    s.Descripcion,
                     duracion,
                     precio,
-                    u.TipoServicio?.Nombre
-
+                    s.TipoServicio?.Nombre
                 );
-
-                dataGridViewServicios.Rows[index].Tag = u;
+                dataGridViewServicios.Rows[index].Tag = s;
             }
+
+            buttonPaginacionAtras.Enabled = (_paginaActual > 1);
+            buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
+
+            labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
         }
 
-        
+
         private void dataGridViewServicios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
@@ -301,51 +322,28 @@ namespace WinFormsApp1
             {
                 EliminarServicio(servicio);
             }
-
+            //Mirar columnas
         }
 
         private void filtrarServicios()
         {
-            string texto = textBoxSerBuscar.Text.Trim().ToLower();
-            string categoria = comboBoxSerFiltrar.SelectedItem.ToString();
+            string textoBusqueda = textBoxSerBuscar.Text.Trim().ToLower();
+            string filtroCombo = comboBoxSerFiltrar.SelectedItem.ToString().ToLower();
 
-            if (_servicios == null) return;
-
-            var listaFiltrada = _servicios.AsEnumerable();
-
-            if (!string.IsNullOrEmpty(texto))
+            _serviciosFiltrados = _serviciosFiltrados.Where(s =>
             {
-                listaFiltrada = listaFiltrada.Where(s =>
-                    (s.Nombre != null && s.Nombre.ToLower().Contains(texto)) ||
-                    (s.Descripcion != null && s.Descripcion.ToLower().Contains(texto))
-                );
-            }
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                                (s.Nombre != null && s.Nombre.ToLower().Contains(textoBusqueda) == true) ||
+                                (s.Descripcion != null && s.Descripcion.ToLower().Contains(textoBusqueda) == true);
 
-            if (!string.IsNullOrEmpty(categoria))
-            {
-                listaFiltrada = listaFiltrada.Where(s =>
-                    s.TipoServicio != null &&
-                    s.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
-                );
-            }
+                bool pasaTipo = string.IsNullOrEmpty(filtroCombo) &&
+                                (s.TipoServicio.Nombre != null && s.TipoServicio.Nombre.Equals(filtroCombo, StringComparison.OrdinalIgnoreCase));
 
-            dataGridViewServicios.Rows.Clear();
+                return pasaTexto && pasaTipo;
+            }).ToList();
 
-            foreach (var s in listaFiltrada)
-            {
-                var precio = s.Precio + " €";
-                var duracion = s.Duracion + " minutos";
-
-                int index = dataGridViewServicios.Rows.Add(
-                    s.Nombre,
-                    s.Descripcion,
-                    duracion,
-                    precio,
-                    s.TipoServicio?.Nombre
-                );
-
-                dataGridViewServicios.Rows[index].Tag = s;
-            }
+            _paginaActual = 1;
+            pasarPagina();
         }
 
         private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
@@ -358,38 +356,57 @@ namespace WinFormsApp1
         {
             filtrarServicios();
         }
+        private void limpiarFiltros()
+        {
+            comboBoxSerFiltrar.SelectedIndex = 0;
+            textBoxSerBuscar.Text = string.Empty;
+
+            _serviciosCompletos = ObtenerServicios();
+            _serviciosFiltrados = ObtenerServicios();
+            _paginaActual = 1;
+            pasarPagina();
+        }
 
         private void buttonPaginacionAtras_Click(object sender, EventArgs e)
         {
-            if (contador > 1)
+            if (_paginaActual > 1)
             {
-                contador--;
+                int totalPaginas = (_serviciosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+                _paginaActual--;
                 pasarPagina();
-                if (contador != pagSer)
+                if (_paginaActual != totalPaginas)
                 {
                     buttonPaginacionDelante.ForeColor = Color.Black;
                 }
-                if (contador == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
+                if (_paginaActual == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
             }
         }
 
         private void buttonPaginacionDelante_Click(object sender, EventArgs e)
         {
-            if (contador < pagSer)
+            int totalPaginas = (_serviciosFiltrados.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (_paginaActual < totalPaginas)
             {
-                contador++;
+                _paginaActual++;
                 pasarPagina();
-                if (contador != 1)
+                if (_paginaActual != 1)
                 {
                     buttonPaginacionAtras.ForeColor = Color.Black;
                 }
             }
-            if (contador == pagSer)
+            if (_paginaActual == totalPaginas)
             {
                 buttonPaginacionDelante.ForeColor = Color.Silver;
             }
         }
 
-        
+        private void CargarTodosLosServicios()
+        {
+            _serviciosCompletos = ObtenerServicios();
+            _serviciosFiltrados = new List<ServicioDto>(_serviciosCompletos);
+            _paginaActual = 1;
+
+            pasarPagina();
+        }
     }
 }

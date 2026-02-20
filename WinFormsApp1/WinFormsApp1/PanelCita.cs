@@ -242,7 +242,7 @@ namespace WinFormsApp1
             var columna = dataGridViewCitas.Columns[e.ColumnIndex].Name;
 
             // 4. Verificación flexible del nombre (el que sale en tu imagen)
-            if ( columna == "DataGridViewTextBoxColumnValoración")
+            if (columna == "DataGridViewTextBoxColumnValoración")
             {
                 if (_citaSeleccionada != null)
                 {
@@ -346,11 +346,12 @@ namespace WinFormsApp1
             if (_proximas)
             {
                 buttonProximas.Text = "Quitar la vista de póximas citas";
-            } else
+            }
+            else
             {
                 buttonProximas.Text = "Ver solo las póximas citas";
             }
-                filtrarCitas(); 
+            filtrarCitas();
         }
 
         private void buttonTodos_Click(object sender, EventArgs e)
@@ -496,8 +497,5 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
-
-       
-
     }
 }

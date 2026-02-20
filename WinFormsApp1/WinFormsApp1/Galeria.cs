@@ -63,24 +63,21 @@ namespace WinFormsApp1
 
         private void buttonAnydirImagen_Click(object sender, EventArgs e)
         {
-            // Configurar el diálogo para seleccionar archivos
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Archivos de imagen (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|Todos los archivos (*.*)|*.*";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                // Cargar la imagen en el PictureBox
                 string rutaImagen = openFileDialog.FileName;
-                pictureBox1.Image = System.Drawing.Image.FromFile(rutaImagen);
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                pictureBoxFoto.Image = System.Drawing.Image.FromFile(rutaImagen);
+                pictureBoxFoto.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
         private void ButtonGaAnyadir_Click(object sender, EventArgs e)
         {
             try
             {
-                // 1. Validaciones previas
-                if (pictureBox1.Image == null)
+                if (pictureBoxFoto.Image == null)
                 {
                     MessageBox.Show("Primero selecciona una imagen con el botón correspondiente.", "Aviso");
                     return;
@@ -92,16 +89,13 @@ namespace WinFormsApp1
                     return;
                 }
 
-                // 2. Convertir la imagen del PictureBox a Bytes
                 byte[] imageBytes;
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    // Guardamos la imagen del picturebox en el stream para obtener los bytes
-                    pictureBox1.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    pictureBoxFoto.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                     imageBytes = ms.ToArray();
                 }
 
-                // 3. Configurar la petición Multipart (Form Data)
                 long idServicio = _idServicioSeleccionado.Value;
                 var url = $"http://localhost:8082/api/imagenes/subir/{idServicio}";
                 string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
@@ -116,13 +110,11 @@ namespace WinFormsApp1
                     using (var writer = new StreamWriter(requestStream))
                     {
                         writer.WriteLine("--" + boundary);
-                        // "foto" debe coincidir con @RequestParam("foto") en Java
                         writer.WriteLine("Content-Disposition: form-data; name=\"foto\"; filename=\"imagen.jpg\"");
                         writer.WriteLine("Content-Type: image/jpeg");
                         writer.WriteLine();
                         writer.Flush();
 
-                        // Escribimos los bytes que sacamos del PictureBox
                         requestStream.Write(imageBytes, 0, imageBytes.Length);
 
                         writer.WriteLine();
@@ -131,14 +123,11 @@ namespace WinFormsApp1
                     }
                 }
 
-                // 4. Leer respuesta
                 using (WebResponse response = request.GetResponse())
                 {
                     using (StreamReader reader = new StreamReader(response.GetResponseStream()))
                     {
                         string res = reader.ReadToEnd();
-                        MessageBox.Show("Imagen del PictureBox subida con éxito");
-
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -146,12 +135,16 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al subir desde PictureBox: " + ex.Message);
+                MessageBox.Show("El tamaño de la foto es demasiado grande","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
+        private void buttonHoServicio_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, 13, 2);
+        }
     }
 
 
-    }
+}

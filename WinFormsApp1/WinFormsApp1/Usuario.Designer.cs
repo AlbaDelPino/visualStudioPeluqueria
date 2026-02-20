@@ -517,7 +517,7 @@
             // 
             buttonModificar.BackColor = Color.DarkOrange;
             buttonModificar.FlatStyle = FlatStyle.Flat;
-            buttonModificar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            buttonModificar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonModificar.ForeColor = SystemColors.ControlLightLight;
             buttonModificar.Location = new Point(715, 405);
             buttonModificar.Margin = new Padding(3, 4, 3, 4);

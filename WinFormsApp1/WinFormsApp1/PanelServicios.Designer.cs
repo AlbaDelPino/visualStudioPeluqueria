@@ -90,7 +90,7 @@
             comboBoxSerFiltrar.DisplayMember = "1";
             comboBoxSerFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSerFiltrar.FlatStyle = FlatStyle.Flat;
-            comboBoxSerFiltrar.Items.AddRange(new object[] { "", "Depilación", "Manicura y Pedicura", "Maquillaje", "Masajes", "Micropigmentación", "Peluquería", "Pestañas y Cejas", "Tratamientos Corporales", "Tratamientos Faciales" });
+            comboBoxSerFiltrar.Items.AddRange(new object[] { "" });
             comboBoxSerFiltrar.Location = new Point(1056, 185);
             comboBoxSerFiltrar.Margin = new Padding(5, 4, 5, 4);
             comboBoxSerFiltrar.Name = "comboBoxSerFiltrar";

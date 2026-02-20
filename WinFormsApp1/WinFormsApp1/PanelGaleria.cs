@@ -35,66 +35,54 @@ namespace WinFormsApp1
            int nHeightEllipse
        );
         private readonly string _token;
-        private static int pagSer;
-        private static int contador = 1;
-        private static List<GaleriaDto> _galeria;
+        private static int _paginaActual = 1;
+        private const int REGISTROS_POR_PAGINA = 14;
+        private List<GaleriaDto> _galeriaCompleta;
+        private List<GaleriaDto> _galeriaFiltrada;
         private readonly UsersDto _usuarioActual;
         private static List<ServicioDto> _servicios;
         public PanelGaleria(UsersDto usuarioActual, string token)
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.ResizeRedraw = true;
+
             _token = token;
             _usuarioActual = usuarioActual;
         }
 
         private void PanelGaleria_Load(object sender, EventArgs e)
         {
-
-
             DataGridViewImageColumn colImagen = new DataGridViewImageColumn();
 
             colImagen.ImageLayout = DataGridViewImageCellLayout.Zoom; // Para que no se deforme
             colImagen.Width = 120;
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
 
-
-            _galeria = new List<GaleriaDto>();
-            RecargarGaleria();
-            pasarPagina();
-            ConfigurarUIEstiloImagen();
-            MostrarGaleriaEnPaneles(_galeria);
-
-        }
-
-        private void ConfigurarUIEstiloImagen()
-        {
-            anyadirGaleria.Text = "+";
-            anyadirGaleria.Font = new Font("Segoe UI", 16, FontStyle.Bold);
-            anyadirGaleria.FlatStyle = FlatStyle.Flat;
-            anyadirGaleria.FlatAppearance.BorderSize = 0;
-            anyadirGaleria.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirGaleria.ForeColor = Color.White;
-            anyadirGaleria.Size = new Size(45, 45);
-
-            anyadirGaleria.Left = panelVisualGaleria.Width - 60;
-
-            textBoxSerBuscar.Left = 50;
-            textBoxSerBuscar.Width = panelVisualGaleria.Width - 350;
-
-            comboBoxSerFiltrar.Width = 180;
-            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30;
-
-            textBoxSerBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBoxSerFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirGaleria.Anchor = AnchorStyles.Right;
+            _galeriaCompleta = new List<GaleriaDto>();
+            _galeriaFiltrada = new List<GaleriaDto>();
 
             ActualizarRegiones();
+            RecargarGaleria();
+            MostrarGaleriaEnPaneles(_galeriaFiltrada);
+            pasarPagina();
+            
+
+            comboBoxSerFiltrar.SelectedIndex = 0;
         }
 
         private void ActualizarRegiones()
         {
+            anyadirGaleria.Left = comboBoxSerFiltrar.Left + comboBoxSerFiltrar.Width;
+
+            textBoxSerBuscar.Left = 105;
+            textBoxSerBuscar.Width = panelVisualGaleria.Width - 515;
+
+            comboBoxSerFiltrar.Width = 180;
+            comboBoxSerFiltrar.Left = textBoxSerBuscar.Right + 30;
+
             anyadirGaleria.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirGaleria.Width, anyadirGaleria.Height, anyadirGaleria.Width, anyadirGaleria.Height));
         }
-
 
         private void PanelGaleria_Resize(object sender, EventArgs e)
         {
@@ -140,10 +128,9 @@ namespace WinFormsApp1
             g.FillPath(b, path);
             g.DrawPath(p, path);
         }
-        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
-        {
 
-        }
+
+
         private List<GaleriaDto> ObtenerGaleria()
         {
 
@@ -160,57 +147,45 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var galeria = JsonConvert.DeserializeObject<List<GaleriaDto>>(json);
-                return galeria;
+                if (galeria != null)
+                {
+                    labelNumFotos.Text = $"{galeria.Count}";
+                    return galeria.OrderBy(g => g.Servicio.Nombre).ToList();
+                }
+                return new List<GaleriaDto>();
             }
         }
 
 
         private void RecargarGaleria()
         {
-            _galeria = ObtenerGaleria();
-
-            if (_galeria != null)
-            {
-
-                if (_galeria.Count % 15 != 0)
-                {
-                    pagSer = (_galeria.Count / 15) + 1;
-                }
-                else
-                {
-                    pagSer = (_galeria.Count / 15);
-                }
-
-            }
+            _galeriaCompleta = ObtenerGaleria();
+            _galeriaFiltrada = new List<GaleriaDto>(_galeriaCompleta);
+            _paginaActual = 1;
+            pasarPagina();
         }
 
         private void pasarPagina()
         {
-            // dataGridViewGaleria.Rows.Clear();
+            int totalPaginas = (_galeriaFiltrada.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (totalPaginas == 0) totalPaginas = 1;
 
-            int registrosASaltar = (contador - 1) * 15;
-            var galeriaPagina = _galeria?.Skip(registrosASaltar).Take(15).ToList();
+            if (_paginaActual > totalPaginas)
+                _paginaActual = totalPaginas;
 
-            if (galeriaPagina != null)
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _galeriaFiltrada.Count);
+
+            foreach (GaleriaDto g in _galeriaFiltrada)
             {
-
-
-
-                foreach (var g in galeriaPagina)
-                {
-                    Image foto = ConvertirBase64AImagen(g.ImagenBase64);
-
-                    //int index = dataGridViewGaleria.Rows.Add(
-                    //    g.Servicio?.Nombre ?? "Sin Servicio",
-                    //    foto
-
-                    //);
-
-                    //dataGridViewGaleria.Rows[index].Height = 100;
-                    //dataGridViewGaleria.Rows[index].Tag = g;
-                }
+                Image foto = ConvertirBase64AImagen(g.ImagenBase64);
             }
+            MostrarGaleriaEnPaneles(_galeriaFiltrada);
 
+            buttonPaginacionAtras.Enabled = (_paginaActual > 1);
+            buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
+
+            labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
         }
         private Image ConvertirBase64AImagen(string base64String)
         {
@@ -218,29 +193,27 @@ namespace WinFormsApp1
             {
                 if (string.IsNullOrWhiteSpace(base64String)) return null;
 
-                // Limpieza de cabeceras comunes en Base64
                 string base64Data = base64String.Contains(",") ? base64String.Split(',')[1] : base64String;
 
                 byte[] imageBytes = Convert.FromBase64String(base64Data);
                 using (MemoryStream ms = new MemoryStream(imageBytes))
                 {
-                    // Creamos una copia de la imagen para que no se bloquee el stream
                     return Image.FromStream(ms);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al convertir imagen: " + ex.Message);
+                Console.WriteLine("Error al convertir la imagen");
                 return null;
             }
         }
 
         private Panel CrearPanelImagen(GaleriaDto item, int ancho)
         {
-            // 1. Ajustamos el alto del panel (280) para que quepa el botón de 50px de alto
-            Panel panel = new Panel
+            
+                Panel panel = new Panel
             {
-                Size = new Size(200, 280), // Aumentado de 220 a 280
+                Size = new Size(200, 280),
                 BackColor = Color.White,
                 Padding = new Padding(10),
                 Margin = new Padding(10),
@@ -248,7 +221,6 @@ namespace WinFormsApp1
                 Cursor = Cursors.Hand
             };
 
-            // 2. Imagen
             PictureBox pb = new PictureBox
             {
                 Size = new Size(180, 140),
@@ -258,40 +230,35 @@ namespace WinFormsApp1
                 BackColor = Color.FromArgb(245, 245, 245)
             };
 
-            // 3. Texto del Servicio
             Label lblServicio = new Label
             {
                 Text = item.Servicio?.Nombre ?? "Sin Servicio",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 Location = new Point(10, 160),
-                Size = new Size(180, 40), // Más alto por si el nombre es largo
+                Size = new Size(180, 40),
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            // 4. Botón de Eliminar (Centrado y con mejor fuente)
             Button btnEliminar = new Button
             {
-                Text = "BORRAR 🗑️", // Añadimos texto para aprovechar el ancho de 100
-                Size = new Size(120, 45), // Un poco más ancho para que se vea imponente
-                                          // Centrado horizontal: (AnchoPanel 200 - AnchoBoton 120) / 2 = 40
+                Text = "BORRAR 🗑️",
+                Size = new Size(120, 45),
                 Location = new Point(40, 215),
                 FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(255, 230, 230), // Fondo suave rojizo
+                BackColor = Color.FromArgb(255, 230, 230),
                 ForeColor = Color.Red,
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
-            btnEliminar.FlatAppearance.BorderSize = 1; // Un pequeño borde para definirlo
+            btnEliminar.FlatAppearance.BorderSize = 1;
             btnEliminar.FlatAppearance.MouseOverBackColor = Color.Red;
             btnEliminar.FlatAppearance.MouseDownBackColor = Color.DarkRed;
 
-            // Cambio de color de letra al pasar el ratón
             btnEliminar.MouseEnter += (s, e) => btnEliminar.ForeColor = Color.White;
             btnEliminar.MouseLeave += (s, e) => btnEliminar.ForeColor = Color.Red;
 
             btnEliminar.Click += (s, e) => EliminarImagen(item);
 
-            // Efectos Hover del Panel
             panel.MouseEnter += (s, e) => { panel.BackColor = Color.FromArgb(248, 248, 248); };
             panel.MouseLeave += (s, e) => { panel.BackColor = Color.White; };
 
@@ -303,7 +270,6 @@ namespace WinFormsApp1
         }
         private void MostrarGaleriaEnPaneles(List<GaleriaDto> imagenes)
         {
-            // Limpiar el contenedor (usa un FlowLayoutPanel para mejor resultado)
             flowLayoutPanelGaleria.Controls.Clear();
             flowLayoutPanelGaleria.AutoScroll = true;
 
@@ -321,12 +287,14 @@ namespace WinFormsApp1
                 return;
             }
 
-            foreach (var item in imagenes)
-            {
-                // Creamos el panel de la foto
-                Panel p = CrearPanelImagen(item, 200);
+            int inicio = (_paginaActual - 1) * REGISTROS_POR_PAGINA;
+            int fin = Math.Min(inicio + REGISTROS_POR_PAGINA, _galeriaFiltrada.Count);
 
-                // Lo añadimos al contenedor
+            for (int i = inicio; i < fin; i++)
+            {
+
+                Panel p = CrearPanelImagen(imagenes[i], 200);
+
                 flowLayoutPanelGaleria.Controls.Add(p);
             }
         }
@@ -335,7 +303,7 @@ namespace WinFormsApp1
         private void EliminarImagen(GaleriaDto galeria)
         {
             var confirmResult = MessageBox.Show(
-                    $"¿Seguro que quieres eliminar el servicio \"{galeria.Servicio}\"?",
+                    $"¿Seguro que quieres eliminar la foto \"{galeria.Servicio}\"?",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
@@ -359,26 +327,24 @@ namespace WinFormsApp1
                         {
                             if (response.StatusCode == HttpStatusCode.OK)
                             {
-                                MessageBox.Show("Servicio eliminado correctamente", "Éxito",
+                                MessageBox.Show("Foto eliminada correctamente", "Éxito",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                // Refrescar la tabla
                                 RecargarGaleria();
-                                MostrarGaleriaEnPaneles(_galeria);
+                                MostrarGaleriaEnPaneles(_galeriaFiltrada);
 
                                 pasarPagina();
-
                             }
                             else
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
+                                MessageBox.Show($"Error al eliminar la foto", "Error",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
+                        MessageBox.Show($"Error en la eliminación de la foto", "Error",
                                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -391,17 +357,17 @@ namespace WinFormsApp1
         private void anyadirGaleria_Click(object sender, EventArgs e)
         {
             Galeria pantallaAnyadir = new Galeria(null, _token);
-            pantallaAnyadir.Text = "Añadir Galeria nuevo";
-            pantallaAnyadir.labelTituoCrearGaleria.Text = "AÑADIR GALERIA";
+            pantallaAnyadir.Text = "Añadir foto nueva";
+            pantallaAnyadir.labelTituoCrearGaleria.Text = "Añadir nueva foto";
             pantallaAnyadir.ButtonGaModificar.Visible = false;
             pantallaAnyadir.ButtonGaAnyadir.Visible = true;
 
 
-
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
+                MessageBox.Show("Foto añadida correctamente", "Foto añadida correctamente", MessageBoxButtons.OK);
                 RecargarGaleria();
-                MostrarGaleriaEnPaneles(_galeria);
+                MostrarGaleriaEnPaneles(_galeriaFiltrada);
                 pasarPagina();
             }
         }
@@ -410,83 +376,64 @@ namespace WinFormsApp1
         {
             filtrarGaleria();
         }
+        private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarGaleria();
+        }
 
         private void filtrarGaleria()
         {
+            string textoBusqueda = textBoxSerBuscar.Text.Trim().ToLower();
+            string filtroCombo = comboBoxSerFiltrar.SelectedItem?.ToString().ToLower() ?? "";
 
-            string texto = textBoxSerBuscar.Text.Trim().ToLower();
-
-
-            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString() ?? "";
-
-
-            if (_galeria == null) return;
-
-            var listaFiltrada = _galeria.AsEnumerable();
-
-
-            if (!string.IsNullOrEmpty(texto))
+            _galeriaFiltrada = _galeriaCompleta.Where(g =>
             {
-                listaFiltrada = listaFiltrada.Where(g =>
-                    g.Servicio != null &&
-                    g.Servicio.Nombre != null &&
-                    g.Servicio.Nombre.ToLower().Contains(texto)
-                );
-            }
+                bool pasaTexto = string.IsNullOrEmpty(textoBusqueda) ||
+                                (g.Servicio.Nombre != null && g.Servicio.Nombre.ToLower().Contains(textoBusqueda) == true);
 
+                bool pasaTipo = string.IsNullOrEmpty(filtroCombo) ||
+                                (filtroCombo.Contains("todas las fotos", StringComparison.OrdinalIgnoreCase)) ||
+                                (g.Servicio.TipoServicio.Nombre != null && g.Servicio.TipoServicio.Nombre.ToLower().Contains(filtroCombo));
 
-            if (!string.IsNullOrEmpty(categoria) && categoria != "Todas")
-            {
-                listaFiltrada = listaFiltrada.Where(g =>
-                    g.Servicio?.TipoServicio != null &&
-                    g.Servicio.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
-                );
-            }
+                return pasaTexto && pasaTipo;
+            }).ToList();
 
-
-            MostrarGaleriaEnPaneles(listaFiltrada.ToList());
+            _paginaActual = 1;
+            pasarPagina();
+            MostrarGaleriaEnPaneles(_galeriaFiltrada);
         }
 
-        private void comboBoxSerFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        private void buttonPaginacionAtras_Click(object sender, EventArgs e)
         {
-            filtrarGaleriaPorServicio();
+            if (_paginaActual > 1)
+            {
+                int totalPaginas = (_galeriaFiltrada.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+                _paginaActual--;
+                pasarPagina();
+                if (_paginaActual != totalPaginas)
+                {
+                    buttonPaginacionDelante.ForeColor = Color.Black;
+                }
+                if (_paginaActual == 1) { buttonPaginacionAtras.ForeColor = Color.Silver; }
+            }
         }
 
-        private void filtrarGaleriaPorServicio()
+        private void buttonPaginacionDelante_Click(object sender, EventArgs e)
         {
-            // 1. Obtener criterios de búsqueda
-            string texto = textBoxSerBuscar.Text.Trim().ToLower();
-            string categoria = comboBoxSerFiltrar.SelectedItem?.ToString() ?? "";
-
-            // 2. IMPORTANTE: Filtramos la lista de la GALERÍA (_galeria)
-            if (_galeria == null) return;
-
-            var listaFiltrada = _galeria.AsEnumerable();
-
-            // 3. Filtrar por nombre del servicio o descripción (dentro del objeto Servicio)
-            if (!string.IsNullOrEmpty(texto))
+            int totalPaginas = (_galeriaFiltrada.Count + REGISTROS_POR_PAGINA - 1) / REGISTROS_POR_PAGINA;
+            if (_paginaActual < totalPaginas)
             {
-                listaFiltrada = listaFiltrada.Where(g =>
-                    g.Servicio != null && (
-                        (g.Servicio.Nombre != null && g.Servicio.Nombre.ToLower().Contains(texto)) ||
-                        (g.Servicio.Descripcion != null && g.Servicio.Descripcion.ToLower().Contains(texto))
-                    )
-                );
+                _paginaActual++;
+                pasarPagina();
+                if (_paginaActual != 1)
+                {
+                    buttonPaginacionAtras.ForeColor = Color.Black;
+                }
             }
-
-            // 4. Filtrar por Tipo de Servicio (dentro del objeto Servicio)
-            if (!string.IsNullOrEmpty(categoria) && categoria != "Todas")
+            if (_paginaActual == totalPaginas)
             {
-                listaFiltrada = listaFiltrada.Where(g =>
-                    g.Servicio?.TipoServicio != null &&
-                    g.Servicio.TipoServicio.Nombre.Equals(categoria, StringComparison.OrdinalIgnoreCase)
-                );
+                buttonPaginacionDelante.ForeColor = Color.Silver;
             }
-
-            // 5. Mostrar los paneles con las fotos resultantes
-            // Esto llamará a tu método CrearPanelImagen para cada resultado
-            MostrarGaleriaEnPaneles(listaFiltrada.ToList());
         }
     }
-        
 }

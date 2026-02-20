@@ -64,6 +64,7 @@ namespace WinFormsApp1
 
             comboBoxUsFiltrar.Width = 180;
             comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30;
+            
             anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
         }
         private void PanelUsuario_Resize(object sender, EventArgs e)
@@ -648,8 +649,6 @@ namespace WinFormsApp1
             _paginaActual = 1;
 
             pasarPagina();
-
-
         }
  
     }

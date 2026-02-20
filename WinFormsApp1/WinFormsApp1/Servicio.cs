@@ -104,7 +104,6 @@ namespace WinFormsApp1
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
                             Console.WriteLine(responseBody);
                         }
                     }
@@ -165,9 +164,7 @@ namespace WinFormsApp1
                         using (StreamReader objReader = new StreamReader(strReader))
                         {
                             string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
                             Console.WriteLine(responseBody);
-                            MessageBox.Show("Servicio modificado correctamente", "Servicio modificado correctamente", MessageBoxButtons.OK);
                         }
                     }
                 }
