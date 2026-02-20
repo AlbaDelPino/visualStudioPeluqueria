@@ -231,17 +231,13 @@ namespace WinFormsApp1
 
         private void dataGridViewCitas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // 1. Validar que no sea el encabezado y que la fila exista
             if (e.RowIndex < 0 || e.RowIndex >= dataGridViewCitas.Rows.Count) return;
 
-            // 2. Asignar la cita seleccionada para que el resto del panel funcione
             var fila = dataGridViewCitas.Rows[e.RowIndex];
             _citaSeleccionada = fila.Tag as CitaDto;
 
-            // 3. Obtener el nombre de la columna clicada
             var columna = dataGridViewCitas.Columns[e.ColumnIndex].Name;
 
-            // 4. Verificación flexible del nombre (el que sale en tu imagen)
             if (columna == "DataGridViewTextBoxColumnValoración")
             {
                 if (_citaSeleccionada != null)
