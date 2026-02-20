@@ -80,47 +80,50 @@ namespace WinFormsApp1
             return false;
         }
 
-        private void CambiarEstado()
+        private bool CambiarEstado()
         {
             try
             {
-                var urlCOM = $"http://localhost:8082/citas/{_cita.Id}/estado?estado=COMPLETADO";
-                var requestCOM = (HttpWebRequest)WebRequest.Create(urlCOM);
-                requestCOM.Method = "PUT";
-                requestCOM.ContentType = "application/json";
-                requestCOM.Accept = "application/json";
-                requestCOM.Headers["Authorization"] = $"Bearer {_token}";
+                var url = $"http://localhost:8082/citas/{_cita.Id}/estado?estado=COMPLETADO";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "PUT";
+                request.Headers["Authorization"] = $"Bearer {_token}";
 
-                using (var response = (HttpWebResponse)requestCOM.GetResponse())
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Error al completar la cita: {response.StatusCode}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
+                    return response.StatusCode == HttpStatusCode.OK;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al completar la cita: {ex.Message}", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cambiar estado: " + ex.Message);
+                return false;
             }
         }
 
         private void buttonCompletar_Click(object sender, EventArgs e)
         {
-            if (CargarFicha())
+            if (CambiarEstado())
             {
-                CambiarEstado();
-            }
+                if (CargarFicha())
+                {
+                    MessageBox.Show("✅ Cita completada y ficha guardada.");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                
+
+            
+        }
         }
 
         private void labelProductos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FichaCita_Load(object sender, EventArgs e)
         {
 
         }

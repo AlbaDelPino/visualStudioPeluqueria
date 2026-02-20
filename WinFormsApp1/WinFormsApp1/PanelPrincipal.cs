@@ -6,6 +6,7 @@ using System.Net;
 using UsersInfo.Models;
 using WindowsFormsApp1;
 using WinFormsApp1;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WinFormsApp1
 {
@@ -180,22 +181,26 @@ namespace WinFormsApp1
                 Tag = cita.Id,
                 Cursor = Cursors.Hand
             };
-            btnAccion.Click += (s, e) => VerUsuario(cita.Cliente);
+            btnAccion.Click += (s, e) => {
+                // 1. Obtenemos la lista completa de clientes desde tu API
+                List<ClienteDto> todosLosClientes = ObtenerClientes();
 
-            if (cita.Estado.Equals("CONFIRMADO"))
-            {
-                Button btnCambiarEstado = new Button
+                // 2. Buscamos el cliente específico por ID
+                ClienteDto clienteCompleto = todosLosClientes?.FirstOrDefault(c => c.Id == cita.Cliente.Id);
+
+                if (clienteCompleto != null)
                 {
-                    Text = "Completar",
-                    Size = new Size(100, 30),
-                    Location = new Point(ancho - 120, 50),
-                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                    Tag = cita.Id,
-                    Cursor = Cursors.Hand,
-                };
-                btnCambiarEstado.Click += (s, e) => CompletarCita(cita);
-                panel.Controls.Add(btnCambiarEstado);
-            }
+                    // 3. Llamamos a VerUsuario pasando los datos completos
+                    VerUsuario(clienteCompleto, cita);
+                }
+                else
+                {
+                    // Fallback: Si no lo encuentra, creamos uno vacío para que no de error
+                    VerUsuario(new ClienteDto { Id = cita.Cliente.Id }, cita);
+                }
+            };
+
+            
 
             panel.Controls.Add(lblHora);
             panel.Controls.Add(lblFecha);
@@ -257,107 +262,8 @@ namespace WinFormsApp1
             }
         }
 
-        private void CompletarCita(CitaDto cita)
-        {
-            if (cita.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
-            {
-                MessageBox.Show($"No se puede completar una cita que no ha ocurrido todavia", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                FichaCita ficha = new FichaCita(cita, _token);
-                if (ficha.ShowDialog() == DialogResult.OK)
-                {
-                    MessageBox.Show("Cita completada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _citas = ObtenerCitasHoy();
-                    MostrarCitasEnPaneles(_citas);
-                }
-            }
-        }
-
-        private void VerUsuario(UsersDto usuario)
-        {
-            var nombreYapellidos = usuario.Nombre.Split(' ');
-            var nombre = "";
-            var apellidos = "";
-
-            if (nombreYapellidos.Length >= 4)
-            {
-                nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length];
-            }
-            else if (nombreYapellidos.Length == 3)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
-            }
-            else if (nombreYapellidos.Length == 2)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1];
-            }
-            else if (nombreYapellidos.Length == 1)
-            {
-                nombre = nombreYapellidos[0];
-            }
-
-            Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
-            pantallaInfo.Form = "Información de " + usuario.Nombre;
-            pantallaInfo.LabelTituoCrearUsuario.Visible = false;
-            pantallaInfo.LabelTituoInfoUsuario.Visible = true;
-
-
-            pantallaInfo.buttonUsGuardar = false;
-            pantallaInfo.ButtonUsModificar = false;
-            pantallaInfo.buttonUsVolver = true;
-            pantallaInfo.buttonUsAnyadir = false;
-
-            pantallaInfo.TboxNombreUsuario.ReadOnly = true;
-            pantallaInfo.TxtBoxUsNombre.ReadOnly = true;
-            pantallaInfo.TextBoxUsApellidos.ReadOnly = true;
-            pantallaInfo.TextBoxUsEmail.ReadOnly = true;
-            pantallaInfo.TextBoxUsTel.ReadOnly = true;
-            pantallaInfo.TextBoxUsContrasenya.ReadOnly = true;
-            pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
-            pantallaInfo.ComboTipoUsuario.Enabled = false;
-            pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserAlerg.ReadOnly = true;
-            pantallaInfo.TboxUserObserv.ReadOnly = true;
-
-
-            pantallaInfo.TboxNombreUsuario.Text = usuario.Username;
-            pantallaInfo.TxtBoxUsNombre.Text = nombre;
-            pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-
-            if (usuario.Estado.Equals("true"))
-            {
-                pantallaInfo.CheckBoxEstado.Checked = true;
-            }
-            else if (usuario.Estado.Equals("false"))
-            {
-                pantallaInfo.CheckBoxEstado.Checked = false;
-            }
-
-            if (usuario.Role.Equals("ROLE_CLIENTE"))
-            {
-                var clientes = ObtenerClientes();
-                foreach (ClienteDto c in clientes)
-                {
-                    if (c.Id == usuario.Id)
-                    {
-                        pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
-                        pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
-                        pantallaInfo.TextBoxUsEmail.Text = c.Email ?? "";
-                        pantallaInfo.TextBoxUsTel.Text = c.Telefono.ToString() ?? "";
-                    }
-                }
-                pantallaInfo.PanelAdmin.Visible = false;
-                pantallaInfo.PanelUsGrupo.Visible = false;
-                pantallaInfo.PanelCliente.Visible = true;
-            }
-            pantallaInfo.ComboTipoUsuario.SelectedIndex = 0;
-            pantallaInfo.Show();
-        }
+        
+        
 
         private List<CitaDto> ObtenerCitasHoy()
         {
@@ -377,6 +283,145 @@ namespace WinFormsApp1
                 return citas.OrderBy(c => c.Fecha).ToList();
             }
 
+        }
+
+        private void VerUsuario(ClienteDto clienteInfo, CitaDto citaActiva = null)
+        {
+            panelUsuarioContainer.Controls.Clear();
+
+            FlowLayoutPanel contenedorMader = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                AutoScroll = true,
+                Padding = new Padding(15)
+            };
+            panelUsuarioContainer.Controls.Add(contenedorMader);
+
+            // --- TITULO: NOMBRE DEL USUARIO ---
+            // El nombre viene del objeto Cliente dentro de la Cita
+            string nombreCliente = citaActiva?.Cliente?.Nombre ?? "Usuario sin nombre";
+
+            contenedorMader.Controls.Add(new Label
+            {
+                Text = $"👤 {nombreCliente.ToUpper()}",
+                Font = new Font("Segoe UI", 13, FontStyle.Bold),
+                ForeColor = Color.FromArgb(45, 45, 45),
+                AutoSize = true,
+                Margin = new Padding(0, 0, 0, 15)
+            });
+
+            // --- INFORMACIÓN DE CONTACTO ---
+            contenedorMader.Controls.Add(CrearCampoLectura("📧 CORREO ELECTRÓNICO:", clienteInfo.Email));
+
+            // Formatear teléfono si existe
+            string tel = clienteInfo.Telefono != 0 ? clienteInfo.Telefono.ToString() : "No registrado";
+            contenedorMader.Controls.Add(CrearCampoLectura("📞 TELÉFONO:", tel));
+
+            // --- INFORMACIÓN ADICIONAL ---
+            if (!string.IsNullOrEmpty(clienteInfo.Observacion))
+                contenedorMader.Controls.Add(CrearCampoLectura("📝 OBSERVACIONES GENERALES:", clienteInfo.Observacion));
+
+            if (!string.IsNullOrEmpty(clienteInfo.Alergenos))
+                contenedorMader.Controls.Add(CrearCampoLectura("⚠️ ALÉRGENOS Y ALERTAS:", clienteInfo.Alergenos));
+
+            // --- SECCIÓN DE ACCIÓN (HISTORIAL) ---
+            if (citaActiva != null)
+            {
+                // Separador visual
+                contenedorMader.Controls.Add(new Label { Height = 20 });
+
+                if (citaActiva.Estado.ToUpper() == "COMPLETADO")
+                {
+                    contenedorMader.Controls.Add(new Label
+                    {
+                        Text = "✅ SERVICIO FINALIZADO",
+                        Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                        ForeColor = Color.Green,
+                        AutoSize = true
+                    });
+                    Historial pantallaHistorial = new Historial(citaActiva, _token, _usuarioActual);
+                    ConfigurarFormularioHijo(pantallaHistorial, contenedorMader);
+                }
+                else
+                {
+                    Button btnAccion = new Button
+                    {
+                        Text = "📝 REGISTRAR RESULTADOS",
+                        Size = new Size(panelUsuarioContainer.Width - 60, 45),
+                        BackColor = Color.FromArgb(0, 122, 204),
+                        ForeColor = Color.White,
+                        FlatStyle = FlatStyle.Flat,
+                        Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                        Cursor = Cursors.Hand
+                    };
+
+                    btnAccion.Click += (s, e) => {
+                        contenedorMader.Controls.Remove(btnAccion);
+                        Historial pantallaHistorial = new Historial(citaActiva, _token, _usuarioActual);
+                        ConfigurarFormularioHijo(pantallaHistorial, contenedorMader);
+                    };
+                    contenedorMader.Controls.Add(btnAccion);
+                }
+            }
+        }
+        private Panel CrearCampoLectura(string titulo, string contenido)
+        {
+            // Detectamos si es un campo crítico (Alérgenos) para darle un estilo visual de advertencia
+            bool esAlergeno = titulo.ToUpper().Contains("ALÉRGENOS") || titulo.ToUpper().Contains("ALERGENOS");
+
+            Panel p = new Panel
+            {
+                Width = panelUsuarioContainer.Width - 60,
+                Height = esAlergeno ? 100 : 65, // Damos más espacio si son alérgenos
+                Margin = new Padding(0, 0, 0, 10)
+            };
+
+            Label lbl = new Label
+            {
+                Text = titulo,
+                Dock = DockStyle.Top,
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                ForeColor = esAlergeno ? Color.Red : Color.Gray,
+                Height = 18
+            };
+
+            RichTextBox txt = new RichTextBox
+            {
+                // Si el contenido es nulo o vacío, ponemos guiones para que no quede el hueco feo
+                Text = string.IsNullOrWhiteSpace(contenido) ? "---" : contenido,
+                Dock = DockStyle.Fill,
+                ReadOnly = true,
+                BorderStyle = BorderStyle.None,
+                // Fondo gris suave o rosado si es alerta
+                BackColor = esAlergeno ? Color.MistyRose : Color.FromArgb(245, 245, 245),
+                Font = new Font("Segoe UI", 10, esAlergeno ? FontStyle.Bold : FontStyle.Regular),
+                ScrollBars = RichTextBoxScrollBars.None,
+                TabStop = false // Para que el usuario no salte aquí con el tabulador
+            };
+
+            // Un pequeño truco para quitar el borde del RichTextBox y que parezca una etiqueta plana
+            txt.ContentsResized += (s, e) => {
+                // Opcional: ajustar altura dinámicamente si el texto es muy largo
+            };
+
+            p.Controls.Add(txt);
+            p.Controls.Add(lbl);
+
+            return p;
+        }
+
+        // Método auxiliar para no repetir código al meter el Form Historial en el panel
+        private void ConfigurarFormularioHijo(Form hijo, Control contenedor)
+        {
+            hijo.TopLevel = false;
+            hijo.FormBorderStyle = FormBorderStyle.None;
+            hijo.Width = panelUsuarioContainer.Width - 50;
+            hijo.Dock = DockStyle.Top; // Para que se ajuste al ancho
+            hijo.Height = 400;
+            contenedor.Controls.Add(hijo);
+            hijo.Show();
         }
 
         private List<CitaDto> ObtenerCitasFiltro()
@@ -487,6 +532,7 @@ namespace WinFormsApp1
             MostrarCitasEnPaneles(_citas);
 
         }
+
         private void limpiarFiltros()
         {
             comboBoxGrupos.SelectedIndex = 0;
@@ -501,6 +547,27 @@ namespace WinFormsApp1
         private void buttonFiltros_Click(object sender, EventArgs e)
         {
             limpiarFiltros();
+        }
+        // Método para que el formulario Historial refresque la vista
+        public void RecargarDatos()
+        {
+            // 1. Limpiamos el panel de la derecha (donde está el cliente y el historial)
+            panelUsuarioContainer.Controls.Clear();
+
+            // 2. Volvemos a traer las citas (respetando si hay filtros de fecha o grupo)
+            if (_fechaSeleccionada)
+            {
+                _citas = ObtenerCitasFiltro();
+            }
+            else
+            {
+                _citas = ObtenerCitasHoy();
+            }
+
+            // 3. Aplicamos el filtro de grupo que esté seleccionado en el combo
+            filtrarCitas();
+
+            // Nota: filtrarCitas() ya llama internamente a MostrarCitasEnPaneles(_citas)
         }
     }
 }

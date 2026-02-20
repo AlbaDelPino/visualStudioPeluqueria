@@ -286,5 +286,10 @@ namespace WinFormsApp1
             TboxUserTurno.ReadOnly = false;
             TboxUserEspec.ReadOnly = false;
         }
+
+        private void Usuario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

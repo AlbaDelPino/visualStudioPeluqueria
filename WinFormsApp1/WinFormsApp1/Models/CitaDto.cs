@@ -16,6 +16,15 @@ namespace CitasInfo.Models
         [JsonProperty("estado")]
         public string Estado { get; set; }
 
+        [JsonProperty("tratamientos")]
+        public string Tratamientos { get; set; }
+
+        [JsonProperty("productos")]
+        public string Productos { get; set; }
+
+        [JsonProperty("observaciones")]
+        public string Observaciones { get; set; }
+
         [JsonProperty("horario")]
         public HorarioSemanalDto Horario { get; set; }
 
