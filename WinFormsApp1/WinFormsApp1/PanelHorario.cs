@@ -367,7 +367,7 @@ namespace WinFormsApp1
                 string json = reader.ReadToEnd();
                 var horarios = JsonConvert.DeserializeObject<List<HorarioSemanalDto>>(json);
                 labelNumHorarios.Text = $" {horarios?.Count ?? 0}";
-                return horarios ?? new List<HorarioSemanalDto>();
+                return horarios.OrderBy(u => u.DiaSemana).ToList();
             }
         }
         private void CargarTodosLosHorarios()

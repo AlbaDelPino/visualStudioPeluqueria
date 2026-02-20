@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
             panelVisualUsuarios = new Panel();
             anyadirUsuario = new Button();
             label1 = new Label();
@@ -68,10 +68,10 @@
             dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
             panelEspaciado = new Panel();
             panelPaginacion = new Panel();
+            labelPaginaActual = new Label();
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
             panelMargenes = new Panel();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panelVisualUsuarios.SuspendLayout();
             panelAdmin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAdmin).BeginInit();
@@ -112,11 +112,12 @@
             anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
             anyadirUsuario.FlatAppearance.BorderSize = 0;
             anyadirUsuario.FlatStyle = FlatStyle.Flat;
+            anyadirUsuario.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
             anyadirUsuario.ForeColor = Color.White;
             anyadirUsuario.Location = new Point(1451, 175);
             anyadirUsuario.Margin = new Padding(3, 4, 3, 4);
             anyadirUsuario.Name = "anyadirUsuario";
-            anyadirUsuario.Size = new Size(86, 31);
+            anyadirUsuario.Size = new Size(52, 55);
             anyadirUsuario.TabIndex = 15;
             anyadirUsuario.Text = "+";
             anyadirUsuario.UseVisualStyleBackColor = false;
@@ -155,7 +156,7 @@
             textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
             textBoxSUsBuscar.Size = new Size(947, 20);
             textBoxSUsBuscar.TabIndex = 12;
-            textBoxSUsBuscar.TextChanged += comboBoxUsFiltrar_SelectedIndexChanged;
+            textBoxSUsBuscar.TextChanged += textBoxSUsBuscar_TextChanged;
             // 
             // panelAdmin
             // 
@@ -356,26 +357,26 @@
             dataGridViewUsuarios.BackgroundColor = Color.White;
             dataGridViewUsuarios.BorderStyle = BorderStyle.None;
             dataGridViewUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.Padding = new Padding(7);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle11.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle11.Padding = new Padding(7);
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsEliminar });
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.Window;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle8.Padding = new Padding(2);
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dataGridViewUsuarios.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = SystemColors.Window;
+            dataGridViewCellStyle18.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle18.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle18.Padding = new Padding(2);
+            dataGridViewCellStyle18.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle18.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.False;
+            dataGridViewUsuarios.DefaultCellStyle = dataGridViewCellStyle18;
             dataGridViewUsuarios.Dock = DockStyle.Fill;
             dataGridViewUsuarios.EnableHeadersVisualStyles = false;
             dataGridViewUsuarios.GridColor = Color.Black;
@@ -385,19 +386,19 @@
             dataGridViewUsuarios.MultiSelect = false;
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle19.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle19.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle19.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle19.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
             dataGridViewUsuarios.RowHeadersVisible = false;
             dataGridViewUsuarios.RowHeadersWidth = 51;
-            dataGridViewCellStyle10.BackColor = Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = Color.White;
-            dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle20.BackColor = Color.White;
+            dataGridViewCellStyle20.SelectionForeColor = Color.White;
+            dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle20;
             dataGridViewUsuarios.RowTemplate.Height = 35;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dataGridViewUsuarios.Size = new Size(1503, 657);
@@ -407,8 +408,8 @@
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
             dataGridViewTextBoxColumn2.HeaderText = "Usuario";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -417,9 +418,9 @@
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
             dataGridViewTextBoxColumn1.HeaderText = "Nombre";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -428,8 +429,8 @@
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle14;
             dataGridViewTextBoxColumn3.HeaderText = "Tipo";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -439,8 +440,8 @@
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
             dataGridViewTextBoxColumn4.HeaderText = "Estado";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -450,13 +451,13 @@
             // dataGridViewImageColumnUsInfo
             // 
             dataGridViewImageColumnUsInfo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle6.SelectionForeColor = Color.FromArgb(255, 128, 0);
-            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle16.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle16.NullValue = null;
+            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle16.SelectionForeColor = Color.FromArgb(255, 128, 0);
+            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle16;
             dataGridViewImageColumnUsInfo.HeaderText = "Ficha";
             dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
             dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -469,10 +470,10 @@
             // dataGridViewImageColumnUsEliminar
             // 
             dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle17.NullValue = null;
+            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle17;
             dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
             dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
             dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -493,6 +494,7 @@
             // 
             // panelPaginacion
             // 
+            panelPaginacion.Controls.Add(labelPaginaActual);
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
@@ -502,6 +504,15 @@
             panelPaginacion.Padding = new Padding(34, 0, 0, 0);
             panelPaginacion.Size = new Size(1571, 43);
             panelPaginacion.TabIndex = 15;
+            // 
+            // labelPaginaActual
+            // 
+            labelPaginaActual.AutoSize = true;
+            labelPaginaActual.Location = new Point(777, 11);
+            labelPaginaActual.Name = "labelPaginaActual";
+            labelPaginaActual.Size = new Size(17, 20);
+            labelPaginaActual.TabIndex = 4;
+            labelPaginaActual.Text = "1";
             // 
             // buttonPaginacionDelante
             // 
@@ -552,6 +563,7 @@
             Name = "PanelUsuario";
             Text = "PanelUsuario";
             Load += PanelUsuario_Load;
+            Resize += PanelUsuario_Resize;
             panelVisualUsuarios.ResumeLayout(false);
             panelVisualUsuarios.PerformLayout();
             panelAdmin.ResumeLayout(false);
@@ -568,6 +580,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).EndInit();
             panelPaginacion.ResumeLayout(false);
+            panelPaginacion.PerformLayout();
             panelMargenes.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -600,7 +613,6 @@
         private Button buttonPaginacionAtras;
         private Panel panelMargenes;
         private Label label1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Button anyadirUsuario;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -608,5 +620,6 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
         private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
+        private Label labelPaginaActual;
     }
 }
