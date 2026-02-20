@@ -181,7 +181,7 @@ namespace WinFormsApp1
 
         private void dataGridViewBloqueos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < dataGridViewBloqueos.Rows.Count)
+            if (e.RowIndex < dataGridViewBloqueos.Rows.Count && e.RowIndex  <= 0)
             {
                 var fila = dataGridViewBloqueos.Rows[e.RowIndex];
                 _bloqueoSeleccionado = fila.Tag as BloqueoHorarioDto;

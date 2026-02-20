@@ -24,6 +24,10 @@ namespace CitasInfo.Models
 
         [JsonProperty("cliente")]
         public UsersDto Cliente { get; set; }
+
+        [JsonProperty("valoracion")]
+        public ValoracionDto Valoracion { get; set; }
+
     }
 
     public class HorarioSemanalDto
@@ -75,5 +79,31 @@ namespace CitasInfo.Models
         [JsonProperty("horarios")]
         public List<HorarioSemanalDto> Horarios { get; set; }
 
+    }
+    public class ValoracionDto
+    {
+        [JsonProperty("id_valoracion")]
+        public long Id { get; set; }
+
+        [JsonProperty("comentario")]
+        public string Comentario { get; set; }
+
+        [JsonProperty("puntuacion")]
+        public int Puntuacion { get; set; }
+
+        [JsonProperty("trato")]
+        public int Trato { get; set; }
+
+        [JsonProperty("desarrollo")]
+        public int Desarrollo { get; set; }
+
+        [JsonProperty("comunicacion")]
+        public int Comunicacion { get; set; }
+
+        [JsonProperty("organizacion")]
+        public int Organizacion { get; set; }
+
+        [JsonProperty("imagen")]
+        public byte[] Imagen { get; set; }
     }
 }

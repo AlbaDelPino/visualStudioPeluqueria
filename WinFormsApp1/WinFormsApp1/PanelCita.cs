@@ -1,6 +1,7 @@
 ﻿using CitasInfo.Models;
 using Newtonsoft.Json;
 using NodaTime;
+using ServiciosInfo.Models;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Globalization;
@@ -223,14 +224,39 @@ namespace WinFormsApp1
                 filtrarCitas();
                 MessageBox.Show("Cita creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
         private void dataGridViewCitas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < dataGridViewCitas.Rows.Count)
+            // 1. Validar que no sea el encabezado y que la fila exista
+            if (e.RowIndex < 0 || e.RowIndex >= dataGridViewCitas.Rows.Count) return;
+
+            // 2. Asignar la cita seleccionada para que el resto del panel funcione
+            var fila = dataGridViewCitas.Rows[e.RowIndex];
+            _citaSeleccionada = fila.Tag as CitaDto;
+
+            // 3. Obtener el nombre de la columna clicada
+            var columna = dataGridViewCitas.Columns[e.ColumnIndex].Name;
+
+            // 4. Verificación flexible del nombre (el que sale en tu imagen)
+            if ( columna == "DataGridViewTextBoxColumnValoración")
             {
-                var fila = dataGridViewCitas.Rows[e.RowIndex];
-                _citaSeleccionada = fila.Tag as CitaDto;
+                if (_citaSeleccionada != null)
+                {
+                    if (_citaSeleccionada.Valoracion != null)
+                    {
+                        using (var pantallaDetalle = new Valoracion(_citaSeleccionada.Valoracion, _token))
+                        {
+                            pantallaDetalle.ShowDialog();
+                        }
+                    }
+                    else if (_citaSeleccionada.Estado == "COMPLETADO")
+                    {
+                        MessageBox.Show("El cliente aún no ha valorado esta cita.", "Información",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
             }
         }
 
@@ -359,9 +385,24 @@ namespace WinFormsApp1
                     c.Fecha.ToString(),
                     hora,
                     estado,
-                    c.Horario.Grupo.Curso ?? "Sin Grupo"
+                    c.Horario.Grupo.Curso ?? "Sin Grupo",
+                    ""
                 );
-                dataGridViewCitas.Rows[index].Tag = c;
+                DataGridViewRow fila = dataGridViewCitas.Rows[index];
+                fila.Tag = c;
+                var celdaVal = fila.Cells["DataGridViewTextBoxColumnValoración"];
+                if (c.Valoracion != null)
+                {
+                    celdaVal.Value = $"⭐ {c.Valoracion.Puntuacion}/5";
+                    celdaVal.Style.ForeColor = Color.DarkGreen;
+                    celdaVal.Style.SelectionForeColor = Color.White;
+                    celdaVal.Style.Font = new Font(dataGridViewCitas.Font, FontStyle.Bold);
+                }
+                else
+                {
+                    celdaVal.Value = "Sin valorar";
+                    celdaVal.Style.ForeColor = Color.Gray;
+                }
             }
 
             buttonPaginacionAtras.Enabled = (_paginaActual > 1);
@@ -433,5 +474,8 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
+
+       
+
     }
 }

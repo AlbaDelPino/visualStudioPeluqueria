@@ -92,7 +92,7 @@ namespace WinFormsApp1
             }
             comentario += "\\n\\n";
 
-            var url = $"http://localhost:8082/clientes/"+_cita.Cliente.Id;
+            var url = $"http://localhost:8082/clientes/" + _cita.Cliente.Id;
             var data = "{\r\n  \"username\": \"" + _cita.Cliente.Username + "\",\r\n  \"contrasenya\": \"" + _cita.Cliente.Contrasenya + "\",\r\n  \"email\": \"" + _cita.Cliente.Email + "\",\r\n  \"nombre\": \"" + _cita.Cliente.Nombre + "\",\r\n  \"telefono\": \"" + _cita.Cliente.Telefono + "\",\r\n  \"estado\": \"" + _cita.Cliente.Estado + "\",\r\n  \"comentarioCitas\": \"" + comentario + "\",\r\n  \"observacion\": \"" + observaciones + "\",\r\n  \"alergenos\": \"" + alergenos + "\"\r\n}\r\n";
 
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -174,6 +174,11 @@ namespace WinFormsApp1
             {
                 CambiarEstado();
             }
+        }
+
+        private void labelProductos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
