@@ -78,7 +78,9 @@ namespace WinFormsApp1
             }
         }
 
+        private void Puntuacion_Click(object sender, EventArgs e)
+        {
 
-
+        }
     } // Cierre de la clase
 } // Cierre del namespace

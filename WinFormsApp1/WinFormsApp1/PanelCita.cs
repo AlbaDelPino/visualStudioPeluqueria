@@ -497,5 +497,10 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
+
+        private void panelMargenes_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
