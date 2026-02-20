@@ -46,17 +46,23 @@
             comboTipoServicio = new ComboBox();
             ButtonSerAnyadir = new Button();
             panelServicio = new Panel();
+            panelIcon = new Panel();
+            pictureBoxICon = new PictureBox();
             panelServicio.SuspendLayout();
+            panelIcon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
             // 
             // ButtonSerModificar
             // 
-            ButtonSerModificar.Location = new Point(111, 208);
+            ButtonSerModificar.BackColor = Color.DarkOrange;
+            ButtonSerModificar.ForeColor = SystemColors.ControlLightLight;
+            ButtonSerModificar.Location = new Point(363, 256);
             ButtonSerModificar.Name = "ButtonSerModificar";
-            ButtonSerModificar.Size = new Size(128, 23);
+            ButtonSerModificar.Size = new Size(137, 36);
             ButtonSerModificar.TabIndex = 69;
             ButtonSerModificar.Text = "Guardar cambios";
-            ButtonSerModificar.UseVisualStyleBackColor = true;
+            ButtonSerModificar.UseVisualStyleBackColor = false;
             ButtonSerModificar.Visible = false;
             ButtonSerModificar.Click += ButtonSerModificar_Click;
             // 
@@ -64,7 +70,7 @@
             // 
             labelSerDuracion.AutoSize = true;
             labelSerDuracion.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerDuracion.Location = new Point(35, 139);
+            labelSerDuracion.Location = new Point(208, 163);
             labelSerDuracion.Margin = new Padding(4, 0, 4, 0);
             labelSerDuracion.Name = "labelSerDuracion";
             labelSerDuracion.Size = new Size(65, 17);
@@ -73,7 +79,7 @@
             // 
             // textBoxDuracion
             // 
-            textBoxDuracion.Location = new Point(174, 139);
+            textBoxDuracion.Location = new Point(347, 163);
             textBoxDuracion.Name = "textBoxDuracion";
             textBoxDuracion.Size = new Size(140, 23);
             textBoxDuracion.TabIndex = 53;
@@ -92,7 +98,7 @@
             // 
             labelSerTipo.AutoSize = true;
             labelSerTipo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerTipo.Location = new Point(35, 170);
+            labelSerTipo.Location = new Point(513, 127);
             labelSerTipo.Margin = new Padding(4, 0, 4, 0);
             labelSerTipo.Name = "labelSerTipo";
             labelSerTipo.Size = new Size(108, 17);
@@ -103,7 +109,7 @@
             // 
             labelSerDescripcion.AutoSize = true;
             labelSerDescripcion.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerDescripcion.Location = new Point(35, 85);
+            labelSerDescripcion.Location = new Point(208, 121);
             labelSerDescripcion.Margin = new Padding(4, 0, 4, 0);
             labelSerDescripcion.Name = "labelSerDescripcion";
             labelSerDescripcion.Size = new Size(82, 17);
@@ -114,7 +120,8 @@
             // 
             labelTituoCrearServicio.AutoSize = true;
             labelTituoCrearServicio.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoCrearServicio.Location = new Point(87, 18);
+            labelTituoCrearServicio.ForeColor = SystemColors.ControlDarkDark;
+            labelTituoCrearServicio.Location = new Point(203, 30);
             labelTituoCrearServicio.Name = "labelTituoCrearServicio";
             labelTituoCrearServicio.Size = new Size(174, 25);
             labelTituoCrearServicio.TabIndex = 62;
@@ -122,7 +129,7 @@
             // 
             // txtBoxDescripcion
             // 
-            txtBoxDescripcion.Location = new Point(174, 85);
+            txtBoxDescripcion.Location = new Point(347, 121);
             txtBoxDescripcion.Name = "txtBoxDescripcion";
             txtBoxDescripcion.Size = new Size(140, 23);
             txtBoxDescripcion.TabIndex = 50;
@@ -139,7 +146,7 @@
             // 
             // textBoxPrecio
             // 
-            textBoxPrecio.Location = new Point(174, 111);
+            textBoxPrecio.Location = new Point(652, 85);
             textBoxPrecio.Name = "textBoxPrecio";
             textBoxPrecio.Size = new Size(140, 23);
             textBoxPrecio.TabIndex = 52;
@@ -148,7 +155,7 @@
             // 
             labelSerPrecio.AutoSize = true;
             labelSerPrecio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerPrecio.Location = new Point(35, 111);
+            labelSerPrecio.Location = new Point(513, 85);
             labelSerPrecio.Margin = new Padding(4, 0, 4, 0);
             labelSerPrecio.Name = "labelSerPrecio";
             labelSerPrecio.Size = new Size(48, 17);
@@ -159,7 +166,7 @@
             // 
             labelSerNombre.AutoSize = true;
             labelSerNombre.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerNombre.Location = new Point(35, 58);
+            labelSerNombre.Location = new Point(208, 83);
             labelSerNombre.Margin = new Padding(4, 0, 4, 0);
             labelSerNombre.Name = "labelSerNombre";
             labelSerNombre.Size = new Size(58, 17);
@@ -168,7 +175,7 @@
             // 
             // tboxNombreServicio
             // 
-            tboxNombreServicio.Location = new Point(174, 58);
+            tboxNombreServicio.Location = new Point(347, 83);
             tboxNombreServicio.Name = "tboxNombreServicio";
             tboxNombreServicio.Size = new Size(140, 23);
             tboxNombreServicio.TabIndex = 49;
@@ -178,7 +185,7 @@
             comboTipoServicio.DisplayMember = "1";
             comboTipoServicio.DropDownStyle = ComboBoxStyle.DropDownList;
             comboTipoServicio.Items.AddRange(new object[] { "Peluquería", "Manicura y Pedicura", "Depilación", "Pestañas y Cejas", "Tratamientos Faciales", "Tratamientos Corporales", "Masajes", "Maquillaje", "Micropigmentación" });
-            comboTipoServicio.Location = new Point(174, 168);
+            comboTipoServicio.Location = new Point(652, 125);
             comboTipoServicio.Margin = new Padding(4, 3, 4, 3);
             comboTipoServicio.MaxDropDownItems = 3;
             comboTipoServicio.Name = "comboTipoServicio";
@@ -188,16 +195,19 @@
             // 
             // ButtonSerAnyadir
             // 
-            ButtonSerAnyadir.Location = new Point(139, 208);
+            ButtonSerAnyadir.BackColor = Color.DarkOrange;
+            ButtonSerAnyadir.ForeColor = SystemColors.ControlLightLight;
+            ButtonSerAnyadir.Location = new Point(391, 256);
             ButtonSerAnyadir.Name = "ButtonSerAnyadir";
-            ButtonSerAnyadir.Size = new Size(75, 23);
+            ButtonSerAnyadir.Size = new Size(84, 36);
             ButtonSerAnyadir.TabIndex = 71;
             ButtonSerAnyadir.Text = "Añadir";
-            ButtonSerAnyadir.UseVisualStyleBackColor = true;
+            ButtonSerAnyadir.UseVisualStyleBackColor = false;
             ButtonSerAnyadir.Click += ButtonSerAnyadir_Click;
             // 
             // panelServicio
             // 
+            panelServicio.Controls.Add(panelIcon);
             panelServicio.Controls.Add(labelTituoCrearServicio);
             panelServicio.Controls.Add(ButtonSerAnyadir);
             panelServicio.Controls.Add(labelSerNombre);
@@ -215,21 +225,42 @@
             panelServicio.Location = new Point(0, 0);
             panelServicio.Margin = new Padding(3, 2, 3, 2);
             panelServicio.Name = "panelServicio";
-            panelServicio.Size = new Size(340, 241);
+            panelServicio.Size = new Size(838, 319);
             panelServicio.TabIndex = 72;
             panelServicio.Paint += panelServicio_Paint;
+            // 
+            // panelIcon
+            // 
+            panelIcon.BackColor = Color.FromArgb(241, 123, 35);
+            panelIcon.Controls.Add(pictureBoxICon);
+            panelIcon.Dock = DockStyle.Left;
+            panelIcon.Location = new Point(0, 0);
+            panelIcon.Name = "panelIcon";
+            panelIcon.Size = new Size(182, 319);
+            panelIcon.TabIndex = 94;
+            // 
+            // pictureBoxICon
+            // 
+            pictureBoxICon.Dock = DockStyle.Fill;
+            pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
+            pictureBoxICon.Location = new Point(0, 0);
+            pictureBoxICon.Name = "pictureBoxICon";
+            pictureBoxICon.Size = new Size(182, 319);
+            pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxICon.TabIndex = 0;
+            pictureBoxICon.TabStop = false;
             // 
             // Servicio
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(340, 241);
+            ClientSize = new Size(838, 319);
             Controls.Add(panelServicio);
             Controls.Add(label2);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MaximumSize = new Size(356, 280);
+            MaximumSize = new Size(35600, 28000);
             MinimizeBox = false;
             MinimumSize = new Size(356, 280);
             Name = "Servicio";
@@ -237,6 +268,8 @@
             Load += Servicio_Load;
             panelServicio.ResumeLayout(false);
             panelServicio.PerformLayout();
+            panelIcon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -261,6 +294,8 @@
         private Label labelSerNombre;
         private TextBox tboxNombreServicio;
         private Panel panelServicio;
+        private Panel panelIcon;
+        private PictureBox pictureBoxICon;
 
         public TextBox TboxNombreServicio
         {
