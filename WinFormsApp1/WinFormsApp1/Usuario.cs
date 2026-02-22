@@ -526,5 +526,10 @@ namespace WinFormsApp1
             }
             return null;
         }
+
+        private void Usuario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

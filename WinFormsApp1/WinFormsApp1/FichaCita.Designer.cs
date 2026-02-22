@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FichaCita));
             panelFicha = new Panel();
+            pictureBoxICon = new PictureBox();
             richTextBoxObservaciones = new RichTextBox();
             labelObservaciones = new Label();
             richTextBoxProductos = new RichTextBox();
@@ -37,7 +38,6 @@
             richTextBoxTratamientos = new RichTextBox();
             labelTratamientos = new Label();
             buttonCompletar = new Button();
-            pictureBoxICon = new PictureBox();
             panelFicha.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
@@ -58,6 +58,19 @@
             panelFicha.Name = "panelFicha";
             panelFicha.Size = new Size(891, 450);
             panelFicha.TabIndex = 0;
+            // 
+            // pictureBoxICon
+            // 
+            pictureBoxICon.BackColor = Color.FromArgb(241, 123, 35);
+            pictureBoxICon.Dock = DockStyle.Left;
+            pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
+            pictureBoxICon.Location = new Point(0, 0);
+            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxICon.Name = "pictureBoxICon";
+            pictureBoxICon.Size = new Size(208, 450);
+            pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxICon.TabIndex = 22;
+            pictureBoxICon.TabStop = false;
             // 
             // richTextBoxObservaciones
             // 
@@ -136,19 +149,6 @@
             buttonCompletar.UseVisualStyleBackColor = false;
             buttonCompletar.Click += buttonCompletar_Click;
             // 
-            // pictureBoxICon
-            // 
-            pictureBoxICon.BackColor = Color.FromArgb(241, 123, 35);
-            pictureBoxICon.Dock = DockStyle.Left;
-            pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
-            pictureBoxICon.Location = new Point(0, 0);
-            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
-            pictureBoxICon.Name = "pictureBoxICon";
-            pictureBoxICon.Size = new Size(208, 450);
-            pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxICon.TabIndex = 22;
-            pictureBoxICon.TabStop = false;
-            // 
             // FichaCita
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -158,6 +158,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FichaCita";
             Text = "FichaCita";
+            Load += FichaCita_Load;
             panelFicha.ResumeLayout(false);
             panelFicha.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
