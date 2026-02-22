@@ -103,7 +103,7 @@ namespace WindowsFormsApp1
 
         private void panelServicio_Click(object sender, EventArgs e)
         {
-            CargarNuevaPagina(new PanelServicios(_usuarioActual, _token));
+            CargarNuevaPagina(new PanelServicios(_token));
         }
 
         private void panelUsuario_Click(object sender, EventArgs e)

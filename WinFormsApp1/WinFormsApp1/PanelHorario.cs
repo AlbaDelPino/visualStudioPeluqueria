@@ -27,7 +27,7 @@ namespace WinFormsApp1
         private const int REGISTROS_POR_PAGINA = 19;
         private List<HorarioSemanalDto> _horariosCompletos;
         private List<HorarioSemanalDto> _horariosFiltrados;
-        private static HorarioSemanalDto _horarioSeleccionado;
+        private HorarioSemanalDto _horarioSeleccionado;
         private readonly List<UsersDto> _grupos;
         private readonly UsersDto _usuarioActual;
 
@@ -51,7 +51,6 @@ namespace WinFormsApp1
             _horariosFiltrados = new List<HorarioSemanalDto>();
             _horarioSeleccionado = new HorarioSemanalDto();
 
-            ActualizarRegiones();
             CargarTodosLosHorarios();
 
             comboBoxGrupos.DataSource = _grupos;
@@ -99,7 +98,6 @@ namespace WinFormsApp1
             DibujarCapsula(g, rectBusqueda, new Pen(Color.FromArgb(220, 220, 220), 1), Brushes.White);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxHorarioBuscar.Left - 25, textBoxHorarioBuscar.Top - 2);
         }
-
 
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
         {
@@ -195,9 +193,9 @@ namespace WinFormsApp1
             Horario pantallaAnyadir = new Horario(_token);
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
-                CargarTodosLosHorarios();
-                filtrarHorario();
                 MessageBox.Show("Horario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarTodosLosHorarios();
+                filtrarHorario();     
             }
         }
 
@@ -271,9 +269,7 @@ namespace WinFormsApp1
             comboBoxGrupos.SelectedIndex = 0;
             comboBoxDia.SelectedIndex = 0;
             textBoxHorarioBuscar.Text = string.Empty;
-            monthCalendarFiltrar.SelectionEnd = DateTime.Today;
-            monthCalendarFiltrar.SelectionStart = DateTime.Today;
-
+            
             _horariosCompletos = ObtenerHorarios();
             _horariosFiltrados = ObtenerHorarios();
             _paginaActual = 1;

@@ -147,12 +147,9 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var galeria = JsonConvert.DeserializeObject<List<GaleriaDto>>(json);
-                if (galeria != null)
-                {
-                    labelNumFotos.Text = $"{galeria.Count}";
-                    return galeria.OrderBy(g => g.Servicio.Nombre).ToList();
-                }
-                return new List<GaleriaDto>();
+                labelNumFotos.Text = $" {galeria?.Count ?? 0}";
+                return galeria.OrderBy(g => g.Servicio.Nombre).ToList();
+
             }
         }
 

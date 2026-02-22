@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ServiciosInfo.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,156 @@ namespace WinFormsApp1
             _usuario = usuario;
             _token = token;
             _usuarioActual = usuarioActual;
+
+            var nombre = usuario.Nombre;
+            var apellidos = " ";
+            this.Text = "Información de " + usuario.Nombre;
+            labelTituoCrearUsuario.Visible = false;
+            labelTituoInfoUsuario.Visible = true;
+
+
+            ButtonUsGuardar.Visible = false;
+            buttonModificar.Visible = true;
+            ButtonUsVolver.Visible = true;
+            ButtonUsAnyadir.Visible = false;
+
+            tboxNombreUsuario.ReadOnly = true;
+            txtBoxUsNombre.ReadOnly = true;
+            textBoxUsApellidos.ReadOnly = true;
+            textBoxUsEmail.ReadOnly = true;
+            textBoxUsTel.ReadOnly = true;
+            textBoxUsContrasenya.ReadOnly = true;
+            textBoxUsConfigContrasenya.ReadOnly = true;
+            comboTipoUsuario.Enabled = false;
+            checkBoxEstado.Enabled = false;
+            tboxUserAlerg.ReadOnly = true;
+            textUserObserv.ReadOnly = true;
+            tboxUserCurso.ReadOnly = true;
+            tboxUserTurno.ReadOnly = true;
+            tboxUserEspec.ReadOnly = true;
+
+
+            tboxNombreUsuario.Text = usuario.Username;
+            txtBoxUsNombre.Text = nombre;
+            textBoxUsApellidos.Text = apellidos;
+
+            if (usuario.Estado.Equals("true"))
+            {
+                checkBoxEstado.Checked = true;
+            }
+            else if (usuario.Estado.Equals("false"))
+            {
+                checkBoxEstado.Checked = false;
+            }
+
+            var indexRol = 3;
+            if (usuario.Role.Equals("ROLE_CLIENTE"))
+            {
+                var clientes = ObtenerClientes();
+                foreach (ClienteDto c in clientes)
+                {
+                    if (c.Id == usuario.Id)
+                    {
+                        tboxUserAlerg.Text = c.Alergenos ?? "";
+                        tboxUserObserv.Text = c.Observacion ?? "";
+                        textBoxUsEmail.Text = c.Email ?? "";
+                        textBoxUsTel.Text = c.Telefono.ToString() ?? "";
+                    }
+                }
+                panelAdmin.Visible = false;
+                panelUsGrupo.Visible = false;
+                panelCliente.Visible = true;
+
+                var nombreYapellidos = usuario.Nombre.Split(' ');
+                if (nombreYapellidos.Length >= 4)
+                {
+                    nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
+                    apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length - 1];
+                }
+                else if (nombreYapellidos.Length == 3)
+                {
+                    nombre = nombreYapellidos[0];
+                    apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
+                }
+                else if (nombreYapellidos.Length == 2)
+                {
+                    nombre = nombreYapellidos[0];
+                    apellidos = nombreYapellidos[1];
+                }
+                else if (nombreYapellidos.Length == 1)
+                {
+                    nombre = nombreYapellidos[0];
+                }
+                txtBoxUsNombre.Text = nombre;
+                textBoxUsApellidos.Text = apellidos;
+
+                indexRol = 0;
+            }
+            else if (usuario.Role.Equals("ROLE_GRUPO"))
+            {
+
+                var grupos = ObtenerGrupos();
+                foreach (GrupoDto g in grupos)
+                {
+                    if (g.Id == usuario.Id)
+                    {
+                        tboxUserCurso.Text = g.Curso ?? "";
+                        tboxUserTurno.Text = g.Turno ?? "";
+                    }
+                }
+                panelAdmin.Visible = false;
+                panelUsGrupo.Visible = true;
+                panelCliente.Visible = false;
+
+                indexRol = 1;
+            }
+            else if (usuario.Role.Equals("ROLE_ADMIN"))
+            {
+                var admins = ObtenerAdmins();
+                foreach (AdminDto a in admins)
+                {
+                    if (a.Id == usuario.Id)
+                    {
+                        tboxUserEspec.Text = a.Especialidad ?? "";
+                    }
+                }
+                panelAdmin.Visible = true;
+                panelUsGrupo.Visible = false;
+                panelCliente.Visible = false;
+
+                indexRol = 2;
+            }
+            comboTipoUsuario.SelectedIndex = indexRol;
+
+        }
+
+        public Usuario(string token, UsersDto usuarioActual)
+        {
+            InitializeComponent();
+            _token = token;
+            _usuarioActual = usuarioActual;
+
+            this.Text = "Añadir nuevo usuario";
+            labelTituoCrearUsuario.Visible = true;
+            labelTituoInfoUsuario.Visible = false;
+
+            buttonModificar.Visible = false;
+            ButtonUsVolver.Visible = false;
+            ButtonUsAnyadir.Visible = true;
+            comboTipoUsuario.Enabled = true;
+            checkBoxEstado.Checked = true;
+
+            tboxNombreUsuario.Text = "";
+            txtBoxUsNombre.Text = "";
+            textBoxUsApellidos.Text = "";
+            textBoxUsEmail.Text = "";
+            textBoxUsTel.Text = "";
+            textUserObserv.Text = "";
+            comboTipoUsuario.SelectedItem = "";
+            tboxUserAlerg.Text = "";
+            tboxUserCurso.Text = "";
+            tboxUserTurno.Text = "";
+            tboxUserEspec.Text = "";
         }
 
         private void comboTipoUsuario_SelectedIndexChanged(object sender, EventArgs e)
@@ -68,7 +219,7 @@ namespace WinFormsApp1
             if (comboTipoUsuario.SelectedIndex == 0)
             {
                 string alergenos = tboxUserAlerg.Text;
-                string observciones = tboxUserObserv.Text;
+                string observciones = textUserObserv.Text;
                 string email = textBoxUsEmail.Text;
                 string tel = textBoxUsTel.Text;
                 url = $"http://localhost:8082/api/auth/signup/cliente";
@@ -170,7 +321,7 @@ namespace WinFormsApp1
             if (comboTipoUsuario.SelectedIndex == 0)
             {
                 string alergenos = tboxUserAlerg.Text;
-                string observciones = tboxUserObserv.Text;
+                string observciones = textUserObserv.Text;
                 string email = textBoxUsEmail.Text;
                 string tel = textBoxUsTel.Text;
                 contrasenya = _usuario.Contrasenya;
@@ -249,42 +400,131 @@ namespace WinFormsApp1
             ButtonUsAnyadir.Visible = false;
             ButtonUsGuardar.Visible = true;
 
-            ComboTipoUsuario.Enabled = false;
+            comboTipoUsuario.Enabled = false;
 
             if (_usuario.Role.Equals("ROLE_CLIENTE"))
             {
-                TextBoxUsContrasenya.ReadOnly = true;
-                TextBoxUsConfigContrasenya.ReadOnly = true;
+                textBoxUsContrasenya.ReadOnly = true;
+                textBoxUsConfigContrasenya.ReadOnly = true;
             }
             else if (_usuarioActual.Id == _usuario.Id)
             {
-                TextBoxUsContrasenya.ReadOnly = false;
-                TextBoxUsConfigContrasenya.ReadOnly = false;
+                textBoxUsContrasenya.ReadOnly = false;
+                textBoxUsConfigContrasenya.ReadOnly = false;
             }
             else if (_usuario.Role.Equals("ROLE_GRUPO") && _usuarioActual.Role.Equals("ROLE_ADMIN"))
             {
-                TextBoxUsContrasenya.ReadOnly = false;
-                TextBoxUsConfigContrasenya.ReadOnly = false;
+                textBoxUsContrasenya.ReadOnly = false;
+                textBoxUsConfigContrasenya.ReadOnly = false;
             }
             else if (_usuario.Role.Equals("ROLE_ADMIN") || _usuario.Role.Equals("ROLE_GRUPO"))
             {
-                TextBoxUsContrasenya.ReadOnly = true;
-                TextBoxUsConfigContrasenya.ReadOnly = true;
+                textBoxUsContrasenya.ReadOnly = true;
+                textBoxUsConfigContrasenya.ReadOnly = true;
             }
 
 
-            TboxNombreUsuario.ReadOnly = false;
-            TxtBoxUsNombre.ReadOnly = false;
-            TextBoxUsApellidos.ReadOnly = false;
-            TextBoxUsEmail.ReadOnly = false;
-            TextBoxUsTel.ReadOnly = false;
-            ComboTipoUsuario.Enabled = true;
-            CheckBoxEstado.Enabled = true;
-            TboxUserAlerg.ReadOnly = false;
-            TboxUserObserv.ReadOnly = false;
-            TboxUserCurso.ReadOnly = false;
-            TboxUserTurno.ReadOnly = false;
-            TboxUserEspec.ReadOnly = false;
+            tboxNombreUsuario.ReadOnly = false;
+            txtBoxUsNombre.ReadOnly = false;
+            textBoxUsApellidos.ReadOnly = false;
+            textBoxUsEmail.ReadOnly = false;
+            textBoxUsTel.ReadOnly = false;
+            comboTipoUsuario.Enabled = true;
+            checkBoxEstado.Enabled = true;
+            tboxUserAlerg.ReadOnly = false;
+            textUserObserv.ReadOnly = false;
+            tboxUserCurso.ReadOnly = false;
+            tboxUserTurno.ReadOnly = false;
+            tboxUserEspec.ReadOnly = false;
+        }
+
+
+        private List<AdminDto> ObtenerAdmins()
+        {
+            try
+            {
+                var url = "http://localhost:8082/admins";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var admins = JsonConvert.DeserializeObject<List<AdminDto>>(json);
+                    return admins;
+                }
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+
+        private List<GrupoDto> ObtenerGrupos()
+        {
+            try
+            {
+                var url = "http://localhost:8082/grupos";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var grupos = JsonConvert.DeserializeObject<List<GrupoDto>>(json);
+                    return grupos;
+                }
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
+        }
+
+        private List<ClienteDto> ObtenerClientes()
+        {
+            try
+            {
+                var url = "http://localhost:8082/clientes";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+
+                request.Headers["Authorization"] = $"Bearer {_token}";
+                using (var response = (HttpWebResponse)request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                using (var reader = new StreamReader(stream))
+                {
+                    string json = reader.ReadToEnd();
+                    var clientes = JsonConvert.DeserializeObject<List<ClienteDto>>(json);
+                    return clientes;
+                }
+
+            }
+            catch (WebException e)
+            {
+                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
+                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return null;
         }
     }
 }

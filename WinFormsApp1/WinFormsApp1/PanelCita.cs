@@ -58,7 +58,6 @@ namespace WinFormsApp1
             _citasFiltradas = new List<CitaDto>();
             _citaSeleccionada = new CitaDto();
 
-            ActualizarRegiones();
             CargarTodasLasCitas();
 
             comboBoxGrupos.DataSource = _grupos;
@@ -85,7 +84,7 @@ namespace WinFormsApp1
             panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
             labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
             panelProximas.Top = panelFiltros.Height - panelProximas.Height;
-            panelHoy.Top = panelProximas.Top + panelHoy.Height + 20;
+            panelHoy.Top = panelProximas.Top - panelHoy.Height - 20;
 
             anyadirCitas.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirCitas.Width, anyadirCitas.Height, anyadirCitas.Width, anyadirCitas.Height));
         }

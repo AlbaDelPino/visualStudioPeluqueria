@@ -28,33 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle18 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle19 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle20 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle16 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle17 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panelVisualUsuarios = new Panel();
-            anyadirUsuario = new Button();
-            label1 = new Label();
-            comboBoxUsFiltrar = new ComboBox();
             textBoxSUsBuscar = new TextBox();
-            panelAdmin = new Panel();
-            pictureAdmin = new PictureBox();
-            labelNumAdmin = new Label();
-            labelAdmin = new Label();
-            panelUInactivos = new Panel();
-            labelNumUInactivos = new Label();
-            labelUInactivos = new Label();
-            pictureUInactivos = new PictureBox();
-            panelUActivos = new Panel();
-            labelNumUActivos = new Label();
-            labelUActivos = new Label();
-            pictureUActivos = new PictureBox();
+            panelCliente = new Panel();
+            pictureCliente = new PictureBox();
+            labelNumClientes = new Label();
+            labelCliente = new Label();
             panelUsuarios = new Panel();
             labelNumUsuarios = new Label();
             labelUsuarios = new Label();
@@ -64,93 +51,52 @@
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumnUsInfo = new DataGridViewImageColumn();
-            dataGridViewImageColumnUsEliminar = new DataGridViewImageColumn();
             panelEspaciado = new Panel();
             panelPaginacion = new Panel();
             labelPaginaActual = new Label();
             buttonPaginacionDelante = new Button();
             buttonPaginacionAtras = new Button();
             panelMargenes = new Panel();
+            panelFiltros = new Panel();
+            panelBotones = new Panel();
+            anyadirUsuario = new Button();
+            buttonHistorial = new Button();
+            buttonInfo = new Button();
+            buttonEliminar = new Button();
+            comboBoxRol = new ComboBox();
+            buttonTodos = new Button();
+            comboBoxEstado = new ComboBox();
             panelVisualUsuarios.SuspendLayout();
-            panelAdmin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureAdmin).BeginInit();
-            panelUInactivos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUInactivos).BeginInit();
-            panelUActivos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUActivos).BeginInit();
+            panelCliente.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureCliente).BeginInit();
             panelUsuarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewUsuarios).BeginInit();
             panelPaginacion.SuspendLayout();
             panelMargenes.SuspendLayout();
+            panelFiltros.SuspendLayout();
+            panelBotones.SuspendLayout();
             SuspendLayout();
             // 
             // panelVisualUsuarios
             // 
-            panelVisualUsuarios.Controls.Add(anyadirUsuario);
-            panelVisualUsuarios.Controls.Add(label1);
-            panelVisualUsuarios.Controls.Add(comboBoxUsFiltrar);
             panelVisualUsuarios.Controls.Add(textBoxSUsBuscar);
-            panelVisualUsuarios.Controls.Add(panelAdmin);
-            panelVisualUsuarios.Controls.Add(panelUInactivos);
-            panelVisualUsuarios.Controls.Add(panelUActivos);
-            panelVisualUsuarios.Controls.Add(panelUsuarios);
             panelVisualUsuarios.Dock = DockStyle.Top;
             panelVisualUsuarios.ForeColor = Color.FromArgb(255, 128, 0);
             panelVisualUsuarios.Location = new Point(0, 0);
             panelVisualUsuarios.Margin = new Padding(5, 4, 5, 4);
             panelVisualUsuarios.Name = "panelVisualUsuarios";
             panelVisualUsuarios.Padding = new Padding(17, 0, 0, 0);
-            panelVisualUsuarios.Size = new Size(1571, 256);
+            panelVisualUsuarios.Size = new Size(1571, 100);
             panelVisualUsuarios.TabIndex = 5;
             panelVisualUsuarios.Paint += panelVisualUsuarios_Paint;
-            // 
-            // anyadirUsuario
-            // 
-            anyadirUsuario.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
-            anyadirUsuario.FlatAppearance.BorderSize = 0;
-            anyadirUsuario.FlatStyle = FlatStyle.Flat;
-            anyadirUsuario.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold);
-            anyadirUsuario.ForeColor = Color.White;
-            anyadirUsuario.Location = new Point(1451, 175);
-            anyadirUsuario.Margin = new Padding(3, 4, 3, 4);
-            anyadirUsuario.Name = "anyadirUsuario";
-            anyadirUsuario.Size = new Size(52, 55);
-            anyadirUsuario.TabIndex = 15;
-            anyadirUsuario.Text = "+";
-            anyadirUsuario.UseVisualStyleBackColor = false;
-            anyadirUsuario.Click += anyadirUsuario_Click;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(1019, 111);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 20);
-            label1.TabIndex = 14;
-            // 
-            // comboBoxUsFiltrar
-            // 
-            comboBoxUsFiltrar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBoxUsFiltrar.DisplayMember = "1";
-            comboBoxUsFiltrar.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxUsFiltrar.FlatStyle = FlatStyle.Flat;
-            comboBoxUsFiltrar.Items.AddRange(new object[] { "", "Activos", "Inactivos", "Administradores", "Clientes", "Grupos" });
-            comboBoxUsFiltrar.Location = new Point(1234, 187);
-            comboBoxUsFiltrar.Margin = new Padding(5, 4, 5, 4);
-            comboBoxUsFiltrar.Name = "comboBoxUsFiltrar";
-            comboBoxUsFiltrar.Size = new Size(153, 28);
-            comboBoxUsFiltrar.TabIndex = 13;
-            comboBoxUsFiltrar.SelectedIndexChanged += comboBoxUsFiltrar_SelectedIndexChanged;
             // 
             // textBoxSUsBuscar
             // 
             textBoxSUsBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxSUsBuscar.BorderStyle = BorderStyle.None;
             textBoxSUsBuscar.ForeColor = SystemColors.WindowFrame;
-            textBoxSUsBuscar.Location = new Point(34, 192);
+            textBoxSUsBuscar.Location = new Point(441, 49);
             textBoxSUsBuscar.Margin = new Padding(5, 4, 5, 4);
             textBoxSUsBuscar.Name = "textBoxSUsBuscar";
             textBoxSUsBuscar.PlaceholderText = "Buscar por nombre o usuario...";
@@ -158,149 +104,53 @@
             textBoxSUsBuscar.TabIndex = 12;
             textBoxSUsBuscar.TextChanged += textBoxSUsBuscar_TextChanged;
             // 
-            // panelAdmin
+            // panelCliente
             // 
-            panelAdmin.BackColor = SystemColors.Control;
-            panelAdmin.BorderStyle = BorderStyle.FixedSingle;
-            panelAdmin.Controls.Add(pictureAdmin);
-            panelAdmin.Controls.Add(labelNumAdmin);
-            panelAdmin.Controls.Add(labelAdmin);
-            panelAdmin.ForeColor = SystemColors.ControlDarkDark;
-            panelAdmin.Location = new Point(597, 19);
-            panelAdmin.Margin = new Padding(5, 4, 5, 4);
-            panelAdmin.Name = "panelAdmin";
-            panelAdmin.Size = new Size(196, 113);
-            panelAdmin.TabIndex = 5;
+            panelCliente.BackColor = SystemColors.Control;
+            panelCliente.BorderStyle = BorderStyle.FixedSingle;
+            panelCliente.Controls.Add(pictureCliente);
+            panelCliente.Controls.Add(labelNumClientes);
+            panelCliente.Controls.Add(labelCliente);
+            panelCliente.ForeColor = SystemColors.ControlDarkDark;
+            panelCliente.Location = new Point(82, 356);
+            panelCliente.Margin = new Padding(5, 4, 5, 4);
+            panelCliente.Name = "panelCliente";
+            panelCliente.Size = new Size(180, 110);
+            panelCliente.TabIndex = 5;
             // 
-            // pictureAdmin
+            // pictureCliente
             // 
-            pictureAdmin.Image = Properties.Resources.Usuario;
-            pictureAdmin.Location = new Point(23, 44);
-            pictureAdmin.Margin = new Padding(5, 4, 5, 4);
-            pictureAdmin.Name = "pictureAdmin";
-            pictureAdmin.Size = new Size(43, 51);
-            pictureAdmin.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureAdmin.TabIndex = 3;
-            pictureAdmin.TabStop = false;
+            pictureCliente.Image = Properties.Resources.Usuario;
+            pictureCliente.Location = new Point(30, 50);
+            pictureCliente.Margin = new Padding(5, 4, 5, 4);
+            pictureCliente.Name = "pictureCliente";
+            pictureCliente.Size = new Size(43, 51);
+            pictureCliente.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureCliente.TabIndex = 3;
+            pictureCliente.TabStop = false;
             // 
-            // labelNumAdmin
+            // labelNumClientes
             // 
-            labelNumAdmin.AutoSize = true;
-            labelNumAdmin.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumAdmin.ForeColor = SystemColors.ControlText;
-            labelNumAdmin.Location = new Point(66, 56);
-            labelNumAdmin.Margin = new Padding(5, 0, 5, 0);
-            labelNumAdmin.Name = "labelNumAdmin";
-            labelNumAdmin.Size = new Size(27, 29);
-            labelNumAdmin.TabIndex = 2;
-            labelNumAdmin.Text = "2";
+            labelNumClientes.AutoSize = true;
+            labelNumClientes.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelNumClientes.ForeColor = SystemColors.ControlText;
+            labelNumClientes.Location = new Point(70, 55);
+            labelNumClientes.Margin = new Padding(5, 0, 5, 0);
+            labelNumClientes.Name = "labelNumClientes";
+            labelNumClientes.Size = new Size(27, 29);
+            labelNumClientes.TabIndex = 2;
+            labelNumClientes.Text = "0";
             // 
-            // labelAdmin
+            // labelCliente
             // 
-            labelAdmin.AutoSize = true;
-            labelAdmin.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelAdmin.Location = new Point(18, 24);
-            labelAdmin.Margin = new Padding(5, 0, 5, 0);
-            labelAdmin.Name = "labelAdmin";
-            labelAdmin.Size = new Size(128, 20);
-            labelAdmin.TabIndex = 0;
-            labelAdmin.Text = "Usuarios Admin";
-            // 
-            // panelUInactivos
-            // 
-            panelUInactivos.BackColor = SystemColors.Control;
-            panelUInactivos.BorderStyle = BorderStyle.FixedSingle;
-            panelUInactivos.Controls.Add(labelNumUInactivos);
-            panelUInactivos.Controls.Add(labelUInactivos);
-            panelUInactivos.Controls.Add(pictureUInactivos);
-            panelUInactivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUInactivos.Location = new Point(394, 19);
-            panelUInactivos.Margin = new Padding(5, 4, 5, 4);
-            panelUInactivos.Name = "panelUInactivos";
-            panelUInactivos.Size = new Size(193, 113);
-            panelUInactivos.TabIndex = 6;
-            // 
-            // labelNumUInactivos
-            // 
-            labelNumUInactivos.AutoSize = true;
-            labelNumUInactivos.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumUInactivos.ForeColor = SystemColors.ControlText;
-            labelNumUInactivos.Location = new Point(66, 56);
-            labelNumUInactivos.Margin = new Padding(5, 0, 5, 0);
-            labelNumUInactivos.Name = "labelNumUInactivos";
-            labelNumUInactivos.Size = new Size(27, 29);
-            labelNumUInactivos.TabIndex = 2;
-            labelNumUInactivos.Text = "2";
-            // 
-            // labelUInactivos
-            // 
-            labelUInactivos.AutoSize = true;
-            labelUInactivos.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUInactivos.Location = new Point(18, 24);
-            labelUInactivos.Margin = new Padding(5, 0, 5, 0);
-            labelUInactivos.Name = "labelUInactivos";
-            labelUInactivos.Size = new Size(147, 20);
-            labelUInactivos.TabIndex = 0;
-            labelUInactivos.Text = "Usuarios Inactivos";
-            // 
-            // pictureUInactivos
-            // 
-            pictureUInactivos.Image = Properties.Resources.usuarioInactivo;
-            pictureUInactivos.Location = new Point(29, 51);
-            pictureUInactivos.Margin = new Padding(5, 4, 5, 4);
-            pictureUInactivos.Name = "pictureUInactivos";
-            pictureUInactivos.Size = new Size(30, 40);
-            pictureUInactivos.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureUInactivos.TabIndex = 1;
-            pictureUInactivos.TabStop = false;
-            // 
-            // panelUActivos
-            // 
-            panelUActivos.BackColor = SystemColors.Control;
-            panelUActivos.BorderStyle = BorderStyle.FixedSingle;
-            panelUActivos.Controls.Add(labelNumUActivos);
-            panelUActivos.Controls.Add(labelUActivos);
-            panelUActivos.Controls.Add(pictureUActivos);
-            panelUActivos.ForeColor = SystemColors.ControlDarkDark;
-            panelUActivos.Location = new Point(205, 19);
-            panelUActivos.Margin = new Padding(5, 4, 5, 4);
-            panelUActivos.Name = "panelUActivos";
-            panelUActivos.Size = new Size(179, 113);
-            panelUActivos.TabIndex = 7;
-            // 
-            // labelNumUActivos
-            // 
-            labelNumUActivos.AutoSize = true;
-            labelNumUActivos.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelNumUActivos.ForeColor = SystemColors.ControlText;
-            labelNumUActivos.Location = new Point(74, 56);
-            labelNumUActivos.Margin = new Padding(5, 0, 5, 0);
-            labelNumUActivos.Name = "labelNumUActivos";
-            labelNumUActivos.Size = new Size(27, 29);
-            labelNumUActivos.TabIndex = 2;
-            labelNumUActivos.Text = "5";
-            // 
-            // labelUActivos
-            // 
-            labelUActivos.AutoSize = true;
-            labelUActivos.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUActivos.Location = new Point(18, 24);
-            labelUActivos.Margin = new Padding(5, 0, 5, 0);
-            labelUActivos.Name = "labelUActivos";
-            labelUActivos.Size = new Size(136, 20);
-            labelUActivos.TabIndex = 0;
-            labelUActivos.Text = "Usuarios Activos";
-            // 
-            // pictureUActivos
-            // 
-            pictureUActivos.Image = Properties.Resources.UusarioActivo;
-            pictureUActivos.Location = new Point(30, 52);
-            pictureUActivos.Margin = new Padding(5, 4, 5, 4);
-            pictureUActivos.Name = "pictureUActivos";
-            pictureUActivos.Size = new Size(35, 39);
-            pictureUActivos.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureUActivos.TabIndex = 1;
-            pictureUActivos.TabStop = false;
+            labelCliente.AutoSize = true;
+            labelCliente.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelCliente.Location = new Point(20, 25);
+            labelCliente.Margin = new Padding(5, 0, 5, 0);
+            labelCliente.Name = "labelCliente";
+            labelCliente.Size = new Size(109, 20);
+            labelCliente.TabIndex = 0;
+            labelCliente.Text = "Total clientes";
             // 
             // panelUsuarios
             // 
@@ -310,10 +160,10 @@
             panelUsuarios.Controls.Add(labelUsuarios);
             panelUsuarios.Controls.Add(pictureUsuarios);
             panelUsuarios.ForeColor = SystemColors.ControlDarkDark;
-            panelUsuarios.Location = new Point(34, 19);
+            panelUsuarios.Location = new Point(82, 235);
             panelUsuarios.Margin = new Padding(5, 4, 5, 4);
             panelUsuarios.Name = "panelUsuarios";
-            panelUsuarios.Size = new Size(162, 113);
+            panelUsuarios.Size = new Size(180, 110);
             panelUsuarios.TabIndex = 4;
             // 
             // labelNumUsuarios
@@ -321,28 +171,28 @@
             labelNumUsuarios.AutoSize = true;
             labelNumUsuarios.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumUsuarios.ForeColor = SystemColors.ControlText;
-            labelNumUsuarios.Location = new Point(66, 56);
+            labelNumUsuarios.Location = new Point(70, 55);
             labelNumUsuarios.Margin = new Padding(5, 0, 5, 0);
             labelNumUsuarios.Name = "labelNumUsuarios";
             labelNumUsuarios.Size = new Size(27, 29);
             labelNumUsuarios.TabIndex = 2;
-            labelNumUsuarios.Text = "2";
+            labelNumUsuarios.Text = "0";
             // 
             // labelUsuarios
             // 
             labelUsuarios.AutoSize = true;
             labelUsuarios.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelUsuarios.Location = new Point(18, 24);
+            labelUsuarios.Location = new Point(20, 25);
             labelUsuarios.Margin = new Padding(5, 0, 5, 0);
             labelUsuarios.Name = "labelUsuarios";
-            labelUsuarios.Size = new Size(118, 20);
+            labelUsuarios.Size = new Size(115, 20);
             labelUsuarios.TabIndex = 0;
-            labelUsuarios.Text = "Total Usuarios";
+            labelUsuarios.Text = "Total usuarios";
             // 
             // pictureUsuarios
             // 
             pictureUsuarios.Image = Properties.Resources.Usuario_gris;
-            pictureUsuarios.Location = new Point(23, 44);
+            pictureUsuarios.Location = new Point(30, 50);
             pictureUsuarios.Margin = new Padding(5, 4, 5, 4);
             pictureUsuarios.Name = "pictureUsuarios";
             pictureUsuarios.Size = new Size(43, 51);
@@ -357,59 +207,59 @@
             dataGridViewUsuarios.BackgroundColor = Color.White;
             dataGridViewUsuarios.BorderStyle = BorderStyle.None;
             dataGridViewUsuarios.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle11.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle11.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle11.Padding = new Padding(7);
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle11.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.Padding = new Padding(7);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsuarios.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewUsuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewImageColumnUsInfo, dataGridViewImageColumnUsEliminar });
-            dataGridViewCellStyle18.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = SystemColors.Window;
-            dataGridViewCellStyle18.Font = new Font("Segoe UI", 10F);
-            dataGridViewCellStyle18.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle18.Padding = new Padding(2);
-            dataGridViewCellStyle18.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle18.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle18.WrapMode = DataGridViewTriState.False;
-            dataGridViewUsuarios.DefaultCellStyle = dataGridViewCellStyle18;
-            dataGridViewUsuarios.Dock = DockStyle.Fill;
+            dataGridViewUsuarios.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4 });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.Padding = new Padding(2);
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridViewUsuarios.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewUsuarios.Dock = DockStyle.Right;
             dataGridViewUsuarios.EnableHeadersVisualStyles = false;
             dataGridViewUsuarios.GridColor = Color.Black;
             dataGridViewUsuarios.ImeMode = ImeMode.NoControl;
-            dataGridViewUsuarios.Location = new Point(34, 0);
+            dataGridViewUsuarios.Location = new Point(437, 0);
             dataGridViewUsuarios.Margin = new Padding(3, 4, 3, 4);
             dataGridViewUsuarios.MultiSelect = false;
             dataGridViewUsuarios.Name = "dataGridViewUsuarios";
             dataGridViewUsuarios.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle19.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle19.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle19.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = DataGridViewTriState.True;
-            dataGridViewUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridViewUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewUsuarios.RowHeadersVisible = false;
             dataGridViewUsuarios.RowHeadersWidth = 51;
-            dataGridViewCellStyle20.BackColor = Color.White;
-            dataGridViewCellStyle20.SelectionForeColor = Color.White;
-            dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle8.BackColor = Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = Color.White;
+            dataGridViewUsuarios.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridViewUsuarios.RowTemplate.Height = 35;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dataGridViewUsuarios.Size = new Size(1503, 657);
+            dataGridViewUsuarios.Size = new Size(1100, 801);
             dataGridViewUsuarios.TabIndex = 9;
-            dataGridViewUsuarios.CellContentClick += dataGridViewUsuarios_CellContentClick;
+            dataGridViewUsuarios.CellClick += dataGridViewUsuarios_CellContentClick;
             // 
             // dataGridViewTextBoxColumn2
             // 
             dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle12.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewTextBoxColumn2.HeaderText = "Usuario";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -418,9 +268,9 @@
             // dataGridViewTextBoxColumn1
             // 
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle13.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle13.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewTextBoxColumn1.HeaderText = "Nombre";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -429,8 +279,8 @@
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle14.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewTextBoxColumn3.HeaderText = "Tipo";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -440,56 +290,21 @@
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle15.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(255, 128, 0);
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridViewTextBoxColumn4.HeaderText = "Estado";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             dataGridViewTextBoxColumn4.ReadOnly = true;
             dataGridViewTextBoxColumn4.Width = 110;
             // 
-            // dataGridViewImageColumnUsInfo
-            // 
-            dataGridViewImageColumnUsInfo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle16.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle16.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle16.NullValue = null;
-            dataGridViewCellStyle16.SelectionBackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle16.SelectionForeColor = Color.FromArgb(255, 128, 0);
-            dataGridViewImageColumnUsInfo.DefaultCellStyle = dataGridViewCellStyle16;
-            dataGridViewImageColumnUsInfo.HeaderText = "Ficha";
-            dataGridViewImageColumnUsInfo.Image = Properties.Resources.info;
-            dataGridViewImageColumnUsInfo.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnUsInfo.MinimumWidth = 6;
-            dataGridViewImageColumnUsInfo.Name = "dataGridViewImageColumnUsInfo";
-            dataGridViewImageColumnUsInfo.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnUsInfo.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnUsInfo.Width = 98;
-            // 
-            // dataGridViewImageColumnUsEliminar
-            // 
-            dataGridViewImageColumnUsEliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle17.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = Color.FromArgb(255, 128, 0);
-            dataGridViewCellStyle17.NullValue = null;
-            dataGridViewImageColumnUsEliminar.DefaultCellStyle = dataGridViewCellStyle17;
-            dataGridViewImageColumnUsEliminar.HeaderText = "Eliminar";
-            dataGridViewImageColumnUsEliminar.Image = Properties.Resources.trash;
-            dataGridViewImageColumnUsEliminar.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            dataGridViewImageColumnUsEliminar.MinimumWidth = 6;
-            dataGridViewImageColumnUsEliminar.Name = "dataGridViewImageColumnUsEliminar";
-            dataGridViewImageColumnUsEliminar.Resizable = DataGridViewTriState.True;
-            dataGridViewImageColumnUsEliminar.SortMode = DataGridViewColumnSortMode.Automatic;
-            dataGridViewImageColumnUsEliminar.Width = 123;
-            // 
             // panelEspaciado
             // 
             panelEspaciado.Dock = DockStyle.Bottom;
-            panelEspaciado.Location = new Point(0, 956);
+            panelEspaciado.Location = new Point(0, 944);
             panelEspaciado.Margin = new Padding(3, 4, 3, 4);
             panelEspaciado.Name = "panelEspaciado";
-            panelEspaciado.Size = new Size(1571, 68);
+            panelEspaciado.Size = new Size(1571, 80);
             panelEspaciado.TabIndex = 14;
             // 
             // panelPaginacion
@@ -498,7 +313,7 @@
             panelPaginacion.Controls.Add(buttonPaginacionDelante);
             panelPaginacion.Controls.Add(buttonPaginacionAtras);
             panelPaginacion.Dock = DockStyle.Bottom;
-            panelPaginacion.Location = new Point(0, 913);
+            panelPaginacion.Location = new Point(0, 901);
             panelPaginacion.Margin = new Padding(3, 4, 3, 4);
             panelPaginacion.Name = "panelPaginacion";
             panelPaginacion.Padding = new Padding(34, 0, 0, 0);
@@ -508,7 +323,7 @@
             // labelPaginaActual
             // 
             labelPaginaActual.AutoSize = true;
-            labelPaginaActual.Location = new Point(777, 11);
+            labelPaginaActual.Location = new Point(212, 11);
             labelPaginaActual.Name = "labelPaginaActual";
             labelPaginaActual.Size = new Size(17, 20);
             labelPaginaActual.TabIndex = 4;
@@ -541,14 +356,139 @@
             // 
             // panelMargenes
             // 
+            panelMargenes.Controls.Add(panelFiltros);
             panelMargenes.Controls.Add(dataGridViewUsuarios);
             panelMargenes.Dock = DockStyle.Fill;
-            panelMargenes.Location = new Point(0, 256);
+            panelMargenes.Location = new Point(0, 100);
             panelMargenes.Margin = new Padding(3, 4, 3, 4);
             panelMargenes.Name = "panelMargenes";
             panelMargenes.Padding = new Padding(34, 0, 34, 0);
-            panelMargenes.Size = new Size(1571, 657);
+            panelMargenes.Size = new Size(1571, 801);
             panelMargenes.TabIndex = 16;
+            // 
+            // panelFiltros
+            // 
+            panelFiltros.Controls.Add(panelBotones);
+            panelFiltros.Controls.Add(comboBoxRol);
+            panelFiltros.Controls.Add(buttonTodos);
+            panelFiltros.Controls.Add(comboBoxEstado);
+            panelFiltros.Controls.Add(panelCliente);
+            panelFiltros.Controls.Add(panelUsuarios);
+            panelFiltros.Dock = DockStyle.Right;
+            panelFiltros.Location = new Point(26, 0);
+            panelFiltros.Name = "panelFiltros";
+            panelFiltros.Size = new Size(411, 801);
+            panelFiltros.TabIndex = 21;
+            // 
+            // panelBotones
+            // 
+            panelBotones.Controls.Add(anyadirUsuario);
+            panelBotones.Controls.Add(buttonHistorial);
+            panelBotones.Controls.Add(buttonInfo);
+            panelBotones.Controls.Add(buttonEliminar);
+            panelBotones.Dock = DockStyle.Right;
+            panelBotones.Location = new Point(351, 0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Padding = new Padding(4);
+            panelBotones.Size = new Size(60, 801);
+            panelBotones.TabIndex = 22;
+            // 
+            // anyadirUsuario
+            // 
+            anyadirUsuario.BackColor = Color.FromArgb(255, 128, 0);
+            anyadirUsuario.Dock = DockStyle.Top;
+            anyadirUsuario.FlatAppearance.BorderSize = 0;
+            anyadirUsuario.FlatStyle = FlatStyle.Flat;
+            anyadirUsuario.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            anyadirUsuario.ForeColor = Color.White;
+            anyadirUsuario.Location = new Point(4, 169);
+            anyadirUsuario.Margin = new Padding(0, 5, 0, 0);
+            anyadirUsuario.Name = "anyadirUsuario";
+            anyadirUsuario.Size = new Size(52, 55);
+            anyadirUsuario.TabIndex = 21;
+            anyadirUsuario.Text = "+";
+            anyadirUsuario.TextAlign = ContentAlignment.TopRight;
+            anyadirUsuario.UseVisualStyleBackColor = false;
+            anyadirUsuario.Click += anyadirUsuario_Click;
+            // 
+            // buttonHistorial
+            // 
+            buttonHistorial.BackgroundImage = Properties.Resources.clock;
+            buttonHistorial.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonHistorial.Dock = DockStyle.Top;
+            buttonHistorial.Location = new Point(4, 114);
+            buttonHistorial.Margin = new Padding(0);
+            buttonHistorial.Name = "buttonHistorial";
+            buttonHistorial.Padding = new Padding(0, 8, 0, 0);
+            buttonHistorial.Size = new Size(52, 55);
+            buttonHistorial.TabIndex = 22;
+            buttonHistorial.UseVisualStyleBackColor = true;
+            buttonHistorial.Click += buttonHistorial_Click;
+            // 
+            // buttonInfo
+            // 
+            buttonInfo.BackgroundImage = Properties.Resources.info;
+            buttonInfo.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonInfo.Dock = DockStyle.Top;
+            buttonInfo.Location = new Point(4, 59);
+            buttonInfo.Margin = new Padding(0);
+            buttonInfo.Name = "buttonInfo";
+            buttonInfo.Padding = new Padding(0, 8, 0, 0);
+            buttonInfo.Size = new Size(52, 55);
+            buttonInfo.TabIndex = 21;
+            buttonInfo.UseVisualStyleBackColor = true;
+            buttonInfo.Click += buttonInfo_Click;
+            // 
+            // buttonEliminar
+            // 
+            buttonEliminar.BackgroundImage = Properties.Resources.trash;
+            buttonEliminar.BackgroundImageLayout = ImageLayout.Zoom;
+            buttonEliminar.Dock = DockStyle.Top;
+            buttonEliminar.Location = new Point(4, 4);
+            buttonEliminar.Margin = new Padding(0);
+            buttonEliminar.Name = "buttonEliminar";
+            buttonEliminar.Padding = new Padding(0, 0, 0, 8);
+            buttonEliminar.Size = new Size(52, 55);
+            buttonEliminar.TabIndex = 20;
+            buttonEliminar.UseVisualStyleBackColor = true;
+            buttonEliminar.Click += buttonEliminar_Click;
+            // 
+            // comboBoxRol
+            // 
+            comboBoxRol.DisplayMember = "1";
+            comboBoxRol.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxRol.FlatStyle = FlatStyle.Flat;
+            comboBoxRol.Items.AddRange(new object[] { "Todos los roles", "Clientes", "Grupos", "Administradores" });
+            comboBoxRol.Location = new Point(40, 70);
+            comboBoxRol.Margin = new Padding(6, 5, 6, 5);
+            comboBoxRol.Name = "comboBoxRol";
+            comboBoxRol.Size = new Size(280, 28);
+            comboBoxRol.TabIndex = 21;
+            comboBoxRol.SelectedIndexChanged += comboBoxRol_SelectedIndexChanged;
+            // 
+            // buttonTodos
+            // 
+            buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            buttonTodos.Location = new Point(40, 120);
+            buttonTodos.Name = "buttonTodos";
+            buttonTodos.Size = new Size(280, 35);
+            buttonTodos.TabIndex = 4;
+            buttonTodos.Text = "Ver todos los usuarios";
+            buttonTodos.UseVisualStyleBackColor = true;
+            buttonTodos.Click += buttonTodos_Click;
+            // 
+            // comboBoxEstado
+            // 
+            comboBoxEstado.DisplayMember = "1";
+            comboBoxEstado.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxEstado.FlatStyle = FlatStyle.Flat;
+            comboBoxEstado.Items.AddRange(new object[] { "Todos los usuarios", "Activos", "Inactivos" });
+            comboBoxEstado.Location = new Point(40, 20);
+            comboBoxEstado.Margin = new Padding(6, 5, 6, 5);
+            comboBoxEstado.Name = "comboBoxEstado";
+            comboBoxEstado.Size = new Size(280, 28);
+            comboBoxEstado.TabIndex = 20;
+            comboBoxEstado.SelectedIndexChanged += comboBoxEstado_SelectedIndexChanged;
             // 
             // PanelUsuario
             // 
@@ -566,15 +506,9 @@
             Resize += PanelUsuario_Resize;
             panelVisualUsuarios.ResumeLayout(false);
             panelVisualUsuarios.PerformLayout();
-            panelAdmin.ResumeLayout(false);
-            panelAdmin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureAdmin).EndInit();
-            panelUInactivos.ResumeLayout(false);
-            panelUInactivos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUInactivos).EndInit();
-            panelUActivos.ResumeLayout(false);
-            panelUActivos.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureUActivos).EndInit();
+            panelCliente.ResumeLayout(false);
+            panelCliente.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureCliente).EndInit();
             panelUsuarios.ResumeLayout(false);
             panelUsuarios.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureUsuarios).EndInit();
@@ -582,25 +516,18 @@
             panelPaginacion.ResumeLayout(false);
             panelPaginacion.PerformLayout();
             panelMargenes.ResumeLayout(false);
+            panelFiltros.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panelVisualUsuarios;
-        private ComboBox comboBoxUsFiltrar;
-        private Panel panelAdmin;
-        private PictureBox pictureAdmin;
-        private Label labelNumAdmin;
-        private Label labelAdmin;
-        private Panel panelUInactivos;
-        private Label labelNumUInactivos;
-        private Label labelUInactivos;
-        private PictureBox pictureUInactivos;
-        private Panel panelUActivos;
-        private Label labelNumUActivos;
-        private Label labelUActivos;
-        private PictureBox pictureUActivos;
+        private Panel panelCliente;
+        private PictureBox pictureCliente;
+        private Label labelNumClientes;
+        private Label labelCliente;
         private Panel panelUsuarios;
         private Label labelNumUsuarios;
         private Label labelUsuarios;
@@ -612,14 +539,19 @@
         private Button buttonPaginacionDelante;
         private Button buttonPaginacionAtras;
         private Panel panelMargenes;
-        private Label label1;
+        private Label labelPaginaActual;
+        private Panel panelFiltros;
+        private Panel panelBotones;
         private Button anyadirUsuario;
+        private Button buttonInfo;
+        private Button buttonEliminar;
+        private ComboBox comboBoxRol;
+        private Button buttonTodos;
+        private ComboBox comboBoxEstado;
+        private Button buttonHistorial;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewImageColumn dataGridViewImageColumnUsInfo;
-        private DataGridViewImageColumn dataGridViewImageColumnUsEliminar;
-        private Label labelPaginaActual;
     }
 }

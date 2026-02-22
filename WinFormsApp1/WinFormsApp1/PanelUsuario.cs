@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CitasInfo.Models;
+using Newtonsoft.Json;
 using System.Data;
 using System.Drawing.Drawing2D;
 using System.Net;
@@ -26,6 +27,7 @@ namespace WinFormsApp1
         private const int REGISTROS_POR_PAGINA = 19;
         private List<UsersDto> _usuariosCompletos;
         private List<UsersDto> _usuariosFiltrados;
+        private UsersDto _usuarioSeleccionado;
         private readonly UsersDto _usuarioActual;
 
         public PanelUsuario(UsersDto usuarioActual, string token)
@@ -44,27 +46,25 @@ namespace WinFormsApp1
             dataGridViewUsuarios.AllowUserToAddRows = false;
             dataGridViewUsuarios.AllowUserToDeleteRows = false;
             dataGridViewUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
 
             _usuariosCompletos = new List<UsersDto>();
             _usuariosFiltrados = new List<UsersDto>();
+            _usuarioSeleccionado = new UsersDto();
 
-            ActualizarRegiones();
             CargarTodosLosUsuarios();
-
-            ActualizarRegiones();
+            limpiarFiltros();
         }
 
         private void ActualizarRegiones()
         {
-            anyadirUsuario.Left = panelVisualUsuarios.Width - 60;
+            dataGridViewUsuarios.Width = panelVisualUsuarios.Width / 4 * 3;
+            textBoxSUsBuscar.Left = panelFiltros.Width + 80;
+            textBoxSUsBuscar.Width = dataGridViewUsuarios.Width - 45;
+            panelPaginacion.Padding = new Padding(panelFiltros.Width + 47, 0, 0, 0);
+            labelPaginaActual.Left = buttonPaginacionDelante.Left + 85;
+            panelCliente.Top = panelFiltros.Height - panelCliente.Height;
+            panelUsuarios.Top = panelCliente.Top - panelUsuarios.Height - 20;
 
-            textBoxSUsBuscar.Left = 50;
-            textBoxSUsBuscar.Width = panelVisualUsuarios.Width - 350;
-
-            comboBoxUsFiltrar.Width = 180;
-            comboBoxUsFiltrar.Left = textBoxSUsBuscar.Right + 30;
-            
             anyadirUsuario.Region = Region.FromHrgn(CreateRoundRectRgn(0, 0, anyadirUsuario.Width, anyadirUsuario.Height, anyadirUsuario.Width, anyadirUsuario.Height));
         }
         private void PanelUsuario_Resize(object sender, EventArgs e)
@@ -77,26 +77,14 @@ namespace WinFormsApp1
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Pen penBorde = new Pen(Color.FromArgb(220, 220, 220), 1);
-            Brush fondoBlanco = Brushes.White;
-
             Rectangle rectBusqueda = new Rectangle(
                 textBoxSUsBuscar.Left - 35,
                 textBoxSUsBuscar.Top - 15,
                 textBoxSUsBuscar.Width + 45,
                 textBoxSUsBuscar.Height + 27
             );
-            DibujarCapsula(g, rectBusqueda, penBorde, fondoBlanco);
+            DibujarCapsula(g, rectBusqueda, new Pen(Color.FromArgb(220, 220, 220), 1), Brushes.White);
             g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, textBoxSUsBuscar.Left - 25, textBoxSUsBuscar.Top - 2);
-
-            Rectangle rectFiltro = new Rectangle(
-                comboBoxUsFiltrar.Left - 10,
-                comboBoxUsFiltrar.Top - 10,
-                comboBoxUsFiltrar.Width + 25,
-                comboBoxUsFiltrar.Height + 20
-            );
-            DibujarCapsula(g, rectFiltro, penBorde, fondoBlanco);
         }
 
         private void DibujarCapsula(Graphics g, Rectangle rect, Pen p, Brush b)
@@ -120,264 +108,124 @@ namespace WinFormsApp1
 
 
 
-
-        private void InfoUsuario(UsersDto usuario)
+        private void buttonHistorial_Click(object sender, EventArgs e)
         {
-            var nombre = usuario.Nombre;
-            var apellidos = " ";
-            Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
-            pantallaInfo.Form = "Información de " + usuario.Nombre;
-            pantallaInfo.LabelTituoCrearUsuario.Visible = false;
-            pantallaInfo.LabelTituoInfoUsuario.Visible = true;
-
-
-            pantallaInfo.buttonUsGuardar = false;
-            pantallaInfo.ButtonUsModificar = true;
-            pantallaInfo.buttonUsVolver = true;
-            pantallaInfo.buttonUsAnyadir = false;
-
-            pantallaInfo.TboxNombreUsuario.ReadOnly = true;
-            pantallaInfo.TxtBoxUsNombre.ReadOnly = true;
-            pantallaInfo.TextBoxUsApellidos.ReadOnly = true;
-            pantallaInfo.TextBoxUsEmail.ReadOnly = true;
-            pantallaInfo.TextBoxUsTel.ReadOnly = true;
-            pantallaInfo.TextBoxUsContrasenya.ReadOnly = true;
-            pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
-            pantallaInfo.ComboTipoUsuario.Enabled = false;
-            pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserAlerg.ReadOnly = true;
-            pantallaInfo.TboxUserObserv.ReadOnly = true;
-            pantallaInfo.TboxUserCurso.ReadOnly = true;
-            pantallaInfo.TboxUserTurno.ReadOnly = true;
-            pantallaInfo.TboxUserEspec.ReadOnly = true;
-
-
-            pantallaInfo.TboxNombreUsuario.Text = usuario.Username;
-            pantallaInfo.TxtBoxUsNombre.Text = nombre;
-            pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-
-            if (usuario.Estado.Equals("true"))
+            if (_usuarioSeleccionado.Id != 0)
             {
-                pantallaInfo.CheckBoxEstado.Checked = true;
+                Historial pantallaHistorial = new Historial();
             }
-            else if (usuario.Estado.Equals("false"))
-            {
-                pantallaInfo.CheckBoxEstado.Checked = false;
-            }
-
-            var indexRol = 3;
-            if (usuario.Role.Equals("ROLE_CLIENTE"))
-            {
-                var clientes = ObtenerClientes();
-                foreach (ClienteDto c in clientes)
-                {
-                    if (c.Id == usuario.Id)
-                    {
-                        pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
-                        pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
-                        pantallaInfo.TextBoxUsEmail.Text = c.Email ?? "";
-                        pantallaInfo.TextBoxUsTel.Text = c.Telefono.ToString() ?? "";
-                    }
-                }
-                pantallaInfo.PanelAdmin.Visible = false;
-                pantallaInfo.PanelUsGrupo.Visible = false;
-                pantallaInfo.PanelCliente.Visible = true;
-
-                var nombreYapellidos = usuario.Nombre.Split(' ');
-                if (nombreYapellidos.Length >= 4)
-                {
-                    nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                    apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length - 1];
-                }
-                else if (nombreYapellidos.Length == 3)
-                {
-                    nombre = nombreYapellidos[0];
-                    apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
-                }
-                else if (nombreYapellidos.Length == 2)
-                {
-                    nombre = nombreYapellidos[0];
-                    apellidos = nombreYapellidos[1];
-                }
-                else if (nombreYapellidos.Length == 1)
-                {
-                    nombre = nombreYapellidos[0];
-                }
-                pantallaInfo.TxtBoxUsNombre.Text = nombre;
-                pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-
-                indexRol = 0;
-            }
-            else if (usuario.Role.Equals("ROLE_GRUPO"))
-            {
-
-                var grupos = ObtenerGrupos();
-                foreach (GrupoDto g in grupos)
-                {
-                    if (g.Id == usuario.Id)
-                    {
-                        pantallaInfo.TboxUserCurso.Text = g.Curso ?? "";
-                        pantallaInfo.TboxUserTurno.Text = g.Turno ?? "";
-                    }
-                }
-                pantallaInfo.PanelAdmin.Visible = false;
-                pantallaInfo.PanelUsGrupo.Visible = true;
-                pantallaInfo.PanelCliente.Visible = false;
-
-                indexRol = 1;
-            }
-            else if (usuario.Role.Equals("ROLE_ADMIN"))
-            {
-                var admins = ObtenerAdmins();
-                foreach (AdminDto a in admins)
-                {
-                    if (a.Id == usuario.Id)
-                    {
-                        pantallaInfo.TboxUserEspec.Text = a.Especialidad ?? "";
-                    }
-                }
-                pantallaInfo.PanelAdmin.Visible = true;
-                pantallaInfo.PanelUsGrupo.Visible = false;
-                pantallaInfo.PanelCliente.Visible = false;
-
-                indexRol = 2;
-            }
-            pantallaInfo.ComboTipoUsuario.SelectedIndex = indexRol;
-
-            if (pantallaInfo.ShowDialog() == DialogResult.OK)
-            {
-                MessageBox.Show("Usuario modificado correctamente", "Éxito", MessageBoxButtons.OK);
-                CargarTodosLosUsuarios();
-                filtrarUsuarios();
-            }
-
         }
 
-
-
-        private void EliminarUsuario(UsersDto usuario)
+        private void buttonInfo_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show(
-                    $"¿Seguro que quieres eliminar el usuario \"{usuario.Nombre}\"?",
+            if (_usuarioSeleccionado.Id != 0)
+            {
+                Usuario pantallaInfo = new Usuario(_usuarioSeleccionado, _token, _usuarioActual);
+
+                if (pantallaInfo.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Usuario modificado correctamente", "Éxito", MessageBoxButtons.OK);
+                    CargarTodosLosUsuarios();
+                    filtrarUsuarios();
+                }
+            }
+        }
+
+        private void buttonEliminar_Click(object sender, EventArgs e)
+        {
+            if (_usuarioSeleccionado.Id != 0)
+            {
+                var confirmResult = MessageBox.Show(
+                    $"¿Seguro que quieres eliminar el usuario \"{_usuarioSeleccionado.Nombre}\"?",
                     "Confirmar eliminación",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
 
-            if (confirmResult == DialogResult.Yes)
-            {
                 if (confirmResult == DialogResult.Yes)
                 {
-                    try
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        var url = $"";
-                        if (usuario.Role.Equals("ROLE_CLIENTE"))
+                        try
                         {
-                            url = $"http://localhost:8082/clientes/{usuario.Id}";
-                        }
-                        else if (usuario.Role.Equals("ROLE_GRUPO"))
-                        {
-                            url = $"http://localhost:8082/grupos/{usuario.Id}";
-                        }
-                        else if (usuario.Role.Equals("ROLE_ADMIN"))
-                        {
-                            url = $"http://localhost:8082/admins/{usuario.Id}";
-                        }
-                        var request = (HttpWebRequest)WebRequest.Create(url);
-                        request.Method = "DELETE";
-                        request.ContentType = "application/json";
-                        request.Accept = "application/json";
-                        request.Headers["Authorization"] = $"Bearer {_token}";
-
-                        using (var response = (HttpWebResponse)request.GetResponse())
-                        {
-                            if (response.StatusCode == HttpStatusCode.OK)
+                            var url = $"";
+                            if (_usuarioSeleccionado.Role.Equals("ROLE_CLIENTE"))
                             {
-                                MessageBox.Show("Usuario eliminado correctamente", "Éxito",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                CargarTodosLosUsuarios();
-                                filtrarUsuarios();
+                                url = $"http://localhost:8082/clientes/{_usuarioSeleccionado.Id}";
                             }
-                            else
+                            else if (_usuarioSeleccionado.Role.Equals("ROLE_GRUPO"))
                             {
-                                MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                url = $"http://localhost:8082/grupos/{_usuarioSeleccionado.Id}";
                             }
+                            else if (_usuarioSeleccionado.Role.Equals("ROLE_ADMIN"))
+                            {
+                                url = $"http://localhost:8082/admins/{_usuarioSeleccionado.Id}";
+                            }
+                            var request = (HttpWebRequest)WebRequest.Create(url);
+                            request.Method = "DELETE";
+                            request.ContentType = "application/json";
+                            request.Accept = "application/json";
+                            request.Headers["Authorization"] = $"Bearer {_token}";
+
+                            using (var response = (HttpWebResponse)request.GetResponse())
+                            {
+                                if (response.StatusCode == HttpStatusCode.OK)
+                                {
+                                    MessageBox.Show("Usuario eliminado correctamente", "Éxito",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    CargarTodosLosUsuarios();
+                                    filtrarUsuarios();
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"Error al eliminar: {response.StatusCode}", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
+                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error en la eliminación: {ex.Message}", "Error",
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
                 }
-
             }
         }
 
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
-            Usuario pantallaAnyadir = new Usuario(null, _token, null);
-            pantallaAnyadir.Form = "Añadir usuario nuevo";
-            pantallaAnyadir.LabelTituoCrearUsuario.Visible = true;
-            pantallaAnyadir.LabelTituoInfoUsuario.Visible = false;
-
-            pantallaAnyadir.ButtonUsModificar = false;
-            pantallaAnyadir.buttonUsVolver = false;
-            pantallaAnyadir.buttonUsAnyadir = true;
-            pantallaAnyadir.ComboTipoUsuario.Enabled = true;
-            pantallaAnyadir.CheckBoxEstado.Checked = true;
-
-            pantallaAnyadir.TboxNombreUsuario.Text = "";
-            pantallaAnyadir.TxtBoxUsNombre.Text = "";
-            pantallaAnyadir.TextBoxUsApellidos.Text = "";
-            pantallaAnyadir.TextBoxUsEmail.Text = "";
-            pantallaAnyadir.TextBoxUsTel.Text = "";
-            pantallaAnyadir.ComboTipoUsuario.SelectedItem = "";
-            pantallaAnyadir.TboxUserAlerg.Text = "";
-            pantallaAnyadir.TboxUserObserv.Text = "";
-            pantallaAnyadir.TboxUserCurso.Text = "";
-            pantallaAnyadir.TboxUserTurno.Text = "";
-            pantallaAnyadir.TboxUserEspec.Text = "";
-
-            if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+            if (_usuarioSeleccionado.Id != 0)
             {
-                MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarTodosLosUsuarios();
-                filtrarUsuarios();
+                Usuario pantallaAnyadir = new Usuario(_token, null);
+
+                if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarTodosLosUsuarios();
+                    filtrarUsuarios();
+                }
             }
         }
 
         private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 4) return;
-
-            if (e.RowIndex >= dataGridViewUsuarios.Rows.Count) return;
-
-
-            var fila = dataGridViewUsuarios.Rows[e.RowIndex];
-            var usuario = fila.Tag as UsersDto;
-            if (usuario == null) return;
-
-            var columna = dataGridViewUsuarios.Columns[e.ColumnIndex].Name;
-
-            if (columna == "dataGridViewImageColumnUsEliminar")
+            if (e.RowIndex < dataGridViewUsuarios.Rows.Count)
             {
-                EliminarUsuario(usuario);
+                var fila = dataGridViewUsuarios.Rows[e.RowIndex];
+                _usuarioSeleccionado = fila.Tag as UsersDto;
             }
-            else if (columna == "dataGridViewImageColumnUsInfo")
-            {
-                InfoUsuario(usuario);
-            }
-            //Mirar columnas
+
 
         }
         private void filtrarUsuarios()
         {
             string textoBusqueda = textBoxSUsBuscar.Text.Trim().ToLower();
-            string filtroCombo = comboBoxUsFiltrar.SelectedItem?.ToString().ToLower();
+            string estadoSeleccionado = comboBoxEstado.SelectedItem?.ToString().ToLower();
+            string rolSeleccionado = comboBoxRol.SelectedItem?.ToString().ToLower();
 
             _usuariosFiltrados = _usuariosCompletos.Where(u =>
             {
@@ -386,7 +234,7 @@ namespace WinFormsApp1
                                 (u.Username?.ToLower().Contains(textoBusqueda) == true);
 
                 bool pasaEstado = true;
-                switch (filtroCombo)
+                switch (estadoSeleccionado)
                 {
                     case "activos":
                         pasaEstado = u.Estado.Equals("true");
@@ -398,17 +246,17 @@ namespace WinFormsApp1
                 }
 
                 bool pasaRol = true;
-                switch (filtroCombo)
+                switch (rolSeleccionado)
                 {
-                    case "Administradores":
+                    case "administradores":
                         pasaRol = u.Role.Equals("ROLE_ADMIN");
                         break;
 
-                    case "Clientes":
+                    case "clientes":
                         pasaRol = u.Role.Equals("ROLE_CLIENTE");
                         break;
 
-                    case "Grupos":
+                    case "grupos":
                         pasaRol = u.Role.Equals("ROLE_GRUPO");
                         break;
                 }
@@ -423,14 +271,23 @@ namespace WinFormsApp1
         {
             filtrarUsuarios();
         }
-        private void comboBoxUsFiltrar_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxRol_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtrarUsuarios();
+        }
+        private void comboBoxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarUsuarios();
+        }
+        private void buttonTodos_Click(object sender, EventArgs e)
+        {
+            limpiarFiltros();
         }
 
         private void limpiarFiltros()
         {
-            comboBoxUsFiltrar.SelectedIndex = 0;
+            comboBoxEstado.SelectedIndex = 0;
+            comboBoxRol.SelectedIndex = 0;
             textBoxSUsBuscar.Text = string.Empty;
 
             _usuariosCompletos = ObtenerUsuarios();
@@ -539,9 +396,7 @@ namespace WinFormsApp1
                     string json = reader.ReadToEnd();
                     var usuarios = JsonConvert.DeserializeObject<List<UsersDto>>(json);
                     labelNumUsuarios.Text = $"{usuarios.Count}";
-                    labelNumUActivos.Text = $"{usuarios?.Where(u => u.Estado.Equals("true")).ToList().Count ?? 0}";
-                    labelNumUInactivos.Text = $"{usuarios?.Where(u => u.Estado.Equals("false")).ToList().Count ?? 0}";
-                    labelNumAdmin.Text = $"{usuarios?.Where(u => u.Role.Equals("ROLE_ADMIN")).ToList().Count ?? 0}";
+                    labelNumClientes.Text = $"{usuarios?.Where(u => u.Role.Equals("ROLE_CLIENTE")).ToList().Count ?? 0}";
                     return usuarios.OrderBy(u => u.Nombre).ToList();
                 }
 
@@ -554,93 +409,7 @@ namespace WinFormsApp1
             return null;
         }
 
-        private List<AdminDto> ObtenerAdmins()
-        {
-            try
-            {
-                var url = "http://localhost:8082/admins";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-                request.Accept = "application/json";
-
-                request.Headers["Authorization"] = $"Bearer {_token}";
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                using (var reader = new StreamReader(stream))
-                {
-                    string json = reader.ReadToEnd();
-                    var admins = JsonConvert.DeserializeObject<List<AdminDto>>(json);
-                    return admins;
-                }
-
-            }
-            catch (WebException e)
-            {
-                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
-                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
-        }
-
-
-        private List<GrupoDto> ObtenerGrupos()
-        {
-            try
-            {
-                var url = "http://localhost:8082/grupos";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-                request.Accept = "application/json";
-
-                request.Headers["Authorization"] = $"Bearer {_token}";
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                using (var reader = new StreamReader(stream))
-                {
-                    string json = reader.ReadToEnd();
-                    var grupos = JsonConvert.DeserializeObject<List<GrupoDto>>(json);
-                    return grupos;
-                }
-
-            }
-            catch (WebException e)
-            {
-                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
-                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
-        }
-
-        private List<ClienteDto> ObtenerClientes()
-        {
-            try
-            {
-                var url = "http://localhost:8082/clientes";
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                request.Method = "GET";
-                request.ContentType = "application/json";
-                request.Accept = "application/json";
-
-                request.Headers["Authorization"] = $"Bearer {_token}";
-                using (var response = (HttpWebResponse)request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                using (var reader = new StreamReader(stream))
-                {
-                    string json = reader.ReadToEnd();
-                    var clientes = JsonConvert.DeserializeObject<List<ClienteDto>>(json);
-                    return clientes;
-                }
-
-            }
-            catch (WebException e)
-            {
-                MessageBox.Show($"Error de conexión: {e.Message}", "No tienes permisos",
-                                           MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return null;
-        }
+        
 
         private void CargarTodosLosUsuarios()
         {
@@ -650,7 +419,7 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
- 
+
     }
 
 }

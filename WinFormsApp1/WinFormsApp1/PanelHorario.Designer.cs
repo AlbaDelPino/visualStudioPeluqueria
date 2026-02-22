@@ -59,7 +59,6 @@
             buttonModificar = new Button();
             buttonEliminar = new Button();
             comboBoxDia = new ComboBox();
-            monthCalendarFiltrar = new WinFormsApp1.PanelPrincipal.MyMonthCalendar();
             panelPaginacion = new Panel();
             labelPaginaActual = new Label();
             buttonPaginacionDelante = new Button();
@@ -169,9 +168,9 @@
             // buttonTodos
             // 
             buttonTodos.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            buttonTodos.Location = new Point(40, 490);
+            buttonTodos.Location = new Point(40, 120);
             buttonTodos.Name = "buttonTodos";
-            buttonTodos.Size = new Size(282, 32);
+            buttonTodos.Size = new Size(280, 35);
             buttonTodos.TabIndex = 4;
             buttonTodos.Text = "Ver todos los horarios";
             buttonTodos.UseVisualStyleBackColor = true;
@@ -182,10 +181,10 @@
             comboBoxGrupos.DisplayMember = "1";
             comboBoxGrupos.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxGrupos.FlatStyle = FlatStyle.Flat;
-            comboBoxGrupos.Location = new Point(40, 390);
+            comboBoxGrupos.Location = new Point(40, 20);
             comboBoxGrupos.Margin = new Padding(6, 5, 6, 5);
             comboBoxGrupos.Name = "comboBoxGrupos";
-            comboBoxGrupos.Size = new Size(282, 28);
+            comboBoxGrupos.Size = new Size(280, 28);
             comboBoxGrupos.TabIndex = 20;
             comboBoxGrupos.SelectedIndexChanged += comboBoxGrupos_SelectedIndexChanged;
             // 
@@ -338,7 +337,6 @@
             // 
             panelFiltros.Controls.Add(panelBotones);
             panelFiltros.Controls.Add(comboBoxDia);
-            panelFiltros.Controls.Add(monthCalendarFiltrar);
             panelFiltros.Controls.Add(buttonTodos);
             panelFiltros.Controls.Add(panelHorarios);
             panelFiltros.Controls.Add(comboBoxGrupos);
@@ -394,24 +392,12 @@
             comboBoxDia.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDia.FlatStyle = FlatStyle.Flat;
             comboBoxDia.Items.AddRange(new object[] { "Todos los dias de la semana", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" });
-            comboBoxDia.Location = new Point(40, 440);
+            comboBoxDia.Location = new Point(40, 70);
             comboBoxDia.Margin = new Padding(6, 5, 6, 5);
             comboBoxDia.Name = "comboBoxDia";
-            comboBoxDia.Size = new Size(282, 28);
+            comboBoxDia.Size = new Size(280, 28);
             comboBoxDia.TabIndex = 21;
             comboBoxDia.SelectedIndexChanged += comboBoxDia_SelectedIndexChanged;
-            // 
-            // monthCalendarFiltrar
-            // 
-            monthCalendarFiltrar.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendarFiltrar.Location = new Point(40, 9);
-            monthCalendarFiltrar.MaxSelectionCount = 31;
-            monthCalendarFiltrar.Name = "monthCalendarFiltrar";
-            monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
-            monthCalendarFiltrar.ShowToday = false;
-            monthCalendarFiltrar.TabIndex = 19;
-            monthCalendarFiltrar.TitleBackColor = Color.DarkOrange;
-            monthCalendarFiltrar.TrailingForeColor = SystemColors.ButtonShadow;
             // 
             // panelPaginacion
             // 
@@ -515,7 +501,6 @@
         private Panel panelEspaciado;
         private Button buttonModificar;
         private Button buttonEliminar;
-        private PanelPrincipal.MyMonthCalendar monthCalendarFiltrar;
         private Label labelPaginaActual;
         private Button buttonTodos;
         private Panel panelBotones;

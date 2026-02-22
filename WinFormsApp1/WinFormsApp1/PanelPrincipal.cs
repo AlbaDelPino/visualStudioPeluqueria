@@ -277,85 +277,8 @@ namespace WinFormsApp1
 
         private void VerUsuario(UsersDto usuario)
         {
-            var nombreYapellidos = usuario.Nombre.Split(' ');
-            var nombre = "";
-            var apellidos = "";
-
-            if (nombreYapellidos.Length >= 4)
-            {
-                nombre = nombreYapellidos[0] + " " + nombreYapellidos[1];
-                apellidos = nombreYapellidos[2] + " " + nombreYapellidos[nombreYapellidos.Length];
-            }
-            else if (nombreYapellidos.Length == 3)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1] + " " + nombreYapellidos[2];
-            }
-            else if (nombreYapellidos.Length == 2)
-            {
-                nombre = nombreYapellidos[0];
-                apellidos = nombreYapellidos[1];
-            }
-            else if (nombreYapellidos.Length == 1)
-            {
-                nombre = nombreYapellidos[0];
-            }
-
             Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
-            pantallaInfo.Form = "Información de " + usuario.Nombre;
-            pantallaInfo.LabelTituoCrearUsuario.Visible = false;
-            pantallaInfo.LabelTituoInfoUsuario.Visible = true;
-
-
-            pantallaInfo.buttonUsGuardar = false;
-            pantallaInfo.ButtonUsModificar = false;
-            pantallaInfo.buttonUsVolver = true;
-            pantallaInfo.buttonUsAnyadir = false;
-
-            pantallaInfo.TboxNombreUsuario.ReadOnly = true;
-            pantallaInfo.TxtBoxUsNombre.ReadOnly = true;
-            pantallaInfo.TextBoxUsApellidos.ReadOnly = true;
-            pantallaInfo.TextBoxUsEmail.ReadOnly = true;
-            pantallaInfo.TextBoxUsTel.ReadOnly = true;
-            pantallaInfo.TextBoxUsContrasenya.ReadOnly = true;
-            pantallaInfo.TextBoxUsConfigContrasenya.ReadOnly = true;
-            pantallaInfo.ComboTipoUsuario.Enabled = false;
-            pantallaInfo.CheckBoxEstado.Enabled = false;
-            pantallaInfo.TboxUserAlerg.ReadOnly = true;
-            pantallaInfo.TboxUserObserv.ReadOnly = true;
-
-
-            pantallaInfo.TboxNombreUsuario.Text = usuario.Username;
-            pantallaInfo.TxtBoxUsNombre.Text = nombre;
-            pantallaInfo.TextBoxUsApellidos.Text = apellidos;
-
-            if (usuario.Estado.Equals("true"))
-            {
-                pantallaInfo.CheckBoxEstado.Checked = true;
-            }
-            else if (usuario.Estado.Equals("false"))
-            {
-                pantallaInfo.CheckBoxEstado.Checked = false;
-            }
-
-            if (usuario.Role.Equals("ROLE_CLIENTE"))
-            {
-                var clientes = ObtenerClientes();
-                foreach (ClienteDto c in clientes)
-                {
-                    if (c.Id == usuario.Id)
-                    {
-                        pantallaInfo.TboxUserAlerg.Text = c.Alergenos ?? "";
-                        pantallaInfo.TboxUserObserv.Text = c.Observacion ?? "";
-                        pantallaInfo.TextBoxUsEmail.Text = c.Email ?? "";
-                        pantallaInfo.TextBoxUsTel.Text = c.Telefono.ToString() ?? "";
-                    }
-                }
-                pantallaInfo.PanelAdmin.Visible = false;
-                pantallaInfo.PanelUsGrupo.Visible = false;
-                pantallaInfo.PanelCliente.Visible = true;
-            }
-            pantallaInfo.ComboTipoUsuario.SelectedIndex = 0;
+            
             pantallaInfo.Show();
         }
 
