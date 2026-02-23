@@ -32,17 +32,15 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ButtonSerModificar = new Button();
             labelSerDuracion = new Label();
-            textBoxDuracion = new TextBox();
-            label2 = new Label();
+            textBoxDuracion = new WinFormsApp1.Usuario.RoundedTextBox();
             labelSerTipo = new Label();
             labelSerDescripcion = new Label();
             labelTituoCrearServicio = new Label();
-            txtBoxDescripcion = new TextBox();
-            label1 = new Label();
-            textBoxPrecio = new TextBox();
+            txtBoxDescripcion = new WinFormsApp1.Usuario.RoundedTextBox();
+            textBoxPrecio = new WinFormsApp1.Usuario.RoundedTextBox();
             labelSerPrecio = new Label();
             labelSerNombre = new Label();
-            tboxNombreServicio = new TextBox();
+            tboxNombreServicio = new WinFormsApp1.Usuario.RoundedTextBox();
             comboTipoServicio = new ComboBox();
             ButtonSerAnyadir = new Button();
             panelServicio = new Panel();
@@ -56,10 +54,13 @@
             // ButtonSerModificar
             // 
             ButtonSerModificar.BackColor = Color.DarkOrange;
+            ButtonSerModificar.FlatStyle = FlatStyle.Flat;
+            ButtonSerModificar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             ButtonSerModificar.ForeColor = SystemColors.ControlLightLight;
-            ButtonSerModificar.Location = new Point(363, 256);
+            ButtonSerModificar.Location = new Point(375, 386);
+            ButtonSerModificar.Margin = new Padding(3, 4, 3, 4);
             ButtonSerModificar.Name = "ButtonSerModificar";
-            ButtonSerModificar.Size = new Size(137, 36);
+            ButtonSerModificar.Size = new Size(214, 51);
             ButtonSerModificar.TabIndex = 69;
             ButtonSerModificar.Text = "Guardar cambios";
             ButtonSerModificar.UseVisualStyleBackColor = false;
@@ -70,38 +71,35 @@
             // 
             labelSerDuracion.AutoSize = true;
             labelSerDuracion.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerDuracion.Location = new Point(208, 163);
-            labelSerDuracion.Margin = new Padding(4, 0, 4, 0);
+            labelSerDuracion.Location = new Point(238, 217);
+            labelSerDuracion.Margin = new Padding(5, 0, 5, 0);
             labelSerDuracion.Name = "labelSerDuracion";
-            labelSerDuracion.Size = new Size(65, 17);
+            labelSerDuracion.Size = new Size(77, 20);
             labelSerDuracion.TabIndex = 68;
             labelSerDuracion.Text = "Duracion";
             // 
             // textBoxDuracion
             // 
-            textBoxDuracion.Location = new Point(347, 163);
+            textBoxDuracion.BackColor = Color.White;
+            textBoxDuracion.BorderColor = SystemColors.ControlDarkDark;
+            textBoxDuracion.BorderRadius = 10;
+            textBoxDuracion.BorderSize = 1;
+            textBoxDuracion.Location = new Point(397, 217);
+            textBoxDuracion.Margin = new Padding(3, 4, 3, 4);
             textBoxDuracion.Name = "textBoxDuracion";
-            textBoxDuracion.Size = new Size(140, 23);
+            textBoxDuracion.PasswordChar = '\0';
+            textBoxDuracion.ReadOnly = false;
+            textBoxDuracion.Size = new Size(192, 32);
             textBoxDuracion.TabIndex = 53;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(31, 139);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(0, 17);
-            label2.TabIndex = 67;
             // 
             // labelSerTipo
             // 
             labelSerTipo.AutoSize = true;
             labelSerTipo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerTipo.Location = new Point(513, 127);
-            labelSerTipo.Margin = new Padding(4, 0, 4, 0);
+            labelSerTipo.Location = new Point(238, 324);
+            labelSerTipo.Margin = new Padding(5, 0, 5, 0);
             labelSerTipo.Name = "labelSerTipo";
-            labelSerTipo.Size = new Size(108, 17);
+            labelSerTipo.Size = new Size(127, 20);
             labelSerTipo.TabIndex = 66;
             labelSerTipo.Text = "Tipo de servicio";
             // 
@@ -109,56 +107,60 @@
             // 
             labelSerDescripcion.AutoSize = true;
             labelSerDescripcion.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerDescripcion.Location = new Point(208, 121);
-            labelSerDescripcion.Margin = new Padding(4, 0, 4, 0);
+            labelSerDescripcion.Location = new Point(238, 161);
+            labelSerDescripcion.Margin = new Padding(5, 0, 5, 0);
             labelSerDescripcion.Name = "labelSerDescripcion";
-            labelSerDescripcion.Size = new Size(82, 17);
+            labelSerDescripcion.Size = new Size(99, 20);
             labelSerDescripcion.TabIndex = 63;
             labelSerDescripcion.Text = "Descripcion";
             // 
             // labelTituoCrearServicio
             // 
             labelTituoCrearServicio.AutoSize = true;
-            labelTituoCrearServicio.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            labelTituoCrearServicio.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
             labelTituoCrearServicio.ForeColor = SystemColors.ControlDarkDark;
-            labelTituoCrearServicio.Location = new Point(203, 30);
+            labelTituoCrearServicio.Location = new Point(238, 28);
             labelTituoCrearServicio.Name = "labelTituoCrearServicio";
-            labelTituoCrearServicio.Size = new Size(174, 25);
+            labelTituoCrearServicio.Size = new Size(284, 50);
             labelTituoCrearServicio.TabIndex = 62;
-            labelTituoCrearServicio.Text = "AÑADIR SERVICIO";
+            labelTituoCrearServicio.Text = "Añadir servicio";
             // 
             // txtBoxDescripcion
             // 
-            txtBoxDescripcion.Location = new Point(347, 121);
+            txtBoxDescripcion.BackColor = Color.White;
+            txtBoxDescripcion.BorderColor = SystemColors.ControlDarkDark;
+            txtBoxDescripcion.BorderRadius = 10;
+            txtBoxDescripcion.BorderSize = 1;
+            txtBoxDescripcion.Location = new Point(397, 161);
+            txtBoxDescripcion.Margin = new Padding(3, 4, 3, 4);
             txtBoxDescripcion.Name = "txtBoxDescripcion";
-            txtBoxDescripcion.Size = new Size(140, 23);
+            txtBoxDescripcion.PasswordChar = '\0';
+            txtBoxDescripcion.ReadOnly = false;
+            txtBoxDescripcion.Size = new Size(192, 32);
             txtBoxDescripcion.TabIndex = 50;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(31, 85);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(0, 17);
-            label1.TabIndex = 61;
             // 
             // textBoxPrecio
             // 
-            textBoxPrecio.Location = new Point(652, 85);
+            textBoxPrecio.BackColor = Color.White;
+            textBoxPrecio.BorderColor = SystemColors.ControlDarkDark;
+            textBoxPrecio.BorderRadius = 10;
+            textBoxPrecio.BorderSize = 1;
+            textBoxPrecio.Location = new Point(397, 268);
+            textBoxPrecio.Margin = new Padding(3, 4, 3, 4);
             textBoxPrecio.Name = "textBoxPrecio";
-            textBoxPrecio.Size = new Size(140, 23);
+            textBoxPrecio.PasswordChar = '\0';
+            textBoxPrecio.ReadOnly = false;
+            textBoxPrecio.Size = new Size(192, 32);
             textBoxPrecio.TabIndex = 52;
             // 
             // labelSerPrecio
             // 
             labelSerPrecio.AutoSize = true;
             labelSerPrecio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerPrecio.Location = new Point(513, 85);
-            labelSerPrecio.Margin = new Padding(4, 0, 4, 0);
+            labelSerPrecio.Location = new Point(238, 268);
+            labelSerPrecio.Margin = new Padding(5, 0, 5, 0);
             labelSerPrecio.Name = "labelSerPrecio";
-            labelSerPrecio.Size = new Size(48, 17);
+            labelSerPrecio.Size = new Size(57, 20);
             labelSerPrecio.TabIndex = 59;
             labelSerPrecio.Text = "Precio";
             // 
@@ -166,18 +168,25 @@
             // 
             labelSerNombre.AutoSize = true;
             labelSerNombre.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelSerNombre.Location = new Point(208, 83);
-            labelSerNombre.Margin = new Padding(4, 0, 4, 0);
+            labelSerNombre.Location = new Point(238, 111);
+            labelSerNombre.Margin = new Padding(5, 0, 5, 0);
             labelSerNombre.Name = "labelSerNombre";
-            labelSerNombre.Size = new Size(58, 17);
+            labelSerNombre.Size = new Size(68, 20);
             labelSerNombre.TabIndex = 48;
             labelSerNombre.Text = "Nombre";
             // 
             // tboxNombreServicio
             // 
-            tboxNombreServicio.Location = new Point(347, 83);
+            tboxNombreServicio.BackColor = Color.White;
+            tboxNombreServicio.BorderColor = SystemColors.ControlDarkDark;
+            tboxNombreServicio.BorderRadius = 10;
+            tboxNombreServicio.BorderSize = 1;
+            tboxNombreServicio.Location = new Point(397, 111);
+            tboxNombreServicio.Margin = new Padding(3, 4, 3, 4);
             tboxNombreServicio.Name = "tboxNombreServicio";
-            tboxNombreServicio.Size = new Size(140, 23);
+            tboxNombreServicio.PasswordChar = '\0';
+            tboxNombreServicio.ReadOnly = false;
+            tboxNombreServicio.Size = new Size(192, 32);
             tboxNombreServicio.TabIndex = 49;
             // 
             // comboTipoServicio
@@ -185,21 +194,24 @@
             comboTipoServicio.DisplayMember = "1";
             comboTipoServicio.DropDownStyle = ComboBoxStyle.DropDownList;
             comboTipoServicio.Items.AddRange(new object[] { "Peluquería", "Manicura y Pedicura", "Depilación", "Pestañas y Cejas", "Tratamientos Faciales", "Tratamientos Corporales", "Masajes", "Maquillaje", "Micropigmentación" });
-            comboTipoServicio.Location = new Point(652, 125);
-            comboTipoServicio.Margin = new Padding(4, 3, 4, 3);
+            comboTipoServicio.Location = new Point(397, 322);
+            comboTipoServicio.Margin = new Padding(5, 4, 5, 4);
             comboTipoServicio.MaxDropDownItems = 3;
             comboTipoServicio.Name = "comboTipoServicio";
-            comboTipoServicio.Size = new Size(140, 23);
+            comboTipoServicio.Size = new Size(192, 28);
             comboTipoServicio.TabIndex = 70;
             comboTipoServicio.UseWaitCursor = true;
             // 
             // ButtonSerAnyadir
             // 
             ButtonSerAnyadir.BackColor = Color.DarkOrange;
+            ButtonSerAnyadir.FlatStyle = FlatStyle.Flat;
+            ButtonSerAnyadir.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             ButtonSerAnyadir.ForeColor = SystemColors.ControlLightLight;
-            ButtonSerAnyadir.Location = new Point(391, 256);
+            ButtonSerAnyadir.Location = new Point(456, 386);
+            ButtonSerAnyadir.Margin = new Padding(3, 4, 3, 4);
             ButtonSerAnyadir.Name = "ButtonSerAnyadir";
-            ButtonSerAnyadir.Size = new Size(84, 36);
+            ButtonSerAnyadir.Size = new Size(133, 51);
             ButtonSerAnyadir.TabIndex = 71;
             ButtonSerAnyadir.Text = "Añadir";
             ButtonSerAnyadir.UseVisualStyleBackColor = false;
@@ -223,9 +235,8 @@
             panelServicio.Controls.Add(labelSerTipo);
             panelServicio.Dock = DockStyle.Fill;
             panelServicio.Location = new Point(0, 0);
-            panelServicio.Margin = new Padding(3, 2, 3, 2);
             panelServicio.Name = "panelServicio";
-            panelServicio.Size = new Size(838, 319);
+            panelServicio.Size = new Size(640, 478);
             panelServicio.TabIndex = 72;
             panelServicio.Paint += panelServicio_Paint;
             // 
@@ -235,8 +246,9 @@
             panelIcon.Controls.Add(pictureBoxICon);
             panelIcon.Dock = DockStyle.Left;
             panelIcon.Location = new Point(0, 0);
+            panelIcon.Margin = new Padding(3, 4, 3, 4);
             panelIcon.Name = "panelIcon";
-            panelIcon.Size = new Size(182, 319);
+            panelIcon.Size = new Size(208, 478);
             panelIcon.TabIndex = 94;
             // 
             // pictureBoxICon
@@ -244,25 +256,25 @@
             pictureBoxICon.Dock = DockStyle.Fill;
             pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
             pictureBoxICon.Location = new Point(0, 0);
+            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
             pictureBoxICon.Name = "pictureBoxICon";
-            pictureBoxICon.Size = new Size(182, 319);
+            pictureBoxICon.Size = new Size(208, 478);
             pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxICon.TabIndex = 0;
             pictureBoxICon.TabStop = false;
             // 
             // Servicio
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(838, 319);
+            ClientSize = new Size(640, 478);
             Controls.Add(panelServicio);
-            Controls.Add(label2);
-            Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(35600, 28000);
+            MaximumSize = new Size(40683, 37318);
             MinimizeBox = false;
-            MinimumSize = new Size(356, 280);
+            MinimumSize = new Size(404, 358);
             Name = "Servicio";
             Text = "Añadir Servicio";
             Load += Servicio_Load;
@@ -271,136 +283,27 @@
             panelIcon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private TextBox textBoxUsConfigContrasenya;
+        private Usuario.RoundedTextBox textBoxUsConfigContrasenya;
         private Button ButtonSerAnyadir;
         private ComboBox comboTipoServicio;
         private Button ButtonSerModificar;
         private Label labelSerDuracion;
-        private TextBox textBoxDuracion;
-        private Label label2;
+        private Usuario.RoundedTextBox textBoxDuracion;
         private Label labelSerTipo;
         private Label labelSerDescripcion;
         private Label labelTituoCrearServicio;
-        private TextBox txtBoxDescripcion;
-        private Label label1;
-        private TextBox textBoxPrecio;
+        private Usuario.RoundedTextBox txtBoxDescripcion;
+        private Usuario.RoundedTextBox textBoxPrecio;
         private Label labelSerPrecio;
         private Label labelSerNombre;
-        private TextBox tboxNombreServicio;
+        private Usuario.RoundedTextBox tboxNombreServicio;
         private Panel panelServicio;
         private Panel panelIcon;
         private PictureBox pictureBoxICon;
-
-        public TextBox TboxNombreServicio
-        {
-            get
-            {
-                return this.tboxNombreServicio;
-            }
-            set
-            {
-                this.tboxNombreServicio = value;
-            }
-        }
-
-        public TextBox TxtBoxDescripcion
-        {
-            get
-            {
-                return this.txtBoxDescripcion;
-            }
-            set
-            {
-                this.txtBoxDescripcion = value;
-            }
-        }
-
-        public TextBox TextBoxPrecio
-        {
-            get
-            {
-                return this.textBoxPrecio;
-            }
-            set
-            {
-                this.textBoxPrecio = value;
-            }
-        }
-
-        public TextBox TextBoxDuracion
-        {
-            get
-            {
-                return this.textBoxDuracion;
-            }
-            set
-            {
-                this.textBoxDuracion = value;
-            }
-        }
-
-        public ComboBox ComboTipoServicio
-        {
-            get
-            {
-                return this.comboTipoServicio;
-            }
-            set
-            {
-                this.comboTipoServicio = value;
-            }
-        }
-
-        public string LabelTituoCrearServicio
-        {
-            get
-            {
-                return this.labelTituoCrearServicio.Text;
-            }
-            set
-            {
-                this.labelTituoCrearServicio.Text = value;
-            }
-        }
-
-        public bool buttonSerAnyadir
-        {
-            get
-            {
-                return this.ButtonSerAnyadir.Visible;
-            }
-            set
-            {
-                this.ButtonSerAnyadir.Visible = value;
-            }
-        }
-        public bool buttonSerModificar
-        {
-            get
-            {
-                return this.ButtonSerModificar.Visible;
-            }
-            set
-            {
-                this.ButtonSerModificar.Visible = value;
-            }
-        }
-        public string Form
-        {
-            get
-            {
-                return this.Text;
-            }
-            set
-            {
-                this.Text = value;
-            }
-        }
     }
 }

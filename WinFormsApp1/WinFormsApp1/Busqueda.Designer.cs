@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Busqueda));
             Tabla = new DataGridView();
-            textBoxHoBuscar = new TextBox();
+            textBoxBuscar = new TextBox();
             labelTituoIBuscar = new Label();
             buttonSeleccionar = new Button();
             buttonTodoDia = new Button();
@@ -49,13 +49,13 @@
             Tabla.CellContentClick += Tabla_CellContentClick;
             Tabla.CellContentDoubleClick += Tabla_CellDoubleClick;
             // 
-            // textBoxHoBuscar
+            // textBoxBuscar
             // 
-            textBoxHoBuscar.Location = new Point(107, 118);
-            textBoxHoBuscar.Margin = new Padding(3, 4, 3, 4);
-            textBoxHoBuscar.Name = "textBoxHoBuscar";
-            textBoxHoBuscar.Size = new Size(702, 27);
-            textBoxHoBuscar.TabIndex = 1;
+            textBoxBuscar.Location = new Point(107, 118);
+            textBoxBuscar.Margin = new Padding(3, 4, 3, 4);
+            textBoxBuscar.Name = "textBoxBuscar";
+            textBoxBuscar.Size = new Size(702, 27);
+            textBoxBuscar.TabIndex = 1;
             // 
             // labelTituoIBuscar
             // 
@@ -103,7 +103,7 @@
             Controls.Add(buttonTodoDia);
             Controls.Add(buttonSeleccionar);
             Controls.Add(labelTituoIBuscar);
-            Controls.Add(textBoxHoBuscar);
+            Controls.Add(textBoxBuscar);
             Controls.Add(Tabla);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
@@ -117,7 +117,7 @@
         #endregion
 
         private DataGridView Tabla;
-        private TextBox textBoxHoBuscar;
+        private TextBox textBoxBuscar;
         private Label labelTituoIBuscar;
         private Button buttonSeleccionar;
         private Button buttonTodoDia;

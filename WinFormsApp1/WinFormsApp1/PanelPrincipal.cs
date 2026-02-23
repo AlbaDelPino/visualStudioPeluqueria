@@ -68,7 +68,7 @@ namespace WinFormsApp1
             }
 
             int posicionY = 10;
-            int anchoPanel = panelContenedor.Width - 25;
+            int anchoPanel = panelContenedor.Width - 30;
 
             foreach (CitaDto cita in citasHoy)
             {

@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Horario));
             labelHoServicio = new Label();
             labelHoGrupo = new Label();
-            textBoxHoServicio = new TextBox();
-            textBoxHoGrupo = new TextBox();
+            textBoxHoServicio = new WinFormsApp1.Usuario.RoundedTextBox();
+            textBoxHoGrupo = new WinFormsApp1.Usuario.RoundedTextBox();
             buttonHoServicio = new Button();
             buttonHoBrupo = new Button();
             labelHoHorarioInicio = new Label();
@@ -47,17 +47,21 @@
             labelTituoModificarHorario = new Label();
             buttonModificar = new Button();
             numericPlazas = new NumericUpDown();
+            panelIcon = new Panel();
+            pictureBoxICon = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)numericPlazas).BeginInit();
+            panelIcon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
             // 
             // labelHoServicio
             // 
             labelHoServicio.AutoSize = true;
             labelHoServicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHoServicio.Location = new Point(47, 144);
-            labelHoServicio.Margin = new Padding(5, 0, 5, 0);
+            labelHoServicio.Location = new Point(269, 184);
+            labelHoServicio.Margin = new Padding(6, 0, 6, 0);
             labelHoServicio.Name = "labelHoServicio";
-            labelHoServicio.Size = new Size(58, 17);
+            labelHoServicio.Size = new Size(69, 20);
             labelHoServicio.TabIndex = 74;
             labelHoServicio.Text = "Servicio";
             // 
@@ -65,57 +69,71 @@
             // 
             labelHoGrupo.AutoSize = true;
             labelHoGrupo.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHoGrupo.Location = new Point(57, 193);
-            labelHoGrupo.Margin = new Padding(5, 0, 5, 0);
+            labelHoGrupo.Location = new Point(269, 249);
+            labelHoGrupo.Margin = new Padding(6, 0, 6, 0);
             labelHoGrupo.Name = "labelHoGrupo";
-            labelHoGrupo.Size = new Size(48, 17);
+            labelHoGrupo.Size = new Size(55, 20);
             labelHoGrupo.TabIndex = 76;
             labelHoGrupo.Text = "Grupo";
             // 
             // textBoxHoServicio
             // 
-            textBoxHoServicio.Location = new Point(213, 144);
+            textBoxHoServicio.BackColor = SystemColors.Control;
+            textBoxHoServicio.BorderColor = SystemColors.ControlDarkDark;
+            textBoxHoServicio.BorderRadius = 10;
+            textBoxHoServicio.BorderSize = 1;
+            textBoxHoServicio.Location = new Point(447, 184);
+            textBoxHoServicio.Margin = new Padding(3, 4, 3, 4);
             textBoxHoServicio.Name = "textBoxHoServicio";
+            textBoxHoServicio.PasswordChar = '\0';
             textBoxHoServicio.ReadOnly = true;
-            textBoxHoServicio.Size = new Size(100, 23);
+            textBoxHoServicio.Size = new Size(114, 31);
             textBoxHoServicio.TabIndex = 77;
             // 
             // textBoxHoGrupo
             // 
-            textBoxHoGrupo.Location = new Point(213, 193);
+            textBoxHoGrupo.BackColor = SystemColors.Control;
+            textBoxHoGrupo.BorderColor = SystemColors.ControlDarkDark;
+            textBoxHoGrupo.BorderRadius = 10;
+            textBoxHoGrupo.BorderSize = 1;
+            textBoxHoGrupo.Location = new Point(447, 249);
+            textBoxHoGrupo.Margin = new Padding(3, 4, 3, 4);
             textBoxHoGrupo.Name = "textBoxHoGrupo";
+            textBoxHoGrupo.PasswordChar = '\0';
             textBoxHoGrupo.ReadOnly = true;
-            textBoxHoGrupo.Size = new Size(100, 23);
+            textBoxHoGrupo.Size = new Size(114, 31);
             textBoxHoGrupo.TabIndex = 78;
             // 
             // buttonHoServicio
             // 
-            buttonHoServicio.Location = new Point(348, 145);
+            buttonHoServicio.Location = new Point(574, 184);
+            buttonHoServicio.Margin = new Padding(3, 4, 3, 4);
             buttonHoServicio.Name = "buttonHoServicio";
-            buttonHoServicio.Size = new Size(75, 23);
+            buttonHoServicio.Size = new Size(50, 31);
             buttonHoServicio.TabIndex = 79;
-            buttonHoServicio.Text = "...";
             buttonHoServicio.UseVisualStyleBackColor = true;
             buttonHoServicio.Click += buttonHoServicio_Click;
+            buttonHoServicio.Paint += buttonHoServicio_Paint;
             // 
             // buttonHoBrupo
             // 
-            buttonHoBrupo.Location = new Point(348, 193);
+            buttonHoBrupo.Location = new Point(574, 249);
+            buttonHoBrupo.Margin = new Padding(3, 4, 3, 4);
             buttonHoBrupo.Name = "buttonHoBrupo";
-            buttonHoBrupo.Size = new Size(75, 23);
+            buttonHoBrupo.Size = new Size(50, 31);
             buttonHoBrupo.TabIndex = 80;
-            buttonHoBrupo.Text = "...";
             buttonHoBrupo.UseVisualStyleBackColor = true;
             buttonHoBrupo.Click += buttonHoGrupo_Click;
+            buttonHoBrupo.Paint += buttonHoBrupo_Paint;
             // 
             // labelHoHorarioInicio
             // 
             labelHoHorarioInicio.AutoSize = true;
             labelHoHorarioInicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHoHorarioInicio.Location = new Point(57, 247);
-            labelHoHorarioInicio.Margin = new Padding(5, 0, 5, 0);
+            labelHoHorarioInicio.Location = new Point(269, 321);
+            labelHoHorarioInicio.Margin = new Padding(6, 0, 6, 0);
             labelHoHorarioInicio.Name = "labelHoHorarioInicio";
-            labelHoHorarioInicio.Size = new Size(91, 17);
+            labelHoHorarioInicio.Size = new Size(109, 20);
             labelHoHorarioInicio.TabIndex = 81;
             labelHoHorarioInicio.Text = "Horario inicio";
             // 
@@ -123,46 +141,48 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(57, 280);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(269, 365);
+            label1.Margin = new Padding(6, 0, 6, 0);
             label1.Name = "label1";
-            label1.Size = new Size(74, 17);
+            label1.Size = new Size(88, 20);
             label1.TabIndex = 82;
             label1.Text = "Horario fin";
             // 
             // dateTimePickerHoaraInicio
             // 
-            dateTimePickerHoaraInicio.Location = new Point(213, 241);
+            dateTimePickerHoaraInicio.Location = new Point(447, 313);
+            dateTimePickerHoaraInicio.Margin = new Padding(3, 4, 3, 4);
             dateTimePickerHoaraInicio.Name = "dateTimePickerHoaraInicio";
-            dateTimePickerHoaraInicio.Size = new Size(155, 23);
+            dateTimePickerHoaraInicio.Size = new Size(177, 27);
             dateTimePickerHoaraInicio.TabIndex = 83;
             // 
             // dateTimePickerHoraFin
             // 
-            dateTimePickerHoraFin.Location = new Point(213, 280);
+            dateTimePickerHoraFin.Location = new Point(447, 365);
+            dateTimePickerHoraFin.Margin = new Padding(3, 4, 3, 4);
             dateTimePickerHoraFin.Name = "dateTimePickerHoraFin";
-            dateTimePickerHoraFin.Size = new Size(155, 23);
+            dateTimePickerHoraFin.Size = new Size(177, 27);
             dateTimePickerHoraFin.TabIndex = 84;
             // 
             // labelPlaza
             // 
             labelPlaza.AutoSize = true;
             labelPlaza.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelPlaza.Location = new Point(57, 323);
-            labelPlaza.Margin = new Padding(5, 0, 5, 0);
+            labelPlaza.Location = new Point(269, 423);
+            labelPlaza.Margin = new Padding(6, 0, 6, 0);
             labelPlaza.Name = "labelPlaza";
-            labelPlaza.Size = new Size(43, 17);
+            labelPlaza.Size = new Size(60, 20);
             labelPlaza.TabIndex = 85;
-            labelPlaza.Text = "Plaza";
+            labelPlaza.Text = "Plazas";
             // 
             // labelHoDiaSemana
             // 
             labelHoDiaSemana.AutoSize = true;
             labelHoDiaSemana.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelHoDiaSemana.Location = new Point(47, 106);
-            labelHoDiaSemana.Margin = new Padding(5, 0, 5, 0);
+            labelHoDiaSemana.Location = new Point(269, 128);
+            labelHoDiaSemana.Margin = new Padding(6, 0, 6, 0);
             labelHoDiaSemana.Name = "labelHoDiaSemana";
-            labelHoDiaSemana.Size = new Size(118, 17);
+            labelHoDiaSemana.Size = new Size(140, 20);
             labelHoDiaSemana.TabIndex = 87;
             labelHoDiaSemana.Text = "Dia de la semana";
             // 
@@ -170,63 +190,101 @@
             // 
             comboBoxDiaSemana.FormattingEnabled = true;
             comboBoxDiaSemana.Items.AddRange(new object[] { "LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES", "SABADO", "DOMINGO" });
-            comboBoxDiaSemana.Location = new Point(213, 100);
+            comboBoxDiaSemana.Location = new Point(447, 125);
+            comboBoxDiaSemana.Margin = new Padding(3, 4, 3, 4);
             comboBoxDiaSemana.Name = "comboBoxDiaSemana";
-            comboBoxDiaSemana.Size = new Size(121, 23);
+            comboBoxDiaSemana.Size = new Size(177, 28);
             comboBoxDiaSemana.TabIndex = 88;
             // 
             // buttonGuardar
             // 
-            buttonGuardar.Location = new Point(145, 378);
+            buttonGuardar.BackColor = Color.DarkOrange;
+            buttonGuardar.FlatStyle = FlatStyle.Flat;
+            buttonGuardar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            buttonGuardar.ForeColor = SystemColors.ControlLightLight;
+            buttonGuardar.Location = new Point(431, 496);
+            buttonGuardar.Margin = new Padding(3, 4, 3, 4);
             buttonGuardar.Name = "buttonGuardar";
-            buttonGuardar.Size = new Size(189, 38);
+            buttonGuardar.Size = new Size(193, 51);
             buttonGuardar.TabIndex = 90;
             buttonGuardar.Text = "Añadir horario";
-            buttonGuardar.UseVisualStyleBackColor = true;
+            buttonGuardar.UseVisualStyleBackColor = false;
             buttonGuardar.Click += buttonGuardar_Click;
             // 
             // labelTituloCrearHorario
             // 
             labelTituloCrearHorario.AutoSize = true;
-            labelTituloCrearHorario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituloCrearHorario.Location = new Point(145, 26);
+            labelTituloCrearHorario.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
+            labelTituloCrearHorario.ForeColor = SystemColors.ControlDarkDark;
+            labelTituloCrearHorario.Location = new Point(253, 38);
             labelTituloCrearHorario.Name = "labelTituloCrearHorario";
-            labelTituloCrearHorario.Size = new Size(162, 25);
+            labelTituloCrearHorario.Size = new Size(254, 50);
             labelTituloCrearHorario.TabIndex = 91;
-            labelTituloCrearHorario.Text = "CREAR HORARIO";
+            labelTituloCrearHorario.Text = "Crear horario";
             // 
             // labelTituoModificarHorario
             // 
             labelTituoModificarHorario.AutoSize = true;
-            labelTituoModificarHorario.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoModificarHorario.Location = new Point(123, 26);
+            labelTituoModificarHorario.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
+            labelTituoModificarHorario.ForeColor = SystemColors.ControlDarkDark;
+            labelTituoModificarHorario.Location = new Point(253, 38);
             labelTituoModificarHorario.Name = "labelTituoModificarHorario";
-            labelTituoModificarHorario.Size = new Size(208, 25);
+            labelTituoModificarHorario.Size = new Size(331, 50);
             labelTituoModificarHorario.TabIndex = 92;
-            labelTituoModificarHorario.Text = "MODIFICAR HORARIO";
+            labelTituoModificarHorario.Text = "Modificar horario";
             // 
             // buttonModificar
             // 
-            buttonModificar.Location = new Point(214, 378);
+            buttonModificar.BackColor = Color.DarkOrange;
+            buttonModificar.FlatStyle = FlatStyle.Flat;
+            buttonModificar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            buttonModificar.ForeColor = SystemColors.ControlLightLight;
+            buttonModificar.Location = new Point(408, 496);
+            buttonModificar.Margin = new Padding(3, 4, 3, 4);
             buttonModificar.Name = "buttonModificar";
-            buttonModificar.Size = new Size(189, 38);
+            buttonModificar.Size = new Size(216, 51);
             buttonModificar.TabIndex = 93;
             buttonModificar.Text = "Modificar horario";
-            buttonModificar.UseVisualStyleBackColor = true;
+            buttonModificar.UseVisualStyleBackColor = false;
             buttonModificar.Click += buttonModificar_Click;
             // 
             // numericPlazas
             // 
-            numericPlazas.Location = new Point(214, 323);
+            numericPlazas.Location = new Point(449, 423);
+            numericPlazas.Margin = new Padding(3, 4, 3, 4);
             numericPlazas.Name = "numericPlazas";
-            numericPlazas.Size = new Size(120, 23);
+            numericPlazas.Size = new Size(175, 27);
             numericPlazas.TabIndex = 94;
+            // 
+            // panelIcon
+            // 
+            panelIcon.BackColor = Color.FromArgb(241, 123, 35);
+            panelIcon.Controls.Add(pictureBoxICon);
+            panelIcon.Dock = DockStyle.Left;
+            panelIcon.Location = new Point(0, 0);
+            panelIcon.Margin = new Padding(3, 4, 3, 4);
+            panelIcon.Name = "panelIcon";
+            panelIcon.Size = new Size(200, 584);
+            panelIcon.TabIndex = 95;
+            // 
+            // pictureBoxICon
+            // 
+            pictureBoxICon.Dock = DockStyle.Fill;
+            pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
+            pictureBoxICon.Location = new Point(0, 0);
+            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxICon.Name = "pictureBoxICon";
+            pictureBoxICon.Size = new Size(200, 584);
+            pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBoxICon.TabIndex = 0;
+            pictureBoxICon.TabStop = false;
             // 
             // Horario
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(478, 438);
+            ClientSize = new Size(692, 584);
+            Controls.Add(panelIcon);
             Controls.Add(numericPlazas);
             Controls.Add(buttonModificar);
             Controls.Add(labelTituoModificarHorario);
@@ -246,10 +304,13 @@
             Controls.Add(labelHoGrupo);
             Controls.Add(labelHoServicio);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Horario";
             Text = "Crear un horario";
             Load += Horario_Load;
             ((System.ComponentModel.ISupportInitialize)numericPlazas).EndInit();
+            panelIcon.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -272,8 +333,8 @@
         private Label labelCitGrupo;
         private Label labelHoServicio;
         private Label labelHoGrupo;
-        private TextBox textBoxHoServicio;
-        private TextBox textBoxHoGrupo;
+        private Usuario.RoundedTextBox textBoxHoServicio;
+        private Usuario.RoundedTextBox textBoxHoGrupo;
         private Button buttonHoServicio;
         private Button buttonHoBrupo;
         private Label labelHoHorarioInicio;
@@ -288,5 +349,7 @@
         private Label labelTituoModificarHorario;
         private Button buttonModificar;
         private NumericUpDown numericPlazas;
+        private Panel panelIcon;
+        private PictureBox pictureBoxICon;
     }
 }

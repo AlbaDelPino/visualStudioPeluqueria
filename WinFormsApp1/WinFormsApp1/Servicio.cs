@@ -25,6 +25,36 @@ namespace WinFormsApp1
             InitializeComponent();
             _servicio = servicio;
             _token = token;
+
+
+            this.Text = "Modificar información de " + _servicio.Nombre;
+            labelTituoCrearServicio.Text = "Modificar servicio";
+            ButtonSerModificar.Visible = true;
+            ButtonSerAnyadir.Visible = false;
+
+            tboxNombreServicio.Text = servicio.Nombre;
+            txtBoxDescripcion.Text = servicio.Descripcion;
+            textBoxPrecio.Text = servicio.Precio.ToString();
+            textBoxDuracion.Text = servicio.Duracion.ToString();
+            comboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
+            
+        }
+
+        public Servicio( string token)
+        {
+            InitializeComponent();
+            _token = token;
+
+            this.Text = "Añadir servicio nuevo";
+            labelTituoCrearServicio.Text = "Añadir servicio";
+            ButtonSerModificar.Visible = false;
+            ButtonSerAnyadir.Visible = true;
+
+            tboxNombreServicio.Text = "";
+            txtBoxDescripcion.Text = "";
+            textBoxPrecio.Text = "";
+            textBoxDuracion.Text = "";
+            comboTipoServicio.SelectedItem = "";
         }
 
         private void Servicio_Load(object sender, EventArgs e)

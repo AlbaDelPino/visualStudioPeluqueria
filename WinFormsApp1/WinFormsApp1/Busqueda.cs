@@ -1,17 +1,18 @@
-﻿using ServiciosInfo.Models;
+﻿using CitasInfo.Models;
+using ServiciosInfo.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UsersInfo.Models;
-using CitasInfo.Models;
 
 namespace WinFormsApp1
 {
@@ -76,10 +77,10 @@ namespace WinFormsApp1
 
             Tabla.CellDoubleClick += Tabla_CellDoubleClick;
 
-            textBoxHoBuscar.TextChanged += textBoxHoBuscar_TextChanged;
+            textBoxBuscar.TextChanged += textBoxHoBuscar_TextChanged;
         }
 
-        public Busqueda(string titulo, object listaParaMostrar,BloqueoHorarioDto bloqueo)
+        public Busqueda(string titulo, object listaParaMostrar, BloqueoHorarioDto bloqueo)
         {
             InitializeComponent();
             this.Text = titulo;
@@ -87,7 +88,7 @@ namespace WinFormsApp1
             _listaOriginal = ((IEnumerable)listaParaMostrar).Cast<object>().ToList();
             ConfigurarColumnasIniciales();
             ItemsSeleccionados = new List<HorarioSemanalDto>();
-            
+
             if (listaParaMostrar is IEnumerable<HorarioSemanalDto> listaHorarios)
             {
                 _listaHorarios = listaHorarios.ToList();
@@ -104,7 +105,7 @@ namespace WinFormsApp1
                 _tipoLista = typeof(HorarioSemanalDto);
                 TablaHorarios();
             }
-            
+
 
             Tabla.ReadOnly = true;
             Tabla.AllowUserToAddRows = false;
@@ -112,8 +113,11 @@ namespace WinFormsApp1
             Tabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Tabla.RowHeadersVisible = false;
 
-            textBoxHoBuscar.TextChanged += textBoxHoBuscar_TextChanged;
+            textBoxBuscar.TextChanged += textBoxHoBuscar_TextChanged;
         }
+        
+
+
 
         private void ConfigurarColumnasIniciales()
         {
@@ -122,7 +126,7 @@ namespace WinFormsApp1
 
         private void textBoxHoBuscar_TextChanged(object sender, EventArgs e)
         {
-            string busqueda = textBoxHoBuscar.Text.ToLower();
+            string busqueda = textBoxBuscar.Text.ToLower();
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
@@ -419,5 +423,7 @@ namespace WinFormsApp1
                 }
             }
         }
+
+        
     }
 }

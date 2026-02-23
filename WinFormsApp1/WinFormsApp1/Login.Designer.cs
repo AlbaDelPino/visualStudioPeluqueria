@@ -33,8 +33,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             LabelUsuario = new Label();
             labelContraseña = new Label();
-            textBoxUsuario = new TextBox();
-            textBoxContrasenya = new TextBox();
+            textBoxUsuario = new WinFormsApp1.Usuario.RoundedTextBox();
+            textBoxContrasenya = new WinFormsApp1.Usuario.RoundedTextBox();
             buttonInicioSesion = new Button();
             labelTituoInicioSesion = new Label();
             panelIcon = new Panel();
@@ -57,7 +57,7 @@
             // labelContraseña
             // 
             labelContraseña.AutoSize = true;
-            labelContraseña.Location = new Point(384, 231);
+            labelContraseña.Location = new Point(383, 232);
             labelContraseña.Name = "labelContraseña";
             labelContraseña.Size = new Size(83, 20);
             labelContraseña.TabIndex = 1;
@@ -65,20 +65,31 @@
             // 
             // textBoxUsuario
             // 
+            textBoxUsuario.BackColor = Color.White;
+            textBoxUsuario.BorderColor = SystemColors.ControlDarkDark;
+            textBoxUsuario.BorderRadius = 10;
+            textBoxUsuario.BorderSize = 1;
             textBoxUsuario.Location = new Point(496, 185);
             textBoxUsuario.Margin = new Padding(3, 4, 3, 4);
             textBoxUsuario.Name = "textBoxUsuario";
-            textBoxUsuario.Size = new Size(114, 27);
+            textBoxUsuario.PasswordChar = '\0';
+            textBoxUsuario.ReadOnly = false;
+            textBoxUsuario.Size = new Size(114, 32);
             textBoxUsuario.TabIndex = 1;
             // 
             // textBoxContrasenya
             // 
+            textBoxContrasenya.BackColor = Color.White;
+            textBoxContrasenya.BorderColor = SystemColors.ControlDarkDark;
+            textBoxContrasenya.BorderRadius = 10;
+            textBoxContrasenya.BorderSize = 1;
             textBoxContrasenya.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxContrasenya.Location = new Point(496, 224);
+            textBoxContrasenya.Location = new Point(495, 225);
             textBoxContrasenya.Margin = new Padding(3, 4, 3, 4);
             textBoxContrasenya.Name = "textBoxContrasenya";
             textBoxContrasenya.PasswordChar = '●';
-            textBoxContrasenya.Size = new Size(114, 27);
+            textBoxContrasenya.ReadOnly = false;
+            textBoxContrasenya.Size = new Size(114, 32);
             textBoxContrasenya.TabIndex = 2;
             // 
             // buttonInicioSesion
@@ -127,7 +138,7 @@
             // pictureBoxMostrar
             // 
             pictureBoxMostrar.Image = Properties.Resources.Ojo;
-            pictureBoxMostrar.Location = new Point(607, 219);
+            pictureBoxMostrar.Location = new Point(610, 220);
             pictureBoxMostrar.Name = "pictureBoxMostrar";
             pictureBoxMostrar.Size = new Size(46, 40);
             pictureBoxMostrar.SizeMode = PictureBoxSizeMode.Zoom;
@@ -167,8 +178,8 @@
 
         private Label LabelUsuario;
         private Label labelContraseña;
-        private TextBox textBoxUsuario;
-        private TextBox textBoxContrasenya;
+        private Usuario.RoundedTextBox textBoxUsuario;
+        private Usuario.RoundedTextBox textBoxContrasenya;
         private Button buttonInicioSesion;
         private Label labelTituoInicioSesion;
         private Panel panelIcon;

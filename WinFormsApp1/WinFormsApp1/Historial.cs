@@ -33,9 +33,24 @@ namespace WinFormsApp1
             _token = token;
             _citas = new List<CitaDto>();
         }
+
+        
         private void Historial_Resize(object sender, EventArgs e)
         {
             cargarCitas();
+            cargarDiagnostico();
+        }
+        private void cargarDiagnostico()
+        {
+            Diagnostico pantallaDiagnostico = new Diagnostico(_usuario, _token);
+
+            panelDiagnostico.Controls.Clear();
+            panelDiagnostico.Dock = DockStyle.Fill;
+            pantallaDiagnostico.TopLevel = false;
+            pantallaDiagnostico.FormBorderStyle = FormBorderStyle.None;
+            pantallaDiagnostico.Dock = DockStyle.Fill;
+            panelDiagnostico.Controls.Add(pantallaDiagnostico);
+            pantallaDiagnostico.Show();
         }
         private void cargarCitas()
         {
@@ -63,7 +78,7 @@ namespace WinFormsApp1
             }
 
             int posicionY = 10;
-            int anchoPanel = panelContenedor.Width - 75;
+            int anchoPanel = panelContenedor.Width - 30;
 
             foreach (CitaDto cita in _citas)
             {
@@ -79,7 +94,7 @@ namespace WinFormsApp1
         {
             Panel panel = new Panel
             {
-                Size = new Size(ancho, 100),
+                Size = new Size(ancho, 130),
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = SystemColors.Control,
                 Padding = new Padding(10),
@@ -90,8 +105,8 @@ namespace WinFormsApp1
             Label lblFecha = new Label
             {
                 Text = $"🗓️ {fecha}",
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                Location = new Point(120, 15),
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                Location = new Point(15, 40),
                 Size = new Size(150, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
@@ -99,7 +114,7 @@ namespace WinFormsApp1
             Label lblGrupo = new Label
             {
                 Text = $"👥 {cita.Horario.Grupo.Curso}",
-                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 Location = new Point(170, 40),
                 Size = new Size(80, 20),
                 TextAlign = ContentAlignment.MiddleLeft
@@ -109,34 +124,45 @@ namespace WinFormsApp1
             Label lblServicio = new Label
             {
                 Text = $"📋 {cita.Horario?.Servicio?.Nombre ?? "Sin servicio"}",
-                Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                Location = new Point(15, 70),
-                Size = new Size(ancho - 220, 25),
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),
+                Location = new Point(15, 15),
+                Size = new Size(ancho - 205, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
             Label lblProductos = new Label
             {
-                Text = $"📋 {cita.Productos ?? " "}",
+                Text = $"Productos: {cita.Productos ?? " "}",
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                Location = new Point(35, 70),
-                Size = new Size(ancho - 220, 25),
-                TextAlign = ContentAlignment.MiddleLeft
+                Location = new Point(15, 65),
+                Size = new Size(ancho, 25),
+                TextAlign = ContentAlignment.MiddleLeft,
+                ForeColor = Color.SteelBlue
             };
             Label lblTratamientos = new Label
             {
-                Text = $"📋 {cita.Tratamientos ?? " "}",
+                Text = $"Tratamientos: {cita.Tratamientos ?? " "}",
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                Location = new Point(55, 70),
-                Size = new Size(ancho - 220, 25),
-                TextAlign = ContentAlignment.MiddleLeft
+                Location = new Point(15, 82),
+                Size = new Size(ancho, 25),
+                TextAlign = ContentAlignment.MiddleLeft,
+                ForeColor = Color.SteelBlue
+            };
+            Label lblObservaciones = new Label
+            {
+                Text = $"Observaciones: {cita.Observaciones ?? " "}",
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                Location = new Point(15, 99),
+                Size = new Size(ancho, 25),
+                TextAlign = ContentAlignment.MiddleLeft,
+                ForeColor = Color.SteelBlue
             };
 
             Button btnAccion = new Button
             {
                 Text = "Ver información de la cita",
-                Size = new Size(100, 30),
-                Location = new Point(ancho - 120, 15),
+                Size = new Size(175, 30),
+                Location = new Point(ancho - 190, 15),
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
                 Tag = cita.Id,
                 Cursor = Cursors.Hand
@@ -147,8 +173,8 @@ namespace WinFormsApp1
             panel.Controls.Add(lblServicio);
             panel.Controls.Add(btnAccion);
             panel.Controls.Add(lblProductos);
-            panel.Controls.Add(lblTratamientos);
-
+            panel.Controls.Add(lblTratamientos); 
+            panel.Controls.Add(lblObservaciones);
 
             panel.Cursor = Cursors.Hand;
 

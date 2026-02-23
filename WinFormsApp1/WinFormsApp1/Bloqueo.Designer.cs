@@ -69,6 +69,7 @@ namespace WinFormsApp1
             // 
             // textBoxCitFecha
             // 
+            textBoxCitFecha.BorderStyle = BorderStyle.FixedSingle;
             textBoxCitFecha.Location = new Point(585, 110);
             textBoxCitFecha.Name = "textBoxCitFecha";
             textBoxCitFecha.ReadOnly = true;

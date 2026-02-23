@@ -97,7 +97,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cambiar estado: " + ex.Message);
+                MessageBox.Show("No se puede completar una cita futura", "Error al completar la cita", MessageBoxButtons.OK);
                 return false;
             }
         }
@@ -108,22 +108,12 @@ namespace WinFormsApp1
             {
                 if (CargarFicha())
                 {
-                    MessageBox.Show("✅ Cita completada y ficha guardada.");
+                    MessageBox.Show("La cita ha sido completada correctamente","Correctamente completado",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
  
         }
-        }
-
-        private void labelProductos_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FichaCita_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

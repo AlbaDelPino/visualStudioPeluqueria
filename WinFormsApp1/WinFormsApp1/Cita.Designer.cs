@@ -222,6 +222,7 @@ namespace WinFormsApp1
             // 
             labelCitServicio.AutoSize = true;
             labelCitServicio.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelCitServicio.ForeColor = SystemColors.ControlText;
             labelCitServicio.Location = new Point(280, 116);
             labelCitServicio.Margin = new Padding(5, 0, 5, 0);
             labelCitServicio.Name = "labelCitServicio";

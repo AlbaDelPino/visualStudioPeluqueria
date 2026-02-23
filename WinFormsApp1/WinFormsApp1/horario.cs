@@ -223,5 +223,17 @@ namespace WinFormsApp1
         {
 
         }
+
+        private void buttonHoServicio_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, 13, 2);
+        }
+
+        private void buttonHoBrupo_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.DrawString("🔍", new Font("Segoe UI Symbol", 10), Brushes.Gray, 13, 2);
+        }
     }
 }

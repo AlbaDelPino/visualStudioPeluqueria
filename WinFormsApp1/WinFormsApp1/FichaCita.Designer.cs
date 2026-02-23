@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FichaCita));
             panelFicha = new Panel();
+            labelInfoCita = new Label();
             pictureBoxICon = new PictureBox();
             richTextBoxObservaciones = new RichTextBox();
             labelObservaciones = new Label();
@@ -38,7 +39,6 @@
             richTextBoxTratamientos = new RichTextBox();
             labelTratamientos = new Label();
             buttonCompletar = new Button();
-            labelInfoCita = new Label();
             panelFicha.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
@@ -59,6 +59,17 @@
             panelFicha.Name = "panelFicha";
             panelFicha.Size = new Size(984, 572);
             panelFicha.TabIndex = 0;
+            // 
+            // labelInfoCita
+            // 
+            labelInfoCita.AutoSize = true;
+            labelInfoCita.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelInfoCita.ForeColor = SystemColors.ControlDarkDark;
+            labelInfoCita.Location = new Point(293, 24);
+            labelInfoCita.Name = "labelInfoCita";
+            labelInfoCita.Size = new Size(403, 50);
+            labelInfoCita.TabIndex = 50;
+            labelInfoCita.Text = "Información de la cita";
             // 
             // pictureBoxICon
             // 
@@ -112,7 +123,6 @@
             labelProductos.Size = new Size(110, 26);
             labelProductos.TabIndex = 18;
             labelProductos.Text = "Productos";
-            labelProductos.Click += labelProductos_Click;
             // 
             // richTextBoxTratamientos
             // 
@@ -148,17 +158,6 @@
             buttonCompletar.UseVisualStyleBackColor = false;
             buttonCompletar.Click += buttonCompletar_Click;
             // 
-            // labelInfoCita
-            // 
-            labelInfoCita.AutoSize = true;
-            labelInfoCita.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelInfoCita.ForeColor = SystemColors.ControlDarkDark;
-            labelInfoCita.Location = new Point(293, 24);
-            labelInfoCita.Name = "labelInfoCita";
-            labelInfoCita.Size = new Size(403, 50);
-            labelInfoCita.TabIndex = 50;
-            labelInfoCita.Text = "Información de la cita";
-            // 
             // FichaCita
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -169,7 +168,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "FichaCita";
             Text = "FichaCita";
-            Load += FichaCita_Load;
             panelFicha.ResumeLayout(false);
             panelFicha.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();

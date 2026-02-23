@@ -115,7 +115,7 @@ namespace WinFormsApp1
 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
-            if (_servicioSeleccionado.Id_Servicio != null)
+            if (_servicioSeleccionado.Id_Servicio != 0)
             {
                 Servicio pantallaModificar = new Servicio(_servicioSeleccionado, _token);
                 if (pantallaModificar.ShowDialog() == DialogResult.OK)
@@ -125,25 +125,12 @@ namespace WinFormsApp1
                     filtrarServicios();
                 }
             }
-
-            /*
-            pantallaModificar.Form = "Modificar información de " + servicio.Nombre;
-            pantallaModificar.LabelTituoCrearServicio = "MODIFICAR SERVICIO";
-            pantallaModificar.buttonSerModificar = true;
-            pantallaModificar.buttonSerAnyadir = false;
-
-            pantallaModificar.TboxNombreServicio.Text = servicio.Nombre;
-            pantallaModificar.TxtBoxDescripcion.Text = servicio.Descripcion;
-            pantallaModificar.TextBoxPrecio.Text = servicio.Precio.ToString();
-            pantallaModificar.TextBoxDuracion.Text = servicio.Duracion.ToString();
-            pantallaModificar.ComboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
-            */
         }
 
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            if (_servicioSeleccionado.Id_Servicio != null)
+            if (_servicioSeleccionado.Id_Servicio != 0)
             {
                 var confirmResult = MessageBox.Show(
                     $"¿Seguro que quieres eliminar el servicio \"{_servicioSeleccionado.Nombre}\"?",
@@ -197,19 +184,8 @@ namespace WinFormsApp1
 
         private void anyadirServicio_Click(object sender, EventArgs e)
         {
-            //.
-            Servicio pantallaAnyadir = new Servicio(null, _token);
-            pantallaAnyadir.Form = "Añadir servicio nuevo";
-            pantallaAnyadir.LabelTituoCrearServicio = "AÑADIR SERVICIO";
-            pantallaAnyadir.buttonSerModificar = false;
-            pantallaAnyadir.buttonSerAnyadir = true;
-
-            pantallaAnyadir.TboxNombreServicio.Text = "";
-            pantallaAnyadir.TxtBoxDescripcion.Text = "";
-            pantallaAnyadir.TextBoxPrecio.Text = "";
-            pantallaAnyadir.TextBoxDuracion.Text = "";
-            pantallaAnyadir.ComboTipoServicio.SelectedItem = "";
-
+            Servicio pantallaAnyadir = new Servicio( _token);
+            
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 MessageBox.Show("Servicio añadido correctamente", "Servicio añadido correctamente", MessageBoxButtons.OK);

@@ -41,7 +41,7 @@ namespace WinFormsApp1
             panelGrande = new Panel();
             panelUsuario = new Panel();
             panelHistorial = new Panel();
-            panel1 = new Panel();
+            panelFiltros = new Panel();
             buttonFiltros = new Button();
             panelCitasHoy = new Panel();
             labelNumCitasHoy = new Label();
@@ -54,7 +54,7 @@ namespace WinFormsApp1
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).BeginInit();
             panelGrande.SuspendLayout();
             panelUsuario.SuspendLayout();
-            panel1.SuspendLayout();
+            panelFiltros.SuspendLayout();
             panelCitasHoy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).BeginInit();
             panelCitas.SuspendLayout();
@@ -125,27 +125,27 @@ namespace WinFormsApp1
             // 
             panelCitasContainer.BackColor = Color.White;
             panelCitasContainer.Dock = DockStyle.Fill;
-            panelCitasContainer.Location = new Point(30, 29);
+            panelCitasContainer.Location = new Point(30, 30);
             panelCitasContainer.Name = "panelCitasContainer";
-            panelCitasContainer.Size = new Size(740, 966);
+            panelCitasContainer.Size = new Size(740, 964);
             panelCitasContainer.TabIndex = 19;
             // 
             // panelGrande
             // 
             panelGrande.Controls.Add(panelUsuario);
-            panelGrande.Controls.Add(panel1);
+            panelGrande.Controls.Add(panelFiltros);
             panelGrande.Controls.Add(panelCitas);
             panelGrande.Dock = DockStyle.Fill;
             panelGrande.Location = new Point(0, 0);
             panelGrande.Name = "panelGrande";
-            panelGrande.Size = new Size(1571, 1024);
+            panelGrande.Size = new Size(2082, 1024);
             panelGrande.TabIndex = 24;
             // 
             // panelUsuario
             // 
             panelUsuario.Controls.Add(panelHistorial);
             panelUsuario.Dock = DockStyle.Right;
-            panelUsuario.Location = new Point(-399, 0);
+            panelUsuario.Location = new Point(87, 0);
             panelUsuario.Name = "panelUsuario";
             panelUsuario.Padding = new Padding(30, 29, 30, 29);
             panelUsuario.Size = new Size(800, 1024);
@@ -160,19 +160,19 @@ namespace WinFormsApp1
             panelHistorial.Size = new Size(740, 966);
             panelHistorial.TabIndex = 19;
             // 
-            // panel1
+            // panelFiltros
             // 
-            panel1.Controls.Add(buttonFiltros);
-            panel1.Controls.Add(monthCalendarFiltrar);
-            panel1.Controls.Add(panelCitasHoy);
-            panel1.Controls.Add(comboBoxGrupos);
-            panel1.Controls.Add(panelCitasProximas);
-            panel1.Controls.Add(buttonCitas);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(401, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(370, 1024);
-            panel1.TabIndex = 22;
+            panelFiltros.Controls.Add(buttonFiltros);
+            panelFiltros.Controls.Add(monthCalendarFiltrar);
+            panelFiltros.Controls.Add(panelCitasHoy);
+            panelFiltros.Controls.Add(comboBoxGrupos);
+            panelFiltros.Controls.Add(panelCitasProximas);
+            panelFiltros.Controls.Add(buttonCitas);
+            panelFiltros.Dock = DockStyle.Right;
+            panelFiltros.Location = new Point(887, 0);
+            panelFiltros.Name = "panelFiltros";
+            panelFiltros.Size = new Size(395, 1024);
+            panelFiltros.TabIndex = 22;
             // 
             // buttonFiltros
             // 
@@ -255,9 +255,9 @@ namespace WinFormsApp1
             // 
             panelCitas.Controls.Add(panelCitasContainer);
             panelCitas.Dock = DockStyle.Right;
-            panelCitas.Location = new Point(771, 0);
+            panelCitas.Location = new Point(1282, 0);
             panelCitas.Name = "panelCitas";
-            panelCitas.Padding = new Padding(30, 29, 30, 29);
+            panelCitas.Padding = new Padding(30);
             panelCitas.Size = new Size(800, 1024);
             panelCitas.TabIndex = 21;
             // 
@@ -265,7 +265,7 @@ namespace WinFormsApp1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1571, 1024);
+            ClientSize = new Size(2082, 1024);
             Controls.Add(panelGrande);
             Margin = new Padding(3, 4, 3, 4);
             Name = "PanelPrincipal";
@@ -276,7 +276,7 @@ namespace WinFormsApp1
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).EndInit();
             panelGrande.ResumeLayout(false);
             panelUsuario.ResumeLayout(false);
-            panel1.ResumeLayout(false);
+            panelFiltros.ResumeLayout(false);
             panelCitasHoy.ResumeLayout(false);
             panelCitasHoy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).EndInit();
@@ -309,7 +309,7 @@ namespace WinFormsApp1
         private Button buttonCitas;
         private ComboBox comboBoxGrupos;
         private Panel panelGrande;
-        private Panel panel1;
+        private Panel panelFiltros;
         private Button buttonFiltros;
         private Panel panel2;
         private Panel panel3;

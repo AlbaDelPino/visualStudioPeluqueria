@@ -198,8 +198,6 @@ namespace WinFormsApp1
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
-            if (_usuarioSeleccionado.Id != 0)
-            {
                 Usuario pantallaAnyadir = new Usuario(_token, null);
 
                 if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
@@ -208,7 +206,6 @@ namespace WinFormsApp1
                     CargarTodosLosUsuarios();
                     filtrarUsuarios();
                 }
-            }
         }
 
         private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
