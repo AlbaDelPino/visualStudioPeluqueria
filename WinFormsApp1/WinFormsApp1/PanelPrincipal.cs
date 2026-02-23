@@ -174,7 +174,7 @@ namespace WinFormsApp1
 
             Button btnAccion = new Button
             {
-                Text = "Ver usuario",
+                Text = "Ver historial de usuario",
                 Size = new Size(100, 30),
                 Location = new Point(ancho - 120, 15),
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
@@ -182,22 +182,7 @@ namespace WinFormsApp1
                 Cursor = Cursors.Hand
             };
             btnAccion.Click += (s, e) => {
-                // 1. Obtenemos la lista completa de clientes desde tu API
-                List<ClienteDto> todosLosClientes = ObtenerClientes();
-
-                // 2. Buscamos el cliente específico por ID
-                ClienteDto clienteCompleto = todosLosClientes?.FirstOrDefault(c => c.Id == cita.Cliente.Id);
-
-                if (clienteCompleto != null)
-                {
-                    // 3. Llamamos a VerUsuario pasando los datos completos
-                    VerUsuario(clienteCompleto, cita);
-                }
-                else
-                {
-                    // Fallback: Si no lo encuentra, creamos uno vacío para que no de error
-                    VerUsuario(new ClienteDto { Id = cita.Cliente.Id }, cita);
-                }
+          
             };
 
             
@@ -278,13 +263,6 @@ namespace WinFormsApp1
                     MostrarCitasEnPaneles(_citas);
                 }
             }
-        }
-
-        private void VerUsuario(UsersDto usuario)
-        {
-            Usuario pantallaInfo = new Usuario(usuario, _token, _usuarioActual);
-            
-            pantallaInfo.Show();
         }
 
         private List<CitaDto> ObtenerCitasHoy()

@@ -112,7 +112,7 @@ namespace WinFormsApp1
         {
             if (_usuarioSeleccionado.Id != 0)
             {
-                Historial pantallaHistorial = new Historial();
+                Historial pantallaHistorial = new Historial(_usuarioSeleccionado, _token);
             }
         }
 
