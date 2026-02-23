@@ -35,19 +35,19 @@ namespace WinFormsApp1
         private void InitializeComponent()
         {
             panelTodo = new Panel();
+            panelDiagnostico = new Panel();
+            panelDatos = new Panel();
+            panelTituloDiagnostico = new Panel();
+            labelTituloDiagnostico = new Label();
             panelHistorial = new Panel();
             panelCitas = new Panel();
             panelTituloCitas = new Panel();
             labelTituloCitas = new Label();
-            panelDiagnostico = new Panel();
-            panelTituloDiagnostico = new Panel();
-            labelTituloDiagnostico = new Label();
-            panelDatos = new Panel();
             panelTodo.SuspendLayout();
-            panelHistorial.SuspendLayout();
-            panelTituloCitas.SuspendLayout();
             panelDiagnostico.SuspendLayout();
             panelTituloDiagnostico.SuspendLayout();
+            panelHistorial.SuspendLayout();
+            panelTituloCitas.SuspendLayout();
             SuspendLayout();
             // 
             // panelTodo
@@ -59,6 +59,46 @@ namespace WinFormsApp1
             panelTodo.Name = "panelTodo";
             panelTodo.Size = new Size(409, 677);
             panelTodo.TabIndex = 0;
+            // 
+            // panelDiagnostico
+            // 
+            panelDiagnostico.Controls.Add(panelDatos);
+            panelDiagnostico.Controls.Add(panelTituloDiagnostico);
+            panelDiagnostico.Dock = DockStyle.Fill;
+            panelDiagnostico.Location = new Point(0, 0);
+            panelDiagnostico.Name = "panelDiagnostico";
+            panelDiagnostico.Padding = new Padding(30, 30, 30, 0);
+            panelDiagnostico.Size = new Size(409, 227);
+            panelDiagnostico.TabIndex = 1;
+            // 
+            // panelDatos
+            // 
+            panelDatos.BackColor = SystemColors.ControlLightLight;
+            panelDatos.Dock = DockStyle.Fill;
+            panelDatos.Location = new Point(30, 60);
+            panelDatos.Name = "panelDatos";
+            panelDatos.Size = new Size(349, 167);
+            panelDatos.TabIndex = 3;
+            // 
+            // panelTituloDiagnostico
+            // 
+            panelTituloDiagnostico.Controls.Add(labelTituloDiagnostico);
+            panelTituloDiagnostico.Dock = DockStyle.Top;
+            panelTituloDiagnostico.Location = new Point(30, 30);
+            panelTituloDiagnostico.Name = "panelTituloDiagnostico";
+            panelTituloDiagnostico.Size = new Size(349, 30);
+            panelTituloDiagnostico.TabIndex = 2;
+            // 
+            // labelTituloDiagnostico
+            // 
+            labelTituloDiagnostico.AutoSize = true;
+            labelTituloDiagnostico.Dock = DockStyle.Left;
+            labelTituloDiagnostico.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTituloDiagnostico.Location = new Point(0, 0);
+            labelTituloDiagnostico.Name = "labelTituloDiagnostico";
+            labelTituloDiagnostico.Size = new Size(131, 30);
+            labelTituloDiagnostico.TabIndex = 0;
+            labelTituloDiagnostico.Text = "Diagnostico";
             // 
             // panelHistorial
             // 
@@ -100,46 +140,6 @@ namespace WinFormsApp1
             labelTituloCitas.TabIndex = 0;
             labelTituloCitas.Text = "Citas";
             // 
-            // panelDiagnostico
-            // 
-            panelDiagnostico.Controls.Add(panelDatos);
-            panelDiagnostico.Controls.Add(panelTituloDiagnostico);
-            panelDiagnostico.Dock = DockStyle.Fill;
-            panelDiagnostico.Location = new Point(0, 0);
-            panelDiagnostico.Name = "panelDiagnostico";
-            panelDiagnostico.Padding = new Padding(30, 30, 30, 0);
-            panelDiagnostico.Size = new Size(409, 227);
-            panelDiagnostico.TabIndex = 1;
-            // 
-            // panelTituloDiagnostico
-            // 
-            panelTituloDiagnostico.Controls.Add(labelTituloDiagnostico);
-            panelTituloDiagnostico.Dock = DockStyle.Top;
-            panelTituloDiagnostico.Location = new Point(30, 30);
-            panelTituloDiagnostico.Name = "panelTituloDiagnostico";
-            panelTituloDiagnostico.Size = new Size(349, 30);
-            panelTituloDiagnostico.TabIndex = 2;
-            // 
-            // labelTituloDiagnostico
-            // 
-            labelTituloDiagnostico.AutoSize = true;
-            labelTituloDiagnostico.Dock = DockStyle.Left;
-            labelTituloDiagnostico.Font = new Font("Segoe UI Semibold", 13F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTituloDiagnostico.Location = new Point(0, 0);
-            labelTituloDiagnostico.Name = "labelTituloDiagnostico";
-            labelTituloDiagnostico.Size = new Size(131, 30);
-            labelTituloDiagnostico.TabIndex = 0;
-            labelTituloDiagnostico.Text = "Diagnostico";
-            // 
-            // panelDatos
-            // 
-            panelDatos.BackColor = SystemColors.ControlLightLight;
-            panelDatos.Dock = DockStyle.Fill;
-            panelDatos.Location = new Point(30, 60);
-            panelDatos.Name = "panelDatos";
-            panelDatos.Size = new Size(349, 167);
-            panelDatos.TabIndex = 3;
-            // 
             // Historial
             // 
             BackColor = SystemColors.Control;
@@ -147,14 +147,14 @@ namespace WinFormsApp1
             Controls.Add(panelTodo);
             Name = "Historial";
             Text = "Historial";
-            Load += Historial_Load;
+            Resize += Historial_Resize;
             panelTodo.ResumeLayout(false);
-            panelHistorial.ResumeLayout(false);
-            panelTituloCitas.ResumeLayout(false);
-            panelTituloCitas.PerformLayout();
             panelDiagnostico.ResumeLayout(false);
             panelTituloDiagnostico.ResumeLayout(false);
             panelTituloDiagnostico.PerformLayout();
+            panelHistorial.ResumeLayout(false);
+            panelTituloCitas.ResumeLayout(false);
+            panelTituloCitas.PerformLayout();
             ResumeLayout(false);
         }
 

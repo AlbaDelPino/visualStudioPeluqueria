@@ -119,8 +119,8 @@ namespace WinFormsApp1
                 Text = $"{cita.Estado}",
                 Font = new Font("Segoe UI", 9, FontStyle.Italic),
                 ForeColor = Color.DarkSlateGray,
-                Location = new Point(280, 15),
-                Size = new Size(150, 20),
+                Location = new Point(290, 15),
+                Size = new Size(110, 20),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
@@ -129,7 +129,7 @@ namespace WinFormsApp1
                 Text = $"👤 {cita.Cliente.Nombre}",
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 Location = new Point(15, 40),
-                Size = new Size(ancho - 150, 25),
+                Size = new Size(ancho - 190, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
@@ -139,8 +139,8 @@ namespace WinFormsApp1
                 {
                     Text = $"👥 {cita.Horario.Grupo.Curso}",
                     Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                    Location = new Point(170, 40),
-                    Size = new Size(80, 20),
+                    Location = new Point(180, 40),
+                    Size = new Size(60, 20),
                     TextAlign = ContentAlignment.MiddleLeft
                 };
                 panel.Controls.Add(lblGrupo);
@@ -163,8 +163,8 @@ namespace WinFormsApp1
                     Text = $"{cita.Horario.Servicio.Duracion} min",
                     Font = new Font("Segoe UI", 9, FontStyle.Regular),
                     ForeColor = Color.Gray,
-                    Location = new Point(220, 70),
-                    Size = new Size(80, 25),
+                    Location = new Point(335, 70),
+                    Size = new Size(50, 25),
                     TextAlign = ContentAlignment.MiddleLeft
                 };
                 panel.Controls.Add(lblDuracion);
@@ -174,18 +174,29 @@ namespace WinFormsApp1
 
             Button btnAccion = new Button
             {
-                Text = "Ver historial de usuario",
-                Size = new Size(100, 30),
-                Location = new Point(ancho - 120, 15),
+                Text = "Ver historial del usuario",
+                Size = new Size(150, 30),
+                Location = new Point(ancho - 170, 15),
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
                 Tag = cita.Id,
                 Cursor = Cursors.Hand
             };
-            btnAccion.Click += (s, e) => {
-          
-            };
+            btnAccion.Click += (s, e) => VerHistorial(cita.Cliente);
 
-            
+            if (cita.Estado.Equals("CONFIRMADO"))
+            {
+                Button btnCambiarEstado = new Button
+                {
+                    Text = "Completar",
+                    Size = new Size(100, 30),
+                    Location = new Point(ancho - 120, 50),
+                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                    Tag = cita.Id,
+                    Cursor = Cursors.Hand,
+                };
+                btnCambiarEstado.Click += (s, e) => CompletarCita(cita);
+                panel.Controls.Add(btnCambiarEstado);
+            }
 
             panel.Controls.Add(lblHora);
             panel.Controls.Add(lblFecha);
@@ -265,6 +276,19 @@ namespace WinFormsApp1
             }
         }
 
+        private void VerHistorial(UsersDto usuario)
+        {
+            Historial pantallaHistorial = new Historial(usuario, _token);
+
+            panelHistorial.Controls.Clear();
+            panelHistorial.Dock = DockStyle.Fill;
+            pantallaHistorial.TopLevel = false;
+            pantallaHistorial.FormBorderStyle = FormBorderStyle.None;
+            pantallaHistorial.Dock = DockStyle.Fill;
+            panelHistorial.Controls.Add(pantallaHistorial);
+            pantallaHistorial.Show();
+        }
+
         private List<CitaDto> ObtenerCitasHoy()
         {
             var url = "http://localhost:8082/citas/hoy";
@@ -283,145 +307,6 @@ namespace WinFormsApp1
                 return citas.OrderBy(c => c.Fecha).ToList();
             }
 
-        }
-
-        private void VerUsuario(ClienteDto clienteInfo, CitaDto citaActiva = null)
-        {
-            panelUsuarioContainer.Controls.Clear();
-
-            FlowLayoutPanel contenedorMader = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false,
-                AutoScroll = true,
-                Padding = new Padding(15)
-            };
-            panelUsuarioContainer.Controls.Add(contenedorMader);
-
-            // --- TITULO: NOMBRE DEL USUARIO ---
-            // El nombre viene del objeto Cliente dentro de la Cita
-            string nombreCliente = citaActiva?.Cliente?.Nombre ?? "Usuario sin nombre";
-
-            contenedorMader.Controls.Add(new Label
-            {
-                Text = $"👤 {nombreCliente.ToUpper()}",
-                Font = new Font("Segoe UI", 13, FontStyle.Bold),
-                ForeColor = Color.FromArgb(45, 45, 45),
-                AutoSize = true,
-                Margin = new Padding(0, 0, 0, 15)
-            });
-
-            // --- INFORMACIÓN DE CONTACTO ---
-            contenedorMader.Controls.Add(CrearCampoLectura("📧 CORREO ELECTRÓNICO:", clienteInfo.Email));
-
-            // Formatear teléfono si existe
-            string tel = clienteInfo.Telefono != 0 ? clienteInfo.Telefono.ToString() : "No registrado";
-            contenedorMader.Controls.Add(CrearCampoLectura("📞 TELÉFONO:", tel));
-
-            // --- INFORMACIÓN ADICIONAL ---
-            if (!string.IsNullOrEmpty(clienteInfo.Observacion))
-                contenedorMader.Controls.Add(CrearCampoLectura("📝 OBSERVACIONES GENERALES:", clienteInfo.Observacion));
-
-            if (!string.IsNullOrEmpty(clienteInfo.Alergenos))
-                contenedorMader.Controls.Add(CrearCampoLectura("⚠️ ALÉRGENOS Y ALERTAS:", clienteInfo.Alergenos));
-
-            // --- SECCIÓN DE ACCIÓN (HISTORIAL) ---
-            if (citaActiva != null)
-            {
-                // Separador visual
-                contenedorMader.Controls.Add(new Label { Height = 20 });
-
-                if (citaActiva.Estado.ToUpper() == "COMPLETADO")
-                {
-                    contenedorMader.Controls.Add(new Label
-                    {
-                        Text = "✅ SERVICIO FINALIZADO",
-                        Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                        ForeColor = Color.Green,
-                        AutoSize = true
-                    });
-                    Historial pantallaHistorial = new Historial(citaActiva, _token, _usuarioActual);
-                    ConfigurarFormularioHijo(pantallaHistorial, contenedorMader);
-                }
-                else
-                {
-                    Button btnAccion = new Button
-                    {
-                        Text = "📝 REGISTRAR RESULTADOS",
-                        Size = new Size(panelUsuarioContainer.Width - 60, 45),
-                        BackColor = Color.FromArgb(0, 122, 204),
-                        ForeColor = Color.White,
-                        FlatStyle = FlatStyle.Flat,
-                        Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                        Cursor = Cursors.Hand
-                    };
-
-                    btnAccion.Click += (s, e) => {
-                        contenedorMader.Controls.Remove(btnAccion);
-                        Historial pantallaHistorial = new Historial(citaActiva, _token, _usuarioActual);
-                        ConfigurarFormularioHijo(pantallaHistorial, contenedorMader);
-                    };
-                    contenedorMader.Controls.Add(btnAccion);
-                }
-            }
-        }
-        private Panel CrearCampoLectura(string titulo, string contenido)
-        {
-            // Detectamos si es un campo crítico (Alérgenos) para darle un estilo visual de advertencia
-            bool esAlergeno = titulo.ToUpper().Contains("ALÉRGENOS") || titulo.ToUpper().Contains("ALERGENOS");
-
-            Panel p = new Panel
-            {
-                Width = panelUsuarioContainer.Width - 60,
-                Height = esAlergeno ? 100 : 65, // Damos más espacio si son alérgenos
-                Margin = new Padding(0, 0, 0, 10)
-            };
-
-            Label lbl = new Label
-            {
-                Text = titulo,
-                Dock = DockStyle.Top,
-                Font = new Font("Segoe UI", 8, FontStyle.Bold),
-                ForeColor = esAlergeno ? Color.Red : Color.Gray,
-                Height = 18
-            };
-
-            RichTextBox txt = new RichTextBox
-            {
-                // Si el contenido es nulo o vacío, ponemos guiones para que no quede el hueco feo
-                Text = string.IsNullOrWhiteSpace(contenido) ? "---" : contenido,
-                Dock = DockStyle.Fill,
-                ReadOnly = true,
-                BorderStyle = BorderStyle.None,
-                // Fondo gris suave o rosado si es alerta
-                BackColor = esAlergeno ? Color.MistyRose : Color.FromArgb(245, 245, 245),
-                Font = new Font("Segoe UI", 10, esAlergeno ? FontStyle.Bold : FontStyle.Regular),
-                ScrollBars = RichTextBoxScrollBars.None,
-                TabStop = false // Para que el usuario no salte aquí con el tabulador
-            };
-
-            // Un pequeño truco para quitar el borde del RichTextBox y que parezca una etiqueta plana
-            txt.ContentsResized += (s, e) => {
-                // Opcional: ajustar altura dinámicamente si el texto es muy largo
-            };
-
-            p.Controls.Add(txt);
-            p.Controls.Add(lbl);
-
-            return p;
-        }
-
-        // Método auxiliar para no repetir código al meter el Form Historial en el panel
-        private void ConfigurarFormularioHijo(Form hijo, Control contenedor)
-        {
-            hijo.TopLevel = false;
-            hijo.FormBorderStyle = FormBorderStyle.None;
-            hijo.Width = panelUsuarioContainer.Width - 50;
-            hijo.Dock = DockStyle.Top; // Para que se ajuste al ancho
-            hijo.Height = 400;
-            contenedor.Controls.Add(hijo);
-            hijo.Show();
         }
 
         private List<CitaDto> ObtenerCitasFiltro()
@@ -528,11 +413,10 @@ namespace WinFormsApp1
 
                 return pasaGrupo;
             }).ToList();
-           
+
             MostrarCitasEnPaneles(_citas);
 
         }
-
         private void limpiarFiltros()
         {
             comboBoxGrupos.SelectedIndex = 0;
@@ -547,27 +431,6 @@ namespace WinFormsApp1
         private void buttonFiltros_Click(object sender, EventArgs e)
         {
             limpiarFiltros();
-        }
-        // Método para que el formulario Historial refresque la vista
-        public void RecargarDatos()
-        {
-            // 1. Limpiamos el panel de la derecha (donde está el cliente y el historial)
-            panelUsuarioContainer.Controls.Clear();
-
-            // 2. Volvemos a traer las citas (respetando si hay filtros de fecha o grupo)
-            if (_fechaSeleccionada)
-            {
-                _citas = ObtenerCitasFiltro();
-            }
-            else
-            {
-                _citas = ObtenerCitasHoy();
-            }
-
-            // 3. Aplicamos el filtro de grupo que esté seleccionado en el combo
-            filtrarCitas();
-
-            // Nota: filtrarCitas() ya llama internamente a MostrarCitasEnPaneles(_citas)
         }
     }
 }

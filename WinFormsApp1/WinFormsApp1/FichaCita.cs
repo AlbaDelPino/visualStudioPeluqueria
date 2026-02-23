@@ -112,9 +112,7 @@ namespace WinFormsApp1
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
-                
-
-            
+ 
         }
         }
 

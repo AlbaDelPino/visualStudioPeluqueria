@@ -24,17 +24,56 @@ namespace WinFormsApp1
     {
         private readonly string _token;
         private readonly UsersDto _usuario;
+        private List<CitaDto> _citas;
 
         public Historial(UsersDto usuario, string token)
         {
             InitializeComponent();
             _usuario = usuario;
             _token = token;
+            _citas = new List<CitaDto>();
         }
-
-        private void Historial_Load(object sender, EventArgs e)
+        private void Historial_Resize(object sender, EventArgs e)
         {
+            cargarCitas();
+        }
+        private void cargarCitas()
+        {
+            _citas = ObtenerCitasUsuario().Where(c => c.Estado.ToLower().Equals("completado")).ToList();
+            MostrarCitasEnPaneles(_citas);
+        }
+        private void MostrarCitasEnPaneles(List<CitaDto> citas)
+        {
+            Panel panelContenedor = panelCitas;
+            panelContenedor.Controls.Clear();
 
+            if (_citas == null || _citas.Count == 0)
+            {
+                Label lblNoCitas = new Label
+                {
+                    Text = "✅ No hay citas\nde este usuario",
+                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                    ForeColor = Color.Gray,
+                    Location = new Point(200, 350),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    AutoSize = true
+                };
+                panelContenedor.Controls.Add(lblNoCitas);
+                return;
+            }
+
+            int posicionY = 10;
+            int anchoPanel = panelContenedor.Width - 75;
+
+            foreach (CitaDto cita in _citas)
+            {
+                Panel panelCita = CrearPanelCita(cita, anchoPanel);
+                panelCita.Location = new Point(10, posicionY);
+                panelContenedor.Controls.Add(panelCita);
+
+                posicionY += panelCita.Height + 10;
+            }
+            panelContenedor.AutoScroll = true;
         }
         private Panel CrearPanelCita(CitaDto cita, int ancho)
         {
@@ -42,20 +81,9 @@ namespace WinFormsApp1
             {
                 Size = new Size(ancho, 100),
                 BorderStyle = BorderStyle.FixedSingle,
-                BackColor = ObtenerColorEstado(cita.Estado),
+                BackColor = SystemColors.Control,
                 Padding = new Padding(10),
                 Tag = cita.Id
-            };
-
-
-            Label lblHora = new Label
-            {
-                Text = $"🕒 {cita.HoraInicio:HH:mm}",
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                ForeColor = Color.DarkBlue,
-                Location = new Point(15, 15),
-                Size = new Size(80, 25),
-                TextAlign = ContentAlignment.MiddleLeft
             };
 
             var fecha = $"{cita.Fecha.Day:00}/{cita.Fecha.Month:00}/{cita.Fecha.Year}";
@@ -63,43 +91,20 @@ namespace WinFormsApp1
             {
                 Text = $"🗓️ {fecha}",
                 Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                ForeColor = Color.DarkBlue,
                 Location = new Point(120, 15),
                 Size = new Size(150, 25),
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
-            Label lblEstado = new Label
+            Label lblGrupo = new Label
             {
-                Text = $"{cita.Estado}",
-                Font = new Font("Segoe UI", 9, FontStyle.Italic),
-                ForeColor = Color.DarkSlateGray,
-                Location = new Point(280, 15),
-                Size = new Size(150, 20),
+                Text = $"👥 {cita.Horario.Grupo.Curso}",
+                Font = new Font("Segoe UI", 9, FontStyle.Regular),
+                Location = new Point(170, 40),
+                Size = new Size(80, 20),
                 TextAlign = ContentAlignment.MiddleLeft
             };
-
-            Label lblCliente = new Label
-            {
-                Text = $"👤 {cita.Cliente.Nombre}",
-                Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                Location = new Point(15, 40),
-                Size = new Size(ancho - 150, 25),
-                TextAlign = ContentAlignment.MiddleLeft
-            };
-
-            if (_usuarioActual.Role.Equals("ROLE_ADMIN"))
-            {
-                Label lblGrupo = new Label
-                {
-                    Text = $"👥 {cita.Horario.Grupo.Curso}",
-                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                    Location = new Point(170, 40),
-                    Size = new Size(80, 20),
-                    TextAlign = ContentAlignment.MiddleLeft
-                };
-                panel.Controls.Add(lblGrupo);
-            }
+            panel.Controls.Add(lblGrupo);
 
             Label lblServicio = new Label
             {
@@ -110,59 +115,39 @@ namespace WinFormsApp1
                 TextAlign = ContentAlignment.MiddleLeft
             };
 
-
-            if (cita.Horario?.Servicio?.Duracion > 0)
+            Label lblProductos = new Label
             {
-                Label lblDuracion = new Label
-                {
-                    Text = $"{cita.Horario.Servicio.Duracion} min",
-                    Font = new Font("Segoe UI", 9, FontStyle.Regular),
-                    ForeColor = Color.Gray,
-                    Location = new Point(220, 70),
-                    Size = new Size(80, 25),
-                    TextAlign = ContentAlignment.MiddleLeft
-                };
-                panel.Controls.Add(lblDuracion);
-            }
-
-
+                Text = $"📋 {cita.Productos ?? " "}",
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                Location = new Point(35, 70),
+                Size = new Size(ancho - 220, 25),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            Label lblTratamientos = new Label
+            {
+                Text = $"📋 {cita.Tratamientos ?? " "}",
+                Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                Location = new Point(55, 70),
+                Size = new Size(ancho - 220, 25),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
 
             Button btnAccion = new Button
             {
-                Text = "Ver usuario",
+                Text = "Ver información de la cita",
                 Size = new Size(100, 30),
                 Location = new Point(ancho - 120, 15),
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
                 Tag = cita.Id,
                 Cursor = Cursors.Hand
             };
-            btnAccion.Click += (s, e) => {
-                // 1. Obtenemos la lista completa de clientes desde tu API
-                List<ClienteDto> todosLosClientes = ObtenerClientes();
+            btnAccion.Click += (s, e) => VerInfo(cita);
 
-                // 2. Buscamos el cliente específico por ID
-                ClienteDto clienteCompleto = todosLosClientes?.FirstOrDefault(c => c.Id == cita.Cliente.Id);
-
-                if (clienteCompleto != null)
-                {
-                    // 3. Llamamos a VerUsuario pasando los datos completos
-                    VerUsuario(clienteCompleto, cita);
-                }
-                else
-                {
-                    // Fallback: Si no lo encuentra, creamos uno vacío para que no de error
-                    VerUsuario(new ClienteDto { Id = cita.Cliente.Id }, cita);
-                }
-            };
-
-
-
-            panel.Controls.Add(lblHora);
             panel.Controls.Add(lblFecha);
             panel.Controls.Add(lblServicio);
-            panel.Controls.Add(lblCliente);
-            panel.Controls.Add(lblEstado);
             panel.Controls.Add(btnAccion);
+            panel.Controls.Add(lblProductos);
+            panel.Controls.Add(lblTratamientos);
 
 
             panel.Cursor = Cursors.Hand;
@@ -194,14 +179,17 @@ namespace WinFormsApp1
 
             panel.MouseLeave += (s, e) =>
             {
-                panel.BackColor = ObtenerColorEstado(cita.Estado);
+                panel.BackColor = SystemColors.Control;
                 panel.BorderStyle = BorderStyle.FixedSingle;
             };
 
 
             return panel;
         }
-
+        private void VerInfo(CitaDto cita)
+        {
+            //
+        }
 
         private List<CitaDto> ObtenerCitasUsuario()
         {

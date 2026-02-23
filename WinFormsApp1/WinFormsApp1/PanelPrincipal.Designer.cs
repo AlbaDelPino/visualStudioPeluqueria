@@ -39,6 +39,8 @@ namespace WinFormsApp1
             monthCalendarFiltrar = new MyMonthCalendar();
             panelCitasContainer = new Panel();
             panelGrande = new Panel();
+            panelUsuario = new Panel();
+            panelHistorial = new Panel();
             panel1 = new Panel();
             buttonFiltros = new Button();
             panelCitasHoy = new Panel();
@@ -48,16 +50,14 @@ namespace WinFormsApp1
             comboBoxGrupos = new ComboBox();
             buttonCitas = new Button();
             panelCitas = new Panel();
-            panelUsuario = new Panel();
-            panelUsuarioContainer = new Panel();
             panelCitasProximas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).BeginInit();
             panelGrande.SuspendLayout();
+            panelUsuario.SuspendLayout();
             panel1.SuspendLayout();
             panelCitasHoy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).BeginInit();
             panelCitas.SuspendLayout();
-            panelUsuario.SuspendLayout();
             SuspendLayout();
             // 
             // panelCitasProximas
@@ -68,10 +68,10 @@ namespace WinFormsApp1
             panelCitasProximas.Controls.Add(labelCitasProximas);
             panelCitasProximas.Controls.Add(pictureBoxCitasProximas);
             panelCitasProximas.ForeColor = SystemColors.ControlDarkDark;
-            panelCitasProximas.Location = new Point(21, 26);
-            panelCitasProximas.Margin = new Padding(4, 3, 4, 3);
+            panelCitasProximas.Location = new Point(24, 35);
+            panelCitasProximas.Margin = new Padding(5, 4, 5, 4);
             panelCitasProximas.Name = "panelCitasProximas";
-            panelCitasProximas.Size = new Size(142, 85);
+            panelCitasProximas.Size = new Size(162, 113);
             panelCitasProximas.TabIndex = 15;
             // 
             // labelNumCitasProximas
@@ -79,10 +79,10 @@ namespace WinFormsApp1
             labelNumCitasProximas.AutoSize = true;
             labelNumCitasProximas.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumCitasProximas.ForeColor = SystemColors.ControlText;
-            labelNumCitasProximas.Location = new Point(58, 42);
-            labelNumCitasProximas.Margin = new Padding(4, 0, 4, 0);
+            labelNumCitasProximas.Location = new Point(66, 56);
+            labelNumCitasProximas.Margin = new Padding(5, 0, 5, 0);
             labelNumCitasProximas.Name = "labelNumCitasProximas";
-            labelNumCitasProximas.Size = new Size(34, 25);
+            labelNumCitasProximas.Size = new Size(41, 29);
             labelNumCitasProximas.TabIndex = 2;
             labelNumCitasProximas.Text = "23";
             // 
@@ -90,20 +90,20 @@ namespace WinFormsApp1
             // 
             labelCitasProximas.AutoSize = true;
             labelCitasProximas.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitasProximas.Location = new Point(16, 18);
-            labelCitasProximas.Margin = new Padding(4, 0, 4, 0);
+            labelCitasProximas.Location = new Point(18, 24);
+            labelCitasProximas.Margin = new Padding(5, 0, 5, 0);
             labelCitasProximas.Name = "labelCitasProximas";
-            labelCitasProximas.Size = new Size(95, 17);
+            labelCitasProximas.Size = new Size(117, 20);
             labelCitasProximas.TabIndex = 0;
             labelCitasProximas.Text = "Póximas Citas";
             // 
             // pictureBoxCitasProximas
             // 
             pictureBoxCitasProximas.Image = Properties.Resources.cita_previa;
-            pictureBoxCitasProximas.Location = new Point(20, 33);
-            pictureBoxCitasProximas.Margin = new Padding(4, 3, 4, 3);
+            pictureBoxCitasProximas.Location = new Point(23, 44);
+            pictureBoxCitasProximas.Margin = new Padding(5, 4, 5, 4);
             pictureBoxCitasProximas.Name = "pictureBoxCitasProximas";
-            pictureBoxCitasProximas.Size = new Size(38, 38);
+            pictureBoxCitasProximas.Size = new Size(43, 51);
             pictureBoxCitasProximas.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCitasProximas.TabIndex = 1;
             pictureBoxCitasProximas.TabStop = false;
@@ -111,8 +111,7 @@ namespace WinFormsApp1
             // monthCalendarFiltrar
             // 
             monthCalendarFiltrar.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendarFiltrar.Location = new Point(27, 194);
-            monthCalendarFiltrar.Margin = new Padding(8, 7, 8, 7);
+            monthCalendarFiltrar.Location = new Point(31, 259);
             monthCalendarFiltrar.MaxSelectionCount = 31;
             monthCalendarFiltrar.Name = "monthCalendarFiltrar";
             monthCalendarFiltrar.RightToLeft = RightToLeft.Yes;
@@ -126,10 +125,9 @@ namespace WinFormsApp1
             // 
             panelCitasContainer.BackColor = Color.White;
             panelCitasContainer.Dock = DockStyle.Fill;
-            panelCitasContainer.Location = new Point(26, 22);
-            panelCitasContainer.Margin = new Padding(3, 2, 3, 2);
+            panelCitasContainer.Location = new Point(30, 29);
             panelCitasContainer.Name = "panelCitasContainer";
-            panelCitasContainer.Size = new Size(598, 724);
+            panelCitasContainer.Size = new Size(740, 966);
             panelCitasContainer.TabIndex = 19;
             // 
             // panelGrande
@@ -139,10 +137,28 @@ namespace WinFormsApp1
             panelGrande.Controls.Add(panelCitas);
             panelGrande.Dock = DockStyle.Fill;
             panelGrande.Location = new Point(0, 0);
-            panelGrande.Margin = new Padding(3, 2, 3, 2);
             panelGrande.Name = "panelGrande";
-            panelGrande.Size = new Size(1375, 768);
+            panelGrande.Size = new Size(1571, 1024);
             panelGrande.TabIndex = 24;
+            // 
+            // panelUsuario
+            // 
+            panelUsuario.Controls.Add(panelHistorial);
+            panelUsuario.Dock = DockStyle.Right;
+            panelUsuario.Location = new Point(-399, 0);
+            panelUsuario.Name = "panelUsuario";
+            panelUsuario.Padding = new Padding(30, 29, 30, 29);
+            panelUsuario.Size = new Size(800, 1024);
+            panelUsuario.TabIndex = 23;
+            // 
+            // panelHistorial
+            // 
+            panelHistorial.BackColor = Color.White;
+            panelHistorial.Dock = DockStyle.Fill;
+            panelHistorial.Location = new Point(30, 29);
+            panelHistorial.Name = "panelHistorial";
+            panelHistorial.Size = new Size(740, 966);
+            panelHistorial.TabIndex = 19;
             // 
             // panel1
             // 
@@ -154,17 +170,15 @@ namespace WinFormsApp1
             panel1.Controls.Add(buttonCitas);
             panel1.Dock = DockStyle.Right;
             panel1.Location = new Point(401, 0);
-            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(324, 768);
+            panel1.Size = new Size(370, 1024);
             panel1.TabIndex = 22;
             // 
             // buttonFiltros
             // 
-            buttonFiltros.Location = new Point(51, 585);
-            buttonFiltros.Margin = new Padding(3, 2, 3, 2);
+            buttonFiltros.Location = new Point(58, 780);
             buttonFiltros.Name = "buttonFiltros";
-            buttonFiltros.Size = new Size(226, 22);
+            buttonFiltros.Size = new Size(258, 29);
             buttonFiltros.TabIndex = 25;
             buttonFiltros.Text = "Ver todas las citas de hoy";
             buttonFiltros.UseVisualStyleBackColor = true;
@@ -178,10 +192,10 @@ namespace WinFormsApp1
             panelCitasHoy.Controls.Add(labelCitasHoy);
             panelCitasHoy.Controls.Add(pictureBoxCitasHoy);
             panelCitasHoy.ForeColor = SystemColors.ControlDarkDark;
-            panelCitasHoy.Location = new Point(182, 26);
-            panelCitasHoy.Margin = new Padding(4, 3, 4, 3);
+            panelCitasHoy.Location = new Point(208, 35);
+            panelCitasHoy.Margin = new Padding(5, 4, 5, 4);
             panelCitasHoy.Name = "panelCitasHoy";
-            panelCitasHoy.Size = new Size(142, 85);
+            panelCitasHoy.Size = new Size(162, 113);
             panelCitasHoy.TabIndex = 20;
             // 
             // labelNumCitasHoy
@@ -189,10 +203,10 @@ namespace WinFormsApp1
             labelNumCitasHoy.AutoSize = true;
             labelNumCitasHoy.Font = new Font("Microsoft Sans Serif", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             labelNumCitasHoy.ForeColor = SystemColors.ControlText;
-            labelNumCitasHoy.Location = new Point(58, 42);
-            labelNumCitasHoy.Margin = new Padding(4, 0, 4, 0);
+            labelNumCitasHoy.Location = new Point(66, 56);
+            labelNumCitasHoy.Margin = new Padding(5, 0, 5, 0);
             labelNumCitasHoy.Name = "labelNumCitasHoy";
-            labelNumCitasHoy.Size = new Size(34, 25);
+            labelNumCitasHoy.Size = new Size(41, 29);
             labelNumCitasHoy.TabIndex = 2;
             labelNumCitasHoy.Text = "23";
             // 
@@ -200,20 +214,20 @@ namespace WinFormsApp1
             // 
             labelCitasHoy.AutoSize = true;
             labelCitasHoy.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCitasHoy.Location = new Point(16, 18);
-            labelCitasHoy.Margin = new Padding(4, 0, 4, 0);
+            labelCitasHoy.Location = new Point(18, 24);
+            labelCitasHoy.Margin = new Padding(5, 0, 5, 0);
             labelCitasHoy.Name = "labelCitasHoy";
-            labelCitasHoy.Size = new Size(68, 17);
+            labelCitasHoy.Size = new Size(83, 20);
             labelCitasHoy.TabIndex = 0;
             labelCitasHoy.Text = "Citas Hoy";
             // 
             // pictureBoxCitasHoy
             // 
             pictureBoxCitasHoy.Image = Properties.Resources.citas;
-            pictureBoxCitasHoy.Location = new Point(20, 33);
-            pictureBoxCitasHoy.Margin = new Padding(4, 3, 4, 3);
+            pictureBoxCitasHoy.Location = new Point(23, 44);
+            pictureBoxCitasHoy.Margin = new Padding(5, 4, 5, 4);
             pictureBoxCitasHoy.Name = "pictureBoxCitasHoy";
-            pictureBoxCitasHoy.Size = new Size(38, 38);
+            pictureBoxCitasHoy.Size = new Size(43, 51);
             pictureBoxCitasHoy.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxCitasHoy.TabIndex = 1;
             pictureBoxCitasHoy.TabStop = false;
@@ -221,19 +235,17 @@ namespace WinFormsApp1
             // comboBoxGrupos
             // 
             comboBoxGrupos.FormattingEnabled = true;
-            comboBoxGrupos.Location = new Point(51, 548);
-            comboBoxGrupos.Margin = new Padding(3, 2, 3, 2);
+            comboBoxGrupos.Location = new Point(58, 731);
             comboBoxGrupos.Name = "comboBoxGrupos";
-            comboBoxGrupos.Size = new Size(226, 23);
+            comboBoxGrupos.Size = new Size(258, 28);
             comboBoxGrupos.TabIndex = 24;
             comboBoxGrupos.SelectedIndexChanged += comboBoxGrupos_SelectedIndexChanged;
             // 
             // buttonCitas
             // 
-            buttonCitas.Location = new Point(51, 622);
-            buttonCitas.Margin = new Padding(3, 2, 3, 2);
+            buttonCitas.Location = new Point(58, 829);
             buttonCitas.Name = "buttonCitas";
-            buttonCitas.Size = new Size(226, 22);
+            buttonCitas.Size = new Size(258, 29);
             buttonCitas.TabIndex = 23;
             buttonCitas.Text = "Ir al panel de citas";
             buttonCitas.UseVisualStyleBackColor = true;
@@ -243,40 +255,19 @@ namespace WinFormsApp1
             // 
             panelCitas.Controls.Add(panelCitasContainer);
             panelCitas.Dock = DockStyle.Right;
-            panelCitas.Location = new Point(725, 0);
-            panelCitas.Margin = new Padding(3, 2, 3, 2);
+            panelCitas.Location = new Point(771, 0);
             panelCitas.Name = "panelCitas";
-            panelCitas.Padding = new Padding(26, 22, 26, 22);
-            panelCitas.Size = new Size(650, 768);
+            panelCitas.Padding = new Padding(30, 29, 30, 29);
+            panelCitas.Size = new Size(800, 1024);
             panelCitas.TabIndex = 21;
-            // 
-            // panelUsuario
-            // 
-            panelUsuario.Controls.Add(panelUsuarioContainer);
-            panelUsuario.Dock = DockStyle.Right;
-            panelUsuario.Location = new Point(-255, 0);
-            panelUsuario.Margin = new Padding(3, 2, 3, 2);
-            panelUsuario.Name = "panelUsuario";
-            panelUsuario.Padding = new Padding(26, 22, 26, 22);
-            panelUsuario.Size = new Size(656, 768);
-            panelUsuario.TabIndex = 23;
-            // 
-            // panelUsuarioContainer
-            // 
-            panelUsuarioContainer.BackColor = Color.White;
-            panelUsuarioContainer.Dock = DockStyle.Fill;
-            panelUsuarioContainer.Location = new Point(26, 22);
-            panelUsuarioContainer.Margin = new Padding(3, 2, 3, 2);
-            panelUsuarioContainer.Name = "panelUsuarioContainer";
-            panelUsuarioContainer.Size = new Size(604, 724);
-            panelUsuarioContainer.TabIndex = 19;
             // 
             // PanelPrincipal
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1375, 768);
+            ClientSize = new Size(1571, 1024);
             Controls.Add(panelGrande);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "PanelPrincipal";
             Text = "PanelPrincipal";
             Load += PanelPrincipal_Load;
@@ -284,12 +275,12 @@ namespace WinFormsApp1
             panelCitasProximas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasProximas).EndInit();
             panelGrande.ResumeLayout(false);
+            panelUsuario.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panelCitasHoy.ResumeLayout(false);
             panelCitasHoy.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxCitasHoy).EndInit();
             panelCitas.ResumeLayout(false);
-            panelUsuario.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -323,6 +314,6 @@ namespace WinFormsApp1
         private Panel panel2;
         private Panel panel3;
         private Panel panelUsuario;
-        private Panel panelUsuarioContainer;
+        private Panel panelHistorial;
     }
 }

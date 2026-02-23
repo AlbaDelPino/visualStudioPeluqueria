@@ -260,7 +260,9 @@ namespace WinFormsApp1
                 _bloques = bloquesDisponibles();
                 if (textBoxCitFecha.Text != "" && textBoxCitServicio.Text != "")
                 {
+                    textBoxCitGrupo.Text = "";
                     cargarHoras();
+                    
                 }
             }
         }
@@ -286,6 +288,7 @@ namespace WinFormsApp1
             }
             else
             {
+                textBoxCitGrupo.Text = "";
                 comboBoxCitHora.Text = "Estas horas están llenas o son pasadas";
             }
         }
