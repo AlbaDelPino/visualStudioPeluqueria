@@ -38,9 +38,8 @@ namespace WinFormsApp1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Bloqueo));
             pictureBoxICon = new PictureBox();
-            textBoxCitFecha = new TextBox();
             buttonHorarios = new Button();
-            textBoxHorarios = new TextBox();
+            textBoxHorarios = new WinFormsApp1.Usuario.RoundedTextBox();
             buttonAnyadir = new Button();
             labelHorarios = new Label();
             CalendarCitas = new WinFormsApp1.Cita.MyMonthCalendar();
@@ -48,9 +47,10 @@ namespace WinFormsApp1
             labelCitFecha = new Label();
             radioButtonAnual = new RadioButton();
             radioButtonPuntual = new RadioButton();
-            textBoxMotivo = new TextBox();
+            textBoxMotivo = new WinFormsApp1.Usuario.RoundedTextBox();
             labelMotivo = new Label();
             buttonModificar = new Button();
+            textBoxCitFecha = new WinFormsApp1.Usuario.RoundedTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
             // 
@@ -67,15 +67,6 @@ namespace WinFormsApp1
             pictureBoxICon.TabIndex = 1;
             pictureBoxICon.TabStop = false;
             // 
-            // textBoxCitFecha
-            // 
-            textBoxCitFecha.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCitFecha.Location = new Point(585, 110);
-            textBoxCitFecha.Name = "textBoxCitFecha";
-            textBoxCitFecha.ReadOnly = true;
-            textBoxCitFecha.Size = new Size(145, 27);
-            textBoxCitFecha.TabIndex = 106;
-            // 
             // buttonHorarios
             // 
             buttonHorarios.Location = new Point(585, 158);
@@ -89,11 +80,16 @@ namespace WinFormsApp1
             // 
             // textBoxHorarios
             // 
+            textBoxHorarios.BackColor = SystemColors.Control;
+            textBoxHorarios.BorderColor = SystemColors.ControlDarkDark;
+            textBoxHorarios.BorderRadius = 10;
+            textBoxHorarios.BorderSize = 1;
             textBoxHorarios.Location = new Point(508, 196);
             textBoxHorarios.Margin = new Padding(3, 4, 3, 4);
             textBoxHorarios.Name = "textBoxHorarios";
+            textBoxHorarios.PasswordChar = '\0';
             textBoxHorarios.ReadOnly = true;
-            textBoxHorarios.Size = new Size(222, 27);
+            textBoxHorarios.Size = new Size(222, 32);
             textBoxHorarios.TabIndex = 98;
             // 
             // buttonAnyadir
@@ -186,10 +182,16 @@ namespace WinFormsApp1
             // 
             // textBoxMotivo
             // 
+            textBoxMotivo.BackColor = SystemColors.ControlLightLight;
+            textBoxMotivo.BorderColor = SystemColors.ControlDarkDark;
+            textBoxMotivo.BorderRadius = 10;
+            textBoxMotivo.BorderSize = 1;
             textBoxMotivo.Location = new Point(508, 283);
             textBoxMotivo.Margin = new Padding(3, 4, 3, 4);
             textBoxMotivo.Name = "textBoxMotivo";
-            textBoxMotivo.Size = new Size(222, 27);
+            textBoxMotivo.PasswordChar = '\0';
+            textBoxMotivo.ReadOnly = false;
+            textBoxMotivo.Size = new Size(222, 32);
             textBoxMotivo.TabIndex = 112;
             // 
             // labelMotivo
@@ -218,15 +220,28 @@ namespace WinFormsApp1
             buttonModificar.UseVisualStyleBackColor = false;
             buttonModificar.Click += buttonModificar_Click;
             // 
+            // textBoxCitFecha
+            // 
+            textBoxCitFecha.BackColor = SystemColors.Control;
+            textBoxCitFecha.BorderColor = SystemColors.ControlDarkDark;
+            textBoxCitFecha.BorderRadius = 10;
+            textBoxCitFecha.BorderSize = 1;
+            textBoxCitFecha.Location = new Point(585, 110);
+            textBoxCitFecha.Name = "textBoxCitFecha";
+            textBoxCitFecha.PasswordChar = '\0';
+            textBoxCitFecha.ReadOnly = true;
+            textBoxCitFecha.Size = new Size(145, 32);
+            textBoxCitFecha.TabIndex = 114;
+            // 
             // Bloqueo
             // 
             ClientSize = new Size(779, 433);
+            Controls.Add(textBoxCitFecha);
             Controls.Add(buttonModificar);
             Controls.Add(textBoxMotivo);
             Controls.Add(labelMotivo);
             Controls.Add(radioButtonPuntual);
             Controls.Add(radioButtonAnual);
-            Controls.Add(textBoxCitFecha);
             Controls.Add(buttonHorarios);
             Controls.Add(textBoxHorarios);
             Controls.Add(buttonAnyadir);
@@ -247,9 +262,8 @@ namespace WinFormsApp1
         #endregion
 
         private PictureBox pictureBoxICon;
-        private TextBox textBoxCitFecha;
         private Button buttonHorarios;
-        private TextBox textBoxHorarios;
+        private Usuario.RoundedTextBox textBoxHorarios;
         private Button buttonAnyadir;
         private Label labelHorarios;
         private Cita.MyMonthCalendar CalendarCitas;
@@ -257,8 +271,9 @@ namespace WinFormsApp1
         private Label labelCitFecha;
         private RadioButton radioButtonAnual;
         private RadioButton radioButtonPuntual;
-        private TextBox textBoxMotivo;
+        private Usuario.RoundedTextBox textBoxMotivo;
         private Label labelMotivo;
         private Button buttonModificar;
+        private Usuario.RoundedTextBox textBoxCitFecha;
     }
 }

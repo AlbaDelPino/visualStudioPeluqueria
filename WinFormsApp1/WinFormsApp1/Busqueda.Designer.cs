@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Busqueda));
             Tabla = new DataGridView();
-            textBoxBuscar = new TextBox();
+            textBoxBuscar = new WinFormsApp1.Usuario.RoundedTextBox();
             labelTituoIBuscar = new Label();
             buttonSeleccionar = new Button();
             buttonTodoDia = new Button();
@@ -51,21 +51,28 @@
             // 
             // textBoxBuscar
             // 
+            textBoxBuscar.BackColor = SystemColors.ControlLightLight;
+            textBoxBuscar.BorderColor = SystemColors.ControlDarkDark;
+            textBoxBuscar.BorderRadius = 10;
+            textBoxBuscar.BorderSize = 1;
             textBoxBuscar.Location = new Point(107, 118);
             textBoxBuscar.Margin = new Padding(3, 4, 3, 4);
             textBoxBuscar.Name = "textBoxBuscar";
-            textBoxBuscar.Size = new Size(702, 27);
+            textBoxBuscar.PasswordChar = '\0';
+            textBoxBuscar.ReadOnly = false;
+            textBoxBuscar.Size = new Size(702, 32);
             textBoxBuscar.TabIndex = 1;
             // 
             // labelTituoIBuscar
             // 
             labelTituoIBuscar.AutoSize = true;
-            labelTituoIBuscar.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoIBuscar.Location = new Point(107, 73);
+            labelTituoIBuscar.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
+            labelTituoIBuscar.ForeColor = SystemColors.ControlDarkDark;
+            labelTituoIBuscar.Location = new Point(107, 65);
             labelTituoIBuscar.Name = "labelTituoIBuscar";
-            labelTituoIBuscar.Size = new Size(176, 32);
+            labelTituoIBuscar.Size = new Size(265, 50);
             labelTituoIBuscar.TabIndex = 50;
-            labelTituoIBuscar.Text = "Selecione Uno";
+            labelTituoIBuscar.Text = "Selecione uno";
             // 
             // buttonSeleccionar
             // 
@@ -117,7 +124,7 @@
         #endregion
 
         private DataGridView Tabla;
-        private TextBox textBoxBuscar;
+        private Usuario.RoundedTextBox textBoxBuscar;
         private Label labelTituoIBuscar;
         private Button buttonSeleccionar;
         private Button buttonTodoDia;

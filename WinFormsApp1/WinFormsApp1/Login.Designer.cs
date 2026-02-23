@@ -94,13 +94,17 @@
             // 
             // buttonInicioSesion
             // 
+            buttonInicioSesion.BackColor = Color.DarkOrange;
+            buttonInicioSesion.FlatStyle = FlatStyle.Flat;
+            buttonInicioSesion.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            buttonInicioSesion.ForeColor = SystemColors.ControlLightLight;
             buttonInicioSesion.Location = new Point(456, 311);
             buttonInicioSesion.Margin = new Padding(3, 4, 3, 4);
             buttonInicioSesion.Name = "buttonInicioSesion";
-            buttonInicioSesion.Size = new Size(86, 31);
+            buttonInicioSesion.Size = new Size(86, 40);
             buttonInicioSesion.TabIndex = 3;
             buttonInicioSesion.Text = "Iniciar Session";
-            buttonInicioSesion.UseVisualStyleBackColor = true;
+            buttonInicioSesion.UseVisualStyleBackColor = false;
             buttonInicioSesion.Click += buttonInicioSesion_Click;
             // 
             // labelTituoInicioSesion

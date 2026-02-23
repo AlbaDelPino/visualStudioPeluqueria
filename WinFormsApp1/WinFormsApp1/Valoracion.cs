@@ -44,7 +44,7 @@ namespace WinFormsApp1
             // labelTituloPrincipal.Text = $"Valoración: {v.Puntuacion}/5 - {v.Comentario}";
 
             // --- COMENTARIO (EL TRATO) ---
-            TextBoxComentario.Text = string.IsNullOrEmpty(v.Comentario) ? "Sin comentario" : v.Comentario;
+            richTextBoxComentario.Text = string.IsNullOrEmpty(v.Comentario) ? "Sin comentario" : v.Comentario;
 
             // --- PUNTUACIONES DETALLADAS ---
             // Aquí mapeamos cada nota a sus respectivos Labels (ajusta los nombres a los tuyos)
