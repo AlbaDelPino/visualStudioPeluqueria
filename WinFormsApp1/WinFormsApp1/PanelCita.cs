@@ -162,7 +162,7 @@ namespace WinFormsApp1
         {
             if (_citaSeleccionada.Estado != null)
             {
-                if (_citaSeleccionada.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) <= 0)
+                if (_citaSeleccionada.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) > 0)
                 {
                     if (_citaSeleccionada.Estado.Equals("CONFIRMADO"))
                     {
@@ -219,13 +219,15 @@ namespace WinFormsApp1
                         MessageBox.Show($"No se puede cancelar una cita completada", "Error",
                                                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
                 }
-                else if (_citaSeleccionada.Estado.Equals("CANCELADO"))
+                else 
                 {
                     MessageBox.Show($"No se puede cancelar una cita pasada", "Error",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
+
             }
         }
 
