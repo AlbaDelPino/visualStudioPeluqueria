@@ -110,9 +110,10 @@ namespace WinFormsApp1
 
         private void buttonHistorial_Click(object sender, EventArgs e)
         {
-            if (_usuarioSeleccionado.Id != 0)
+            if (_usuarioSeleccionado.Id != 0 || _usuarioSeleccionado.Role.ToUpper().Equals("ROLE_CLIENTE"))
             {
                 Historial pantallaHistorial = new Historial(_usuarioSeleccionado, _token);
+                pantallaHistorial.Show();
             }
         }
 

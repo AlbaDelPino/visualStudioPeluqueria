@@ -34,6 +34,7 @@ namespace WinFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Historial));
             panelTodo = new Panel();
             panelDiagnostico = new Panel();
             panelHistorial = new Panel();
@@ -108,6 +109,7 @@ namespace WinFormsApp1
             BackColor = SystemColors.Control;
             ClientSize = new Size(409, 677);
             Controls.Add(panelTodo);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Historial";
             Text = "Historial";
             Resize += Historial_Resize;

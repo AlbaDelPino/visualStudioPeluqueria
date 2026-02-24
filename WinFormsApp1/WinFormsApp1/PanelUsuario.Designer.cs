@@ -112,7 +112,7 @@
             panelCliente.Controls.Add(labelNumClientes);
             panelCliente.Controls.Add(labelCliente);
             panelCliente.ForeColor = SystemColors.ControlDarkDark;
-            panelCliente.Location = new Point(82, 356);
+            panelCliente.Location = new Point(82, 656);
             panelCliente.Margin = new Padding(5, 4, 5, 4);
             panelCliente.Name = "panelCliente";
             panelCliente.Size = new Size(180, 110);
@@ -160,7 +160,7 @@
             panelUsuarios.Controls.Add(labelUsuarios);
             panelUsuarios.Controls.Add(pictureUsuarios);
             panelUsuarios.ForeColor = SystemColors.ControlDarkDark;
-            panelUsuarios.Location = new Point(82, 235);
+            panelUsuarios.Location = new Point(82, 535);
             panelUsuarios.Margin = new Padding(5, 4, 5, 4);
             panelUsuarios.Name = "panelUsuarios";
             panelUsuarios.Size = new Size(180, 110);

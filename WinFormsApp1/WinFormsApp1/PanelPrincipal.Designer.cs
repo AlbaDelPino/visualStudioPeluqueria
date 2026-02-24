@@ -145,7 +145,7 @@ namespace WinFormsApp1
             // 
             panelUsuario.Controls.Add(panelHistorial);
             panelUsuario.Dock = DockStyle.Right;
-            panelUsuario.Location = new Point(87, 0);
+            panelUsuario.Location = new Point(92, 0);
             panelUsuario.Name = "panelUsuario";
             panelUsuario.Padding = new Padding(30, 29, 30, 29);
             panelUsuario.Size = new Size(800, 1024);
@@ -169,9 +169,9 @@ namespace WinFormsApp1
             panelFiltros.Controls.Add(panelCitasProximas);
             panelFiltros.Controls.Add(buttonCitas);
             panelFiltros.Dock = DockStyle.Right;
-            panelFiltros.Location = new Point(887, 0);
+            panelFiltros.Location = new Point(892, 0);
             panelFiltros.Name = "panelFiltros";
-            panelFiltros.Size = new Size(395, 1024);
+            panelFiltros.Size = new Size(390, 1024);
             panelFiltros.TabIndex = 22;
             // 
             // buttonFiltros
