@@ -62,36 +62,40 @@
             // labelTrato
             // 
             labelTrato.AutoSize = true;
-            labelTrato.Location = new Point(10, 10);
+            labelTrato.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTrato.Location = new Point(9, 8);
             labelTrato.Name = "labelTrato";
-            labelTrato.Size = new Size(38, 20);
+            labelTrato.Size = new Size(32, 15);
             labelTrato.TabIndex = 5;
             labelTrato.Text = "PUN";
             // 
             // labelDesarrollo
             // 
             labelDesarrollo.AutoSize = true;
-            labelDesarrollo.Location = new Point(10, 10);
+            labelDesarrollo.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelDesarrollo.Location = new Point(9, 8);
             labelDesarrollo.Name = "labelDesarrollo";
-            labelDesarrollo.Size = new Size(38, 20);
+            labelDesarrollo.Size = new Size(32, 15);
             labelDesarrollo.TabIndex = 6;
             labelDesarrollo.Text = "PUN";
             // 
             // labelComunicacion
             // 
             labelComunicacion.AutoSize = true;
-            labelComunicacion.Location = new Point(10, 10);
+            labelComunicacion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelComunicacion.Location = new Point(9, 8);
             labelComunicacion.Name = "labelComunicacion";
-            labelComunicacion.Size = new Size(38, 20);
+            labelComunicacion.Size = new Size(32, 15);
             labelComunicacion.TabIndex = 7;
             labelComunicacion.Text = "PUN";
             // 
             // labelOrganizacion
             // 
             labelOrganizacion.AutoSize = true;
-            labelOrganizacion.Location = new Point(10, 10);
+            labelOrganizacion.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelOrganizacion.Location = new Point(9, 8);
             labelOrganizacion.Name = "labelOrganizacion";
-            labelOrganizacion.Size = new Size(36, 25);
+            labelOrganizacion.Size = new Size(31, 21);
             labelOrganizacion.TabIndex = 8;
             labelOrganizacion.Text = "PUN";
             labelOrganizacion.UseCompatibleTextRendering = true;
@@ -99,27 +103,27 @@
             // labelGeneral
             // 
             labelGeneral.AutoSize = true;
-            labelGeneral.Location = new Point(10, 10);
+            labelGeneral.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelGeneral.Location = new Point(9, 8);
             labelGeneral.Name = "labelGeneral";
-            labelGeneral.Size = new Size(38, 20);
+            labelGeneral.Size = new Size(32, 15);
             labelGeneral.TabIndex = 9;
             labelGeneral.Text = "PUN";
             // 
             // pictureBoxResultado
             // 
-            pictureBoxResultado.Location = new Point(687, 134);
-            pictureBoxResultado.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxResultado.Location = new Point(601, 100);
             pictureBoxResultado.Name = "pictureBoxResultado";
-            pictureBoxResultado.Size = new Size(309, 211);
+            pictureBoxResultado.Size = new Size(270, 158);
             pictureBoxResultado.TabIndex = 10;
             pictureBoxResultado.TabStop = false;
             // 
             // labelImagen
             // 
             labelImagen.AutoSize = true;
-            labelImagen.Location = new Point(687, 105);
+            labelImagen.Location = new Point(601, 79);
             labelImagen.Name = "labelImagen";
-            labelImagen.Size = new Size(109, 25);
+            labelImagen.Size = new Size(87, 21);
             labelImagen.TabIndex = 11;
             labelImagen.Text = "Foto adjuntada";
             labelImagen.UseCompatibleTextRendering = true;
@@ -128,9 +132,9 @@
             // labelComentario
             // 
             labelComentario.AutoSize = true;
-            labelComentario.Location = new Point(295, 359);
+            labelComentario.Location = new Point(258, 269);
             labelComentario.Name = "labelComentario";
-            labelComentario.Size = new Size(86, 25);
+            labelComentario.Size = new Size(69, 21);
             labelComentario.TabIndex = 12;
             labelComentario.Text = "Comentario";
             labelComentario.UseCompatibleTextRendering = true;
@@ -138,9 +142,9 @@
             // Puntuacion
             // 
             Puntuacion.AutoSize = true;
-            Puntuacion.Location = new Point(295, 110);
+            Puntuacion.Location = new Point(258, 82);
             Puntuacion.Name = "Puntuacion";
-            Puntuacion.Size = new Size(136, 20);
+            Puntuacion.Size = new Size(110, 15);
             Puntuacion.TabIndex = 18;
             Puntuacion.Text = "Puntuación general";
             Puntuacion.Click += Puntuacion_Click;
@@ -148,9 +152,9 @@
             // PuntuacionLimpieza
             // 
             PuntuacionLimpieza.AutoSize = true;
-            PuntuacionLimpieza.Location = new Point(294, 310);
+            PuntuacionLimpieza.Location = new Point(257, 232);
             PuntuacionLimpieza.Name = "PuntuacionLimpieza";
-            PuntuacionLimpieza.Size = new Size(169, 25);
+            PuntuacionLimpieza.Size = new Size(135, 21);
             PuntuacionLimpieza.TabIndex = 17;
             PuntuacionLimpieza.Text = "Limpieza y organización";
             PuntuacionLimpieza.UseCompatibleTextRendering = true;
@@ -158,27 +162,27 @@
             // PuntuacionComunicacion
             // 
             PuntuacionComunicacion.AutoSize = true;
-            PuntuacionComunicacion.Location = new Point(294, 260);
+            PuntuacionComunicacion.Location = new Point(257, 195);
             PuntuacionComunicacion.Name = "PuntuacionComunicacion";
-            PuntuacionComunicacion.Size = new Size(197, 20);
+            PuntuacionComunicacion.Size = new Size(158, 15);
             PuntuacionComunicacion.TabIndex = 16;
             PuntuacionComunicacion.Text = "Claridad en la comunicación";
             // 
             // PuntuacionServicio
             // 
             PuntuacionServicio.AutoSize = true;
-            PuntuacionServicio.Location = new Point(294, 210);
+            PuntuacionServicio.Location = new Point(257, 158);
             PuntuacionServicio.Name = "PuntuacionServicio";
-            PuntuacionServicio.Size = new Size(157, 20);
+            PuntuacionServicio.Size = new Size(122, 15);
             PuntuacionServicio.TabIndex = 15;
             PuntuacionServicio.Text = "Desarrollo del servicio";
             // 
             // PuntuacionTrato
             // 
             PuntuacionTrato.AutoSize = true;
-            PuntuacionTrato.Location = new Point(295, 160);
+            PuntuacionTrato.Location = new Point(258, 120);
             PuntuacionTrato.Name = "PuntuacionTrato";
-            PuntuacionTrato.Size = new Size(104, 20);
+            PuntuacionTrato.Size = new Size(82, 15);
             PuntuacionTrato.TabIndex = 14;
             PuntuacionTrato.Text = "Trato personal";
             // 
@@ -188,9 +192,9 @@
             pictureBoxICon.Dock = DockStyle.Left;
             pictureBoxICon.Image = Properties.Resources.iconPeluqueria;
             pictureBoxICon.Location = new Point(0, 0);
-            pictureBoxICon.Margin = new Padding(3, 5, 3, 5);
+            pictureBoxICon.Margin = new Padding(3, 4, 3, 4);
             pictureBoxICon.Name = "pictureBoxICon";
-            pictureBoxICon.Size = new Size(238, 544);
+            pictureBoxICon.Size = new Size(208, 408);
             pictureBoxICon.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxICon.TabIndex = 23;
             pictureBoxICon.TabStop = false;
@@ -200,9 +204,9 @@
             labeltitulo.AutoSize = true;
             labeltitulo.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
             labeltitulo.ForeColor = SystemColors.ControlDarkDark;
-            labeltitulo.Location = new Point(286, 28);
+            labeltitulo.Location = new Point(250, 21);
             labeltitulo.Name = "labeltitulo";
-            labeltitulo.Size = new Size(207, 50);
+            labeltitulo.Size = new Size(166, 41);
             labeltitulo.TabIndex = 24;
             labeltitulo.Text = "Valoracion";
             // 
@@ -211,75 +215,66 @@
             panelCliente.BackColor = Color.DarkKhaki;
             panelCliente.Controls.Add(labelGeneral);
             panelCliente.ForeColor = SystemColors.ControlLightLight;
-            panelCliente.Location = new Point(530, 105);
-            panelCliente.Margin = new Padding(3, 4, 3, 4);
+            panelCliente.Location = new Point(464, 79);
             panelCliente.Name = "panelCliente";
-            panelCliente.Size = new Size(60, 40);
+            panelCliente.Size = new Size(47, 30);
             panelCliente.TabIndex = 25;
-            panelCliente.Visible = false;
             // 
             // panel1
             // 
             panel1.BackColor = Color.DarkKhaki;
             panel1.Controls.Add(labelTrato);
             panel1.ForeColor = SystemColors.ControlLightLight;
-            panel1.Location = new Point(530, 155);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Location = new Point(464, 116);
             panel1.Name = "panel1";
-            panel1.Size = new Size(60, 40);
+            panel1.Size = new Size(47, 30);
             panel1.TabIndex = 26;
-            panel1.Visible = false;
             // 
             // panel2
             // 
             panel2.BackColor = Color.DarkKhaki;
             panel2.Controls.Add(labelDesarrollo);
             panel2.ForeColor = SystemColors.ControlLightLight;
-            panel2.Location = new Point(530, 205);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Location = new Point(464, 154);
             panel2.Name = "panel2";
-            panel2.Size = new Size(60, 40);
+            panel2.Size = new Size(47, 30);
             panel2.TabIndex = 27;
-            panel2.Visible = false;
             // 
             // panel3
             // 
             panel3.BackColor = Color.DarkKhaki;
             panel3.Controls.Add(labelComunicacion);
             panel3.ForeColor = SystemColors.ControlLightLight;
-            panel3.Location = new Point(530, 255);
-            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Location = new Point(464, 191);
             panel3.Name = "panel3";
-            panel3.Size = new Size(60, 40);
+            panel3.Size = new Size(47, 30);
             panel3.TabIndex = 28;
-            panel3.Visible = false;
             // 
             // panel4
             // 
             panel4.BackColor = Color.DarkKhaki;
             panel4.Controls.Add(labelOrganizacion);
             panel4.ForeColor = SystemColors.ControlLightLight;
-            panel4.Location = new Point(530, 305);
-            panel4.Margin = new Padding(3, 4, 3, 4);
+            panel4.Location = new Point(464, 229);
             panel4.Name = "panel4";
-            panel4.Size = new Size(60, 40);
+            panel4.Size = new Size(47, 30);
             panel4.TabIndex = 29;
-            panel4.Visible = false;
             // 
             // richTextBoxComentario
             // 
-            richTextBoxComentario.Location = new Point(294, 387);
+            richTextBoxComentario.Location = new Point(257, 290);
+            richTextBoxComentario.Margin = new Padding(3, 2, 3, 2);
             richTextBoxComentario.Name = "richTextBoxComentario";
-            richTextBoxComentario.Size = new Size(702, 125);
+            richTextBoxComentario.Size = new Size(615, 95);
             richTextBoxComentario.TabIndex = 30;
             richTextBoxComentario.Text = "";
             // 
             // Valoracion
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoValidate = AutoValidate.EnableAllowFocusChange;
-            ClientSize = new Size(1043, 544);
+            ClientSize = new Size(913, 408);
             Controls.Add(richTextBoxComentario);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -297,7 +292,6 @@
             Controls.Add(labelImagen);
             Controls.Add(pictureBoxResultado);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Valoracion";
             Text = "Valoracion";
             Load += Valoracion_Load;

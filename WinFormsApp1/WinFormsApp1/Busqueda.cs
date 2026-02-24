@@ -77,7 +77,7 @@ namespace WinFormsApp1
 
             Tabla.CellDoubleClick += Tabla_CellDoubleClick;
 
-            textBoxBuscar.TextChanged += textBoxHoBuscar_TextChanged;
+            textBoxBuscar.TextChanged += TextBoxBuscar_TextChanged;
         }
 
         public Busqueda(string titulo, object listaParaMostrar, BloqueoHorarioDto bloqueo)
@@ -113,7 +113,7 @@ namespace WinFormsApp1
             Tabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             Tabla.RowHeadersVisible = false;
 
-            textBoxBuscar.TextChanged += textBoxHoBuscar_TextChanged;
+            textBoxBuscar.TextChanged += TextBoxBuscar_TextChanged;
         }
         
 
@@ -124,7 +124,7 @@ namespace WinFormsApp1
             Tabla.Columns.Clear();
         }
 
-        private void textBoxHoBuscar_TextChanged(object sender, EventArgs e)
+        private void TextBoxBuscar_TextChanged(object sender, EventArgs e)
         {
             string busqueda = textBoxBuscar.Text.ToLower();
 

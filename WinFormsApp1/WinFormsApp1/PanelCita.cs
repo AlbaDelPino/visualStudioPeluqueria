@@ -66,10 +66,10 @@ namespace WinFormsApp1
             limpiarFiltros();
             if (_usuarioActual.Role.Equals("ROLE_GRUPO"))
             {
-                var grupoSeleccionado = _grupos.FirstOrDefault(g => g.Id == _usuarioActual.Id);
-                if (grupoSeleccionado != null)
+                UsersDto grupoSeleccionado = _grupos.FirstOrDefault(g => g.Id == _usuarioActual.Id);
+                if (grupoSeleccionado.Id != 0)
                 {
-                    comboBoxCitFiltrar.SelectedItem = grupoSeleccionado;
+                    comboBoxGrupos.SelectedIndex = (int)grupoSeleccionado.Id;
                 }
                 filtrarCitas();
             }
@@ -162,60 +162,70 @@ namespace WinFormsApp1
         {
             if (_citaSeleccionada.Estado != null)
             {
-                if (_citaSeleccionada.Estado.Equals("CONFIRMADO"))
+                if (_citaSeleccionada.Fecha.CompareTo(LocalDate.FromDateTime(DateTime.Now)) <= 0)
                 {
-                    var confirmResult = MessageBox.Show(
-                            $"¿Seguro que quieres cancelar la cita?",
-                            "Confirmar cancelación",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Warning
-                        );
-
-                    if (confirmResult == DialogResult.Yes)
+                    if (_citaSeleccionada.Estado.Equals("CONFIRMADO"))
                     {
-                        try
-                        {
-                            var url = $"http://localhost:8082/citas/{_citaSeleccionada.Id}/estado?estado=CANCELADO";
-                            var request = (HttpWebRequest)WebRequest.Create(url);
-                            request.Method = "PUT";
-                            request.ContentType = "application/json";
-                            request.Accept = "application/json";
-                            request.Headers["Authorization"] = $"Bearer {_token}";
+                        var confirmResult = MessageBox.Show(
+                                $"¿Seguro que quieres cancelar la cita?",
+                                "Confirmar cancelación",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning
+                            );
 
-                            using (var response = (HttpWebResponse)request.GetResponse())
+                        if (confirmResult == DialogResult.Yes)
+                        {
+                            try
                             {
-                                if (response.StatusCode == HttpStatusCode.OK)
+                                var url = $"http://localhost:8082/citas/{_citaSeleccionada.Id}/estado?estado=CANCELADO";
+                                var request = (HttpWebRequest)WebRequest.Create(url);
+                                request.Method = "PUT";
+                                request.ContentType = "application/json";
+                                request.Accept = "application/json";
+                                request.Headers["Authorization"] = $"Bearer {_token}";
+
+                                using (var response = (HttpWebResponse)request.GetResponse())
                                 {
-                                    MessageBox.Show("Cita cancelada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    CargarTodasLasCitas();
-                                    pasarPagina();
-                                }
-                                else
-                                {
-                                    MessageBox.Show($"Error al cancelar: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    if (response.StatusCode == HttpStatusCode.OK)
+                                    {
+                                        MessageBox.Show("Cita cancelada correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        CargarTodasLasCitas();
+                                        pasarPagina();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show($"Error al cancelar: {response.StatusCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error en la cancelación: {ex.Message}", "Error",
+                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+
+
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Error en la cancelación: {ex.Message}", "Error",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-
-
+                        
+                    }
+                    else if (_citaSeleccionada.Estado.Equals("CANCELADO"))
+                    {
+                        MessageBox.Show($"La cita ya está cancelada", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (_citaSeleccionada.Estado.Equals("COMPLETADO"))
+                    {
+                        MessageBox.Show($"No se puede cancelar una cita completada", "Error",
+                                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else if (_citaSeleccionada.Estado.Equals("CANCELADO"))
                 {
-                    MessageBox.Show($"La cita ya está cancelada", "Error",
+                    MessageBox.Show($"No se puede cancelar una cita pasada", "Error",
                                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (_citaSeleccionada.Estado.Equals("COMPLETADO"))
-                {
-                    MessageBox.Show($"No se puede cancelar una cita completada", "Error",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                
             }
         }
 
@@ -242,14 +252,13 @@ namespace WinFormsApp1
 
             if (columna == "DataGridViewTextBoxColumnValoración")
             {
-                if (_citaSeleccionada != null)
+                if (_citaSeleccionada.Id != 0)
                 {
                     if (_citaSeleccionada.Valoracion != null)
                     {
-                        using (var pantallaDetalle = new Valoracion(_citaSeleccionada.Valoracion, _token))
-                        {
-                            pantallaDetalle.ShowDialog();
-                        }
+                        var pantallaDetalle = new Valoracion(_citaSeleccionada.Valoracion, _token);
+                        pantallaDetalle.ShowDialog();
+                        
                     }
                     else if (_citaSeleccionada.Estado == "COMPLETADO")
                     {
@@ -390,7 +399,7 @@ namespace WinFormsApp1
             for (int i = inicio; i < fin; i++)
             {
                 var c = _citasFiltradas[i];
-                string hora = c.Horario.HoraInicio.ToString().Substring(0, 4);
+                string hora = c.Horario.HoraInicio.ToString().Substring(0, 5);
 
                 string estado = c.Estado switch
                 {
@@ -428,7 +437,7 @@ namespace WinFormsApp1
 
             buttonPaginacionAtras.Enabled = (_paginaActual > 1);
             buttonPaginacionDelante.Enabled = (_paginaActual < totalPaginas);
-
+            
             labelPaginaActual.Text = $"Página {_paginaActual} de {totalPaginas}";
         }
 
@@ -465,7 +474,7 @@ namespace WinFormsApp1
             }
         }
 
-        private List<CitaDto> ObtenerCitas()
+        public List<CitaDto> ObtenerCitas()
         {
             var url = "http://localhost:8082/citas/todas";
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -482,7 +491,7 @@ namespace WinFormsApp1
                 var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
                 labelNumHoy.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) == 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
                 labelNumProximas.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) > 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
-                return citas;
+                return citas.OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
             }
 
         }

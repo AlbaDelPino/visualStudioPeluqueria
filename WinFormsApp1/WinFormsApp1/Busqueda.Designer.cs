@@ -40,11 +40,10 @@
             // Tabla
             // 
             Tabla.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Tabla.Location = new Point(107, 197);
-            Tabla.Margin = new Padding(3, 4, 3, 4);
+            Tabla.Location = new Point(94, 148);
             Tabla.Name = "Tabla";
             Tabla.RowHeadersWidth = 51;
-            Tabla.Size = new Size(702, 345);
+            Tabla.Size = new Size(614, 259);
             Tabla.TabIndex = 0;
             Tabla.CellContentClick += Tabla_CellContentClick;
             Tabla.CellContentDoubleClick += Tabla_CellDoubleClick;
@@ -55,22 +54,22 @@
             textBoxBuscar.BorderColor = SystemColors.ControlDarkDark;
             textBoxBuscar.BorderRadius = 10;
             textBoxBuscar.BorderSize = 1;
-            textBoxBuscar.Location = new Point(107, 118);
-            textBoxBuscar.Margin = new Padding(3, 4, 3, 4);
+            textBoxBuscar.Location = new Point(94, 88);
             textBoxBuscar.Name = "textBoxBuscar";
             textBoxBuscar.PasswordChar = '\0';
             textBoxBuscar.ReadOnly = false;
-            textBoxBuscar.Size = new Size(702, 32);
+            textBoxBuscar.Size = new Size(614, 24);
             textBoxBuscar.TabIndex = 1;
+            textBoxBuscar.TextChanged += TextBoxBuscar_TextChanged;
             // 
             // labelTituoIBuscar
             // 
             labelTituoIBuscar.AutoSize = true;
             labelTituoIBuscar.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold);
             labelTituoIBuscar.ForeColor = SystemColors.ControlDarkDark;
-            labelTituoIBuscar.Location = new Point(107, 65);
+            labelTituoIBuscar.Location = new Point(94, 44);
             labelTituoIBuscar.Name = "labelTituoIBuscar";
-            labelTituoIBuscar.Size = new Size(265, 50);
+            labelTituoIBuscar.Size = new Size(213, 41);
             labelTituoIBuscar.TabIndex = 50;
             labelTituoIBuscar.Text = "Selecione uno";
             // 
@@ -84,12 +83,13 @@
             buttonSeleccionar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonSeleccionar.ForeColor = SystemColors.ControlLightLight;
             buttonSeleccionar.HoverColor = Color.FromArgb(235, 120, 0);
-            buttonSeleccionar.Location = new Point(677, 549);
+            buttonSeleccionar.Location = new Point(592, 412);
+            buttonSeleccionar.Margin = new Padding(3, 2, 3, 2);
             buttonSeleccionar.Name = "buttonSeleccionar";
             buttonSeleccionar.PaddingHorizontal = 12;
             buttonSeleccionar.PaddingVertical = 8;
             buttonSeleccionar.PressedColor = Color.FromArgb(255, 192, 128);
-            buttonSeleccionar.Size = new Size(132, 39);
+            buttonSeleccionar.Size = new Size(116, 30);
             buttonSeleccionar.TabIndex = 51;
             buttonSeleccionar.Text = "Seleccionar";
             buttonSeleccionar.UseVisualStyleBackColor = false;
@@ -105,12 +105,13 @@
             buttonTodoDia.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonTodoDia.ForeColor = SystemColors.ControlLightLight;
             buttonTodoDia.HoverColor = Color.FromArgb(235, 120, 0);
-            buttonTodoDia.Location = new Point(434, 549);
+            buttonTodoDia.Location = new Point(380, 412);
+            buttonTodoDia.Margin = new Padding(3, 2, 3, 2);
             buttonTodoDia.Name = "buttonTodoDia";
             buttonTodoDia.PaddingHorizontal = 12;
             buttonTodoDia.PaddingVertical = 8;
             buttonTodoDia.PressedColor = Color.FromArgb(255, 192, 128);
-            buttonTodoDia.Size = new Size(237, 39);
+            buttonTodoDia.Size = new Size(207, 30);
             buttonTodoDia.TabIndex = 52;
             buttonTodoDia.Text = "Seleccionar todo el dia";
             buttonTodoDia.UseVisualStyleBackColor = false;
@@ -118,16 +119,15 @@
             // 
             // Busqueda
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 605);
+            ClientSize = new Size(800, 454);
             Controls.Add(buttonTodoDia);
             Controls.Add(buttonSeleccionar);
             Controls.Add(labelTituoIBuscar);
             Controls.Add(textBoxBuscar);
             Controls.Add(Tabla);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Busqueda";
             Text = "Busqueda";
             ((System.ComponentModel.ISupportInitialize)Tabla).EndInit();

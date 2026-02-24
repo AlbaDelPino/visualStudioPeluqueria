@@ -25,6 +25,7 @@ namespace WinFormsApp1
             _usuarioActual = usuarioActual;
             _grupos = grupos;
             _principal = principal;
+            
         }
 
         private void PanelPrincipal_Load(object sender, EventArgs e)
@@ -291,7 +292,7 @@ namespace WinFormsApp1
 
         private List<CitaDto> ObtenerCitasHoy()
         {
-            var url = "http://localhost:8082/citas/hoy";
+            var url = "http://localhost:8082/citas/todas";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.ContentType = "application/json";
@@ -304,7 +305,9 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
-                return citas.OrderBy(c => c.Fecha).ToList();
+                labelNumCitasHoy.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) == 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
+                labelNumCitasProximas.Text = $" {citas?.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) > 0 && c.Estado.Equals("CONFIRMADO")).ToList().Count ?? 0}";
+                return citas.Where(c => c.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) == 0).OrderBy(c => c.HoraInicio).ToList();
             }
 
         }
@@ -333,7 +336,7 @@ namespace WinFormsApp1
             {
                 string json = reader.ReadToEnd();
                 var citas = JsonConvert.DeserializeObject<List<CitaDto>>(json);
-                return citas.OrderBy(c => c.Fecha).ToList();
+                return citas.OrderBy(c => c.Fecha).ThenBy(c => c.HoraInicio).ToList();
             }
         }
 

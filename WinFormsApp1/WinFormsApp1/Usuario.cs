@@ -52,7 +52,7 @@ namespace WinFormsApp1
             comboTipoUsuario.Enabled = false;
             checkBoxEstado.Enabled = false;
             tboxUserAlerg.ReadOnly = true;
-            textBoxObservaciones.ReadOnly = true;
+            roundedTextBoxObservaciones.ReadOnly = true;
             tboxUserCurso.ReadOnly = true;
             tboxUserTurno.ReadOnly = true;
             tboxUserEspec.ReadOnly = true;
@@ -80,7 +80,7 @@ namespace WinFormsApp1
                     if (c.Id == usuario.Id)
                     {
                         tboxUserAlerg.Text = c.Alergenos ?? "";
-                        textBoxObservaciones.Text = c.Observacion ?? "";
+                        roundedTextBoxObservaciones.Text = c.Observacion ?? "";
                         textBoxUsEmail.Text = c.Email ?? "";
                         textBoxUsTel.Text = c.Telefono.ToString() ?? "";
                     }
@@ -173,7 +173,7 @@ namespace WinFormsApp1
             textBoxUsApellidos.Text = "";
             textBoxUsEmail.Text = "";
             textBoxUsTel.Text = "";
-            textBoxObservaciones.Text = "";
+            roundedTextBoxObservaciones.Text = "";
             comboTipoUsuario.SelectedItem = "";
             tboxUserAlerg.Text = "";
             tboxUserCurso.Text = "";
@@ -220,7 +220,7 @@ namespace WinFormsApp1
             if (comboTipoUsuario.SelectedIndex == 0)
             {
                 string alergenos = tboxUserAlerg.Text;
-                string observciones = textBoxObservaciones.Text;
+                string observciones = roundedTextBoxObservaciones.Text;
                 string email = textBoxUsEmail.Text;
                 string tel = textBoxUsTel.Text;
                 url = $"http://localhost:8082/api/auth/signup/cliente";
@@ -322,7 +322,7 @@ namespace WinFormsApp1
             if (comboTipoUsuario.SelectedIndex == 0)
             {
                 string alergenos = tboxUserAlerg.Text;
-                string observciones = textBoxObservaciones.Text;
+                string observciones = roundedTextBoxObservaciones.Text;
                 string email = textBoxUsEmail.Text;
                 string tel = textBoxUsTel.Text;
                 contrasenya = _usuario.Contrasenya;
@@ -433,7 +433,7 @@ namespace WinFormsApp1
             comboTipoUsuario.Enabled = true;
             checkBoxEstado.Enabled = true;
             tboxUserAlerg.ReadOnly = false;
-            textBoxObservaciones.ReadOnly = false;
+            roundedTextBoxObservaciones.ReadOnly = false;
             tboxUserCurso.ReadOnly = false;
             tboxUserTurno.ReadOnly = false;
             tboxUserEspec.ReadOnly = false;
