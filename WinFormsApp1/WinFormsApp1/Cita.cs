@@ -33,12 +33,12 @@ namespace WinFormsApp1
         private long? _idServicioSeleccionado = null;
         private string _HoraSeleccionada = null;
 
-        public Cita(CitaDto cita, string token)
+        public Cita(string token)
         {
             InitializeComponent();
             _token = token;
             CalendarCitas.MinDate = DateTime.Today;
-
+            comboBoxCitHora.Enabled = false;
         }
 
         private void buttonCitServicio_Click(object sender, EventArgs e)

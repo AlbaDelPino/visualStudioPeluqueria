@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ButtonGaAnyadir = new Button();
-            ButtonGaModificar = new Button();
+            ButtonGaAnyadir = new Bloqueo.RoundedButton();
+            ButtonGaModificar = new Bloqueo.RoundedButton();
             buttonHoServicio = new Button();
             textBoxHoServicio = new TextBox();
             labelHoServicio = new Label();
             pictureBoxFoto = new PictureBox();
-            buttonAnydirImagen = new Button();
+            buttonAnydirImagen = new Bloqueo.RoundedButton();
             panelIcon = new Panel();
             pictureBoxICon = new PictureBox();
             labelTituoCrearGaleria = new Label();
@@ -190,13 +190,13 @@
         #endregion
 
         public Label labelTituoCrearGaleria;
-        public Button ButtonGaAnyadir;
-        public Button ButtonGaModificar;
+        public Bloqueo.RoundedButton ButtonGaAnyadir;
+        public Bloqueo.RoundedButton ButtonGaModificar;
         private Button buttonHoServicio;
         private TextBox textBoxHoServicio;
         private Label labelHoServicio;
         private PictureBox pictureBoxFoto;
-        private Button buttonAnydirImagen;
+        private Bloqueo.RoundedButton buttonAnydirImagen;
         private Panel panelIcon;
         private PictureBox pictureBoxICon;
         private Panel panel1;

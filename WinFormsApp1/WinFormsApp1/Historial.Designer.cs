@@ -53,7 +53,7 @@ namespace WinFormsApp1
             panelTodo.Dock = DockStyle.Fill;
             panelTodo.Location = new Point(0, 0);
             panelTodo.Name = "panelTodo";
-            panelTodo.Size = new Size(409, 677);
+            panelTodo.Size = new Size(722, 919);
             panelTodo.TabIndex = 0;
             // 
             // panelDiagnostico
@@ -61,7 +61,7 @@ namespace WinFormsApp1
             panelDiagnostico.Dock = DockStyle.Fill;
             panelDiagnostico.Location = new Point(0, 0);
             panelDiagnostico.Name = "panelDiagnostico";
-            panelDiagnostico.Size = new Size(409, 252);
+            panelDiagnostico.Size = new Size(722, 494);
             panelDiagnostico.TabIndex = 1;
             // 
             // panelHistorial
@@ -69,10 +69,10 @@ namespace WinFormsApp1
             panelHistorial.Controls.Add(panelCitas);
             panelHistorial.Controls.Add(panelTituloCitas);
             panelHistorial.Dock = DockStyle.Bottom;
-            panelHistorial.Location = new Point(0, 252);
+            panelHistorial.Location = new Point(0, 494);
             panelHistorial.Name = "panelHistorial";
             panelHistorial.Padding = new Padding(25, 0, 25, 25);
-            panelHistorial.Size = new Size(409, 425);
+            panelHistorial.Size = new Size(722, 425);
             panelHistorial.TabIndex = 0;
             // 
             // panelCitas
@@ -81,7 +81,7 @@ namespace WinFormsApp1
             panelCitas.Dock = DockStyle.Fill;
             panelCitas.Location = new Point(25, 30);
             panelCitas.Name = "panelCitas";
-            panelCitas.Size = new Size(359, 370);
+            panelCitas.Size = new Size(672, 370);
             panelCitas.TabIndex = 0;
             // 
             // panelTituloCitas
@@ -90,7 +90,7 @@ namespace WinFormsApp1
             panelTituloCitas.Dock = DockStyle.Top;
             panelTituloCitas.Location = new Point(25, 0);
             panelTituloCitas.Name = "panelTituloCitas";
-            panelTituloCitas.Size = new Size(359, 30);
+            panelTituloCitas.Size = new Size(672, 30);
             panelTituloCitas.TabIndex = 1;
             // 
             // labelTituloCitas
@@ -107,11 +107,12 @@ namespace WinFormsApp1
             // Historial
             // 
             BackColor = SystemColors.Control;
-            ClientSize = new Size(409, 677);
+            ClientSize = new Size(722, 919);
             Controls.Add(panelTodo);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Historial";
             Text = "Historial";
+            Load += Historial_Load;
             Resize += Historial_Resize;
             panelTodo.ResumeLayout(false);
             panelHistorial.ResumeLayout(false);

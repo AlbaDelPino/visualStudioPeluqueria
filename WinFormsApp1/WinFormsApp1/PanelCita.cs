@@ -221,9 +221,7 @@ namespace WinFormsApp1
 
         private void anyadirCitas_Click(object sender, EventArgs e)
         {
-            Cita pantallaAnyadir = new Cita(null, _token);
-            pantallaAnyadir.ComboBoxCitHora.Enabled = false;
-
+            Cita pantallaAnyadir = new Cita(_token);
             if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
             {
                 CargarTodasLasCitas();

@@ -371,11 +371,11 @@ namespace WinFormsApp1
                     new TipoServicioDto
                     {
                         Id = 0,
-                        Nombre = "Todos las servicios"
+                        Nombre = "Todos los servicios"
                     }
                 };
-                tipoServicios.AddRange(servicios);
-                return tipoServicios.OrderBy(s => s.Nombre).ToList(); ;
+                tipoServicios.AddRange(servicios.OrderBy(s => s.Nombre).ToList());
+                return tipoServicios;
             }
         }
 

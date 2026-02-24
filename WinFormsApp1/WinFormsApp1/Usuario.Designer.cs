@@ -45,7 +45,7 @@ namespace WinFormsApp1
             labUsApellido = new Label();
             txtBoxUsNombre = new RoundedTextBox();
             lavUsNombre = new Label();
-            ButtonUsAnyadir = new Button();
+            ButtonUsAnyadir = new Bloqueo.RoundedButton();
             labelTituoCrearUsuario = new Label();
             labelUsNombre = new Label();
             panelUsGrupo = new Panel();
@@ -66,12 +66,12 @@ namespace WinFormsApp1
             textBoxUsEmail = new RoundedTextBox();
             labUsEmail = new Label();
             checkBoxEstado = new CheckBox();
-            ButtonUsGuardar = new Button();
-            ButtonUsVolver = new Button();
+            ButtonUsGuardar = new Bloqueo.RoundedButton();
+            ButtonUsVolver = new Bloqueo.RoundedButton();
             labelTituoInfoUsuario = new Label();
             panelUsuario = new Panel();
             pictureBoxICon = new PictureBox();
-            buttonModificar = new Button();
+            buttonModificar = new Bloqueo.RoundedButton();
             panelUsGrupo.SuspendLayout();
             panelAdmin.SuspendLayout();
             panelCliente.SuspendLayout();
@@ -644,7 +644,7 @@ namespace WinFormsApp1
         private Label labUsApellido;
         private RoundedTextBox txtBoxUsNombre;
         private Label lavUsNombre;
-        private Button ButtonUsAnyadir;
+        private Bloqueo.RoundedButton ButtonUsAnyadir;
         private Label labelTituoCrearUsuario;
         private Label labelUsNombre;
         private Panel panelGrupo;
@@ -669,11 +669,11 @@ namespace WinFormsApp1
         private Label labUsTel;
         private long id;
         private string contrasenya;
-        private Button ButtonUsGuardar;
-        private Button ButtonUsVolver;
+        private Bloqueo.RoundedButton ButtonUsGuardar;
+        private Bloqueo.RoundedButton ButtonUsVolver;
         private Label labelTituoInfoUsuario;
         private Panel panelUsuario;
-        private Button buttonModificar;
+        private Bloqueo.RoundedButton buttonModificar;
         private RichTextBox richTextBox1;
         private PictureBox pictureBoxICon;
         private Label labUserObserv;

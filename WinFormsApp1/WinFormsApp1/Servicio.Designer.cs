@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servicio));
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            ButtonSerModificar = new Button();
+            ButtonSerModificar = new Bloqueo.RoundedButton();
             labelSerDuracion = new Label();
             textBoxDuracion = new WinFormsApp1.Usuario.RoundedTextBox();
             labelSerTipo = new Label();
@@ -42,7 +42,7 @@
             labelSerNombre = new Label();
             tboxNombreServicio = new WinFormsApp1.Usuario.RoundedTextBox();
             comboTipoServicio = new ComboBox();
-            ButtonSerAnyadir = new Button();
+            ButtonSerAnyadir = new Bloqueo.RoundedButton();
             panelServicio = new Panel();
             panelIcon = new Panel();
             pictureBoxICon = new PictureBox();
@@ -289,9 +289,9 @@
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Usuario.RoundedTextBox textBoxUsConfigContrasenya;
-        private Button ButtonSerAnyadir;
+        private Bloqueo.RoundedButton ButtonSerAnyadir;
         private ComboBox comboTipoServicio;
-        private Button ButtonSerModificar;
+        private Bloqueo.RoundedButton ButtonSerModificar;
         private Label labelSerDuracion;
         private Usuario.RoundedTextBox textBoxDuracion;
         private Label labelSerTipo;

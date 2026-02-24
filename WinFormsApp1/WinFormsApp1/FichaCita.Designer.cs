@@ -38,7 +38,7 @@
             labelProductos = new Label();
             richTextBoxTratamientos = new RichTextBox();
             labelTratamientos = new Label();
-            buttonCompletar = new Button();
+            buttonCompletar = new Bloqueo.RoundedButton();
             panelFicha.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).BeginInit();
             SuspendLayout();
@@ -177,7 +177,7 @@
         #endregion
 
         private Panel panelFicha;
-        private Button buttonCompletar;
+        private Bloqueo.RoundedButton buttonCompletar;
         private Label labelTratamientos;
         private RichTextBox richTextBoxTratamientos;
         private RichTextBox richTextBoxProductos;

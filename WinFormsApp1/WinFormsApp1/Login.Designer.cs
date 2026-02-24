@@ -1,4 +1,6 @@
-﻿namespace WinFormsApp1
+﻿using System.Drawing.Drawing2D;
+
+namespace WinFormsApp1
 {
     partial class Login
     {
@@ -35,7 +37,7 @@
             labelContraseña = new Label();
             textBoxUsuario = new WinFormsApp1.Usuario.RoundedTextBox();
             textBoxContrasenya = new WinFormsApp1.Usuario.RoundedTextBox();
-            buttonInicioSesion = new Button();
+            buttonInicioSesion = new WinFormsApp1.Bloqueo.RoundedButton();
             labelTituoInicioSesion = new Label();
             panelIcon = new Panel();
             pictureBox1 = new PictureBox();
@@ -48,7 +50,7 @@
             // LabelUsuario
             // 
             LabelUsuario.AutoSize = true;
-            LabelUsuario.Location = new Point(384, 187);
+            LabelUsuario.Location = new Point(383, 148);
             LabelUsuario.Name = "LabelUsuario";
             LabelUsuario.Size = new Size(59, 20);
             LabelUsuario.TabIndex = 0;
@@ -57,7 +59,7 @@
             // labelContraseña
             // 
             labelContraseña.AutoSize = true;
-            labelContraseña.Location = new Point(383, 232);
+            labelContraseña.Location = new Point(382, 193);
             labelContraseña.Name = "labelContraseña";
             labelContraseña.Size = new Size(83, 20);
             labelContraseña.TabIndex = 1;
@@ -69,7 +71,7 @@
             textBoxUsuario.BorderColor = SystemColors.ControlDarkDark;
             textBoxUsuario.BorderRadius = 10;
             textBoxUsuario.BorderSize = 1;
-            textBoxUsuario.Location = new Point(496, 185);
+            textBoxUsuario.Location = new Point(495, 146);
             textBoxUsuario.Margin = new Padding(3, 4, 3, 4);
             textBoxUsuario.Name = "textBoxUsuario";
             textBoxUsuario.PasswordChar = '\0';
@@ -84,7 +86,7 @@
             textBoxContrasenya.BorderRadius = 10;
             textBoxContrasenya.BorderSize = 1;
             textBoxContrasenya.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxContrasenya.Location = new Point(495, 225);
+            textBoxContrasenya.Location = new Point(494, 186);
             textBoxContrasenya.Margin = new Padding(3, 4, 3, 4);
             textBoxContrasenya.Name = "textBoxContrasenya";
             textBoxContrasenya.PasswordChar = '●';
@@ -95,27 +97,35 @@
             // buttonInicioSesion
             // 
             buttonInicioSesion.BackColor = Color.DarkOrange;
+            buttonInicioSesion.BorderColor = Color.Gray;
+            buttonInicioSesion.BorderRadius = 10;
+            buttonInicioSesion.BorderSize = 1;
             buttonInicioSesion.FlatStyle = FlatStyle.Flat;
             buttonInicioSesion.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             buttonInicioSesion.ForeColor = SystemColors.ControlLightLight;
-            buttonInicioSesion.Location = new Point(456, 311);
+            buttonInicioSesion.HoverColor = Color.FromArgb(235, 120, 0);
+            buttonInicioSesion.Location = new Point(448, 262);
             buttonInicioSesion.Margin = new Padding(3, 4, 3, 4);
             buttonInicioSesion.Name = "buttonInicioSesion";
-            buttonInicioSesion.Size = new Size(86, 40);
+            buttonInicioSesion.PaddingHorizontal = 12;
+            buttonInicioSesion.PaddingVertical = 8;
+            buttonInicioSesion.PressedColor = Color.FromArgb(255, 192, 128);
+            buttonInicioSesion.Size = new Size(107, 40);
             buttonInicioSesion.TabIndex = 3;
-            buttonInicioSesion.Text = "Iniciar Session";
+            buttonInicioSesion.Text = "Iniciar";
             buttonInicioSesion.UseVisualStyleBackColor = false;
             buttonInicioSesion.Click += buttonInicioSesion_Click;
             // 
             // labelTituoInicioSesion
             // 
             labelTituoInicioSesion.AutoSize = true;
-            labelTituoInicioSesion.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            labelTituoInicioSesion.Location = new Point(413, 109);
+            labelTituoInicioSesion.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelTituoInicioSesion.ForeColor = SystemColors.ControlDarkDark;
+            labelTituoInicioSesion.Location = new Point(383, 60);
             labelTituoInicioSesion.Name = "labelTituoInicioSesion";
-            labelTituoInicioSesion.Size = new Size(196, 32);
+            labelTituoInicioSesion.Size = new Size(229, 46);
             labelTituoInicioSesion.TabIndex = 25;
-            labelTituoInicioSesion.Text = "INICIAR SESIÓN";
+            labelTituoInicioSesion.Text = "Iniciar sesión";
             // 
             // panelIcon
             // 
@@ -125,13 +135,13 @@
             panelIcon.Location = new Point(0, 0);
             panelIcon.Margin = new Padding(3, 4, 3, 4);
             panelIcon.Name = "panelIcon";
-            panelIcon.Size = new Size(334, 433);
+            panelIcon.Size = new Size(334, 366);
             panelIcon.TabIndex = 26;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.iconPeluqueria;
-            pictureBox1.Location = new Point(3, 109);
+            pictureBox1.Location = new Point(6, 60);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(325, 244);
@@ -142,7 +152,7 @@
             // pictureBoxMostrar
             // 
             pictureBoxMostrar.Image = Properties.Resources.Ojo;
-            pictureBoxMostrar.Location = new Point(610, 220);
+            pictureBoxMostrar.Location = new Point(609, 181);
             pictureBoxMostrar.Name = "pictureBoxMostrar";
             pictureBoxMostrar.Size = new Size(46, 40);
             pictureBoxMostrar.SizeMode = PictureBoxSizeMode.Zoom;
@@ -154,7 +164,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(677, 433);
+            ClientSize = new Size(677, 366);
             Controls.Add(pictureBoxMostrar);
             Controls.Add(panelIcon);
             Controls.Add(labelTituoInicioSesion);
@@ -166,9 +176,8 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(695, 480);
+            MaximumSize = new Size(695, 1000);
             MinimizeBox = false;
-            MinimumSize = new Size(695, 480);
             Name = "Login";
             Text = "Login";
             panelIcon.ResumeLayout(false);
@@ -184,10 +193,11 @@
         private Label labelContraseña;
         private Usuario.RoundedTextBox textBoxUsuario;
         private Usuario.RoundedTextBox textBoxContrasenya;
-        private Button buttonInicioSesion;
+        private Bloqueo.RoundedButton buttonInicioSesion;
         private Label labelTituoInicioSesion;
         private Panel panelIcon;
         private PictureBox pictureBox1;
         private PictureBox pictureBoxMostrar;
+
     }
 }

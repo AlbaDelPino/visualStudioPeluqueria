@@ -48,7 +48,7 @@ namespace WinFormsApp1
             buttonCitServicio = new Button();
             labelCitHora = new Label();
             textBoxCitServicio = new WinFormsApp1.Usuario.RoundedTextBox();
-            ButtonCitAnyadir = new Button();
+            ButtonCitAnyadir = new Bloqueo.RoundedButton();
             labelCitServicio = new Label();
             CalendarCitas = new MyMonthCalendar();
             labelTituoCrearCita = new Label();
@@ -306,7 +306,7 @@ namespace WinFormsApp1
 
         private Panel panelCita;
         private ComboBox comboClienteCita;
-        private Button ButtonCitAnyadir;
+        private Bloqueo.RoundedButton ButtonCitAnyadir;
         private Label labelCitServicio;
         private MyMonthCalendar CalendarCitas;
         private Label labelTituoCrearCita;
@@ -339,65 +339,6 @@ namespace WinFormsApp1
         }
 
 
-
-        public string Form
-        {
-            get
-            {
-                return this.Text;
-            }
-            set
-            {
-                this.Text = value;
-            }
-        }
-
-        public Label LabelTituoCrearCita
-        {
-            get
-            {
-                return this.labelTituoCrearCita;
-            }
-            set
-            {
-                this.labelTituoCrearCita = value;
-            }
-        }
-       
-        public ComboBox ComboBoxClienteCita
-        {
-            get
-            {
-                return this.comboClienteCita;
-            }
-            set
-            {
-                this.comboClienteCita = value;
-            }
-        }
-
-        public Button buttonCitAnyadir
-        {
-            get
-            {
-                return this.ButtonCitAnyadir;
-            }
-            set
-            {
-                this.ButtonCitAnyadir = value;
-            }
-        }
-        public ComboBox ComboBoxCitHora
-        {
-            get
-            {
-                return this.comboBoxCitHora;
-            }
-            set
-            {
-                this.comboBoxCitHora = value;
-            }
-        }
     }
 
 }

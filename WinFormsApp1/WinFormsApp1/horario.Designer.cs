@@ -34,7 +34,7 @@
             textBoxHoServicio = new WinFormsApp1.Usuario.RoundedTextBox();
             textBoxHoGrupo = new WinFormsApp1.Usuario.RoundedTextBox();
             buttonHoServicio = new Button();
-            buttonHoBrupo = new Button();
+            buttonHoGrupo = new Button();
             labelHoHorarioInicio = new Label();
             label1 = new Label();
             dateTimePickerHoaraInicio = new DateTimePicker();
@@ -42,10 +42,10 @@
             labelPlaza = new Label();
             labelHoDiaSemana = new Label();
             comboBoxDiaSemana = new ComboBox();
-            buttonGuardar = new Button();
+            buttonGuardar = new WinFormsApp1.Bloqueo.RoundedButton();
             labelTituloCrearHorario = new Label();
             labelTituoModificarHorario = new Label();
-            buttonModificar = new Button();
+            buttonModificar = new WinFormsApp1.Bloqueo.RoundedButton();
             numericPlazas = new NumericUpDown();
             panelIcon = new Panel();
             pictureBoxICon = new PictureBox();
@@ -115,16 +115,16 @@
             buttonHoServicio.Click += buttonHoServicio_Click;
             buttonHoServicio.Paint += buttonHoServicio_Paint;
             // 
-            // buttonHoBrupo
+            // buttonHoGrupo
             // 
-            buttonHoBrupo.Location = new Point(574, 249);
-            buttonHoBrupo.Margin = new Padding(3, 4, 3, 4);
-            buttonHoBrupo.Name = "buttonHoBrupo";
-            buttonHoBrupo.Size = new Size(50, 31);
-            buttonHoBrupo.TabIndex = 80;
-            buttonHoBrupo.UseVisualStyleBackColor = true;
-            buttonHoBrupo.Click += buttonHoGrupo_Click;
-            buttonHoBrupo.Paint += buttonHoBrupo_Paint;
+            buttonHoGrupo.Location = new Point(574, 249);
+            buttonHoGrupo.Margin = new Padding(3, 4, 3, 4);
+            buttonHoGrupo.Name = "buttonHoGrupo";
+            buttonHoGrupo.Size = new Size(50, 31);
+            buttonHoGrupo.TabIndex = 80;
+            buttonHoGrupo.UseVisualStyleBackColor = true;
+            buttonHoGrupo.Click += buttonHoGrupo_Click;
+            buttonHoGrupo.Paint += buttonHoBrupo_Paint;
             // 
             // labelHoHorarioInicio
             // 
@@ -199,12 +199,19 @@
             // buttonGuardar
             // 
             buttonGuardar.BackColor = Color.DarkOrange;
+            buttonGuardar.BorderColor = Color.Gray;
+            buttonGuardar.BorderRadius = 10;
+            buttonGuardar.BorderSize = 1;
             buttonGuardar.FlatStyle = FlatStyle.Flat;
             buttonGuardar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             buttonGuardar.ForeColor = SystemColors.ControlLightLight;
+            buttonGuardar.HoverColor = Color.FromArgb(235, 120, 0);
             buttonGuardar.Location = new Point(431, 496);
             buttonGuardar.Margin = new Padding(3, 4, 3, 4);
             buttonGuardar.Name = "buttonGuardar";
+            buttonGuardar.PaddingHorizontal = 12;
+            buttonGuardar.PaddingVertical = 8;
+            buttonGuardar.PressedColor = Color.FromArgb(255, 192, 128);
             buttonGuardar.Size = new Size(193, 51);
             buttonGuardar.TabIndex = 90;
             buttonGuardar.Text = "Añadir horario";
@@ -236,12 +243,19 @@
             // buttonModificar
             // 
             buttonModificar.BackColor = Color.DarkOrange;
+            buttonModificar.BorderColor = Color.Gray;
+            buttonModificar.BorderRadius = 10;
+            buttonModificar.BorderSize = 1;
             buttonModificar.FlatStyle = FlatStyle.Flat;
             buttonModificar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             buttonModificar.ForeColor = SystemColors.ControlLightLight;
+            buttonModificar.HoverColor = Color.FromArgb(235, 120, 0);
             buttonModificar.Location = new Point(408, 496);
             buttonModificar.Margin = new Padding(3, 4, 3, 4);
             buttonModificar.Name = "buttonModificar";
+            buttonModificar.PaddingHorizontal = 12;
+            buttonModificar.PaddingVertical = 8;
+            buttonModificar.PressedColor = Color.FromArgb(255, 192, 128);
             buttonModificar.Size = new Size(216, 51);
             buttonModificar.TabIndex = 93;
             buttonModificar.Text = "Modificar horario";
@@ -297,7 +311,7 @@
             Controls.Add(dateTimePickerHoaraInicio);
             Controls.Add(label1);
             Controls.Add(labelHoHorarioInicio);
-            Controls.Add(buttonHoBrupo);
+            Controls.Add(buttonHoGrupo);
             Controls.Add(buttonHoServicio);
             Controls.Add(textBoxHoGrupo);
             Controls.Add(textBoxHoServicio);
@@ -336,7 +350,7 @@
         private Usuario.RoundedTextBox textBoxHoServicio;
         private Usuario.RoundedTextBox textBoxHoGrupo;
         private Button buttonHoServicio;
-        private Button buttonHoBrupo;
+        private Button buttonHoGrupo;
         private Label labelHoHorarioInicio;
         private Label label1;
         private DateTimePicker dateTimePickerHoaraInicio;
@@ -344,10 +358,10 @@
         private Label labelPlaza;
         private Label labelHoDiaSemana;
         private ComboBox comboBoxDiaSemana;
-        private Button buttonGuardar;
+        private Bloqueo.RoundedButton buttonGuardar;
         private Label labelTituloCrearHorario;
         private Label labelTituoModificarHorario;
-        private Button buttonModificar;
+        private Bloqueo.RoundedButton buttonModificar;
         private NumericUpDown numericPlazas;
         private Panel panelIcon;
         private PictureBox pictureBoxICon;

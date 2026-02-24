@@ -34,12 +34,6 @@ namespace WinFormsApp1
             _citas = new List<CitaDto>();
         }
 
-        
-        private void Historial_Resize(object sender, EventArgs e)
-        {
-            cargarCitas();
-            cargarDiagnostico();
-        }
         private void cargarDiagnostico()
         {
             Diagnostico pantallaDiagnostico = new Diagnostico(_usuario, _token);
@@ -173,7 +167,7 @@ namespace WinFormsApp1
             panel.Controls.Add(lblServicio);
             panel.Controls.Add(btnAccion);
             panel.Controls.Add(lblProductos);
-            panel.Controls.Add(lblTratamientos); 
+            panel.Controls.Add(lblTratamientos);
             panel.Controls.Add(lblObservaciones);
 
             panel.Cursor = Cursors.Hand;
@@ -237,6 +231,17 @@ namespace WinFormsApp1
 
         }
 
+        private void Historial_Load(object sender, EventArgs e)
+        {
+            cargarCitas();
+            cargarDiagnostico();
+        }
+
+        private void Historial_Resize(object sender, EventArgs e)
+        {
+            cargarCitas();
+            cargarDiagnostico();
+        }
     }
 
 }

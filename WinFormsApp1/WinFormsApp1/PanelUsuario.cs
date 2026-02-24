@@ -110,7 +110,7 @@ namespace WinFormsApp1
 
         private void buttonHistorial_Click(object sender, EventArgs e)
         {
-            if (_usuarioSeleccionado.Id != 0 || _usuarioSeleccionado.Role.ToUpper().Equals("ROLE_CLIENTE"))
+            if (_usuarioSeleccionado.Id != 0 && _usuarioSeleccionado.Role.ToUpper().Equals("ROLE_CLIENTE"))
             {
                 Historial pantallaHistorial = new Historial(_usuarioSeleccionado, _token);
                 pantallaHistorial.Show();
@@ -199,14 +199,14 @@ namespace WinFormsApp1
 
         private void anyadirUsuario_Click(object sender, EventArgs e)
         {
-                Usuario pantallaAnyadir = new Usuario(_token, null);
+            Usuario pantallaAnyadir = new Usuario(_token, null);
 
-                if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
-                {
-                    MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarTodosLosUsuarios();
-                    filtrarUsuarios();
-                }
+            if (pantallaAnyadir.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Usuario creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarTodosLosUsuarios();
+                filtrarUsuarios();
+            }
         }
 
         private void dataGridViewUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -407,7 +407,7 @@ namespace WinFormsApp1
             return null;
         }
 
-        
+
 
         private void CargarTodosLosUsuarios()
         {
@@ -417,7 +417,6 @@ namespace WinFormsApp1
 
             pasarPagina();
         }
-
     }
 
 }

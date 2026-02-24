@@ -115,7 +115,7 @@ namespace WinFormsApp1
 
         private void buttonEliminar_Click(object sender, EventArgs e)
         {
-            if (_bloqueoSeleccionado.Id != null)
+            if (_bloqueoSeleccionado.Id != 0)
             {
                 var confirmResult = MessageBox.Show(
                     $"¿Seguro que quieres eliminar el bloqueo horario?",
@@ -168,13 +168,14 @@ namespace WinFormsApp1
 
         private void buttonModificar_Click(object sender, EventArgs e)
         {
-            if (_bloqueoSeleccionado.Id != null)
+            if (_bloqueoSeleccionado.Id != 0)
             {
                 if (_bloqueoSeleccionado.Fecha.ToDateOnly().CompareTo(LocalDate.FromDateTime(DateTime.Today).ToDateOnly()) >= 0)
                 {
                     Bloqueo pantallaModificar = new Bloqueo(_bloqueoSeleccionado, _token);
                     if (pantallaModificar.ShowDialog() == DialogResult.OK)
                     {
+                        MessageBox.Show("Bloqueo horario modificacdo correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarTodosLosBloqueos();
                         filtrarBloqueos();
                     }
@@ -199,7 +200,7 @@ namespace WinFormsApp1
 
         private void dataGridViewBloqueos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < dataGridViewBloqueos.Rows.Count && e.RowIndex <= 0)
+            if (e.RowIndex < dataGridViewBloqueos.Rows.Count)
             {
                 var fila = dataGridViewBloqueos.Rows[e.RowIndex];
                 _bloqueoSeleccionado = fila.Tag as BloqueoHorarioDto;

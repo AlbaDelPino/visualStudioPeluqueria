@@ -32,8 +32,8 @@
             Tabla = new DataGridView();
             textBoxBuscar = new WinFormsApp1.Usuario.RoundedTextBox();
             labelTituoIBuscar = new Label();
-            buttonSeleccionar = new Button();
-            buttonTodoDia = new Button();
+            buttonSeleccionar = new WinFormsApp1.Bloqueo.RoundedButton();
+            buttonTodoDia = new WinFormsApp1.Bloqueo.RoundedButton();
             ((System.ComponentModel.ISupportInitialize)Tabla).BeginInit();
             SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             // 
             // textBoxBuscar
             // 
-            textBoxBuscar.BackColor = SystemColors.ControlLightLight;
+            textBoxBuscar.BackColor = Color.White;
             textBoxBuscar.BorderColor = SystemColors.ControlDarkDark;
             textBoxBuscar.BorderRadius = 10;
             textBoxBuscar.BorderSize = 1;
@@ -77,11 +77,18 @@
             // buttonSeleccionar
             // 
             buttonSeleccionar.BackColor = Color.DarkOrange;
+            buttonSeleccionar.BorderColor = Color.Gray;
+            buttonSeleccionar.BorderRadius = 10;
+            buttonSeleccionar.BorderSize = 1;
             buttonSeleccionar.FlatStyle = FlatStyle.Flat;
             buttonSeleccionar.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonSeleccionar.ForeColor = SystemColors.ControlLightLight;
+            buttonSeleccionar.HoverColor = Color.FromArgb(235, 120, 0);
             buttonSeleccionar.Location = new Point(677, 549);
             buttonSeleccionar.Name = "buttonSeleccionar";
+            buttonSeleccionar.PaddingHorizontal = 12;
+            buttonSeleccionar.PaddingVertical = 8;
+            buttonSeleccionar.PressedColor = Color.FromArgb(255, 192, 128);
             buttonSeleccionar.Size = new Size(132, 39);
             buttonSeleccionar.TabIndex = 51;
             buttonSeleccionar.Text = "Seleccionar";
@@ -91,12 +98,19 @@
             // buttonTodoDia
             // 
             buttonTodoDia.BackColor = Color.DarkOrange;
+            buttonTodoDia.BorderColor = Color.Gray;
+            buttonTodoDia.BorderRadius = 10;
+            buttonTodoDia.BorderSize = 1;
             buttonTodoDia.FlatStyle = FlatStyle.Flat;
             buttonTodoDia.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonTodoDia.ForeColor = SystemColors.ControlLightLight;
-            buttonTodoDia.Location = new Point(454, 549);
+            buttonTodoDia.HoverColor = Color.FromArgb(235, 120, 0);
+            buttonTodoDia.Location = new Point(434, 549);
             buttonTodoDia.Name = "buttonTodoDia";
-            buttonTodoDia.Size = new Size(217, 39);
+            buttonTodoDia.PaddingHorizontal = 12;
+            buttonTodoDia.PaddingVertical = 8;
+            buttonTodoDia.PressedColor = Color.FromArgb(255, 192, 128);
+            buttonTodoDia.Size = new Size(237, 39);
             buttonTodoDia.TabIndex = 52;
             buttonTodoDia.Text = "Seleccionar todo el dia";
             buttonTodoDia.UseVisualStyleBackColor = false;
@@ -126,7 +140,7 @@
         private DataGridView Tabla;
         private Usuario.RoundedTextBox textBoxBuscar;
         private Label labelTituoIBuscar;
-        private Button buttonSeleccionar;
-        private Button buttonTodoDia;
+        private Bloqueo.RoundedButton buttonSeleccionar;
+        private Bloqueo.RoundedButton buttonTodoDia;
     }
 }

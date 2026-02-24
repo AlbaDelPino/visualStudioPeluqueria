@@ -202,7 +202,7 @@ namespace WinFormsApp1
             panelFiltros.Controls.Add(panelPuntuales);
             panelFiltros.Controls.Add(panelAnuales);
             panelFiltros.Dock = DockStyle.Right;
-            panelFiltros.Location = new Point(26, 0);
+            panelFiltros.Location = new Point(30, 0);
             panelFiltros.Name = "panelFiltros";
             panelFiltros.Size = new Size(411, 801);
             panelFiltros.TabIndex = 20;
@@ -429,7 +429,7 @@ namespace WinFormsApp1
             dataGridViewBloqueos.EnableHeadersVisualStyles = false;
             dataGridViewBloqueos.GridColor = Color.Black;
             dataGridViewBloqueos.ImeMode = ImeMode.NoControl;
-            dataGridViewBloqueos.Location = new Point(437, 0);
+            dataGridViewBloqueos.Location = new Point(441, 0);
             dataGridViewBloqueos.Margin = new Padding(3, 4, 3, 4);
             dataGridViewBloqueos.MultiSelect = false;
             dataGridViewBloqueos.Name = "dataGridViewBloqueos";
@@ -515,18 +515,18 @@ namespace WinFormsApp1
             Resize += PanelBloqueo_Resize;
             panelVisualBloqueos.ResumeLayout(false);
             panelVisualBloqueos.PerformLayout();
-            panelAnuales.ResumeLayout(false);
-            panelAnuales.PerformLayout();
-            panelPuntuales.ResumeLayout(false);
-            panelPuntuales.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxAnuales).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxPuntuales).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewBloqueos).EndInit();
+            panelPaginacion.ResumeLayout(false);
+            panelPaginacion.PerformLayout();
             panelMargenes.ResumeLayout(false);
             panelFiltros.ResumeLayout(false);
             panelBotones.ResumeLayout(false);
-            panelPaginacion.ResumeLayout(false);
-            panelPaginacion.PerformLayout();
+            panelPuntuales.ResumeLayout(false);
+            panelPuntuales.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxPuntuales).EndInit();
+            panelAnuales.ResumeLayout(false);
+            panelAnuales.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxAnuales).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewBloqueos).EndInit();
             ResumeLayout(false);
 
         }
