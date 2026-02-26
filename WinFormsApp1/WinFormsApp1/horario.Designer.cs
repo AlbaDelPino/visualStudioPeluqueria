@@ -321,7 +321,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "Horario";
             Text = "Crear un horario";
-            Load += Horario_Load;
             ((System.ComponentModel.ISupportInitialize)numericPlazas).EndInit();
             panelIcon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxICon).EndInit();

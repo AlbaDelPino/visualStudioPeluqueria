@@ -37,10 +37,9 @@ namespace WinFormsApp1
             textBoxPrecio.Text = servicio.Precio.ToString();
             textBoxDuracion.Text = servicio.Duracion.ToString();
             comboTipoServicio.SelectedIndex = Convert.ToInt32(servicio.TipoServicio?.Id - 1);
-            
         }
 
-        public Servicio( string token)
+        public Servicio(string token)
         {
             InitializeComponent();
             _token = token;
@@ -72,7 +71,6 @@ namespace WinFormsApp1
                 textBoxPrecio.Text = _servicio.Precio.ToString();
                 textBoxDuracion.Text = _servicio.Duracion.ToString();
 
-                // Seleccionar el tipo actual
                 comboTipoServicio.SelectedValue = _servicio.TipoServicio?.Id;
             }
         }
@@ -112,7 +110,6 @@ namespace WinFormsApp1
                 string data = "{\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"descripcion\": \"" + descripcion + "\",\r\n  \"precio\": \"" + precio + "\",\r\n  \"duracion\": \"" + duracion + "\",\r\n  \"tipoServicio\": {\n\r\r\"id\": \"" + idTipo + "\",\n\r\r  \"nombre\": \"" + nombreTipo + "\"\n\r}\r}";
 
                 var request = (HttpWebRequest)WebRequest.Create(url);
-                //string json = $"{{\"data\":\"{data}\"}}";
                 string json = data;
                 request.Method = "POST";
                 request.ContentType = "application/json";
@@ -170,7 +167,6 @@ namespace WinFormsApp1
             string data = "{\r\n  \"nombre\": \"" + nombre + "\",\r\n  \"descripcion\": \"" + descripcion + "\",\r\n  \"precio\": \"" + precio + "\",\r\n  \"duracion\": \"" + duracion + "\",\r\n  \"tipoServicio\": {\r\n\n\"id\": \"" + idTipo + "\",\r\n\n  \"nombre\": \"" + nombreTipo + "\"\r\n}\r}";
 
             var request = (HttpWebRequest)WebRequest.Create(url);
-            //string json = $"{{\"data\":\"{data}\"}}";
             string json = data;
             request.Method = "PUT";
             request.ContentType = "application/json";
@@ -195,6 +191,8 @@ namespace WinFormsApp1
                         {
                             string responseBody = objReader.ReadToEnd();
                             Console.WriteLine(responseBody);
+                            this.Close();
+                            this.DialogResult = DialogResult.OK;
                         }
                     }
                 }
@@ -208,13 +206,6 @@ namespace WinFormsApp1
                 }
                 MessageBox.Show("Error al modificar servicio", "Error al modificar servicio", MessageBoxButtons.OK);
             }
-            this.Close();
-            this.DialogResult = DialogResult.OK;
-        }
-
-        private void panelServicio_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

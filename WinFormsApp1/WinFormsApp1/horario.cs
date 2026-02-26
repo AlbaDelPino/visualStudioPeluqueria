@@ -169,8 +169,6 @@ namespace WinFormsApp1
                 {
                     if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.NoContent)
                     {
-                        string msg = (metodo == "POST") ? "Horario creado." : "Horario actualizado.";
-                        MessageBox.Show(msg, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
@@ -217,11 +215,6 @@ namespace WinFormsApp1
                     return JsonConvert.DeserializeObject<List<UsersDto>>(reader.ReadToEnd()).Where(u => u.Role.Equals("ROLE_GRUPO")).ToList();
             }
             catch { return new List<UsersDto>(); }
-        }
-
-        private void Horario_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonHoServicio_Paint(object sender, PaintEventArgs e)

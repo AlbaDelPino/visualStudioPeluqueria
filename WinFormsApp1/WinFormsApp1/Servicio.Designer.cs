@@ -238,7 +238,6 @@
             panelServicio.Name = "panelServicio";
             panelServicio.Size = new Size(640, 478);
             panelServicio.TabIndex = 72;
-            panelServicio.Paint += panelServicio_Paint;
             // 
             // panelIcon
             // 
